@@ -25,7 +25,6 @@ namespace backEnd
         {
             paintStoreContext = ctx;
         }
-        [Route("api/[controller]")]
         [HttpGet]
         public IEnumerable<String> GetAll() // 
         {
@@ -81,10 +80,10 @@ namespace backEnd
 
 
 
-        public string Index()
-        {
-            return "To use this API add username and name of repository like this: /< userName >/< repository > ";
-        }
+        //public string Index()
+        //{
+        //    return "To use this API add username and name of repository like this: /< userName >/< repository > ";
+        //}
 
         //[HttpGet("{content}")]
         //public IEnumerable<String> GetAllAndAdd(string content)

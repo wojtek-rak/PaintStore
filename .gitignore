@@ -85,6 +85,10 @@ StyleCopReport.xml
 *.svclog
 *.scc
 
+# VisualStudio appsetings
+
+appsettings.json
+
 # Chutzpah Test files
 _Chutzpah*
 

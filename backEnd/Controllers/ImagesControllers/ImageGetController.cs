@@ -8,22 +8,22 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace backEnd.Controllers
 {
-    [Route("api/UserImagesGet")]
-    public class UserImagesGetController : Controller
+    [Route("api/[controller]")]
+    public class ImageGetController : Controller
     {
         private readonly PaintStoreContext paintStoreContext;
 
-        public UserImagesGetController(PaintStoreContext ctx)
+        public ImageGetController(PaintStoreContext ctx)
         {
             paintStoreContext = ctx;
         }
 
         [HttpPost]
-        public IQueryable<Images> GetImages([FromBody] string ownerPath)
+        public IQueryable<Images> GetImage([FromBody] string imgLink)
         {
             using (var db = paintStoreContext)
             {
-                var images = db.Images.Where(b => b.OwnerPath == ownerPath);
+                var images = db.Images.Where(b => b.ImgLink == imgLink);
                 return images;
             }
 

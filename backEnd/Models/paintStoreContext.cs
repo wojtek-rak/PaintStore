@@ -90,6 +90,16 @@ namespace backEnd.Models
                     .HasColumnName("owner_path")
                     .HasColumnType("text");
 
+                entity.Property(e => e.Category_tool)
+                    .IsRequired()
+                    .HasColumnName("category_tool")
+                    .HasColumnType("text");
+
+                entity.Property(e => e.Category_type)
+                    .IsRequired()
+                    .HasColumnName("category_type")
+                    .HasColumnType("text");
+
                 entity.Property(e => e.Title)
                     .IsRequired()
                     .HasColumnName("title")

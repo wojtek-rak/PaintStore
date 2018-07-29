@@ -7,6 +7,8 @@ namespace backEnd.Models
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        public string Category_type { get; set; }
+        public string Category_tool { get; set; }
         public string ImgLink { get; set; }
         public string ImgSrc { get; set; }
         public DateTime Date { get; set; }

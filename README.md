@@ -24,59 +24,91 @@ Add appsettings.json file with this text,
 ```
 Description
 =====
+```
+Post:             Link to post
+Input data type:  Data name
+Output:           Data type
+```
 Comments
 ------
 #### Get image's comments
-Post: api/CommentsGet </br>
-String: ImgLink </br>
-Output: Comments </br>
+```
+Post:   api/CommentsGet 
+String: ImgLink 
+Output: Comments 
+```
 #### Add comment
-Post: api/CommentAdd </br>
-Comment: Comment </br>
-Output: Comments </br>
-
+```
+Post:     api/CommentAdd 
+Comment:  Comment 
+Output:   Comments 
+```
 Images
 ------
 #### Get image
-Post: api/ImageGet </br>
-String: ImgLink </br>
-Output: Image </br>
+```
+Post:   api/ImageGet
+String: ImgLink
+Output: Image
+```
 #### Add image
-Post: api/AddImage </br>
-Image: Image </br>
-Output: Image </br>
+```
+Post:   api/AddImage
+Image:  Image 
+Output: Image 
+```
 #### Get all images
-Post: api/ImagesAllGet </br>
-String: "the_newest" </br>
-Output: Images </br></br>
-
-String: "most_popular" </br>
-Output: Images </br>
+```
+Post: api/ImagesAllGet
+```
++ the newest </br>
+```
+String: "the_newest"
+Output: Images
+```
++ most popular </br>
+```
+String: "most_popular"
+Output: Images 
+```
 #### Get images by category
-Post: api/ImagesGetByCategory </br>
-String1: "both" </br>
-String2: category_type </br>
-String3: category_tool </br>
-Output: Images with given categories </br></br>
-
-String1: "tool" </br>
-String2: "" </br>
-String3: category_tool </br>
-Output: Images with given category </br></br>
-
-String1: "type" </br>
-String2: category_type </br>
-String3: "" </br>
-Output: Images with given category </br>
+```
+Post: api/ImagesGetByCategory
+```
++ both category </br>
+```
+String1: "both" 
+String2: category_type 
+String3: category_tool 
+Output:  Images with given categories 
+```
++ tool category </br>
+```
+String1: "tool" 
+String2: "" 
+String3: category_tool 
+Output:  Images with given category 
+```
++ type category </br>
+```
+String1: "type"
+String2: category_type
+String3: "" 
+Output:  Images with given category 
+```
 
 User
 ------
 #### Get user
-Post: api/UserGet </br>
-String: Link </br>
-Output: User </br>
+```
+Post:   api/UserGet
+String: Link
+Output: User 
+```
 #### Get user's images
-Post: api/UserImagesGetController </br>
-String: OwnerPath </br>
-Output: Images </br>
+```
+Post:   api/UserImagesGetController
+String: OwnerPath 
+Output: Images 
+```
 

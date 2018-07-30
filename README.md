@@ -34,7 +34,7 @@ Comments
 #### Get image's comments
 ```
 Post:   api/CommentsGet 
-String: ImgLink 
+Image: ImgLink 
 Output: Comments 
 ```
 #### Add comment
@@ -48,7 +48,7 @@ Images
 #### Get image
 ```
 Post:   api/ImageGet
-String: ImgLink
+Image: ImgLink
 Output: Image
 ```
 #### Add image
@@ -63,12 +63,12 @@ Post: api/ImagesAllGet
 ```
 + the newest </br>
 ```
-String: "the_newest"
+Message Properties: "the_newest"
 Output: Images
 ```
 + most popular </br>
 ```
-String: "most_popular"
+Message Properties: "most_popular"
 Output: Images 
 ```
 #### Get images by category
@@ -77,23 +77,23 @@ Post: api/ImagesGetByCategory
 ```
 + both category </br>
 ```
-String1: "both" 
-String2: category_type 
-String3: category_tool 
+Message Properties: "both" 
+Message Category_type: category_type 
+Message Category_tool: category_tool 
 Output:  Images with given categories 
 ```
 + tool category </br>
 ```
-String1: "tool" 
-String2: "" 
-String3: category_tool 
+Message Properties: "tool" 
+Message Category_type: "" 
+Message Category_tool: category_tool 
 Output:  Images with given category 
 ```
 + type category </br>
 ```
-String1: "type"
-String2: category_type
-String3: "" 
+Message Properties: "type"
+Message Category_type: category_type
+Message Category_tool: "" 
 Output:  Images with given category 
 ```
 
@@ -102,13 +102,13 @@ User
 #### Get user
 ```
 Post:   api/UserGet
-String: Link
+User: Link
 Output: User 
 ```
 #### Get user's images
 ```
 Post:   api/UserImagesGetController
-String: OwnerPath 
+User: OwnerPath 
 Output: Images 
 ```
 

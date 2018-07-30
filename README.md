@@ -26,8 +26,8 @@ Description
 =====
 ```
 Post:             Link to post
-Input data type:  Data name
-Output:           Data type
+Input data type:  Data name (application/json)
+Output:           Data type (application/json)
 ```
 Comments
 ------

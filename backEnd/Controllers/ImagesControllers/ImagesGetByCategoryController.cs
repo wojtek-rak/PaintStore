@@ -19,24 +19,24 @@ namespace backEnd.Controllers.ImagesControllers
         }
 
         [HttpPost]
-        public IQueryable<Images> GetImagesByCategory([FromBody] string message, string category_type, string category_tool)
+        public IEnumerable<Images> GetImagesByCategory([FromBody] Message message)
         {
             using (var db = paintStoreContext)
             {
                 IQueryable<Images> images = null;
-                if (message == "type")
+                if (message.Properties == "type")
                 {
-                    images = db.Images.Where(x => x.Category_type == category_type);
+                    images = db.Images.Where(x => x.Category_type == message.Category_type);
                 }
-                if (message == "tool")
+                if (message.Properties == "tool")
                 {
-                    images = db.Images.Where(x => x.Category_tool == category_tool);
+                    images = db.Images.Where(x => x.Category_tool == message.Category_tool);
                 }
-                if (message == "both")
+                if (message.Properties == "both")
                 {
-                    images = db.Images.Where(x => x.Category_type == category_type).Where(x => x.Category_tool == category_tool);
+                    images = db.Images.Where(x => x.Category_type == message.Category_type).Where(x => x.Category_tool == message.Category_tool);
                 }
-                return images;
+                return images.ToList();
             }
 
         }

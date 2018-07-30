@@ -19,12 +19,12 @@ namespace backEnd.Controllers
         }
 
         [HttpPost]
-        public IQueryable<Users> GetUser([FromBody] string userLink)
+        public IEnumerable<Users> GetUser([FromBody] Users user)
         {
             using (var db = paintStoreContext)
             {
-                var user = db.Users.Where(b => b.Link == userLink);
-                return user;
+                var userToGet = db.Users.Where(b => b.Link == user.Link);
+                return userToGet.ToList();
             }
 
         }

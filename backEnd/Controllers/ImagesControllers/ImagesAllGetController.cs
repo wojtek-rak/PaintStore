@@ -19,21 +19,21 @@ namespace backEnd.Controllers
         }
 
         [HttpPost]
-        public IQueryable<Images> GetAllImages([FromBody] string message)
+        public IEnumerable<Images> GetAllImages([FromBody] Message message)
         {
             using (var db = paintStoreContext)
             {
                 IQueryable<Images> images = null;
-                if (message == "most_popular")
+                if (message.Properties == "most_popular")
                 {
                     
                     images = db.Images.OrderByDescending(y => (db.Comments.Where(x => x.ImgLink == y.ImgLink).Count()));
                 }
-                if (message == "the_newest")
+                if (message.Properties == "the_newest")
                 {
                      images = db.Images.OrderByDescending(x => x.Date);
                 }
-                return images;
+                return images.ToList();
             }
 
         }

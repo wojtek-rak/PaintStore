@@ -19,12 +19,12 @@ namespace backEnd.Controllers
         }
 
         [HttpPost]
-        public IQueryable<Images> GetImages([FromBody] string ownerPath)
+        public IEnumerable<Images> GetImages([FromBody] Users user)
         {
             using (var db = paintStoreContext)
             {
-                var images = db.Images.Where(b => b.OwnerPath == ownerPath);
-                return images;
+                var images = db.Images.Where(b => b.OwnerPath == user.Link);
+                return images.ToList();
             }
 
         }

@@ -11,6 +11,7 @@ namespace backEnd.Controllers
     /// <summary>
     ///  Use /api/CommentsGet to get comments with POST string
     /// </summary>
+    [Produces("application/json")]
     [Route("api/[controller]")]
     public class CommentsGetController : Controller
     {
@@ -22,12 +23,12 @@ namespace backEnd.Controllers
         }
 
         [HttpPost]
-        public IQueryable<Comments> GetComments([FromBody] string imgLink)
+        public IEnumerable<Comments> GetComments([FromBody] Images image)//([FromBody] string imgLink)
         {
             using (var db = paintStoreContext)
             {
-                var comments = db.Comments.Where(b => b.ImgLink == imgLink);
-                return comments;
+                var comments = db.Comments.Where(b => b.ImgLink == image.ImgLink);
+                return comments.ToList();
             }
 
         }

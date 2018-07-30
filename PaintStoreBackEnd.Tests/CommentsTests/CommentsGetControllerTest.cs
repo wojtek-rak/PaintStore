@@ -27,7 +27,7 @@ namespace PaintStoreBackEnd.Tests
 
             var mock = InitializeMockContext.InitMock();
             var controller = new CommentsGetController(mock.Object);
-            var result = controller.GetComments("link3").Count();
+            var result = controller.GetComments(new Images { ImgLink =  "link3" }).Count();
             var expected = 2;
             Assert.AreEqual(result, expected);
         }

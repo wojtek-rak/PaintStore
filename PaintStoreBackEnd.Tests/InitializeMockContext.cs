@@ -23,8 +23,8 @@ namespace PaintStoreBackEnd.Tests
             var mock = new Mock<PaintStoreContext>();
 
             var mockDataUsers = new List<Users> {
-                new Users { Name = "kasia", Email = "costam@xd.pl", Password = "tu jakis donoskink chyba", Link = "xD", AvatarSrc = "appa", BackgroundSrc = "bappa", About = "xD"},
-                new Users { Name = "tosia", Email = "costam@2d.pl", Password = "2u jakis donoskink chyba", Link = "2xD", AvatarSrc = "2appa", BackgroundSrc = "2bappa", About = "2xD"}}.AsQueryable();
+                new Users { Name = "kasia", Email = "costam@xd.pl", Password = "tu jakis donoskink chyba", Link = "kasialink", AvatarSrc = "appa", BackgroundSrc = "bappa", About = "xD"},
+                new Users { Name = "tosia", Email = "costam@2d.pl", Password = "2u jakis donoskink chyba", Link = "tosialink", AvatarSrc = "2appa", BackgroundSrc = "2bappa", About = "2xD"}}.AsQueryable();
 
             var mockDataComments = new List<Comments> {
                 new Comments { Date = DateTime.Now, Content = "Ale Kom", UserPath = "Zosia", ImgLink = "link2" },
@@ -32,9 +32,9 @@ namespace PaintStoreBackEnd.Tests
                 new Comments { Date = DateTime.Now, Content = "Ale Kom", UserPath = "Zosia", ImgLink = "link3" } }.AsQueryable();
 
             var mockDataImages = new List<Images> {
-                new Images { Title = "zaden", Category_type = "krajobraz", Category_tool = "akwarele", ImgLink = "link1", ImgSrc = "src1", Date = DateTime.Today, Description = "Desc1", OwnerPath = "kasia" },
-                new Images { Title = "Najnowszy", Category_type = "portret", Category_tool = "akwarele", ImgLink = "link2", ImgSrc = "src2", Date = DateTime.Now, Description = "Desc2", OwnerPath = "tosia" },
-                new Images { Title = "Najkomentowszy", Category_type = "krajobraz", Category_tool = "pisaki", ImgLink = "link3", ImgSrc = "src3", Date = DateTime.Today, Description = "Desc3", OwnerPath = "kasia" } }.AsQueryable();
+                new Images { Title = "zaden", Category_type = "krajobraz", Category_tool = "akwarele", ImgLink = "link1", ImgSrc = "src1", Date = DateTime.Today, Description = "Desc1", OwnerPath = "kasialink" },
+                new Images { Title = "Najnowszy", Category_type = "portret", Category_tool = "akwarele", ImgLink = "link2", ImgSrc = "src2", Date = DateTime.Now, Description = "Desc2", OwnerPath = "tosialink" },
+                new Images { Title = "Najkomentowszy", Category_type = "krajobraz", Category_tool = "pisaki", ImgLink = "link3", ImgSrc = "src3", Date = DateTime.Today, Description = "Desc3", OwnerPath = "kasialink" } }.AsQueryable();
 
             var mockSetUsers = new Mock<DbSet<Users>>();
             mockSetUsers.As<IQueryable<Users>>().Setup(m => m.Provider).Returns(mockDataUsers.Provider);

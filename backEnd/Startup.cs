@@ -48,7 +48,9 @@ namespace backEnd
 
             services.AddDbContext<PaintStoreContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("PaintStoreDatabase")));
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(
+            options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+        );
 
 
         }

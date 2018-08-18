@@ -1,26 +1,36 @@
 # PaintStore_backEnd
+
+Api for database support, and uploading images to Cloudinary
+
 To configure:
 -------
 Add appsettings.json file with this text,
 ```json
-{
+    
+ {
   "ConnectionStrings": {
     "PaintStoreDatabase": "(your_conection_string)"
   },
-  "Logging": {
-    "IncludeScopes": false,
-    "Debug": {
-      "LogLevel": {
-        "Default": "Warning"
-      }
+  "AppIdentitySettings": {
+    "CouldName": "(your_CouldName)",
+    "ApiKey": "(your_ApiKey)",
+    "SecretApiKey": "(your_SecretApiKey)",
     },
-    "Console": {
-      "LogLevel": {
-        "Default": "Warning"
+    "Logging": {
+      "IncludeScopes": false,
+      "Debug": {
+        "LogLevel": {
+          "Default": "Warning"
+        }
+      },
+      "Console": {
+        "LogLevel": {
+          "Default": "Warning"
+        }
       }
     }
   }
-}
+
 ```
 Description
 =====
@@ -45,10 +55,16 @@ Output:   Comments
 ```
 Images
 ------
+#### Upload image to cloudinary
+```
+Post:   api/UploadImage
+Image:  Image file
+Output: Image (with properties from Models/UploadModels
+```
 #### Get image
 ```
 Post:   api/ImageGet
-Image: ImgLink
+Image:  ImgLink
 Output: Image
 ```
 #### Add image

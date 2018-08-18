@@ -14,7 +14,9 @@ namespace backEnd.Controllers.UploadImagesControllers
     {
         string SaveImageOnServer(IHostingEnvironment env, IFormFile file);
     }
-
+    /// <summary>
+    /// Currently not used in project
+    /// </summary>
     public class SaveImage : ISaveImage
     {
         public string SaveImageOnServer(IHostingEnvironment env, IFormFile file) 

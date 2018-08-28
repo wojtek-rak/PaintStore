@@ -31,7 +31,7 @@ namespace backEnd.Models
                 optionsBuilder.UseSqlServer(ConnString);
             }
         }
-
+         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Comments>(entity =>

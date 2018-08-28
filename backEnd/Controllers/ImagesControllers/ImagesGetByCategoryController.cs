@@ -19,22 +19,27 @@ namespace backEnd.Controllers.ImagesControllers
         }
 
         [HttpPost]
-        public IEnumerable<Images> GetImagesByCategory([FromBody] Message message)
+        public IEnumerable<Posts> GetImagesByCategory([FromBody] Message message)
         {
             using (var db = paintStoreContext)
             {
-                IQueryable<Images> images = null;
+
+                ///
+                /// NOT WORKING CHANGE FROM DESCRIPTION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                ///
+
+                IQueryable<Posts> images = null;
                 if (message.Properties == "type")
                 {
-                    images = db.Images.Where(x => x.Category_type == message.Category_type);
+                    images = db.Posts.Where(x => x.Description == message.Category_type);
                 }
                 if (message.Properties == "tool")
                 {
-                    images = db.Images.Where(x => x.Category_tool == message.Category_tool);
+                    images = db.Posts.Where(x => x.Description == message.Category_type);
                 }
                 if (message.Properties == "both")
                 {
-                    images = db.Images.Where(x => x.Category_type == message.Category_type).Where(x => x.Category_tool == message.Category_tool);
+                    images = db.Posts.Where(x => x.Description == message.Category_type).Where(x => x.Description == message.Category_tool);
                 }
                 return images.ToList();
             }

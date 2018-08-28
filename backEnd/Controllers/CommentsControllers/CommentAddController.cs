@@ -18,9 +18,9 @@ namespace backEnd.Controllers.CommentsControllers
             paintStoreContext = ctx;
         }
         [HttpPost]
-        public Comments AddComment([FromBody] Comments comment)
+        public PostComments AddComment([FromBody] PostComments comment)
         {
-            paintStoreContext.Comments.Add(comment);
+            paintStoreContext.PostComments.Add(comment);
             var count = paintStoreContext.SaveChanges();
             return comment;
         }

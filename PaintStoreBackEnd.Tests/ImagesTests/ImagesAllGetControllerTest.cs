@@ -41,7 +41,7 @@ namespace PaintStoreBackEnd.Tests
             var result2 = controller.GetAllImages(new Message { Properties = "most_popular" });
             var result = result2.Select(x => x.Title).First();
             var expected = "Najkomentowszy";
-            Assert.AreEqual(result, expected);
+            Assert.AreEqual(expected, result);
         }
     }
 }

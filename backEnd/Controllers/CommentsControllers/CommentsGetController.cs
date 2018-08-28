@@ -23,11 +23,11 @@ namespace backEnd.Controllers
         }
 
         [HttpPost]
-        public IEnumerable<Comments> GetComments([FromBody] Images image)//([FromBody] string imgLink)
+        public IEnumerable<PostComments> GetComments([FromBody] Posts post)//([FromBody] string imgLink)
         {
             using (var db = paintStoreContext)
             {
-                var comments = db.Comments.Where(b => b.ImgLink == image.ImgLink);
+                var comments = db.PostComments.Where(b => b.PostId == post.Id);
                 return comments.ToList();
             }
 

@@ -26,9 +26,9 @@ namespace PaintStoreBackEnd.Tests
         {
             var mock = InitializeMockContext.InitMock();
             var controller = new UserImagesGetController(mock.Object);
-            var result = controller.GetImages(new Users { Link = "kasialink" }).Count();
+            var result = controller.GetImages(new Users { Id = 2 }).Count();
             var expected = 2;
-            Assert.AreEqual(result, expected);
+            Assert.AreEqual(expected, result);
         }
     }
 }

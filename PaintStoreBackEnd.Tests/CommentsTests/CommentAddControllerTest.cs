@@ -27,11 +27,11 @@ namespace PaintStoreBackEnd.Tests
         {
             var mock = InitializeMockContext.InitMock();
             var controller = new CommentAddController(mock.Object);
-            var expected = mock.Object.Comments.Count() + 1;
+            var expected = mock.Object.PostComments.Count() + 1;
 
-            controller.AddComment(new Comments { Date = DateTime.Now, Content = "Testowy Komentarz", ImgLink = "jakis test link", UserPath = "tester" });
+            controller.AddComment(new PostComments { CreationDate = DateTime.Now, Content = "Testowy Komentarz", PostId = 1, UserId = 1 });
 
-            var result = mock.Object.Comments.Count() + 1;
+            var result = mock.Object.PostComments.Count() + 1;
             Assert.AreEqual(result, expected);
         }
     }

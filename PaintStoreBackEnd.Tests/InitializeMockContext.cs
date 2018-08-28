@@ -21,20 +21,21 @@ namespace PaintStoreBackEnd.Tests
         public static Mock<PaintStoreContext> InitMock()
             {
             var mock = new Mock<PaintStoreContext>();
-
+            //Email = "costam@xd.pl", Password = "tu jakis donoskink chyba", 
+            //Email = "costam@2d.pl", Password = "2u jakis donoskink chyba",
             var mockDataUsers = new List<Users> {
-                new Users { Name = "kasia", Email = "costam@xd.pl", Password = "tu jakis donoskink chyba", Link = "kasialink", AvatarSrc = "appa", BackgroundSrc = "bappa", About = "xD"},
-                new Users { Name = "tosia", Email = "costam@2d.pl", Password = "2u jakis donoskink chyba", Link = "tosialink", AvatarSrc = "2appa", BackgroundSrc = "2bappa", About = "2xD"}}.AsQueryable();
+                new Users { Id = 1, Name = "Kasia", Link = "kasialink", AvatarImgLink = "appa", BackgroundImgLink = "bappa", About = "xD", AccountId = 1},
+                new Users { Id = 2, Name = "Zosia", Link = "tosialink", AvatarImgLink = "2appa", BackgroundImgLink = "2bappa", About = "2xD", AccountId = 2}}.AsQueryable();
 
-            var mockDataComments = new List<Comments> {
-                new Comments { Date = DateTime.Now, Content = "Ale Kom", UserPath = "Zosia", ImgLink = "link2" },
-                new Comments { Date = DateTime.Now, Content = "Ale Kom", UserPath = "Zosia", ImgLink = "link3" },
-                new Comments { Date = DateTime.Now, Content = "Ale Kom", UserPath = "Zosia", ImgLink = "link3" } }.AsQueryable();
+            var mockDataComments = new List<PostComments> {
+                new PostComments { Id = 1, CreationDate = DateTime.Now, Content = "Ale Kom", PostId = 2, UserId = 2 },
+                new PostComments { Id = 2, CreationDate = DateTime.Now, Content = "Ale Kom", PostId = 3, UserId = 2  },
+                new PostComments { Id = 3, CreationDate = DateTime.Now, Content = "Ale Kom", PostId = 3, UserId = 2  } }.AsQueryable();
 
-            var mockDataImages = new List<Images> {
-                new Images { Title = "zaden", Category_type = "krajobraz", Category_tool = "akwarele", ImgLink = "link1", ImgSrc = "src1", Date = DateTime.Today, Description = "Desc1", OwnerPath = "kasialink" },
-                new Images { Title = "Najnowszy", Category_type = "portret", Category_tool = "akwarele", ImgLink = "link2", ImgSrc = "src2", Date = DateTime.Now, Description = "Desc2", OwnerPath = "tosialink" },
-                new Images { Title = "Najkomentowszy", Category_type = "krajobraz", Category_tool = "pisaki", ImgLink = "link3", ImgSrc = "src3", Date = DateTime.Today, Description = "Desc3", OwnerPath = "kasialink" } }.AsQueryable();
+            var mockDataImages = new List<Posts> {
+                new Posts { Id = 1, Title = "zaden", CategoryTypeId = 1, CategoryToolId = 2, ImgLink = "link1", CreationDate = DateTime.Today, Description = "Desc1", UserOwnerName = "Zosia", UserId = 2 },
+                new Posts { Id = 2, Title = "Najnowszy", CategoryTypeId = 2, CategoryToolId = 2, ImgLink = "link2", CreationDate = DateTime.Now, Description = "Desc2", UserOwnerName = "Kasia", UserId = 1 },
+                new Posts { Id = 3,  Title = "Najkomentowszy", CategoryTypeId = 2, CategoryToolId = 2, ImgLink = "link3", CreationDate = DateTime.Today, Description = "Desc3", UserOwnerName = "Zosia", UserId = 2  } }.AsQueryable();
 
             var mockSetUsers = new Mock<DbSet<Users>>();
             mockSetUsers.As<IQueryable<Users>>().Setup(m => m.Provider).Returns(mockDataUsers.Provider);
@@ -42,23 +43,23 @@ namespace PaintStoreBackEnd.Tests
             mockSetUsers.As<IQueryable<Users>>().Setup(m => m.ElementType).Returns(mockDataUsers.ElementType);
             mockSetUsers.As<IQueryable<Users>>().Setup(m => m.GetEnumerator()).Returns(mockDataUsers.GetEnumerator());
 
-            var mockSetComments = new Mock<DbSet<Comments>>();
-            mockSetComments.As<IQueryable<Comments>>().Setup(m => m.Provider).Returns(mockDataComments.Provider);
-            mockSetComments.As<IQueryable<Comments>>().Setup(m => m.Expression).Returns(mockDataComments.Expression);
-            mockSetComments.As<IQueryable<Comments>>().Setup(m => m.ElementType).Returns(mockDataComments.ElementType);
-            mockSetComments.As<IQueryable<Comments>>().Setup(m => m.GetEnumerator()).Returns(mockDataComments.GetEnumerator());
+            var mockSetComments = new Mock<DbSet<PostComments>>();
+            mockSetComments.As<IQueryable<PostComments>>().Setup(m => m.Provider).Returns(mockDataComments.Provider);
+            mockSetComments.As<IQueryable<PostComments>>().Setup(m => m.Expression).Returns(mockDataComments.Expression);
+            mockSetComments.As<IQueryable<PostComments>>().Setup(m => m.ElementType).Returns(mockDataComments.ElementType);
+            mockSetComments.As<IQueryable<PostComments>>().Setup(m => m.GetEnumerator()).Returns(mockDataComments.GetEnumerator());
 
-            var mockSetImages = new Mock<DbSet<Images>>();
-            mockSetImages.As<IQueryable<Images>>().Setup(m => m.Provider).Returns(mockDataImages.Provider);
-            mockSetImages.As<IQueryable<Images>>().Setup(m => m.Expression).Returns(mockDataImages.Expression);
-            mockSetImages.As<IQueryable<Images>>().Setup(m => m.ElementType).Returns(mockDataImages.ElementType);
-            mockSetImages.As<IQueryable<Images>>().Setup(m => m.GetEnumerator()).Returns(mockDataImages.GetEnumerator());
+            var mockSetImages = new Mock<DbSet<Posts>>();
+            mockSetImages.As<IQueryable<Posts>>().Setup(m => m.Provider).Returns(mockDataImages.Provider);
+            mockSetImages.As<IQueryable<Posts>>().Setup(m => m.Expression).Returns(mockDataImages.Expression);
+            mockSetImages.As<IQueryable<Posts>>().Setup(m => m.ElementType).Returns(mockDataImages.ElementType);
+            mockSetImages.As<IQueryable<Posts>>().Setup(m => m.GetEnumerator()).Returns(mockDataImages.GetEnumerator());
 
             mock.Setup(x => x.Users)
                             .Returns(mockSetUsers.Object);
-            mock.Setup(x => x.Comments)
+            mock.Setup(x => x.PostComments)
                             .Returns(mockSetComments.Object);
-            mock.Setup(x => x.Images)
+            mock.Setup(x => x.Posts)
                             .Returns(mockSetImages.Object);
 
             return mock;

@@ -27,10 +27,10 @@ namespace PaintStoreBackEnd.Tests
         {
             var mock = InitializeMockContext.InitMock();
             var controller = new ImageAddController(mock.Object);
-            var expected = mock.Object.Images.Count() + 1;
+            var expected = mock.Object.Posts.Count() + 1;
 
-            controller.AddImage(new Images { Title = "tests", Category_type = "portrettest", Category_tool = "pisaki test",  ImgLink = "jakis test link", ImgSrc = "test.jpg", Date = DateTime.Now, Description = "testowy opis", OwnerPath = "tester" });
-            var result = mock.Object.Images.Count() + 1;
+            controller.AddImage(new Posts { Title = "tests", CategoryTypeId = 1, CategoryToolId = 3,  ImgLink = "jakis test link", CreationDate = DateTime.Now, Description = "testowy opis", UserOwnerName = "tester" });
+            var result = mock.Object.Posts.Count() + 1;
             Assert.AreEqual(result, expected);
         }
     }

@@ -32,18 +32,18 @@ namespace backEnd
             StringBuilder stringBuilder = new StringBuilder();
             using (var db = paintStoreContext)
             {
-                foreach (var comm in db.Comments)
+                foreach (var comm in db.PostComments)
                 {
                     stringBuilder.Append("{ ");
                     stringBuilder.Append(comm.Id);
                     stringBuilder.Append(", ");
-                    stringBuilder.Append(comm.Date);
+                    stringBuilder.Append(comm.PostId);
+                    stringBuilder.Append(", ");
+                    stringBuilder.Append(comm.UserId);
+                    stringBuilder.Append(", ");
+                    stringBuilder.Append(comm.CreationDate);
                     stringBuilder.Append(", ");
                     stringBuilder.Append(comm.Content);
-                    stringBuilder.Append(", ");
-                    stringBuilder.Append(comm.UserPath);
-                    stringBuilder.Append(", ");
-                    stringBuilder.Append(comm.ImgLink);
                     stringBuilder.Append(" }");
                     list.Add(stringBuilder.ToString());
                     stringBuilder.Clear();
@@ -58,26 +58,38 @@ namespace backEnd
             StringBuilder stringBuilder = new StringBuilder();
             using (var db = paintStoreContext)
             {
-                foreach (var comm in db.Images)
+                foreach (var comm in db.Posts)
                 {
                     stringBuilder.Append("{ ");
                     stringBuilder.Append(comm.Id);
                     stringBuilder.Append(", ");
+                    stringBuilder.Append(comm.UserId);
+                    stringBuilder.Append(", ");
+                    stringBuilder.Append(comm.UserOwnerName);
+                    stringBuilder.Append(", ");
                     stringBuilder.Append(comm.Title);
                     stringBuilder.Append(", ");
-                    stringBuilder.Append(comm.Category_type);
+                    stringBuilder.Append(comm.CategoryTypeId);
                     stringBuilder.Append(", ");
-                    stringBuilder.Append(comm.Category_tool);
+                    stringBuilder.Append(comm.CategoryToolId);
                     stringBuilder.Append(", ");
                     stringBuilder.Append(comm.ImgLink);
                     stringBuilder.Append(", ");
-                    stringBuilder.Append(comm.ImgSrc);
-                    stringBuilder.Append(", ");
-                    stringBuilder.Append(comm.Date);
+                    stringBuilder.Append(comm.CreationDate);
                     stringBuilder.Append(", ");
                     stringBuilder.Append(comm.Description);
                     stringBuilder.Append(", ");
-                    stringBuilder.Append(comm.OwnerPath);
+                    stringBuilder.Append(comm.LikeCount);
+                    stringBuilder.Append(", ");
+                    stringBuilder.Append(comm.ViewCount);
+                    stringBuilder.Append(", ");
+                    stringBuilder.Append(comm.CommentsCount);
+                    stringBuilder.Append(", ");
+                    stringBuilder.Append(comm.PopularActivity);
+                    stringBuilder.Append(", ");
+                    stringBuilder.Append(comm.NewestActivity);
+                    stringBuilder.Append(", ");
+                    stringBuilder.Append(comm.MixedActivity);
                     stringBuilder.Append(" }");
                     list.Add(stringBuilder.ToString());
                     stringBuilder.Clear();

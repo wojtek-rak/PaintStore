@@ -18,11 +18,11 @@ namespace backEnd.Controllers.CommentsControllers
             paintStoreContext = ctx;
         }
         [HttpPost]
-        public Images AddImage([FromBody] Images image)
+        public Posts AddImage([FromBody] Posts post)
         {
-            paintStoreContext.Images.Add(image);
+            paintStoreContext.Posts.Add(post);
             var count = paintStoreContext.SaveChanges();
-            return image;
+            return post;
         }
     }
 }

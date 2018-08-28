@@ -7,9 +7,16 @@ namespace backEnd.Models
 {
     public partial class PaintStoreContext : DbContext
     {
-        public virtual DbSet<Comments> Comments { get; set; }
-        public virtual DbSet<Images> Images { get; set; }
+        public virtual DbSet<Accounts> Accounts { get; set; }
+        public virtual DbSet<CategoryTools> CategoryTools { get; set; }
+        public virtual DbSet<CategoryTypes> CategoryTypes { get; set; }
+        public virtual DbSet<CommentLikes> CommentLikes { get; set; }
+        public virtual DbSet<PostComments> PostComments { get; set; }
+        public virtual DbSet<PostLikes> PostLikes { get; set; }
+        public virtual DbSet<Posts> Posts { get; set; }
+        public virtual DbSet<UserFollowers> UserFollowers { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+
         public IConfiguration Configuration { get; }
         private string ConnString { get; set; }
         public PaintStoreContext(DbContextOptions<PaintStoreContext> options) : base(options)
@@ -22,7 +29,6 @@ namespace backEnd.Models
         public PaintStoreContext()
         {
         }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -31,121 +37,109 @@ namespace backEnd.Models
                 optionsBuilder.UseSqlServer(ConnString);
             }
         }
-         
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Comments>(entity =>
+            modelBuilder.Entity<Accounts>(entity =>
             {
-                entity.ToTable("comments");
+                entity.Property(e => e.CreationDate).HasColumnType("date");
 
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Content)
+                entity.Property(e => e.Email)
                     .IsRequired()
-                    .HasColumnName("content")
-                    .HasColumnType("text");
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.Date)
-                    .HasColumnName("date")
-                    .HasColumnType("date");
-
-                entity.Property(e => e.ImgLink)
+                entity.Property(e => e.PasswordHash)
                     .IsRequired()
-                    .HasColumnName("img_link")
-                    .HasColumnType("text");
-
-                entity.Property(e => e.UserPath)
-                    .IsRequired()
-                    .HasColumnName("user_path")
-                    .HasColumnType("text");
+                    .IsUnicode(false);
             });
 
-            modelBuilder.Entity<Images>(entity =>
+            modelBuilder.Entity<CategoryTools>(entity =>
             {
-                entity.ToTable("images");
+                entity.HasIndex(e => e.ToolName)
+                    .HasName("UQ__Category__006DA27109F5F18A")
+                    .IsUnique();
 
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Date)
-                    .HasColumnName("date")
-                    .HasColumnType("date");
-
-                entity.Property(e => e.Description)
+                entity.Property(e => e.ToolName)
                     .IsRequired()
-                    .HasColumnName("description")
-                    .HasColumnType("text");
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<CategoryTypes>(entity =>
+            {
+                entity.HasIndex(e => e.TypeName)
+                    .HasName("UQ__Category__D4E7DFA87762136E")
+                    .IsUnique();
+
+                entity.Property(e => e.TypeName)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<PostComments>(entity =>
+            {
+                entity.Property(e => e.Content)
+                    .IsRequired()
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CreationDate).HasColumnType("date");
+            });
+
+            modelBuilder.Entity<Posts>(entity =>
+            {
+                entity.Property(e => e.CommentsCount).HasDefaultValueSql("('0')");
+
+                entity.Property(e => e.CreationDate).HasColumnType("date");
+
+                entity.Property(e => e.Description).IsUnicode(false);
 
                 entity.Property(e => e.ImgLink)
                     .IsRequired()
-                    .HasColumnName("img_link")
-                    .HasColumnType("text");
+                    .IsUnicode(false);
 
-                entity.Property(e => e.ImgSrc)
-                    .IsRequired()
-                    .HasColumnName("img_src")
-                    .HasColumnType("text");
+                entity.Property(e => e.LikeCount).HasDefaultValueSql("('0')");
 
-                entity.Property(e => e.OwnerPath)
-                    .IsRequired()
-                    .HasColumnName("owner_path")
-                    .HasColumnType("text");
+                entity.Property(e => e.MixedActivity).HasDefaultValueSql("('0')");
 
-                entity.Property(e => e.Category_tool)
-                    .IsRequired()
-                    .HasColumnName("category_tool")
-                    .HasColumnType("text");
+                entity.Property(e => e.NewestActivity).HasDefaultValueSql("('0')");
 
-                entity.Property(e => e.Category_type)
-                    .IsRequired()
-                    .HasColumnName("category_type")
-                    .HasColumnType("text");
+                entity.Property(e => e.PopularActivity).HasDefaultValueSql("('0')");
 
                 entity.Property(e => e.Title)
                     .IsRequired()
-                    .HasColumnName("title")
-                    .HasColumnType("text");
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UserOwnerName)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ViewCount).HasDefaultValueSql("('0')");
             });
 
             modelBuilder.Entity<Users>(entity =>
             {
-                entity.ToTable("users");
-
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.HasIndex(e => e.AccountId)
+                    .HasName("UQ__Users__349DA5A7924D7396")
+                    .IsUnique();
 
                 entity.Property(e => e.About)
                     .IsRequired()
-                    .HasColumnName("about")
-                    .HasColumnType("text");
+                    .IsUnicode(false);
 
-                entity.Property(e => e.AvatarSrc)
-                    .IsRequired()
-                    .HasColumnName("avatar_src")
-                    .HasColumnType("text");
+                entity.Property(e => e.AvatarImgLink).IsUnicode(false);
 
-                entity.Property(e => e.BackgroundSrc)
-                    .IsRequired()
-                    .HasColumnName("background_src")
-                    .HasColumnType("text");
-
-                entity.Property(e => e.Email)
-                    .IsRequired()
-                    .HasColumnName("email")
-                    .HasColumnType("text");
+                entity.Property(e => e.BackgroundImgLink).IsUnicode(false);
 
                 entity.Property(e => e.Link)
                     .IsRequired()
-                    .HasColumnName("link")
-                    .HasColumnType("text");
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasColumnName("name")
-                    .HasColumnType("text");
-
-                entity.Property(e => e.Password)
-                    .IsRequired()
-                    .HasColumnName("password")
-                    .HasColumnType("text");
+                    .IsUnicode(false);
             });
         }
     }

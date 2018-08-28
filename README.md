@@ -35,96 +35,97 @@ Add appsettings.json file with this text,
 Description
 =====
 ```
-Post:             Link to post
+PostRequest:      Link to postrequest
 Input data type:  Data name (application/json)
 Output:           Data type (application/json)
 ```
+
 Comments
 ------
 #### Get image's comments
 ```
-Post:   api/CommentsGet 
-Image: ImgLink 
-Output: Comments 
+PostRequest:  api/CommentsGet 
+Post:         ImgLink 
+Output:       PostComments 
 ```
 #### Add comment
 ```
-Post:     api/CommentAdd 
-Comment:  Comment 
-Output:   Comments 
+PostRequest:  api/CommentAdd 
+PostComment:  PostComment 
+Output:       PostComments 
 ```
 Images
 ------
 #### Upload image to cloudinary
 ```
-Post:   api/UploadImage
-Image:  Image file
-Output: Image (with properties from Models/UploadModels
+PostRequest:  api/UploadImage
+Image:        Image file
+Output:       Image (with properties from Models/UploadModels
 ```
-#### Get image
+#### Get Post
 ```
-Post:   api/ImageGet
-Image:  ImgLink
-Output: Image
+PostRequest:   api/ImageGet
+Post:  ImgLink
+Output: Post
 ```
-#### Add image
+#### Add Post
 ```
-Post:   api/AddImage
-Image:  Image 
-Output: Image 
+PostRequest:   api/AddImage
+Post:          Post 
+Output:        Post 
 ```
-#### Get all images
+#### Get all posts
 ```
-Post: api/ImagesAllGet
+PostRequest: api/ImagesAllGet
 ```
 + the newest </br>
 ```
 Message Properties: "the_newest"
-Output: Images
+Output:             Posts
 ```
 + most popular </br>
 ```
 Message Properties: "most_popular"
-Output: Images 
+Output:              Posts 
 ```
-#### Get images by category
+#### Get Posts by category
 ```
-Post: api/ImagesGetByCategory
+PostRequest: api/ImagesGetByCategory
 ```
 + both category </br>
 ```
 Message Properties: "both" 
-Message Category_type: category_type 
-Message Category_tool: category_tool 
-Output:  Images with given categories 
+Message Category_type: CategoryType 
+Message Category_tool: CategoryTool 
+Output: Posts with given categories 
 ```
 + tool category </br>
 ```
 Message Properties: "tool" 
 Message Category_type: "" 
-Message Category_tool: category_tool 
-Output:  Images with given category 
+Message Category_tool: CategoryTool 
+Output: Posts with given category 
 ```
 + type category </br>
 ```
 Message Properties: "type"
-Message Category_type: category_type
+Message Category_type: CategoryType
 Message Category_tool: "" 
-Output:  Images with given category 
+Output: Posts with given category 
 ```
 
 User
 ------
 #### Get user
 ```
-Post:   api/UserGet
-User: Link
-Output: User 
+PostRequest:  api/UserGet
+User:         Link
+Output:       User 
 ```
 #### Get user's images
 ```
-Post:   api/UserImagesGetController
-User: OwnerPath 
-Output: Images 
+PostRequest:  api/UserImagesGetController
+User:         OwnerPath 
+Output:       Images 
 ```
 

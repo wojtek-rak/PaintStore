@@ -8,7 +8,7 @@ namespace backEnd.Models
     public class Message
     {
         public string Properties { get; set; }
-        public string Category_type { get; set; }
-        public string Category_tool { get; set; }
+        public string CategoryType { get; set; }
+        public string CategoryTool { get; set; }
     }
 }

@@ -26,9 +26,9 @@ namespace PaintStoreBackEnd.Tests
         {
             var mock = InitializeMockContext.InitMock();
             var controller = new ImagesGetByCategoryController(mock.Object);
-            var result = controller.GetImagesByCategory(new Message { Properties = "both", Category_type = "krajobraz", Category_tool = "akwarele" }).Count();
+            var result = controller.GetImagesByCategory(new Message { Properties = "both", CategoryType = "animal", CategoryTool = "aquarels" }).Count();
             var expected = 1;
-            Assert.AreEqual(result, expected);
+            Assert.AreEqual(expected, result);
         }
 
 
@@ -37,18 +37,18 @@ namespace PaintStoreBackEnd.Tests
         {
             var mock = InitializeMockContext.InitMock();
             var controller = new ImagesGetByCategoryController(mock.Object);
-            var result = controller.GetImagesByCategory(new Message { Properties = "tool", Category_type = "", Category_tool = "akwarele" }).Count();
-            var expected = 2;
-            Assert.AreEqual(result, expected);
+            var result = controller.GetImagesByCategory(new Message { Properties = "tool", CategoryType = "", CategoryTool = "pencil" }).Count();
+            var expected = 1;
+            Assert.AreEqual(expected, result);
         }
         [Test]
         public void GetImagesByCategory_type_Test()
         {
             var mock = InitializeMockContext.InitMock();
             var controller = new ImagesGetByCategoryController(mock.Object);
-            var result = controller.GetImagesByCategory(new Message { Properties = "type", Category_type = "krajobraz", Category_tool = "" }).Count();
+            var result = controller.GetImagesByCategory(new Message { Properties = "type", CategoryType = "animal", CategoryTool = "" }).Count();
             var expected = 2;
-            Assert.AreEqual(result, expected);
+            Assert.AreEqual(expected, result);
         }
     }
 }

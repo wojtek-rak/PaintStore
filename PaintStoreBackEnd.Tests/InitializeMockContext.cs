@@ -21,8 +21,6 @@ namespace PaintStoreBackEnd.Tests
         public static Mock<PaintStoreContext> InitMock()
             {
             var mock = new Mock<PaintStoreContext>();
-            //Email = "costam@xd.pl", Password = "tu jakis donoskink chyba", 
-            //Email = "costam@2d.pl", Password = "2u jakis donoskink chyba",
             var mockDataUsers = new List<Users> {
                 new Users { Id = 1, Name = "Kasia", Link = "kasialink", AvatarImgLink = "appa", BackgroundImgLink = "bappa", About = "xD", AccountId = 1},
                 new Users { Id = 2, Name = "Zosia", Link = "tosialink", AvatarImgLink = "2appa", BackgroundImgLink = "2bappa", About = "2xD", AccountId = 2}}.AsQueryable();
@@ -33,9 +31,17 @@ namespace PaintStoreBackEnd.Tests
                 new PostComments { Id = 3, CreationDate = DateTime.Now, Content = "Ale Kom", PostId = 3, UserId = 2  } }.AsQueryable();
 
             var mockDataImages = new List<Posts> {
-                new Posts { Id = 1, Title = "zaden", CategoryTypeId = 1, CategoryToolId = 2, ImgLink = "link1", CreationDate = DateTime.Today, Description = "Desc1", UserOwnerName = "Zosia", UserId = 2 },
-                new Posts { Id = 2, Title = "Najnowszy", CategoryTypeId = 2, CategoryToolId = 2, ImgLink = "link2", CreationDate = DateTime.Now, Description = "Desc2", UserOwnerName = "Kasia", UserId = 1 },
+                new Posts { Id = 1, Title = "zaden", CategoryTypeId = null, CategoryToolId = 1, ImgLink = "link1", CreationDate = DateTime.Today, Description = "Desc1", UserOwnerName = "Zosia", UserId = 2 },
+                new Posts { Id = 2, Title = "Najnowszy", CategoryTypeId = 2, CategoryToolId = null, ImgLink = "link2", CreationDate = DateTime.Now, Description = "Desc2", UserOwnerName = "Kasia", UserId = 1 },
                 new Posts { Id = 3,  Title = "Najkomentowszy", CategoryTypeId = 2, CategoryToolId = 2, ImgLink = "link3", CreationDate = DateTime.Today, Description = "Desc3", UserOwnerName = "Zosia", UserId = 2  } }.AsQueryable();
+
+            var mockDataCategoryType = new List<CategoryTypes> {
+                new CategoryTypes { Id = 1, TypeName = "pose", Count = 0 },
+                new CategoryTypes { Id = 2, TypeName = "animal", Count = 2} }.AsQueryable();
+
+            var mockDataCategoryTool = new List<CategoryTools> {
+                new CategoryTools { Id = 1, ToolName = "pencil", Count = 1 },
+                new CategoryTools { Id = 2, ToolName = "aquarels", Count = 1} }.AsQueryable();
 
             var mockSetUsers = new Mock<DbSet<Users>>();
             mockSetUsers.As<IQueryable<Users>>().Setup(m => m.Provider).Returns(mockDataUsers.Provider);
@@ -55,12 +61,30 @@ namespace PaintStoreBackEnd.Tests
             mockSetImages.As<IQueryable<Posts>>().Setup(m => m.ElementType).Returns(mockDataImages.ElementType);
             mockSetImages.As<IQueryable<Posts>>().Setup(m => m.GetEnumerator()).Returns(mockDataImages.GetEnumerator());
 
+            var mockSetCategoryTypes = new Mock<DbSet<CategoryTypes>>();
+            mockSetCategoryTypes.As<IQueryable<CategoryTypes>>().Setup(m => m.Provider).Returns(mockDataCategoryType.Provider);
+            mockSetCategoryTypes.As<IQueryable<CategoryTypes>>().Setup(m => m.Expression).Returns(mockDataCategoryType.Expression);
+            mockSetCategoryTypes.As<IQueryable<CategoryTypes>>().Setup(m => m.ElementType).Returns(mockDataCategoryType.ElementType);
+            mockSetCategoryTypes.As<IQueryable<CategoryTypes>>().Setup(m => m.GetEnumerator()).Returns(mockDataCategoryType.GetEnumerator());
+
+
+            var mockSetCategoryTools = new Mock<DbSet<CategoryTools>>();
+            mockSetCategoryTools.As<IQueryable<CategoryTools>>().Setup(m => m.Provider).Returns(mockDataCategoryTool.Provider);
+            mockSetCategoryTools.As<IQueryable<CategoryTools>>().Setup(m => m.Expression).Returns(mockDataCategoryTool.Expression);
+            mockSetCategoryTools.As<IQueryable<CategoryTools>>().Setup(m => m.ElementType).Returns(mockDataCategoryTool.ElementType);
+            mockSetCategoryTools.As<IQueryable<CategoryTools>>().Setup(m => m.GetEnumerator()).Returns(mockDataCategoryTool.GetEnumerator());
+
+
             mock.Setup(x => x.Users)
                             .Returns(mockSetUsers.Object);
             mock.Setup(x => x.PostComments)
                             .Returns(mockSetComments.Object);
             mock.Setup(x => x.Posts)
                             .Returns(mockSetImages.Object);
+            mock.Setup(x => x.CategoryTypes)
+                            .Returns(mockSetCategoryTypes.Object);
+            mock.Setup(x => x.CategoryTools)
+                            .Returns(mockSetCategoryTools.Object);
 
             return mock;
             }

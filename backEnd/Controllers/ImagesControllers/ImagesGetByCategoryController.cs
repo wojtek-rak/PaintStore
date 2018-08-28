@@ -24,24 +24,30 @@ namespace backEnd.Controllers.ImagesControllers
             using (var db = paintStoreContext)
             {
 
-                ///
-                /// NOT WORKING CHANGE FROM DESCRIPTION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                ///
 
                 IQueryable<Posts> images = null;
                 if (message.Properties == "type")
                 {
-                    images = db.Posts.Where(x => x.Description == message.Category_type);
+                    images = db.Posts.Where(
+                        x => x.CategoryTypeId == db.CategoryTypes.
+                        Where(y => y.TypeName == message.CategoryType).First().Id);
                 }
                 if (message.Properties == "tool")
                 {
-                    images = db.Posts.Where(x => x.Description == message.Category_type);
+                    images = db.Posts.Where(
+                        x => x.CategoryToolId == db.CategoryTools.
+                        Where(y => y.ToolName == message.CategoryTool).First().Id);
                 }
                 if (message.Properties == "both")
                 {
-                    images = db.Posts.Where(x => x.Description == message.Category_type).Where(x => x.Description == message.Category_tool);
+                    images = db.Posts.Where(
+                        x => x.CategoryTypeId == db.CategoryTypes.
+                        Where(y => y.TypeName == message.CategoryType).First().Id).
+                        Where(x => x.CategoryToolId == db.CategoryTools.
+                        Where(y => y.ToolName == message.CategoryTool).First().Id);
                 }
                 return images.ToList();
+
             }
 
         }

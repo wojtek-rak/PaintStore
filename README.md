@@ -60,6 +60,12 @@ PostRequest:  api/CommentEdit
 PostComment:  PostComment (ID and content)
 Output:       PostComment 
 ```
+#### Remove comment (whole)
+```
+PostRequest:  api/CommentRemove
+PostComment:  PostComment (ID)
+Output:       PostComment 
+```
 Images
 ------
 #### Upload image to cloudinary
@@ -70,15 +76,21 @@ Output:       Image (with properties from Models/UploadModels
 ```
 #### Get Post
 ```
-PostRequest:   api/ImageGet
-Post:  ImgLink
-Output: Post
+PostRequest:  api/ImageGet
+Post:         ImgLink
+Output:       Post
 ```
 #### Add Post
 ```
 PostRequest:   api/AddImage
 Post:          Post 
 Output:        Post 
+```
+#### Remove Post (whole)
+```
+PostRequest:  api/ImageRemove
+Post:         Post (ID)
+Output:       Post 
 ```
 #### Get all posts
 ```
@@ -133,6 +145,18 @@ Output:       User
 PostRequest:  api/UserImagesGet
 User:         OwnerPath 
 Output:       Images 
+```
+#### Add user
+```
+PostRequest:  api/UserAdd
+User:         User
+Output:       User 
+```
+#### Edit user
+```
+PostRequest:  api/UserEdit
+User:         User (ID and prop you want to edit (cannot edit account id and id))
+Output:       User 
 ```
 
 Comment Likes

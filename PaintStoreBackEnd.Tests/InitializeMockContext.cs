@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+//using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -43,37 +44,24 @@ namespace PaintStoreBackEnd.Tests
                 new CategoryTools { Id = 1, ToolName = "pencil", Count = 1 },
                 new CategoryTools { Id = 2, ToolName = "aquarels", Count = 1} }.AsQueryable();
 
-            var mockSetUsers = new Mock<DbSet<Users>>();
-            mockSetUsers.As<IQueryable<Users>>().Setup(m => m.Provider).Returns(mockDataUsers.Provider);
-            mockSetUsers.As<IQueryable<Users>>().Setup(m => m.Expression).Returns(mockDataUsers.Expression);
-            mockSetUsers.As<IQueryable<Users>>().Setup(m => m.ElementType).Returns(mockDataUsers.ElementType);
-            mockSetUsers.As<IQueryable<Users>>().Setup(m => m.GetEnumerator()).Returns(mockDataUsers.GetEnumerator());
+            var mockDataPostLikes = new List<PostLikes> {
+                new PostLikes { Id = 1, UserId = 2, PostId = 1 },
+                new PostLikes { Id = 2, UserId = 3, PostId = 1 },
+                new PostLikes { Id = 3, UserId = 3, PostId = 2} }.AsQueryable();
 
-            var mockSetComments = new Mock<DbSet<PostComments>>();
-            mockSetComments.As<IQueryable<PostComments>>().Setup(m => m.Provider).Returns(mockDataComments.Provider);
-            mockSetComments.As<IQueryable<PostComments>>().Setup(m => m.Expression).Returns(mockDataComments.Expression);
-            mockSetComments.As<IQueryable<PostComments>>().Setup(m => m.ElementType).Returns(mockDataComments.ElementType);
-            mockSetComments.As<IQueryable<PostComments>>().Setup(m => m.GetEnumerator()).Returns(mockDataComments.GetEnumerator());
-
-            var mockSetImages = new Mock<DbSet<Posts>>();
-            mockSetImages.As<IQueryable<Posts>>().Setup(m => m.Provider).Returns(mockDataImages.Provider);
-            mockSetImages.As<IQueryable<Posts>>().Setup(m => m.Expression).Returns(mockDataImages.Expression);
-            mockSetImages.As<IQueryable<Posts>>().Setup(m => m.ElementType).Returns(mockDataImages.ElementType);
-            mockSetImages.As<IQueryable<Posts>>().Setup(m => m.GetEnumerator()).Returns(mockDataImages.GetEnumerator());
-
-            var mockSetCategoryTypes = new Mock<DbSet<CategoryTypes>>();
-            mockSetCategoryTypes.As<IQueryable<CategoryTypes>>().Setup(m => m.Provider).Returns(mockDataCategoryType.Provider);
-            mockSetCategoryTypes.As<IQueryable<CategoryTypes>>().Setup(m => m.Expression).Returns(mockDataCategoryType.Expression);
-            mockSetCategoryTypes.As<IQueryable<CategoryTypes>>().Setup(m => m.ElementType).Returns(mockDataCategoryType.ElementType);
-            mockSetCategoryTypes.As<IQueryable<CategoryTypes>>().Setup(m => m.GetEnumerator()).Returns(mockDataCategoryType.GetEnumerator());
+            var mockDataCommentLikes = new List<CommentLikes> {
+                new CommentLikes { Id = 1, UserId = 2, CommentId = 1 },
+                new CommentLikes { Id = 2, UserId = 3, CommentId = 1 },
+                new CommentLikes { Id = 3, UserId = 3, CommentId = 2} }.AsQueryable();
 
 
-            var mockSetCategoryTools = new Mock<DbSet<CategoryTools>>();
-            mockSetCategoryTools.As<IQueryable<CategoryTools>>().Setup(m => m.Provider).Returns(mockDataCategoryTool.Provider);
-            mockSetCategoryTools.As<IQueryable<CategoryTools>>().Setup(m => m.Expression).Returns(mockDataCategoryTool.Expression);
-            mockSetCategoryTools.As<IQueryable<CategoryTools>>().Setup(m => m.ElementType).Returns(mockDataCategoryTool.ElementType);
-            mockSetCategoryTools.As<IQueryable<CategoryTools>>().Setup(m => m.GetEnumerator()).Returns(mockDataCategoryTool.GetEnumerator());
-
+            var mockSetUsers = InitMockDbSet(mockDataUsers);
+            var mockSetComments = InitMockDbSet(mockDataComments);
+            var mockSetImages = InitMockDbSet(mockDataImages);
+            var mockSetCategoryTypes = InitMockDbSet(mockDataCategoryType);
+            var mockSetCategoryTools = InitMockDbSet(mockDataCategoryTool);
+            var mockSetPostLikes = InitMockDbSet(mockDataPostLikes);
+            var mockSetCommentLikes = InitMockDbSet(mockDataCommentLikes);
 
             mock.Setup(x => x.Users)
                             .Returns(mockSetUsers.Object);
@@ -85,14 +73,16 @@ namespace PaintStoreBackEnd.Tests
                             .Returns(mockSetCategoryTypes.Object);
             mock.Setup(x => x.CategoryTools)
                             .Returns(mockSetCategoryTools.Object);
+            mock.Setup(x => x.PostLikes)
+                            .Returns(mockSetPostLikes.Object);
+            mock.Setup(x => x.CommentLikes)
+                            .Returns(mockSetCommentLikes.Object);
 
             return mock;
             }
 
-        public static Mock<DbSet<T>> InitMockDbSet<T>(T objectToAdd) where T : class
+        public static Mock<DbSet<T>> InitMockDbSet<T>(IQueryable<T> mockData) where T : class
         {
-            var mockData = new List<T> { objectToAdd }.AsQueryable();
-
             var mockSet = new Mock<DbSet<T>>();
             mockSet.As<IQueryable<T>>().Setup(m => m.Provider).Returns(mockData.Provider);
             mockSet.As<IQueryable<T>>().Setup(m => m.Expression).Returns(mockData.Expression);
@@ -102,3 +92,32 @@ namespace PaintStoreBackEnd.Tests
         }
     }
 }
+
+
+
+
+//var mockSetUsers = new Mock<DbSet<Users>>();
+//mockSetUsers.As<IQueryable<Users>>().Setup(m => m.Provider).Returns(mockDataUsers.Provider);
+//mockSetUsers.As<IQueryable<Users>>().Setup(m => m.Expression).Returns(mockDataUsers.Expression);
+//mockSetUsers.As<IQueryable<Users>>().Setup(m => m.ElementType).Returns(mockDataUsers.ElementType);
+//mockSetUsers.As<IQueryable<Users>>().Setup(m => m.GetEnumerator()).Returns(mockDataUsers.GetEnumerator());
+//var mockSetComments = new Mock<DbSet<PostComments>>();
+//mockSetComments.As<IQueryable<PostComments>>().Setup(m => m.Provider).Returns(mockDataComments.Provider);
+//mockSetComments.As<IQueryable<PostComments>>().Setup(m => m.Expression).Returns(mockDataComments.Expression);
+//mockSetComments.As<IQueryable<PostComments>>().Setup(m => m.ElementType).Returns(mockDataComments.ElementType);
+//mockSetComments.As<IQueryable<PostComments>>().Setup(m => m.GetEnumerator()).Returns(mockDataComments.GetEnumerator());
+//var mockSetImages = new Mock<DbSet<Posts>>();
+//mockSetImages.As<IQueryable<Posts>>().Setup(m => m.Provider).Returns(mockDataImages.Provider);
+//mockSetImages.As<IQueryable<Posts>>().Setup(m => m.Expression).Returns(mockDataImages.Expression);
+//mockSetImages.As<IQueryable<Posts>>().Setup(m => m.ElementType).Returns(mockDataImages.ElementType);
+//mockSetImages.As<IQueryable<Posts>>().Setup(m => m.GetEnumerator()).Returns(mockDataImages.GetEnumerator());
+//var mockSetCategoryTypes = new Mock<DbSet<CategoryTypes>>();
+//mockSetCategoryTypes.As<IQueryable<CategoryTypes>>().Setup(m => m.Provider).Returns(mockDataCategoryType.Provider);
+//mockSetCategoryTypes.As<IQueryable<CategoryTypes>>().Setup(m => m.Expression).Returns(mockDataCategoryType.Expression);
+//mockSetCategoryTypes.As<IQueryable<CategoryTypes>>().Setup(m => m.ElementType).Returns(mockDataCategoryType.ElementType);
+//mockSetCategoryTypes.As<IQueryable<CategoryTypes>>().Setup(m => m.GetEnumerator()).Returns(mockDataCategoryType.GetEnumerator());
+//var mockSetCategoryTools = new Mock<DbSet<CategoryTools>>();
+//mockSetCategoryTools.As<IQueryable<CategoryTools>>().Setup(m => m.Provider).Returns(mockDataCategoryTool.Provider);
+//mockSetCategoryTools.As<IQueryable<CategoryTools>>().Setup(m => m.Expression).Returns(mockDataCategoryTool.Expression);
+//mockSetCategoryTools.As<IQueryable<CategoryTools>>().Setup(m => m.ElementType).Returns(mockDataCategoryTool.ElementType);
+//mockSetCategoryTools.As<IQueryable<CategoryTools>>().Setup(m => m.GetEnumerator()).Returns(mockDataCategoryTool.GetEnumerator());

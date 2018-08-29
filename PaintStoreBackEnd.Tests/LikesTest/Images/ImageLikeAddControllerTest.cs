@@ -1,5 +1,7 @@
 ﻿using backEnd.Controllers;
 using backEnd.Controllers.CommentsControllers;
+using backEnd.Controllers.LikeControllers.Comment;
+using backEnd.Controllers.LikeControllers.Images;
 using backEnd.Models;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.EntityFrameworkCore;
@@ -20,22 +22,25 @@ namespace PaintStoreBackEnd.Tests
 {
 
     [TestFixture]
-    class CommentAddControllerTest
+    class ImageLikeAddControllerTest
     {
         [Test]
-        public void AddCommentTest()
+        public void AddImageLikeTest()
         {
-            var mockSet = new Mock<DbSet<PostComments>>();
+            var mockSet = new Mock<DbSet<PostLikes>>();
 
             var mockContext = new Mock<PaintStoreContext>();
-            mockContext.Setup(m => m.PostComments).Returns(mockSet.Object);
+            mockContext.Setup(m => m.PostLikes).Returns(mockSet.Object);
 
-            var controller = new CommentAddController(mockContext.Object);
-            controller.AddComment(new PostComments { CreationDate = DateTime.Now, Content = "Testowy Komentarz", PostId = 1, UserId = 1 });
-            mockSet.Verify(m => m.Add(It.IsAny<PostComments>()), Times.Once());
+            var controller = new ImageLikeAddController(mockContext.Object);
+            controller.AddImageLike(new PostLikes { });
+            mockSet.Verify(m => m.Add(It.IsAny<PostLikes>()), Times.Once());
             mockContext.Verify(m => m.SaveChanges(), Times.Once());
         }
     }
 }
+
+
+
 
 

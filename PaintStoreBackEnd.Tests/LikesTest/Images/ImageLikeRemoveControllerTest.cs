@@ -1,4 +1,6 @@
 ﻿using backEnd.Controllers;
+using backEnd.Controllers.CommentsControllers;
+using backEnd.Controllers.LikeControllers.Comment;
 using backEnd.Models;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.EntityFrameworkCore;
@@ -19,18 +21,20 @@ namespace PaintStoreBackEnd.Tests
 {
 
     [TestFixture]
-    class ImageGetControllerTest
+    class ImageLikeRemoveControllerTest
     {
         [Test]
-        public void GetImageTest()
+        public void RemoveImageLikeTest()
         {
             var mock = InitializeMockContext.InitMock();
-            var controller = new ImageGetController(mock.Object);
-            var result = controller.GetImage(new Posts { ImgLink = "link1" }).Count();
-            var expected = 1;
-            Assert.AreEqual(expected, result);
+
+            var controller = new ImageLikeRemoveController(mock.Object);
+            controller.RemoveImageLike(new PostLikes { Id = 1 });
+            mock.Verify(m => m.SaveChanges(), Times.Once());
         }
     }
 }
+
+
 
 

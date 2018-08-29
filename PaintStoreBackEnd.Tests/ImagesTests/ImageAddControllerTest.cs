@@ -25,13 +25,15 @@ namespace PaintStoreBackEnd.Tests
         [Test]
         public void AddImageTest()
         {
-            var mock = InitializeMockContext.InitMock();
-            var controller = new ImageAddController(mock.Object);
-            var expected = mock.Object.Posts.Count() + 1;
+            var mockSet = new Mock<DbSet<Posts>>();
 
-            controller.AddImage(new Posts { Title = "tests", CategoryTypeId = 1, CategoryToolId = 3,  ImgLink = "jakis test link", CreationDate = DateTime.Now, Description = "testowy opis", UserOwnerName = "tester" });
-            var result = mock.Object.Posts.Count() + 1;
-            Assert.AreEqual(result, expected);
+            var mockContext = new Mock<PaintStoreContext>();
+            mockContext.Setup(m => m.Posts).Returns(mockSet.Object);
+
+            var controller = new ImageAddController(mockContext.Object);
+            controller.AddImage(new Posts { Title = "tests", CategoryTypeId = 1, CategoryToolId = 3, ImgLink = "jakis test link", CreationDate = DateTime.Now, Description = "testowy opis", UserOwnerName = "tester" });
+            mockSet.Verify(m => m.Add(It.IsAny<Posts>()), Times.Once());
+            mockContext.Verify(m => m.SaveChanges(), Times.Once());
         }
     }
 }

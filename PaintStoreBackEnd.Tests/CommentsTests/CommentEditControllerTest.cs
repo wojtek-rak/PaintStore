@@ -1,4 +1,5 @@
 ﻿using backEnd.Controllers;
+using backEnd.Controllers.CommentsControllers;
 using backEnd.Models;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.EntityFrameworkCore;
@@ -19,18 +20,23 @@ namespace PaintStoreBackEnd.Tests
 {
 
     [TestFixture]
-    class ImageGetControllerTest
+    class CommentEditControllerTest
     {
         [Test]
-        public void GetImageTest()
+        public void EditCommentTest()
         {
             var mock = InitializeMockContext.InitMock();
-            var controller = new ImageGetController(mock.Object);
-            var result = controller.GetImage(new Posts { ImgLink = "link1" }).Count();
-            var expected = 1;
-            Assert.AreEqual(expected, result);
+
+            var controller = new CommentEditController(mock.Object);
+            var expectedString = "Testowy Komentarz";
+            var editedCom = controller.EditComment(new PostComments { Id = 1, Content = expectedString });
+            mock.Verify(m => m.SaveChanges(), Times.Once());
+            Assert.AreEqual(expectedString, editedCom.Content);
         }
     }
 }
+
+
+
 
 

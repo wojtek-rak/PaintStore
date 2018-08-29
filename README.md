@@ -54,6 +54,12 @@ PostRequest:  api/CommentAdd
 PostComment:  PostComment 
 Output:       PostComments 
 ```
+#### Edit comment
+```
+PostRequest:  api/CommentEdit
+PostComment:  PostComment (ID and content)
+Output:       PostComment 
+```
 Images
 ------
 #### Upload image to cloudinary
@@ -124,8 +130,50 @@ Output:       User
 ```
 #### Get user's images
 ```
-PostRequest:  api/UserImagesGetController
+PostRequest:  api/UserImagesGet
 User:         OwnerPath 
 Output:       Images 
+```
+
+Comment Likes
+------
+#### Get likes
+```
+PostRequest: api/CommentsLikesGet
+PostComment: PostComment
+Output:      CommentLikes
+```
+#### Add like
+```
+PostRequest:    api/CommentLikeAdd
+Comment Like:   Comment Like 
+Output:         Comment Like 
+```
+#### Remove like
+```
+PostRequest:  api/CommentLikeRemove
+Comment Like: Comment Like ( ID )
+Output:       Comment Like 
+```
+
+Image Likes
+------
+#### Get likes
+```
+PostRequest: api/ImageLikesGet
+Post:        Post
+Output:      PostLikes
+```
+#### Add like
+```
+PostRequest: api/ImageLikeAdd
+PostLike:    PostLike 
+Output:      PostLike 
+```
+#### Remove like
+```
+PostRequest: api/ImageLikeRemove
+PostLike:    PostLike ( ID )
+Output:      PostLike
 ```
 

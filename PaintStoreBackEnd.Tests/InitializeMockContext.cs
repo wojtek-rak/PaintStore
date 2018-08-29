@@ -19,12 +19,12 @@ namespace PaintStoreBackEnd.Tests
 {
     class InitializeMockContext
     {
-        //var mockSetUsers = InitMockDbSet(mockDataUsers);
+        public Mock<DbSet<Users>> mockSetUsers;
         public Mock<DbSet<PostComments>> mockSetComments;
-        //var mockSetImages = InitMockDbSet(mockDataImages);
+        public Mock<DbSet<Posts>> mockSetImages;
         //var mockSetCategoryTypes = InitMockDbSet(mockDataCategoryType);
         //var mockSetCategoryTools = InitMockDbSet(mockDataCategoryTool);
-        //var mockSetPostLikes = InitMockDbSet(mockDataPostLikes);
+        public Mock<DbSet<PostLikes>> mockSetPostLikes;
         public Mock<DbSet<CommentLikes>> mockSetCommentLikes;
         public Mock<PaintStoreContext> mock;
         public InitializeMockContext()
@@ -37,12 +37,14 @@ namespace PaintStoreBackEnd.Tests
             var mockDataComments = new List<PostComments> {
                 new PostComments { Id = 1, CreationDate = DateTime.Now, Content = "Ale Kom", PostId = 2, UserId = 2 },
                 new PostComments { Id = 2, CreationDate = DateTime.Now, Content = "Ale Kom", PostId = 3, UserId = 2  },
-                new PostComments { Id = 3, CreationDate = DateTime.Now, Content = "Ale Kom", PostId = 3, UserId = 2  } }.AsQueryable();
+                new PostComments { Id = 3, CreationDate = DateTime.Now, Content = "Ale Kom", PostId = 3, UserId = 2  },
+                new PostComments { Id = 4, CreationDate = DateTime.Now, Content = "Ale Kom", PostId = 4, UserId = 2  }}.AsQueryable();
 
             var mockDataImages = new List<Posts> {
                 new Posts { Id = 1, Title = "zaden", CategoryTypeId = null, CategoryToolId = 1, ImgLink = "link1", CreationDate = DateTime.Today, Description = "Desc1", UserOwnerName = "Zosia", UserId = 2 },
                 new Posts { Id = 2, Title = "Najnowszy", CategoryTypeId = 2, CategoryToolId = null, ImgLink = "link2", CreationDate = DateTime.Now, Description = "Desc2", UserOwnerName = "Kasia", UserId = 1 },
-                new Posts { Id = 3,  Title = "Najkomentowszy", CategoryTypeId = 2, CategoryToolId = 2, ImgLink = "link3", CreationDate = DateTime.Today, Description = "Desc3", UserOwnerName = "Zosia", UserId = 2  } }.AsQueryable();
+                new Posts { Id = 3,  Title = "Najkomentowszy", CategoryTypeId = 2, CategoryToolId = 2, ImgLink = "link3", CreationDate = DateTime.Today, Description = "Desc3", UserOwnerName = "Zosia", UserId = 2  },
+                new Posts { Id = 4,  Title = "comm bez lików", CategoryTypeId = null, CategoryToolId = null, ImgLink = "link4", CreationDate = DateTime.Today, Description = "Desc4", UserOwnerName = "Zosia", UserId = 2  } }.AsQueryable();
 
             var mockDataCategoryType = new List<CategoryTypes> {
                 new CategoryTypes { Id = 1, TypeName = "pose", Count = 0 },
@@ -55,6 +57,7 @@ namespace PaintStoreBackEnd.Tests
             var mockDataPostLikes = new List<PostLikes> {
                 new PostLikes { Id = 1, UserId = 2, PostId = 1 },
                 new PostLikes { Id = 2, UserId = 3, PostId = 1 },
+                new PostLikes { Id = 2, UserId = 3, PostId = 4 },
                 new PostLikes { Id = 3, UserId = 3, PostId = 2} }.AsQueryable();
 
             var mockDataCommentLikes = new List<CommentLikes> {
@@ -63,12 +66,12 @@ namespace PaintStoreBackEnd.Tests
                 new CommentLikes { Id = 3, UserId = 3, CommentId = 2} }.AsQueryable();
 
 
-            var mockSetUsers = InitMockDbSet(mockDataUsers);
+            mockSetUsers = InitMockDbSet(mockDataUsers);
             mockSetComments = InitMockDbSet(mockDataComments);
-            var mockSetImages = InitMockDbSet(mockDataImages);
+            mockSetImages = InitMockDbSet(mockDataImages);
             var mockSetCategoryTypes = InitMockDbSet(mockDataCategoryType);
             var mockSetCategoryTools = InitMockDbSet(mockDataCategoryTool);
-            var mockSetPostLikes = InitMockDbSet(mockDataPostLikes);
+            mockSetPostLikes = InitMockDbSet(mockDataPostLikes);
             mockSetCommentLikes = InitMockDbSet(mockDataCommentLikes);
 
             mock.Setup(x => x.Users)

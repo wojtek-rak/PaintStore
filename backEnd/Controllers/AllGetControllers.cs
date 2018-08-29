@@ -14,6 +14,10 @@ using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
+    /// <summary>
+    ///  FOR TESTING!!!!!
+    /// </summary>
+
 namespace backEnd
 {
     [Route("api/[controller]")]
@@ -134,6 +138,37 @@ namespace backEnd
                     stringBuilder.Append(comm.UserId);
                     stringBuilder.Append(", ");
                     stringBuilder.Append(comm.CommentId);
+                    stringBuilder.Append(" }");
+                    list.Add(stringBuilder.ToString());
+                    stringBuilder.Clear();
+                }
+            }
+            return list;
+        }
+
+        [HttpGet("{images}/{img}/{likes}/{comments}/{users}")]
+        public IEnumerable<String> GetAllUsers()
+        {
+            List<String> list = new List<String>();
+            StringBuilder stringBuilder = new StringBuilder();
+            using (var db = paintStoreContext)
+            {
+                foreach (var comm in db.Users)
+                {
+                    stringBuilder.Append("{ ");
+                    stringBuilder.Append(comm.Id);
+                    stringBuilder.Append(", ");
+                    stringBuilder.Append(comm.Name);
+                    stringBuilder.Append(", ");
+                    stringBuilder.Append(comm.AccountId);
+                    stringBuilder.Append(", ");
+                    stringBuilder.Append(comm.AvatarImgLink);
+                    stringBuilder.Append(", ");
+                    stringBuilder.Append(comm.BackgroundImgLink);
+                    stringBuilder.Append(", ");
+                    stringBuilder.Append(comm.Link);
+                    stringBuilder.Append(", ");
+                    stringBuilder.Append(comm.About);
                     stringBuilder.Append(" }");
                     list.Add(stringBuilder.ToString());
                     stringBuilder.Clear();

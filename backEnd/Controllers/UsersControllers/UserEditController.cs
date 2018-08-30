@@ -20,7 +20,7 @@ namespace backEnd.Controllers.CommentsControllers
         }
 
         [HttpPost]
-        public Users EditComment([FromBody] Users user)
+        public Users EditUser([FromBody] Users user)
         {
             //todo better
             var userToUptade = paintStoreContext.Users.Where(x => x.Id == user.Id).First();

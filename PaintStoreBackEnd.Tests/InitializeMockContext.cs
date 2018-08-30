@@ -19,6 +19,7 @@ namespace PaintStoreBackEnd.Tests
 {
     class InitializeMockContext
     {
+        public Mock<DbSet<Accounts>> mockSetAccount; 
         public Mock<DbSet<Users>> mockSetUsers;
         public Mock<DbSet<PostComments>> mockSetComments;
         public Mock<DbSet<Posts>> mockSetImages;
@@ -30,6 +31,10 @@ namespace PaintStoreBackEnd.Tests
         public InitializeMockContext()
         {
             var mock = new Mock<PaintStoreContext>();
+            var mockDataAccounts = new List<Accounts> {
+                new Accounts { Id = 1, CreationDate = DateTime.Now, Email = "kasia@kreska.pl", PasswordHash = "!@#sdaAWEDAFSFDSAE"},
+                new Accounts { Id = 2, CreationDate = DateTime.Now, Email = "zosia@kreska.pl", PasswordHash = "eWDs@daDSAdsFSFSAE" }}.AsQueryable();
+
             var mockDataUsers = new List<Users> {
                 new Users { Id = 1, Name = "Kasia", Link = "kasialink", AvatarImgLink = "appa", BackgroundImgLink = "bappa", About = "xD", AccountId = 1},
                 new Users { Id = 2, Name = "Zosia", Link = "tosialink", AvatarImgLink = "2appa", BackgroundImgLink = "2bappa", About = "2xD", AccountId = 2}}.AsQueryable();
@@ -65,7 +70,7 @@ namespace PaintStoreBackEnd.Tests
                 new CommentLikes { Id = 2, UserId = 3, CommentId = 1 },
                 new CommentLikes { Id = 3, UserId = 3, CommentId = 2} }.AsQueryable();
 
-
+            mockSetAccount = InitMockDbSet(mockDataAccounts);
             mockSetUsers = InitMockDbSet(mockDataUsers);
             mockSetComments = InitMockDbSet(mockDataComments);
             mockSetImages = InitMockDbSet(mockDataImages);
@@ -74,6 +79,8 @@ namespace PaintStoreBackEnd.Tests
             mockSetPostLikes = InitMockDbSet(mockDataPostLikes);
             mockSetCommentLikes = InitMockDbSet(mockDataCommentLikes);
 
+            mock.Setup(x => x.Accounts)
+                            .Returns(mockSetAccount.Object);
             mock.Setup(x => x.Users)
                             .Returns(mockSetUsers.Object);
             mock.Setup(x => x.PostComments)

@@ -20,19 +20,19 @@ namespace PaintStoreBackEnd.Tests
 {
 
     [TestFixture]
-    class UserEditControllerTest
+    class AccountAddControllerTest
     {
         [Test]
-        public void EditUserTest()
+        public void AddAccountTest()
         {
-            var mock = InitializeMockContext.InitMock();
+            var init = new InitializeMockContext();
+            var mock = init.mock;
 
-            var controller = new UserEditController(mock.Object);
-            var expectedString = "Testowy Komentarz";
-            var editedUser = controller.EditUser(new Users { Id = 1, AvatarImgLink = expectedString });
-
+            var controller = new AccountAddController(mock.Object);
+            var editedCom = controller.AddAccount(new Accounts { });
             mock.Verify(m => m.SaveChanges(), Times.Once());
-            Assert.AreEqual(expectedString, editedUser.AvatarImgLink);
+            init.mockSetAccount.Verify(m => m.Add(It.IsAny<Accounts>()), Times.Once());
+
         }
     }
 }

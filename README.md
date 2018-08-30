@@ -132,6 +132,21 @@ Message Category_tool: ""
 Output: Posts with given category 
 ```
 
+Account
+------
+#### Add account
+```
+PostRequest:  api/AccountAdd
+Account:      Account
+Output:       Account 
+```
+#### Edit account
+```
+PostRequest:  api/AccountEdit
+Account:      Account (ID and prop you want to edit (cannot edit CreationDate and id))
+Output:       Account 
+```
+
 User
 ------
 #### Get user
@@ -200,4 +215,14 @@ PostRequest: api/ImageLikeRemove
 PostLike:    PostLike ( ID )
 Output:      PostLike
 ```
+
+Category
+------
+#### Get, or add and get category
+```
+PostRequest: api/CategoryGetAdd
+Category:    Category ( "TypeName" or "ToolName")
+Output:      CategoryType or CategoryTool
+```
+
 

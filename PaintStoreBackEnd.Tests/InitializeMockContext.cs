@@ -23,8 +23,8 @@ namespace PaintStoreBackEnd.Tests
         public Mock<DbSet<Users>> mockSetUsers;
         public Mock<DbSet<PostComments>> mockSetComments;
         public Mock<DbSet<Posts>> mockSetImages;
-        //var mockSetCategoryTypes = InitMockDbSet(mockDataCategoryType);
-        //var mockSetCategoryTools = InitMockDbSet(mockDataCategoryTool);
+        public Mock<DbSet<CategoryTypes>> mockSetCategoryTypes;
+        public Mock<DbSet<CategoryTools>> mockSetCategoryTools;
         public Mock<DbSet<PostLikes>> mockSetPostLikes;
         public Mock<DbSet<CommentLikes>> mockSetCommentLikes;
         public Mock<PaintStoreContext> mock;
@@ -74,8 +74,8 @@ namespace PaintStoreBackEnd.Tests
             mockSetUsers = InitMockDbSet(mockDataUsers);
             mockSetComments = InitMockDbSet(mockDataComments);
             mockSetImages = InitMockDbSet(mockDataImages);
-            var mockSetCategoryTypes = InitMockDbSet(mockDataCategoryType);
-            var mockSetCategoryTools = InitMockDbSet(mockDataCategoryTool);
+            mockSetCategoryTypes = InitMockDbSet(mockDataCategoryType);
+            mockSetCategoryTools = InitMockDbSet(mockDataCategoryTool);
             mockSetPostLikes = InitMockDbSet(mockDataPostLikes);
             mockSetCommentLikes = InitMockDbSet(mockDataCommentLikes);
 

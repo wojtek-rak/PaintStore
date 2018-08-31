@@ -246,4 +246,17 @@ Follow:      Follow ( ID )
 Output:      Follow
 ```
 
+Implemented (auto) Countings
+------
+#### Countings for:
+```
+Post likes in Post
+Comment likes in Comment
+Post count in User
+Comment count in Post
+Followed user in User
+Following user in User
+CategoryType count in CategoryType
+CategoryTool count in CategoryTool
+```
 

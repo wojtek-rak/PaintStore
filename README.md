@@ -80,6 +80,12 @@ PostRequest:  api/ImageGet
 Post:         ImgLink
 Output:       Post
 ```
+#### Get Post from follows (newest)
+```
+PostRequest:  api/ImagesFollowingGet
+Users:        Users ID
+Output:       Posts
+```
 #### Add Post
 ```
 PostRequest:   api/ImageAdd

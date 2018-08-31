@@ -29,7 +29,7 @@ namespace backEnd
         {
             paintStoreContext = ctx;
         }
-        [HttpGet("{comments}")]
+        [HttpGet("{type}")]
         public IEnumerable<String> GetAllComments()
         {
             List<String> list = new List<String>();
@@ -51,7 +51,7 @@ namespace backEnd
             }
             return list;
         }
-        [HttpGet("{images}/{img}")]
+        [HttpGet("{dsas}/{tool}")]
         public IEnumerable<String> GetAllImages()
         {
             List<String> list = new List<String>();
@@ -66,6 +66,29 @@ namespace backEnd
                     stringBuilder.Append(comm.ToolName);
                     stringBuilder.Append(", ");
                     stringBuilder.Append(comm.Count);
+                    stringBuilder.Append(" }");
+                    list.Add(stringBuilder.ToString());
+                    stringBuilder.Clear();
+                }
+            }
+            return list;
+        }
+
+        [HttpGet("{dasdsa}/{adsdsadsa}/{userfollowers}")]
+        public IEnumerable<String> GetAllFollows()
+        {
+            List<String> list = new List<String>();
+            StringBuilder stringBuilder = new StringBuilder();
+            using (var db = paintStoreContext)
+            {
+                foreach (var comm in db.UserFollowers)
+                {
+                    stringBuilder.Append("{ ");
+                    stringBuilder.Append(comm.Id);
+                    stringBuilder.Append(", ");
+                    stringBuilder.Append(comm.FollowedUserId);
+                    stringBuilder.Append(", ");
+                    stringBuilder.Append(comm.FollowingUserId);
                     stringBuilder.Append(" }");
                     list.Add(stringBuilder.ToString());
                     stringBuilder.Clear();

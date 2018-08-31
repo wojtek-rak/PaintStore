@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using backEnd.Controllers.CategoryControllers;
 using backEnd.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,9 +21,21 @@ namespace backEnd.Controllers.CommentsControllers
         [HttpPost]
         public Posts AddImage([FromBody] Posts post)
         {
-            paintStoreContext.Posts.Add(post);
-            var count = paintStoreContext.SaveChanges();
-            return post;
+            using(var db = paintStoreContext)
+            {
+                if(post.CategoryToolId != null)
+                {
+                    CategoryManager.CategoryToolCountPlus(db, post.CategoryToolId);
+                }
+                if (post.CategoryTypeId != null)
+                {
+                    CategoryManager.CategoryTypesCountPlus(db, post.CategoryTypeId);
+                }
+
+                db.Posts.Add(post);
+                var count = db.SaveChanges();
+                return post;
+            }
         }
     }
 }

@@ -24,5 +24,33 @@ namespace backEnd.Controllers.CategoryControllers
             category.Id = db.CategoryTypes.Where(x => x.TypeName == category.TypeName).First().Id;
             return category;
         }
+        public static CategoryTools CategoryToolCountPlus(PaintStoreContext db, int? id)
+        {
+
+            var countTool = db.CategoryTools.Where(x => x.Id == id).First();
+            countTool.Count += 1;
+            return countTool;
+        }
+        public static CategoryTypes CategoryTypesCountPlus(PaintStoreContext db, int? id)
+        {
+
+            var countTool = db.CategoryTypes.Where(x => x.Id == id).First();
+            countTool.Count += 1;
+            return countTool;
+        }
+        public static CategoryTools CategoryToolCountMinus(PaintStoreContext db, int? id)
+        {
+
+            var countTool = db.CategoryTools.Where(x => x.Id == id).First();
+            countTool.Count -= 1;
+            return countTool;
+        }
+        public static CategoryTypes CategoryTypesCountMinus(PaintStoreContext db, int? id)
+        {
+
+            var countTool = db.CategoryTypes.Where(x => x.Id == id).First();
+            countTool.Count -= 1;
+            return countTool;
+        }
     }
 }

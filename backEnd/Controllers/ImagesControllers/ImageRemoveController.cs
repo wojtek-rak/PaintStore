@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using backEnd.Controllers.CategoryControllers;
 using backEnd.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,18 @@ namespace backEnd.Controllers.LikeControllers.Comment
         [HttpPost]
         public Posts PostRemove([FromBody] Posts post)
         {
+            var tempPost = paintStoreContext.Posts.Where(
+               x => x.Id == post.Id).First();
+
+            if (tempPost.CategoryToolId != null)
+            {
+                CategoryManager.CategoryToolCountMinus(paintStoreContext, tempPost.CategoryToolId);
+            }
+            if (tempPost.CategoryTypeId != null)
+            {
+                CategoryManager.CategoryTypesCountMinus(paintStoreContext, tempPost.CategoryTypeId);
+            }
+
             paintStoreContext.Posts.Remove(paintStoreContext.Posts.
                 Where(x => x.Id == post.Id).First());
             foreach (var like in paintStoreContext.PostLikes.Where(x => x.PostId == post.Id))

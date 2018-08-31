@@ -12,5 +12,7 @@ namespace backEnd.Models
         public string AvatarImgLink { get; set; }
         public string BackgroundImgLink { get; set; }
         public string About { get; set; }
+        public int FollowedCount { get; set; }
+        public int FollowingCount { get; set; }
     }
 }

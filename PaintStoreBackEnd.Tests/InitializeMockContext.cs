@@ -27,6 +27,7 @@ namespace PaintStoreBackEnd.Tests
         public Mock<DbSet<CategoryTools>> mockSetCategoryTools;
         public Mock<DbSet<PostLikes>> mockSetPostLikes;
         public Mock<DbSet<CommentLikes>> mockSetCommentLikes;
+        public Mock<DbSet<UserFollowers>> mockSetUserFollowers;
         public Mock<PaintStoreContext> mock;
         public InitializeMockContext()
         {
@@ -36,8 +37,8 @@ namespace PaintStoreBackEnd.Tests
                 new Accounts { Id = 2, CreationDate = DateTime.Now, Email = "zosia@kreska.pl", PasswordHash = "eWDs@daDSAdsFSFSAE" }}.AsQueryable();
 
             var mockDataUsers = new List<Users> {
-                new Users { Id = 1, Name = "Kasia", Link = "kasialink", AvatarImgLink = "appa", BackgroundImgLink = "bappa", About = "xD", AccountId = 1},
-                new Users { Id = 2, Name = "Zosia", Link = "tosialink", AvatarImgLink = "2appa", BackgroundImgLink = "2bappa", About = "2xD", AccountId = 2}}.AsQueryable();
+                new Users { Id = 1, Name = "Kasia", Link = "kasialink", AvatarImgLink = "appa", BackgroundImgLink = "bappa", About = "xD", AccountId = 1, FollowedCount = 1, FollowingCount = 0},
+                new Users { Id = 2, Name = "Zosia", Link = "tosialink", AvatarImgLink = "2appa", BackgroundImgLink = "2bappa", About = "2xD", AccountId = 2, FollowedCount = 0, FollowingCount = 1}}.AsQueryable();
 
             var mockDataComments = new List<PostComments> {
                 new PostComments { Id = 1, CreationDate = DateTime.Now, Content = "Ale Kom", PostId = 2, UserId = 2 },
@@ -70,6 +71,10 @@ namespace PaintStoreBackEnd.Tests
                 new CommentLikes { Id = 2, UserId = 3, CommentId = 1 },
                 new CommentLikes { Id = 3, UserId = 3, CommentId = 2} }.AsQueryable();
 
+            var mockDataUserFollowers = new List<UserFollowers> {
+                new UserFollowers { Id = 1, FollowedUserId = 1, FollowingUserId = 2} }.AsQueryable();
+
+
             mockSetAccount = InitMockDbSet(mockDataAccounts);
             mockSetUsers = InitMockDbSet(mockDataUsers);
             mockSetComments = InitMockDbSet(mockDataComments);
@@ -78,6 +83,7 @@ namespace PaintStoreBackEnd.Tests
             mockSetCategoryTools = InitMockDbSet(mockDataCategoryTool);
             mockSetPostLikes = InitMockDbSet(mockDataPostLikes);
             mockSetCommentLikes = InitMockDbSet(mockDataCommentLikes);
+            mockSetUserFollowers = InitMockDbSet(mockDataUserFollowers);
 
             mock.Setup(x => x.Accounts)
                             .Returns(mockSetAccount.Object);
@@ -95,6 +101,9 @@ namespace PaintStoreBackEnd.Tests
                             .Returns(mockSetPostLikes.Object);
             mock.Setup(x => x.CommentLikes)
                             .Returns(mockSetCommentLikes.Object);
+            mock.Setup(x => x.UserFollowers)
+                            .Returns(mockSetUserFollowers.Object);
+            
 
             this.mock = mock;
         }

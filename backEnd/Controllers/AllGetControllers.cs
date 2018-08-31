@@ -101,7 +101,7 @@ namespace backEnd
             }
             return list;
         }
-        [HttpGet("{images}/{img}/{likes}")]
+        [HttpGet("{dsaad}/{dasssq}/{likesPost}")]
         public IEnumerable<String> GetAllImagesLikes()
         {
             List<String> list = new List<String>();
@@ -123,7 +123,7 @@ namespace backEnd
             }
             return list;
         }
-        [HttpGet("{images}/{img}/{likes}/{comments}")]
+        [HttpGet("{dsasdw}/{dwqdwda}/{lidakes}/{commentslikes}")]
         public IEnumerable<String> GetAllCommentsLikes()
         {
             List<String> list = new List<String>();
@@ -146,7 +146,7 @@ namespace backEnd
             return list;
         }
 
-        [HttpGet("{images}/{img}/{likes}/{comments}/{users}")]
+        [HttpGet("{imagdaes}/{idasmg}/{lidaskes}/{commadsents}/{users}")]
         public IEnumerable<String> GetAllUsers()
         {
             List<String> list = new List<String>();
@@ -169,6 +169,10 @@ namespace backEnd
                     stringBuilder.Append(comm.Link);
                     stringBuilder.Append(", ");
                     stringBuilder.Append(comm.About);
+                    stringBuilder.Append(", ");
+                    stringBuilder.Append(comm.FollowedCount);
+                    stringBuilder.Append(", ");
+                    stringBuilder.Append(comm.FollowingCount);
                     stringBuilder.Append(" }");
                     list.Add(stringBuilder.ToString());
                     stringBuilder.Clear();

@@ -57,7 +57,7 @@ namespace backEnd.Models
             modelBuilder.Entity<CategoryTools>(entity =>
             {
                 entity.HasIndex(e => e.ToolName)
-                    .HasName("UQ__Category__006DA27109F5F18A")
+                    .HasName("UQ__Category__006DA271FD08A9C0")
                     .IsUnique();
 
                 entity.Property(e => e.ToolName)
@@ -69,7 +69,7 @@ namespace backEnd.Models
             modelBuilder.Entity<CategoryTypes>(entity =>
             {
                 entity.HasIndex(e => e.TypeName)
-                    .HasName("UQ__Category__D4E7DFA87762136E")
+                    .HasName("UQ__Category__D4E7DFA8DA52CB97")
                     .IsUnique();
 
                 entity.Property(e => e.TypeName)
@@ -122,7 +122,7 @@ namespace backEnd.Models
             modelBuilder.Entity<Users>(entity =>
             {
                 entity.HasIndex(e => e.AccountId)
-                    .HasName("UQ__Users__349DA5A7924D7396")
+                    .HasName("UQ__Users__349DA5A78780EEA4")
                     .IsUnique();
 
                 entity.Property(e => e.About)
@@ -132,6 +132,10 @@ namespace backEnd.Models
                 entity.Property(e => e.AvatarImgLink).IsUnicode(false);
 
                 entity.Property(e => e.BackgroundImgLink).IsUnicode(false);
+
+                entity.Property(e => e.FollowedCount).HasDefaultValueSql("('0')");
+
+                entity.Property(e => e.FollowingCount).HasDefaultValueSql("('0')");
 
                 entity.Property(e => e.Link)
                     .IsRequired()

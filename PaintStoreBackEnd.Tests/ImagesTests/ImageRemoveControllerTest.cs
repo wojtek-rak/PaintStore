@@ -43,7 +43,7 @@ namespace PaintStoreBackEnd.Tests
         {
             var init = new InitializeMockContext();
             var mock = init.mock;
-            var userId = 2;
+            var userId = 1;
             var expectedImageCountInt = mock.Object.Users.Where(x => x.Id == userId).First().PostsCount;
 
             var controller = new ImageRemoveController(mock.Object);

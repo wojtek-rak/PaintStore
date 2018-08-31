@@ -35,6 +35,21 @@ namespace PaintStoreBackEnd.Tests
             mockSet.Verify(m => m.Add(It.IsAny<PostComments>()), Times.Once());
             mockContext.Verify(m => m.SaveChanges(), Times.Once());
         }
+
+        [Test]
+        public void AddCommentCountingTest()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+            var imageId = 1;
+            var expectedCommentCountInt = mock.Object.Posts.Where(x => x.Id == imageId).First().CommentsCount;
+
+            var controller = new CommentAddController(mock.Object);
+            controller.AddComment(new PostComments { UserId = 2, PostId = imageId });
+            mock.Verify(m => m.SaveChanges(), Times.Once());
+
+            Assert.AreEqual(expectedCommentCountInt + 1, mock.Object.Posts.Where(x => x.Id == imageId).First().CommentsCount);
+        }
     }
 }
 

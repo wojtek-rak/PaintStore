@@ -32,6 +32,20 @@ namespace PaintStoreBackEnd.Tests
             controller.RemoveCommentLike(new CommentLikes { Id = 1 });
             mock.Verify(m => m.SaveChanges(), Times.Once());
         }
+        [Test]
+        public void RemoveCommentLikeCountingTest()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+            var commentId = 1;
+            var expectedLikeCountInt = mock.Object.PostComments.Where(x => x.Id == commentId).First().LikeCount;
+
+            var controller = new CommentLikeRemoveController(mock.Object);
+            controller.RemoveCommentLike(new CommentLikes { Id = 1 });
+            mock.Verify(m => m.SaveChanges(), Times.Once());
+
+            Assert.AreEqual(expectedLikeCountInt - 1, mock.Object.PostComments.Where(x => x.Id == commentId).First().LikeCount);
+        }
     }
 }
 

@@ -37,20 +37,20 @@ namespace PaintStoreBackEnd.Tests
                 new Accounts { Id = 2, CreationDate = DateTime.Now, Email = "zosia@kreska.pl", PasswordHash = "eWDs@daDSAdsFSFSAE" }}.AsQueryable();
 
             var mockDataUsers = new List<Users> {
-                new Users { Id = 1, Name = "Kasia", Link = "kasialink", AvatarImgLink = "appa", BackgroundImgLink = "bappa", About = "xD", AccountId = 1, FollowedCount = 1, FollowingCount = 0},
-                new Users { Id = 2, Name = "Zosia", Link = "tosialink", AvatarImgLink = "2appa", BackgroundImgLink = "2bappa", About = "2xD", AccountId = 2, FollowedCount = 0, FollowingCount = 1}}.AsQueryable();
+                new Users { Id = 1, Name = "Kasia", Link = "kasialink", AvatarImgLink = "appa", BackgroundImgLink = "bappa", About = "xD", AccountId = 1, FollowedCount = 1, FollowingCount = 0, PostsCount = 1},
+                new Users { Id = 2, Name = "Zosia", Link = "tosialink", AvatarImgLink = "2appa", BackgroundImgLink = "2bappa", About = "2xD", AccountId = 2, FollowedCount = 0, FollowingCount = 1, PostsCount = 3}}.AsQueryable();
 
             var mockDataComments = new List<PostComments> {
-                new PostComments { Id = 1, CreationDate = DateTime.Now, Content = "Ale Kom", PostId = 2, UserId = 2 },
-                new PostComments { Id = 2, CreationDate = DateTime.Now, Content = "Ale Kom", PostId = 3, UserId = 2  },
-                new PostComments { Id = 3, CreationDate = DateTime.Now, Content = "Ale Kom", PostId = 3, UserId = 2  },
-                new PostComments { Id = 4, CreationDate = DateTime.Now, Content = "Ale Kom", PostId = 4, UserId = 2  }}.AsQueryable();
+                new PostComments { Id = 1, CreationDate = DateTime.Now, Content = "Ale Kom", PostId = 2, UserId = 2, LikeCount = 2 },
+                new PostComments { Id = 2, CreationDate = DateTime.Now, Content = "Ale Kom", PostId = 3, UserId = 2, LikeCount = 1  },
+                new PostComments { Id = 3, CreationDate = DateTime.Now, Content = "Ale Kom", PostId = 3, UserId = 2, LikeCount = 0  },
+                new PostComments { Id = 4, CreationDate = DateTime.Now, Content = "Ale Kom", PostId = 4, UserId = 2, LikeCount = 0  }}.AsQueryable();
 
             var mockDataImages = new List<Posts> {
-                new Posts { Id = 1, Title = "zaden", CategoryTypeId = null, CategoryToolId = 1, ImgLink = "link1", CreationDate = DateTime.Today, Description = "Desc1", UserOwnerName = "Zosia", UserId = 2 },
-                new Posts { Id = 2, Title = "Najnowszy", CategoryTypeId = 2, CategoryToolId = null, ImgLink = "link2", CreationDate = DateTime.Now, Description = "Desc2", UserOwnerName = "Kasia", UserId = 1 },
-                new Posts { Id = 3,  Title = "Najkomentowszy", CategoryTypeId = 2, CategoryToolId = 2, ImgLink = "link3", CreationDate = DateTime.Today, Description = "Desc3", UserOwnerName = "Zosia", UserId = 2  },
-                new Posts { Id = 4,  Title = "comm bez lików", CategoryTypeId = null, CategoryToolId = null, ImgLink = "link4", CreationDate = DateTime.Today, Description = "Desc4", UserOwnerName = "Zosia", UserId = 2  } }.AsQueryable();
+                new Posts { Id = 1, Title = "zaden", CategoryTypeId = null, CategoryToolId = 1, ImgLink = "link1", CreationDate = DateTime.Today, Description = "Desc1", UserId = 2, LikeCount = 2, CommentsCount = 0},
+                new Posts { Id = 2, Title = "Najnowszy", CategoryTypeId = 2, CategoryToolId = null, ImgLink = "link2", CreationDate = DateTime.Now, Description = "Desc2",  UserId = 1 , LikeCount = 1, CommentsCount = 1},
+                new Posts { Id = 3,  Title = "Najkomentowszy", CategoryTypeId = 2, CategoryToolId = 2, ImgLink = "link3", CreationDate = DateTime.Today, Description = "Desc3", UserId = 2 , LikeCount = 0, CommentsCount = 2 },
+                new Posts { Id = 4,  Title = "comm bez lików", CategoryTypeId = null, CategoryToolId = null, ImgLink = "link4", CreationDate = DateTime.Today, Description = "Desc4", UserId = 2  , LikeCount = 1, CommentsCount = 1} }.AsQueryable();
 
             var mockDataCategoryType = new List<CategoryTypes> {
                 new CategoryTypes { Id = 1, TypeName = "pose", Count = 0 },

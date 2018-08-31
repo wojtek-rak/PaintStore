@@ -57,7 +57,7 @@ namespace backEnd.Models
             modelBuilder.Entity<CategoryTools>(entity =>
             {
                 entity.HasIndex(e => e.ToolName)
-                    .HasName("UQ__Category__006DA271FD08A9C0")
+                    .HasName("UQ__Category__006DA27122153F13")
                     .IsUnique();
 
                 entity.Property(e => e.ToolName)
@@ -69,7 +69,7 @@ namespace backEnd.Models
             modelBuilder.Entity<CategoryTypes>(entity =>
             {
                 entity.HasIndex(e => e.TypeName)
-                    .HasName("UQ__Category__D4E7DFA8DA52CB97")
+                    .HasName("UQ__Category__D4E7DFA86EAD0395")
                     .IsUnique();
 
                 entity.Property(e => e.TypeName)
@@ -85,6 +85,8 @@ namespace backEnd.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.CreationDate).HasColumnType("date");
+
+                entity.Property(e => e.LikeCount).HasDefaultValueSql("('0')");
             });
 
             modelBuilder.Entity<Posts>(entity =>
@@ -122,7 +124,7 @@ namespace backEnd.Models
             modelBuilder.Entity<Users>(entity =>
             {
                 entity.HasIndex(e => e.AccountId)
-                    .HasName("UQ__Users__349DA5A78780EEA4")
+                    .HasName("UQ__Users__349DA5A7A2EB228F")
                     .IsUnique();
 
                 entity.Property(e => e.About)
@@ -144,6 +146,8 @@ namespace backEnd.Models
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .IsUnicode(false);
+
+                entity.Property(e => e.PostsCount).HasDefaultValueSql("('0')");
             });
         }
     }

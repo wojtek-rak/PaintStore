@@ -48,6 +48,8 @@ namespace backEnd
                     stringBuilder.Append(comm.CreationDate);
                     stringBuilder.Append(", ");
                     stringBuilder.Append(comm.Content);
+                    stringBuilder.Append(", ");
+                    stringBuilder.Append(comm.LikeCount);
                     stringBuilder.Append(" }");
                     list.Add(stringBuilder.ToString());
                     stringBuilder.Clear();
@@ -169,6 +171,8 @@ namespace backEnd
                     stringBuilder.Append(comm.Link);
                     stringBuilder.Append(", ");
                     stringBuilder.Append(comm.About);
+                    stringBuilder.Append(", ");
+                    stringBuilder.Append(comm.PostsCount);
                     stringBuilder.Append(", ");
                     stringBuilder.Append(comm.FollowedCount);
                     stringBuilder.Append(", ");

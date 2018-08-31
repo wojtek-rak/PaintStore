@@ -17,7 +17,7 @@ namespace backEnd.Controllers.CategoryControllers
         public static PostComments CommentLikesCountMinus(PaintStoreContext db, int id)
         {
             var countTool = db.PostComments.Where(x => x.Id == id).First();
-            countTool.LikeCount += 1;
+            countTool.LikeCount -= 1;
             return countTool;
         }
     }

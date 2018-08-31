@@ -30,7 +30,7 @@ namespace PaintStoreBackEnd.Tests
             var mock = init.mock;
 
             var controller = new ImageAddController(mock.Object);
-            controller.AddImage(new Posts { Title = "tests", CategoryTypeId = 1, CategoryToolId = 1, ImgLink = "jakis test link", CreationDate = DateTime.Now, Description = "testowy opis", UserOwnerName = "tester" });
+            controller.AddImage(new Posts { Title = "tests", CategoryTypeId = 1, CategoryToolId = 1, ImgLink = "jakis test link", CreationDate = DateTime.Now, Description = "testowy opis", UserId = 1 });
             init.mockSetImages.Verify(m => m.Add(It.IsAny<Posts>()), Times.Once());
             mock.Verify(m => m.SaveChanges(), Times.Once());
         }

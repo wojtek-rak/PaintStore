@@ -26,15 +26,13 @@ namespace PaintStoreBackEnd.Tests
         [Test]
         public void AddCommentLikeTest()
         {
-            var mockSet = new Mock<DbSet<CommentLikes>>();
+            var init = new InitializeMockContext();
+            var mock = init.mock;
 
-            var mockContext = new Mock<PaintStoreContext>();
-            mockContext.Setup(m => m.CommentLikes).Returns(mockSet.Object);
-
-            var controller = new CommentLikeAddController(mockContext.Object);
-            controller.AddCommentLike(new CommentLikes {  });
-            mockSet.Verify(m => m.Add(It.IsAny<CommentLikes>()), Times.Once());
-            mockContext.Verify(m => m.SaveChanges(), Times.Once());
+            var controller = new CommentLikeAddController(mock.Object);
+            controller.AddCommentLike(new CommentLikes { UserId = 1, CommentId = 1 });
+            init.mockSetCommentLikes.Verify(m => m.Add(It.IsAny<CommentLikes>()), Times.Once());
+            mock.Verify(m => m.SaveChanges(), Times.Once());
         }
         [Test]
         public void AddCommentLikeCountingTest()

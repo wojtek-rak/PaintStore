@@ -23,6 +23,7 @@ namespace backEnd.Controllers.CommentsControllers
         {
             using(var db = paintStoreContext)
             {
+                UsersManager.UserPostsCountPlus(db, post.UserId);
                 if(post.CategoryToolId != null)
                 {
                     CategoryManager.CategoryToolCountPlus(db, post.CategoryToolId);

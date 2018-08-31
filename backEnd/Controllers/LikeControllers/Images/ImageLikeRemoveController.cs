@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using backEnd.Controllers.CategoryControllers;
 using backEnd.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,8 @@ namespace backEnd.Controllers.LikeControllers.Comment
         [HttpPost]
         public PostLikes RemoveImageLike([FromBody] PostLikes like)
         {
+            ImagesManager.ImageLikesCountMinus(paintStoreContext, paintStoreContext.PostLikes.
+                Where(x => x.Id == like.Id).First().PostId);
             paintStoreContext.PostLikes.Remove(paintStoreContext.PostLikes.
                 Where(x => x.Id == like.Id).First());
             var count = paintStoreContext.SaveChanges();

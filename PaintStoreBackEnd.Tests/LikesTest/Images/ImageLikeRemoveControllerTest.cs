@@ -44,7 +44,7 @@ namespace PaintStoreBackEnd.Tests
             controller.RemoveImageLike(new PostLikes { Id = 1 });
             mock.Verify(m => m.SaveChanges(), Times.Once());
 
-            Assert.AreEqual(expectedLikeCountInt - 1, mock.Object.PostComments.Where(x => x.Id == imageId).First().LikeCount);
+            Assert.AreEqual(expectedLikeCountInt - 1, mock.Object.Posts.Where(x => x.Id == imageId).First().LikeCount);
         }
     }
 }

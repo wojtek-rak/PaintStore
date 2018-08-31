@@ -26,6 +26,8 @@ namespace backEnd.Controllers.LikeControllers.Comment
             var tempPost = paintStoreContext.Posts.Where(
                x => x.Id == post.Id).First();
 
+            UsersManager.UserPostsCountMinus(paintStoreContext, tempPost.UserId);
+
             if (tempPost.CategoryToolId != null)
             {
                 CategoryManager.CategoryToolCountMinus(paintStoreContext, tempPost.CategoryToolId);

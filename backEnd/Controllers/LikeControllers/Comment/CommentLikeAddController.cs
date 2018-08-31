@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using backEnd.Controllers.CategoryControllers;
 using backEnd.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,7 @@ namespace backEnd.Controllers.LikeControllers.Comment
         [HttpPost]
         public CommentLikes AddCommentLike([FromBody] CommentLikes like)
         {
+            CommentsManager.CommentLikesCountPlus(paintStoreContext, like.CommentId);
             paintStoreContext.CommentLikes.Add(like);
             var count = paintStoreContext.SaveChanges();
             return like;

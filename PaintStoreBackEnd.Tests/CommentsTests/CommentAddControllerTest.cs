@@ -25,15 +25,13 @@ namespace PaintStoreBackEnd.Tests
         [Test]
         public void AddCommentTest()
         {
-            var mockSet = new Mock<DbSet<PostComments>>();
+            var init = new InitializeMockContext();
+            var mock = init.mock;
 
-            var mockContext = new Mock<PaintStoreContext>();
-            mockContext.Setup(m => m.PostComments).Returns(mockSet.Object);
-
-            var controller = new CommentAddController(mockContext.Object);
+            var controller = new CommentAddController(mock.Object);
             controller.AddComment(new PostComments { CreationDate = DateTime.Now, Content = "Testowy Komentarz", PostId = 1, UserId = 1 });
-            mockSet.Verify(m => m.Add(It.IsAny<PostComments>()), Times.Once());
-            mockContext.Verify(m => m.SaveChanges(), Times.Once());
+            init.mockSetComments.Verify(m => m.Add(It.IsAny<PostComments>()), Times.Once());
+            mock.Verify(m => m.SaveChanges(), Times.Once());
         }
 
         [Test]

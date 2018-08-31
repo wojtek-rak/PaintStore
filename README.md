@@ -82,7 +82,7 @@ Output:       Post
 ```
 #### Add Post
 ```
-PostRequest:   api/AddImage
+PostRequest:   api/ImageAdd
 Post:          Post 
 Output:        Post 
 ```
@@ -91,6 +91,12 @@ Output:        Post
 PostRequest:  api/ImageRemove
 Post:         Post (ID)
 Output:       Post 
+```
+#### Edit Post
+```
+PostRequest:   api/ImageEdit
+Post:          Post (ID, and prop you want edit, (you can edit: Title, Description, CategoryToolId, CategoryTypeId))
+Output:        Post 
 ```
 #### Get all posts
 ```
@@ -223,6 +229,21 @@ Category
 PostRequest: api/CategoryGetAdd
 Category:    Category ( "TypeName" or "ToolName")
 Output:      CategoryType or CategoryTool
+```
+
+User Followers
+------
+#### Add Follow
+```
+PostRequest: api/FollowersAdd
+Follow:      Follow 
+Output:      Follow 
+```
+#### Remove Follow
+```
+PostRequest: api/FollowersRemove
+Follow:      Follow ( ID )
+Output:      Follow
 ```
 
 

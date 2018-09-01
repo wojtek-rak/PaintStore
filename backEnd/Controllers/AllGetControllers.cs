@@ -184,6 +184,31 @@ namespace backEnd
             }
             return list;
         }
+
+        [HttpGet("{imagdaess}/{idassmg}/{lidaskess}/{commadssents}/{usedars}/{acc}")]
+        public IEnumerable<String> GetAllAccount()
+        {
+            List<String> list = new List<String>();
+            StringBuilder stringBuilder = new StringBuilder();
+            using (var db = paintStoreContext)
+            {
+                foreach (var comm in db.Accounts)
+                {
+                    stringBuilder.Append("{ ");
+                    stringBuilder.Append(comm.Id);
+                    stringBuilder.Append(", ");
+                    stringBuilder.Append(comm.Email);
+                    stringBuilder.Append(", ");
+                    stringBuilder.Append(comm.PasswordHash);
+                    stringBuilder.Append(", ");
+                    stringBuilder.Append(comm.CreationDate);
+                    stringBuilder.Append(" }");
+                    list.Add(stringBuilder.ToString());
+                    stringBuilder.Clear();
+                }
+            }
+            return list;
+        }
     }
 }
 

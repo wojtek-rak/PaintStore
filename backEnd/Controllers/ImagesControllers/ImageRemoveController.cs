@@ -7,7 +7,7 @@ using backEnd.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace backEnd.Controllers.LikeControllers.Comment
+namespace backEnd.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]

@@ -42,7 +42,7 @@ Output:           Data type (application/json)
 
 Comments
 ------
-#### Get image's comments
+#### Get image's comments (sorted by likes)
 ```
 PostRequest:  api/CommentsGet 
 Post:         ImgLink 

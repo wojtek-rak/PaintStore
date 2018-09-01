@@ -158,6 +158,12 @@ PostRequest:  api/AccountEdit
 Account:      Account (ID and prop you want to edit (cannot edit CreationDate and id))
 Output:       Account 
 ```
+#### Remove account
+```
+PostRequest:  api/AccountRemove
+Account:      Account (ID and passwordHash)
+Output:       Account 
+```
 
 User
 ------

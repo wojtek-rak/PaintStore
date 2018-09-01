@@ -42,7 +42,7 @@ Output:           Data type (application/json)
 
 Comments
 ------
-#### Get image's comments
+#### Get image's comments (sorted by likes)
 ```
 PostRequest:  api/CommentsGet 
 Post:         ImgLink 
@@ -79,6 +79,12 @@ Output:       Image (with properties from Models/UploadModels
 PostRequest:  api/ImageGet
 Post:         ImgLink
 Output:       Post
+```
+#### Get Post from follows (newest)
+```
+PostRequest:  api/ImagesFollowingGet
+Users:        Users ID
+Output:       Posts
 ```
 #### Add Post
 ```

@@ -27,7 +27,7 @@ namespace backEnd.Controllers
         {
             using (var db = paintStoreContext)
             {
-                var comments = db.PostComments.Where(b => b.PostId == post.Id);
+                var comments = db.PostComments.Where(b => b.PostId == post.Id).OrderByDescending(x => x.LikeCount);
                 return comments.ToList();
             }
 

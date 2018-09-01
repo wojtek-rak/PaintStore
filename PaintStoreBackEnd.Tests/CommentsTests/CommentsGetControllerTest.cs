@@ -25,11 +25,24 @@ namespace PaintStoreBackEnd.Tests
         public void GetCommentTests()
         {
 
-            var mock = InitializeMockContext.InitMock();
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
             var controller = new CommentsGetController(mock.Object);
             var result = controller.GetComments(new Posts { Id = 3 }).Count();
             var expected = 2;
             Assert.AreEqual(expected, result);
+        }
+        [Test]
+        public void GetCommentMostPopularTests()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var controller = new CommentsGetController(mock.Object);
+            var result = controller.GetComments(new Posts { Id = 3 }).First();
+            var expected = 1;
+            Assert.AreEqual(expected, result.LikeCount);
         }
     }
 }

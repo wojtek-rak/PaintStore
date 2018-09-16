@@ -25,11 +25,10 @@ namespace backEnd.Controllers.CommentsControllers
         {
             using (var db = paintStoreContext)
             {
-                var accountToRemove = db.Accounts.Where(x => x.Id == account.Id).First();
-                if (account.PasswordHash == db.Accounts.
-                    Where(x => x.Id == account.Id).First().PasswordHash)
+                var accountToRemove = db.Accounts.First(x => x.Id == account.Id);
+                if (account.PasswordHash == db.Accounts.First(x => x.Id == account.Id).PasswordHash)
                 {
-                    var userToRemove = db.Users.Where(x => x.AccountId == accountToRemove.Id).First();
+                    var userToRemove = db.Users.First(x => x.AccountId == accountToRemove.Id);
                     var postRemover = new ImageRemoveController(db);
 
                     foreach(var post in db.Posts.Where(x => x.UserId == userToRemove.Id))
@@ -51,7 +50,7 @@ namespace backEnd.Controllers.CommentsControllers
                 }
                 else
                 {
-                    return new Accounts { PasswordHash = "Password incorect" };
+                    return new Accounts { PasswordHash = "Password incorrect" };
                 }
             }
         }

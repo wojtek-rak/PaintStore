@@ -28,11 +28,20 @@ namespace PaintStoreBackEnd.Tests
             var mock = InitializeMockContext.InitMock();
 
             var controller = new UserEditController(mock.Object);
-            var expectedString = "Testowy Komentarz";
-            var editedUser = controller.EditUser(new Users { Id = 1, AvatarImgLink = expectedString });
+            var expectedAvatarImgLink = "Testowy Komentarz";
+            var expectedAbout = "abouut";
+            var expectedBackgroundImgLink = "bacckgf";
+            var expectedName = "namee";
+            var expectedLink = "linkdd";
+            var editedUser = controller.EditUser(new Users { Id = 1, AvatarImgLink = expectedAvatarImgLink,
+                About = expectedAbout, BackgroundImgLink = expectedBackgroundImgLink, Name = expectedName, Link = expectedLink});
 
             mock.Verify(m => m.SaveChanges(), Times.Once());
-            Assert.AreEqual(expectedString, editedUser.AvatarImgLink);
+            Assert.AreEqual(expectedAvatarImgLink, editedUser.AvatarImgLink);
+            Assert.AreEqual(expectedAbout, editedUser.About);
+            Assert.AreEqual(expectedBackgroundImgLink, editedUser.BackgroundImgLink);
+            Assert.AreEqual(expectedName, editedUser.Name);
+            Assert.AreEqual(expectedLink, editedUser.Link);
         }
     }
 }

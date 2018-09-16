@@ -23,11 +23,11 @@ namespace backEnd.Controllers.CommentsControllers
         public Accounts EditAccount([FromBody] Accounts account)
         {
             //todo better
-            var accountToUptade = paintStoreContext.Accounts.Where(x => x.Id == account.Id).First();
-            if (account.Email != null) accountToUptade.Email = account.Email;
-            if (account.PasswordHash != null) accountToUptade.PasswordHash = account.PasswordHash;
+            var accountToUpdate = paintStoreContext.Accounts.First(x => x.Id == account.Id);
+            if (account.Email != null) accountToUpdate.Email = account.Email;
+            if (account.PasswordHash != null) accountToUpdate.PasswordHash = account.PasswordHash;
             var count = paintStoreContext.SaveChanges();
-            return accountToUptade;
+            return accountToUpdate;
         }
     }
 }

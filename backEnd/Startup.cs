@@ -57,7 +57,10 @@ namespace backEnd
             });
 
             services.AddDbContext<PaintStoreContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("PaintStoreDatabase")));
+                options.UseSqlite("Data Source=PaintStore.db"));
+            //services.AddDbContext<PaintStoreContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("PaintStoreDatabase")));
+
             services.AddSingleton<ISaveImage, SaveImage>();
 
             // Inject AppIdentitySettings so that others can use too

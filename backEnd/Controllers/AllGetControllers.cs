@@ -18,7 +18,7 @@ using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
     ///  FOR TESTING!!!!!
     /// </summary>
 
-namespace backEnd
+namespace backEnd.ControllersForTesting
 {
     [Route("api/[controller]")]
     public class AllGetController : Controller

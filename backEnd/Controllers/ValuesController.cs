@@ -12,7 +12,7 @@ using System.Net;
 /// <summary>
 ///  FOR TESTING!!!!!!!!!!!!!!!!!!!!!!!!!!
 /// </summary>
-namespace backEnd.Controllers
+namespace backEnd.ControllersForTesting
 {
     [Route("api/[controller]")]
     //[EnableCors(origins: "http://mywebclient.azurewebsites.net", headers: "*", methods: "*")]

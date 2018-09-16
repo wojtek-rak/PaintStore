@@ -30,11 +30,13 @@ namespace PaintStoreBackEnd.Tests
             var mock = init.mock;
 
             var controller = new AccountEditController(mock.Object);
-            var expectedString = "Testowy Komentarz";
-            var editedUser = controller.EditAccount(new Accounts { Id = 1, Email = expectedString });
+            var expectedEmail = "Testowy Komentarz";
+            var expectedHash = "hashSW@";
+            var editedUser = controller.EditAccount(new Accounts { Id = 1, Email = expectedEmail, PasswordHash = expectedHash });
 
             mock.Verify(m => m.SaveChanges(), Times.Once());
-            Assert.AreEqual(expectedString, editedUser.Email);
+            Assert.AreEqual(expectedEmail, editedUser.Email);
+            Assert.AreEqual(expectedHash, editedUser.PasswordHash);
         }
     }
 }

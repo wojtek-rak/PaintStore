@@ -29,9 +29,13 @@ namespace PaintStoreBackEnd.Tests
 
             var controller = new ImageEditController(mock.Object);
             var expectedInt = 2;
-            var editedPost = controller.EditPost(new Posts { Id = 1, CategoryToolId = expectedInt });
+            var expectedDesc = "exp";
+            var expectedTitle = "Titl";
+            var editedPost = controller.EditPost(new Posts { Id = 1, CategoryToolId = expectedInt, Description = expectedDesc, Title = expectedTitle});
             mock.Verify(m => m.SaveChanges(), Times.Once());
             Assert.AreEqual(expectedInt, editedPost.CategoryToolId);
+            Assert.AreEqual(expectedTitle, editedPost.Title);
+            Assert.AreEqual(expectedDesc, editedPost.Description);
             Assert.AreEqual(null, editedPost.CategoryTypeId);
         }
 

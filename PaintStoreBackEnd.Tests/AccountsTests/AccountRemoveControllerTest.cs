@@ -46,7 +46,7 @@ namespace PaintStoreBackEnd.Tests
 
             var controller = new AccountRemoveController(mock.Object);
             var removeAccountt = controller.RemoveAccount(new Accounts { Id = 1, PasswordHash = "!@#sawdasd" });
-            var expectedMsg = "Password incorect";
+            var expectedMsg = "Password incorrect";
             Assert.AreEqual(expectedMsg, removeAccountt.PasswordHash);
         }
     }

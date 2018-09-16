@@ -22,10 +22,10 @@ namespace backEnd.Models
         public PaintStoreContext(DbContextOptions<PaintStoreContext> options) : base(options)
         {
         }
-        public PaintStoreContext(string connectionString)
-        {
-            ConnString = connectionString;
-        }
+        //public PaintStoreContext(string connectionString)
+        //{
+        //    ConnString = connectionString;
+        //}
         public PaintStoreContext()
         {
         }
@@ -34,7 +34,8 @@ namespace backEnd.Models
             if (!optionsBuilder.IsConfigured)
             {
                 //To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer(ConnString);
+                //optionsBuilder.UseSqlServer(ConnString);
+                optionsBuilder.UseSqlite("Data Source=PaintStore.db");
             }
         }
 

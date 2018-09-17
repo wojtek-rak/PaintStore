@@ -33,7 +33,7 @@ namespace backEnd.Controllers
                 foreach (var comment in comments)
                 {
                     var userAvatarImgLink = db.Users.First(x => x.Id == comment.UserId).AvatarImgLink;
-                    commentsResult.Add(new PostCommentsResult(comment){UserOwnerImgLink = userAvatarImgLink});
+                    commentsResult.Add(new PostCommentsResult(comment){UserAvatarImgLink = userAvatarImgLink});
                 }
                 return commentsResult;
             }

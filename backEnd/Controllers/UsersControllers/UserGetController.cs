@@ -23,7 +23,7 @@ namespace backEnd.Controllers
         {
             using (var db = paintStoreContext)
             {
-                var userToGet = db.Users.Where(b => b.Link == user.Link);
+                var userToGet = db.Users.Where(b => b.Id == user.Id);
                 return userToGet.ToList();
             }
 

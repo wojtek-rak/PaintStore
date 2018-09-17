@@ -83,7 +83,7 @@ Output:       PostDetailsResult
 #### Get Post from follows (newest)
 ```
 PostRequest:  api/ImagesFollowingGet
-Users:        Users ID
+Users:        ID
 Output:       PostsResult
 ```
 #### Add Post

@@ -170,13 +170,13 @@ User
 #### Get user
 ```
 PostRequest:  api/UserGet
-User:         Link
+User:         Id
 Output:       User 
 ```
 #### Get user's images
 ```
 PostRequest:  api/UserImagesGet
-User:         OwnerPath 
+User:         Id 
 Output:       Images 
 ```
 #### Add user

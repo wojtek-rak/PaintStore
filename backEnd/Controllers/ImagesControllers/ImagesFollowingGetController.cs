@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using backEnd.Models;
+using backEnd.Models.ResultsModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,8 +20,9 @@ namespace backEnd.Controllers
         }
 
         [HttpPost]
-        public IEnumerable<Posts> GetImages([FromBody] Users user)
+        public IEnumerable<PostsResults> GetImages([FromBody] Users user)
         {
+            List<PostsResults> imagesResult = new List<PostsResults>();
             using (var db = paintStoreContext)
             {
                 //IQueryable<Posts> images = null;
@@ -29,7 +31,12 @@ namespace backEnd.Controllers
                     Where(y => y.FollowingUserId == user.Id).
                     Select(z => z.FollowedUserId).Contains(x.UserId)).
                     OrderByDescending(x => x.CreationDate);
-                return images.ToList();
+                foreach (var image in images)
+                {
+                    var userOwnerImgLink = db.Users.First(x => x.Id == image.UserId).AvatarImgLink;
+                    imagesResult.Add(new PostsResults(image){UserOwnerImgLink = userOwnerImgLink});
+                }
+                return imagesResult;
             }
 
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using backEnd.Models;
+using backEnd.Models.ResultsModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,12 +20,12 @@ namespace backEnd.Controllers.ImagesControllers
         }
 
         [HttpPost]
-        public IEnumerable<Posts> GetImagesByCategory([FromBody] Message message)
+        public IEnumerable<PostsResults> GetImagesByCategory([FromBody] Message message)
         {
             using (var db = paintStoreContext)
             {
 
-
+                List<PostsResults> imagesResult = new List<PostsResults>();
                 IQueryable<Posts> images = null;
                 if (message.Properties == "type")
                 {
@@ -46,7 +47,12 @@ namespace backEnd.Controllers.ImagesControllers
                         Where(x => x.CategoryToolId == db.CategoryTools.
                         Where(y => y.ToolName == message.CategoryTool).First().Id);
                 }
-                return images.ToList();
+                foreach (var image in images)
+                {
+                    var userOwnerImgLink = db.Users.First(x => x.Id == image.UserId).AvatarImgLink;
+                    imagesResult.Add(new PostsResults(image){UserOwnerImgLink = userOwnerImgLink});
+                }
+                return imagesResult;
 
             }
 

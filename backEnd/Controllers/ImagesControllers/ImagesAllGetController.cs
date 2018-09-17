@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using backEnd.Interfaces;
 using backEnd.Models;
+using backEnd.Models.ResultsModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,21 +21,26 @@ namespace backEnd.Controllers
         }
 
         [HttpPost]
-        public IEnumerable<Posts> GetAllImages([FromBody] Message message)
+        public IEnumerable<PostsResults> GetAllImages([FromBody] Message message)
         {
             using (var db = paintStoreContext)
             {
-                IQueryable<Posts> images = null;
+                List<PostsResults> imagesResult = new List<PostsResults>();
+                IQueryable<IPosts> images = null;
                 if (message.Properties == "most_popular")
                 {
-                    
-                    images = db.Posts.OrderByDescending(y => (db.PostComments.Where(x => x.PostId == y.Id).Count()));
+                    images = db.Posts.OrderByDescending(y => (db.PostComments.Count(x => x.PostId == y.Id)));
                 }
                 if (message.Properties == "the_newest")
                 {
-                     images = db.Posts.OrderByDescending(x => x.CreationDate);
+                    images = db.Posts.OrderByDescending(x => x.CreationDate);
                 }
-                return images.ToList();
+                foreach (var image in images)
+                {
+                    var userOwnerImgLink = db.Users.First(x => x.Id == image.UserId).AvatarImgLink;
+                    imagesResult.Add(new PostsResults(image){UserOwnerImgLink = userOwnerImgLink});
+                }
+                return imagesResult;
             }
 
         }

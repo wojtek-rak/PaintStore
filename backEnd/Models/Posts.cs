@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using backEnd.Interfaces;
 
 namespace backEnd.Models
 {
-    public partial class Posts
+    public partial class Posts : IPosts
     {
         public int Id { get; set; }
         public int UserId { get; set; }

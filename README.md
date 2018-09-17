@@ -125,22 +125,22 @@ PostRequest: api/ImagesGetByCategory
 + both category </br>
 ```
 Message Properties: "both" 
-Message Category_type: CategoryType 
-Message Category_tool: CategoryTool 
+Message CategoryType: CategoryType 
+Message CategoryTool: CategoryTool 
 Output: Posts with given categories 
 ```
 + tool category </br>
 ```
 Message Properties: "tool" 
-Message Category_type: "" 
-Message Category_tool: CategoryTool 
+Message CategoryType: "" 
+Message CategoryTool: CategoryTool 
 Output: Posts with given category 
 ```
 + type category </br>
 ```
 Message Properties: "type"
-Message Category_type: CategoryType
-Message Category_tool: "" 
+Message CategoryType: CategoryType
+Message CategoryTool: "" 
 Output: Posts with given category 
 ```
 

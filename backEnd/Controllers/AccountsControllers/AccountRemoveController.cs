@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Akka.Actor;
+using Akka.DI.Core;
+using backEnd.Actors;
+using backEnd.Actors.Messages;
+using backEnd.Actors.RemoveActors;
 using backEnd.Controllers.LikeControllers.Comment;
 using backEnd.Models;
 using Microsoft.AspNetCore.Http;
@@ -14,10 +19,13 @@ namespace backEnd.Controllers.CommentsControllers
     public class AccountRemoveController : Controller
     {
         private readonly PaintStoreContext paintStoreContext;
+        private readonly ActorSystem actorSystem;
+        private readonly FollowersRemoveController followersRemoveController;
 
-        public AccountRemoveController(PaintStoreContext ctx)
+        public AccountRemoveController(PaintStoreContext ctx, ActorSystem _actorSystem, FollowersRemoveController followersRemoveController)
         {
             paintStoreContext = ctx;
+            actorSystem = _actorSystem;
         }
 
         [HttpPost]
@@ -25,6 +33,11 @@ namespace backEnd.Controllers.CommentsControllers
         {
             using (var db = paintStoreContext)
             {
+                
+                var mySupervisorActor = actorSystem.ActorOf(actorSystem.DI().Props<RemoveSupervisorActor>(), "RemoveSupervisorActor");
+                mySupervisorActor.Tell(new StartSupervisorMessage(account));
+                //var actor = actorSystem.ActorOf(Props.Create(() => new RemoveAccountActor(db)));
+
                 var accountToRemove = db.Accounts.First(x => x.Id == account.Id);
                 if (account.PasswordHash == db.Accounts.First(x => x.Id == account.Id).PasswordHash)
                 {
@@ -36,11 +49,10 @@ namespace backEnd.Controllers.CommentsControllers
                         postRemover.PostRemove(post);
                     }
 
-                    var followRemover = new FollowersRemoveController(db);
                     foreach (var follow in db.UserFollowers.
                         Where(x => x.FollowedUserId == userToRemove.Id || x.FollowingUserId == userToRemove.Id))
                     {
-                        followRemover.FollowRemove(follow);
+                        followersRemoveController.FollowRemove(follow);
                     }
                     var userRemove = db.Users.Remove(userToRemove);
                     var accountRemove = db.Accounts.Remove(accountToRemove);

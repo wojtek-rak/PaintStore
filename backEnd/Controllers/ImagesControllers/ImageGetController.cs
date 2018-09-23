@@ -31,7 +31,7 @@ namespace backEnd.Controllers
                     var categoryTypeName = post.CategoryTypeId == null ? null : 
                         db.CategoryTypes.First(x => x.Id == post.CategoryTypeId).TypeName;
                     var categoryToolName = post.CategoryToolId == null ? null : 
-                        db.CategoryTools.First(x => x.Id == post.CategoryTypeId).ToolName;
+                        db.CategoryTools.First(x => x.Id == post.CategoryToolId).ToolName;
                     postDetailsResult.Add(new PostDetailsResult(post)
                     {
                         CreationDate = post.CreationDate,

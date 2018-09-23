@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Akka.Actor;
+using Akka.DI.Core;
+using backEnd.Actors.Messages;
+using backEnd.Actors.RemoveActors;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -62,12 +66,16 @@ namespace backEnd
             //    options.UseSqlServer(Configuration.GetConnectionString("PaintStoreDatabase")));
 
             services.AddSingleton<ISaveImage, SaveImage>();
-
+            services.AddScoped<RemoveSupervisorActor>();
+            services.AddScoped<RemoveAccountActor>();
             // Inject AppIdentitySettings so that others can use too
+            var system = ActorSystem.Create("PSActorSystem");
+
+            services.AddSingleton<ActorSystem>(system);
             services.AddTransient<Account>(s => new Account(settings.CouldName, settings.ApiKey, settings.SecretApiKey));
             services.AddMvc().AddJsonOptions(
             options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-        );
+            ).AddControllersAsServices();
 
 
         }

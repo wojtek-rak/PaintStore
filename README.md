@@ -45,8 +45,8 @@ Comments
 #### Get image's comments (sorted by likes)
 ```
 PostRequest:  api/CommentsGet 
-Post:         ImgLink 
-Output:       PostComments 
+Post:         Id 
+Output:       PostCommentsResult 
 ```
 #### Add comment
 ```
@@ -77,14 +77,14 @@ Output:       Image (with properties from Models/UploadModels
 #### Get Post
 ```
 PostRequest:  api/ImageGet
-Post:         ImgLink
-Output:       Post
+Post:         Id
+Output:       PostDetailsResult
 ```
 #### Get Post from follows (newest)
 ```
 PostRequest:  api/ImagesFollowingGet
-Users:        Users ID
-Output:       Posts
+Users:        ID
+Output:       PostsResult
 ```
 #### Add Post
 ```
@@ -111,12 +111,12 @@ PostRequest: api/ImagesAllGet
 + the newest </br>
 ```
 Message Properties: "the_newest"
-Output:             Posts
+Output:             PostsResult
 ```
 + most popular </br>
 ```
 Message Properties: "most_popular"
-Output:              Posts 
+Output:              PostsResult 
 ```
 #### Get Posts by category
 ```
@@ -127,21 +127,21 @@ PostRequest: api/ImagesGetByCategory
 Message Properties: "both" 
 Message CategoryType: CategoryType 
 Message CategoryTool: CategoryTool 
-Output: Posts with given categories 
+Output: PostsResult with given categories 
 ```
 + tool category </br>
 ```
 Message Properties: "tool" 
 Message CategoryType: "" 
 Message CategoryTool: CategoryTool 
-Output: Posts with given category 
+Output: PostsResult with given category 
 ```
 + type category </br>
 ```
 Message Properties: "type"
 Message CategoryType: CategoryType
 Message CategoryTool: "" 
-Output: Posts with given category 
+Output: PostsResult with given category 
 ```
 
 Account
@@ -170,13 +170,13 @@ User
 #### Get user
 ```
 PostRequest:  api/UserGet
-User:         Link
+User:         Id
 Output:       User 
 ```
 #### Get user's images
 ```
 PostRequest:  api/UserImagesGet
-User:         OwnerPath 
+User:         Id 
 Output:       Images 
 ```
 #### Add user

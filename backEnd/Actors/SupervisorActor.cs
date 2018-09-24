@@ -19,10 +19,16 @@ namespace backEnd.Actors.RemoveActors
         //private IActorRef removeAccountActorRef;
         private IActorRef activityActorRef;
 
-        public SupervisorActor()
+        public SupervisorActor(IActorRef activActorRef)
         {
             
-            activityActorRef = activityActorRef;
+            activityActorRef = activActorRef;
+
+            Receive<UpdatePostActivityMessage>(message =>
+            {
+                originalSender = Sender;
+                activActorRef.Tell(message);
+            });
 
             //Receive<SupervisorMessage_RmImages>(message =>
             //{

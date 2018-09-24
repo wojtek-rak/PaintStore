@@ -107,7 +107,8 @@ namespace backEnd
                     // or use below code 
                 });
             });
-            services.AddScoped<ActivityManager>();
+
+            services.AddSingleton<IActivityManagerStartup, ActivityManager>();
             services.AddMvc().AddControllersAsServices();
             services.AddDbContext<PaintStoreContext>(options =>
                 options.UseSqlite("Data Source=PaintStore.db"));
@@ -135,7 +136,9 @@ namespace backEnd
             builder.Register<ActorSystem>(_ => actorSystem);
             //var dbContext = services.OfType<PaintStoreContext>();
             //var actorRemove = actorSystem.ActorOf(Props.Create(() => new RemoveAccountImagesActor()));
-            var actorSupervisor = actorSystem.ActorOf(Props.Create(() => new SupervisorActor()));
+            //var actorActivityManager
+            var actorActivity = actorSystem.ActorOf(Props.Create(() => new ActivityActor()));
+            var actorSupervisor = actorSystem.ActorOf(Props.Create(() => new SupervisorActor(actorActivity)));
             builder.Register<IActorRef>(c => actorSupervisor);
             builder.Populate(services);
             var container = builder.Build();
@@ -146,12 +149,15 @@ namespace backEnd
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IActivityManagerStartup activityManager, IServiceScopeFactory _scopeFactory)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+
+            activityManager.RunManager();
 
             app.UseCors("AllowAllOrigins");
 

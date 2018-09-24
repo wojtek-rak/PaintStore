@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -10,6 +11,9 @@ using Akka.Actor;
 using backEnd.Actors.Messages;
 using backEnd.Controllers;
 using backEnd.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -20,17 +24,25 @@ namespace backEnd.Actors
         public ActivityActor()
         {
 
-            Receive<StartChildImagesRmMessage>(message =>
+            Receive<UpdatePostActivityMessage>(message =>
             {
-                
-                foreach (var post in message.ctx.Posts.Where(x => x.UserId == message.UsersToRm.Id))
+                using (var db = new PaintStoreContext())
                 {
-                    ImageRemoveController.PostRemover(message.ctx, post);
+                    //TBD
+                    var post = db.Posts.First();
+                    post.MixedActivity = post.MixedActivity + 1;
+                    
+                    //comment in dev
+                    //db.SaveChanges();
                 }
-
                 Sender.Tell(new ChildSucceededMessage());
             });
+
+
+            
+            
         }
+
 
     }
 }

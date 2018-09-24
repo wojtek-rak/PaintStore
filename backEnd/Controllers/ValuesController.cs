@@ -18,6 +18,9 @@ namespace backEnd.ControllersForTesting
     //[EnableCors(origins: "http://mywebclient.azurewebsites.net", headers: "*", methods: "*")]
     public class ValuesController : Controller
     {
+        public ValuesController()
+        {
+        }
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
@@ -31,19 +34,6 @@ namespace backEnd.ControllersForTesting
         {
             return "value";
         }
-        // POST api/values
-        //[HttpPost]
-        //public Comments Post([FromBody] Comments comments)//[FromBody]string value)
-        //{
-        //    return comments;
-
-        //}
-        //[HttpPost("{id}")]
-        //public string Post2([FromBody] Comments comments, string id)//[FromBody]string value)
-        //{
-        //    return id;
-
-        //}
 
 
         // PUT api/values/5

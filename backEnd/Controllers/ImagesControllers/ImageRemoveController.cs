@@ -23,40 +23,45 @@ namespace backEnd.Controllers
         [HttpPost]
         public Posts PostRemove([FromBody] Posts post)
         {
-            var tempPost = paintStoreContext.Posts.Where(
-               x => x.Id == post.Id).First();
+            return PostRemover(paintStoreContext, post);
+        }
 
-            UsersManager.UserPostsCountMinus(paintStoreContext, tempPost.UserId);
+        public static Posts PostRemover(PaintStoreContext db, Posts post)
+        {
+            var tempPost = db.Posts.Where(
+                x => x.Id == post.Id).First();
+
+            UsersManager.UserPostsCountMinus(db, tempPost.UserId);
 
             if (tempPost.CategoryToolId != null)
             {
-                CategoryManager.CategoryToolCountMinus(paintStoreContext, tempPost.CategoryToolId);
+                CategoryManager.CategoryToolCountMinus(db, tempPost.CategoryToolId);
             }
             if (tempPost.CategoryTypeId != null)
             {
-                CategoryManager.CategoryTypesCountMinus(paintStoreContext, tempPost.CategoryTypeId);
+                CategoryManager.CategoryTypesCountMinus(db, tempPost.CategoryTypeId);
             }
 
-            paintStoreContext.Posts.Remove(paintStoreContext.Posts.
+            db.Posts.Remove(db.Posts.
                 Where(x => x.Id == post.Id).First());
-            foreach (var like in paintStoreContext.PostLikes.Where(x => x.PostId == post.Id))
+            foreach (var like in db.PostLikes.Where(x => x.PostId == post.Id))
             {
-                paintStoreContext.PostLikes.Remove(paintStoreContext.PostLikes.
+                db.PostLikes.Remove(db.PostLikes.
                     Where(x => x.Id == like.Id).First());
             }
 
-            foreach(var comment in paintStoreContext.PostComments.Where(x => x.PostId == post.Id))
+            foreach(var comment in db.PostComments.Where(x => x.PostId == post.Id))
             {
-                paintStoreContext.PostComments.Remove(paintStoreContext.PostComments.
-                Where(x => x.Id == comment.Id).First());
-                foreach (var like in paintStoreContext.CommentLikes.Where(x => x.CommentId == comment.Id))
+                db.PostComments.Remove(db.PostComments.
+                    Where(x => x.Id == comment.Id).First());
+                foreach (var like in db.CommentLikes.Where(x => x.CommentId == comment.Id))
                 {
-                    paintStoreContext.CommentLikes.Remove(paintStoreContext.CommentLikes.
+                    db.CommentLikes.Remove(db.CommentLikes.
                         Where(x => x.Id == like.Id).First());
                 }
             }
 
-            var count = paintStoreContext.SaveChanges();
+            var count = db.SaveChanges();
             return post;
         }
     }

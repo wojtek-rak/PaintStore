@@ -3,9 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Akka.Actor;
+using Akka.DI.AutoFac;
 using Akka.DI.Core;
+using Akka.Util.Internal;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using backEnd.Actors;
 using backEnd.Actors.Messages;
 using backEnd.Actors.RemoveActors;
+using backEnd.Actors.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -38,7 +44,49 @@ namespace backEnd
         //public IHostingEnvironment HostingEnvironment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        //public void ConfigureServices(IServiceCollection services)
+        //{
+        //    var settingsSection = Configuration.GetSection("AppIdentitySettings");
+        //    var settings = settingsSection.Get<AppIdentitySettings>();
+
+        //    services.AddCors(options =>
+        //    {
+        //        //options.AddPolicy("AllowSpecificOrigin", builder =>
+        //        //{
+        //        //    builder.WithOrigins("http://localhost", "https://www.microsoft.com");
+        //        //});
+
+        //        options.AddPolicy("AllowAllOrigins", builder =>
+        //        {
+        //            builder.AllowAnyOrigin();
+        //            builder.AllowAnyHeader();
+        //            builder.AllowAnyMethod();
+        //            builder.AllowCredentials();
+        //            // or use below code 
+        //        });
+        //    });
+
+        //    services.AddDbContext<PaintStoreContext>(options =>
+        //        options.UseSqlite("Data Source=PaintStore.db"));
+        //    //services.AddDbContext<PaintStoreContext>(options =>
+        //    //    options.UseSqlServer(Configuration.GetConnectionString("PaintStoreDatabase")));
+
+        //    services.AddSingleton<ISaveImage, SaveImage>();
+        //    services.AddScoped<RemoveSupervisorActor>();
+        //    services.AddScoped<RemoveAccountActor>();
+        //    // Inject AppIdentitySettings so that others can use too
+        //    var system = ActorSystem.Create("PSActorSystem");
+
+        //    services.AddSingleton<ActorSystem>(system);
+        //    services.AddTransient<Account>(s => new Account(settings.CouldName, settings.ApiKey, settings.SecretApiKey));
+        //    services.AddMvc().AddJsonOptions(
+        //    options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+        //    ).AddControllersAsServices();
+
+
+        //}
+
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             var settingsSection = Configuration.GetSection("AppIdentitySettings");
             var settings = settingsSection.Get<AppIdentitySettings>();
@@ -50,34 +98,51 @@ namespace backEnd
                 //    builder.WithOrigins("http://localhost", "https://www.microsoft.com");
                 //});
 
-                options.AddPolicy("AllowAllOrigins", builder =>
+                options.AddPolicy("AllowAllOrigins", build =>
                 {
-                    builder.AllowAnyOrigin();
-                    builder.AllowAnyHeader();
-                    builder.AllowAnyMethod();
-                    builder.AllowCredentials();
+                    build.AllowAnyOrigin();
+                    build.AllowAnyHeader();
+                    build.AllowAnyMethod();
+                    build.AllowCredentials();
                     // or use below code 
                 });
             });
-
+            services.AddScoped<ActivityManager>();
+            services.AddMvc().AddControllersAsServices();
             services.AddDbContext<PaintStoreContext>(options =>
                 options.UseSqlite("Data Source=PaintStore.db"));
-            //services.AddDbContext<PaintStoreContext>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("PaintStoreDatabase")));
+            
+            
+            //Now register our services with Autofac container
 
-            services.AddSingleton<ISaveImage, SaveImage>();
-            services.AddScoped<RemoveSupervisorActor>();
-            services.AddScoped<RemoveAccountActor>();
-            // Inject AppIdentitySettings so that others can use too
-            var system = ActorSystem.Create("PSActorSystem");
+            PaintStoreContext dbContext;
+            var scopeFactory = services
+                .BuildServiceProvider()
+                .GetRequiredService<IServiceScopeFactory>();
 
-            services.AddSingleton<ActorSystem>(system);
-            services.AddTransient<Account>(s => new Account(settings.CouldName, settings.ApiKey, settings.SecretApiKey));
-            services.AddMvc().AddJsonOptions(
-            options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            ).AddControllersAsServices();
+            using (var scope = scopeFactory.CreateScope())
+            {
+                var provider = scope.ServiceProvider;
+                using (var db = provider.GetRequiredService<PaintStoreContext>())
+                {
+                    dbContext = db;
+                }
+            }
+            var builder = new ContainerBuilder();
+
+            //builder.Register(c => new ConfigReader("mysection")).As<IConfigReader>();
+            var actorSystem = ActorSystem.Create("PSActorSystem");
+            builder.Register<ActorSystem>(_ => actorSystem);
+            //var dbContext = services.OfType<PaintStoreContext>();
+            //var actorRemove = actorSystem.ActorOf(Props.Create(() => new RemoveAccountImagesActor()));
+            var actorSupervisor = actorSystem.ActorOf(Props.Create(() => new SupervisorActor()));
+            builder.Register<IActorRef>(c => actorSupervisor);
+            builder.Populate(services);
+            var container = builder.Build();
 
 
+            //Create the IServiceProvider based on the container.
+            return new AutofacServiceProvider(container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -23,12 +23,22 @@ namespace backEnd.Controllers.LikeControllers.Comment
         [HttpPost]
         public UserFollowers FollowRemove([FromBody] UserFollowers follow)
         {
-            var tempFollow = paintStoreContext.UserFollowers.Where(x => x.Id == follow.Id).First();
-            FollowersManager.UserFollowedCountMinus(paintStoreContext, tempFollow.FollowedUserId);
-            FollowersManager.UserFollowingCountMinus(paintStoreContext, tempFollow.FollowingUserId);
-            paintStoreContext.UserFollowers.Remove(paintStoreContext.UserFollowers.
-                Where(x => x.Id == follow.Id).First());
-            var count = paintStoreContext.SaveChanges();
+            //var tempFollow = paintStoreContext.UserFollowers.Where(x => x.Id == follow.Id).First();
+            //FollowersManager.UserFollowedCountMinus(paintStoreContext, tempFollow.FollowedUserId);
+            //FollowersManager.UserFollowingCountMinus(paintStoreContext, tempFollow.FollowingUserId);
+            //paintStoreContext.UserFollowers.Remove(paintStoreContext.UserFollowers.
+            //    Where(x => x.Id == follow.Id).First());
+            //var count = paintStoreContext.SaveChanges();
+            return FollowRemover(paintStoreContext, follow);
+        }
+
+        public static UserFollowers FollowRemover(PaintStoreContext db, UserFollowers follow)
+        {
+            var tempFollow = db.UserFollowers.First(x => x.Id == follow.Id);
+            FollowersManager.UserFollowedCountMinus(db, tempFollow.FollowedUserId);
+            FollowersManager.UserFollowingCountMinus(db, tempFollow.FollowingUserId);
+            db.UserFollowers.Remove(db.UserFollowers.First(x => x.Id == follow.Id));
+            var count = db.SaveChanges();
             return follow;
         }
     }

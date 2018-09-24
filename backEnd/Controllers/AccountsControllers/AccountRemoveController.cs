@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Akka.Actor;
 using Akka.DI.Core;
+using Akka.Util.Internal;
+using Autofac;
 using backEnd.Actors;
 using backEnd.Actors.Messages;
 using backEnd.Actors.RemoveActors;
@@ -20,12 +22,12 @@ namespace backEnd.Controllers.CommentsControllers
     {
         private readonly PaintStoreContext paintStoreContext;
         private readonly ActorSystem actorSystem;
-        private readonly FollowersRemoveController followersRemoveController;
+        //private  IActorRef removeSupervisorActor;
 
-        public AccountRemoveController(PaintStoreContext ctx, ActorSystem _actorSystem, FollowersRemoveController followersRemoveController)
+        public AccountRemoveController(PaintStoreContext ctx)
         {
             paintStoreContext = ctx;
-            actorSystem = _actorSystem;
+            //this.removeSupervisorActor = removeSupervisorActor;
         }
 
         [HttpPost]
@@ -33,30 +35,30 @@ namespace backEnd.Controllers.CommentsControllers
         {
             using (var db = paintStoreContext)
             {
-                
-                var mySupervisorActor = actorSystem.ActorOf(actorSystem.DI().Props<RemoveSupervisorActor>(), "RemoveSupervisorActor");
-                mySupervisorActor.Tell(new StartSupervisorMessage(account));
-                //var actor = actorSystem.ActorOf(Props.Create(() => new RemoveAccountActor(db)));
 
                 var accountToRemove = db.Accounts.First(x => x.Id == account.Id);
                 if (account.PasswordHash == db.Accounts.First(x => x.Id == account.Id).PasswordHash)
                 {
                     var userToRemove = db.Users.First(x => x.AccountId == accountToRemove.Id);
+
+                    //var task = removeSupervisorActor.Ask(new SupervisorMessage_RmImages(userToRemove, db));
+
                     var postRemover = new ImageRemoveController(db);
 
-                    foreach(var post in db.Posts.Where(x => x.UserId == userToRemove.Id))
+                    foreach (var post in db.Posts.Where(x => x.UserId == userToRemove.Id))
                     {
-                        postRemover.PostRemove(post);
+                        ImageRemoveController.PostRemover(paintStoreContext, post);
                     }
 
                     foreach (var follow in db.UserFollowers.
                         Where(x => x.FollowedUserId == userToRemove.Id || x.FollowingUserId == userToRemove.Id))
                     {
-                        followersRemoveController.FollowRemove(follow);
+                        FollowersRemoveController.FollowRemover(paintStoreContext, follow);
                     }
                     var userRemove = db.Users.Remove(userToRemove);
                     var accountRemove = db.Accounts.Remove(accountToRemove);
 
+                    //task.Wait();
                     var count = db.SaveChanges();
                     return accountToRemove;
                 }

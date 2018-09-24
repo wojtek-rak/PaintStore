@@ -7,11 +7,11 @@ namespace backEnd.Actors.Messages
 {
     public class ChildSucceededMessage
     {
-        public String FromWho { get; }
+        //public String FromWho { get; }
 
-        public ChildSucceededMessage(string nameOfActor)
-        {
-            FromWho = nameOfActor;
-        }
+        //public ChildSucceededMessage(string nameOfActor)
+        //{
+        //    FromWho = nameOfActor;
+        //}
     }
 }

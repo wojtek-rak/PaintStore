@@ -2,13 +2,15 @@
 
 namespace backEnd.Actors.Messages
 {
-    public class StartChildMessage
+    public class StartChildImagesRmMessage
     {
-        public Accounts Account { get; set; }
+        public Users UsersToRm { get; }
+        public PaintStoreContext ctx { get; }
 
-        public StartChildMessage(Accounts account)
+        public StartChildImagesRmMessage(Users user, PaintStoreContext ctx)
         {
-            Account = account;
+            UsersToRm = user;
+            this.ctx = ctx;
         }
     }
 }

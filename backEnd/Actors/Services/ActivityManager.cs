@@ -16,6 +16,8 @@ namespace backEnd.Actors.Services
     }
     public class ActivityManager : IActivityManagerStartup
     {
+        private const int SecondCalcActivityInterval = 3600;
+
         private readonly IActorRef supervisorActor;
         private readonly UpdatePostActivityMessage message;
         private IObservable<long> syncMailObservable;
@@ -30,7 +32,7 @@ namespace backEnd.Actors.Services
 
         public void RunManager()
         {
-            syncMailObservable = Observable.Interval(TimeSpan.FromSeconds(5));
+            syncMailObservable = Observable.Interval(TimeSpan.FromSeconds(SecondCalcActivityInterval));
             subscription = syncMailObservable.Subscribe(s => supervisorActor.Tell(new UpdatePostActivityMessage()));
         }
     }

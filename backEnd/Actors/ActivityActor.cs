@@ -20,7 +20,7 @@ using Newtonsoft.Json.Linq;
 
 namespace backEnd.Actors
 {
-    public class ActivityActor : ReceiveActor
+    public class ActivityActor : ReceiveActor, IDBContextCreate
     {
         private const int TotalMultiplier = 10000;
         private const int ResNewestHoursMultiplier = 2;
@@ -32,7 +32,7 @@ namespace backEnd.Actors
 
             Receive<UpdatePostActivityMessage>(message =>
             {
-                using (var db = new PaintStoreContext())
+                using (var db = message.IDBContextCreate.CreateContext())
                 {
                     DateTime now = DateTime.Now;
                     foreach (var post in db.Posts)
@@ -58,7 +58,10 @@ namespace backEnd.Actors
             
         }
 
-
+        public PaintStoreContext CreateContext()
+        {
+            return new PaintStoreContext();
+        }
     }
 }
 

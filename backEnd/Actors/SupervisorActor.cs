@@ -18,16 +18,17 @@ namespace backEnd.Actors.RemoveActors
         private IActorRef originalSender;
         //private IActorRef removeAccountActorRef;
         private IActorRef activityActorRef;
+        private IDBContextCreate idbcontexContextCreate;
 
         public SupervisorActor(IActorRef activActorRef)
         {
-            
+            idbcontexContextCreate = new DBContextCreate();
             activityActorRef = activActorRef;
 
             Receive<UpdatePostActivityMessage>(message =>
             {
                 originalSender = Sender;
-                activActorRef.Tell(message);
+                activActorRef.Tell(new UpdatePostActivityMessage(idbcontexContextCreate));
             });
 
             //Receive<SupervisorMessage_RmImages>(message =>

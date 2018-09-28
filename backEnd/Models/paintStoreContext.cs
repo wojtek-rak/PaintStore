@@ -5,6 +5,18 @@ using Microsoft.Extensions.Configuration;
 
 namespace backEnd.Models
 {
+    public interface IDBContextCreate
+    {
+        PaintStoreContext CreateContext();
+    }
+
+    public class DBContextCreate : IDBContextCreate
+    {
+        public PaintStoreContext CreateContext()
+        {
+            return new PaintStoreContext();
+        }
+    }
     public partial class PaintStoreContext : DbContext
     {
         public virtual DbSet<Accounts> Accounts { get; set; }

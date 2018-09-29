@@ -171,7 +171,7 @@ User
 ```
 PostRequest:  api/UserGet
 User:         Id
-Output:       User 
+Output:       UsersResult 
 ```
 #### Get user's images
 ```

@@ -34,11 +34,14 @@ namespace PaintStoreBackEnd.Tests
             var mock = new Mock<PaintStoreContext>();
             var mockDataAccounts = new List<Accounts> {
                 new Accounts { Id = 1, CreationDate = DateTime.Now, Email = "kasia@kreska.pl", PasswordHash = "!@#sdaAWEDAFSFDSAE"},
-                new Accounts { Id = 2, CreationDate = DateTime.Now, Email = "zosia@kreska.pl", PasswordHash = "eWDs@daDSAdsFSFSAE" }}.AsQueryable();
+                new Accounts { Id = 2, CreationDate = DateTime.Now, Email = "zosia@kreska.pl", PasswordHash = "eWDs@daDSAdsFSFSAE" },
+                new Accounts { Id = 3, CreationDate = DateTime.Now, Email = "wyrak@kreska.pl", PasswordHash = "easddsdweeewFSFSAE" }
+            }.AsQueryable();
 
             var mockDataUsers = new List<Users> {
-                new Users { Id = 1, Name = "Kasia", Link = "kasialink", AvatarImgLink = "appa", BackgroundImgLink = "bappa", About = "xD", AccountId = 1, FollowedCount = 1, FollowingCount = 0, PostsCount = 3},
-                new Users { Id = 2, Name = "Zosia", Link = "tosialink", AvatarImgLink = "2appa", BackgroundImgLink = "2bappa", About = "2xD", AccountId = 2, FollowedCount = 0, FollowingCount = 1, PostsCount = 1}}.AsQueryable();
+                new Users { Id = 1, Name = "Kasia", Link = "kasialink", AvatarImgLink = "1appa", BackgroundImgLink = "1bappa", About = "1xD", AccountId = 1, FollowedCount = 1, FollowingCount = 0, PostsCount = 3},
+                new Users { Id = 2, Name = "Zosia", Link = "tosialink", AvatarImgLink = "2appa", BackgroundImgLink = "2bappa", About = "2xD", AccountId = 2, FollowedCount = 0, FollowingCount = 2, PostsCount = 1},
+                new Users { Id = 3, Name = "wyrak", Link = "towyreeak", AvatarImgLink = "3appa", BackgroundImgLink = "3bappa", About = "3xD", AccountId = 3, FollowedCount = 1, FollowingCount = 0, PostsCount = 0}}.AsQueryable();
 
             var mockDataComments = new List<PostComments> {
                 new PostComments { Id = 1, CreationDate = DateTime.Parse("2008-05-01T07:34:42-5:00"), Content = "Ale Kom", PostId = 2, UserId = 2, LikeCount = 2 },
@@ -76,7 +79,8 @@ namespace PaintStoreBackEnd.Tests
                 new CommentLikes { Id = 3, UserId = 3, CommentId = 2} }.AsQueryable();
 
             var mockDataUserFollowers = new List<UserFollowers> {
-                new UserFollowers { Id = 1, FollowedUserId = 1, FollowingUserId = 2} }.AsQueryable();
+                new UserFollowers { Id = 1, FollowedUserId = 1, FollowingUserId = 2},
+                new UserFollowers { Id = 2, FollowedUserId = 3, FollowingUserId = 2} }.AsQueryable();
 
 
             mockSetAccount = InitMockDbSet(mockDataAccounts);

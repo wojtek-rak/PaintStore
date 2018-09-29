@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using backEnd.Models;
+using backEnd.Models.ResultsModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,12 +21,20 @@ namespace backEnd.Controllers.LikeControllers.Images
         }
 
         [HttpPost]
-        public IEnumerable<PostLikes> GetImageLikes([FromBody] Posts image)
+        public IEnumerable<LikesResult> GetImageLikes([FromBody] Posts image)
         {
             using (var db = paintStoreContext)
             {
-                var likes = db.PostLikes.Where(b => b.PostId == image.Id);
-                return likes.ToList();
+                var postLikesList = new List<LikesResult>();
+                var likes = db.PostLikes.Where(b => b.PostId == image.Id).
+                    OrderByDescending(postLikes => db.Users.First(user => user.Id == postLikes.UserId).FollowedCount);
+
+                foreach (var like in likes)
+                {
+                    var user = db.Users.First(x => x.Id == like.UserId);
+                    postLikesList.Add(new LikesResult(like.UserId, user.Name, user.AvatarImgLink));
+                }
+                return postLikesList;
             }
 
         }

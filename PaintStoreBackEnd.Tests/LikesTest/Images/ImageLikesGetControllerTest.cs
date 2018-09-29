@@ -29,9 +29,11 @@ namespace PaintStoreBackEnd.Tests
             var mock = init.mock;
 
             var controller = new ImageLikesGetController(mock.Object);
-            var result = controller.GetImageLikes(new Posts { Id = 1 }).Count();
+            var result = controller.GetImageLikes(new Posts { Id = 1 });
             var expected = 2;
-            Assert.AreEqual(expected, result);
+            var expected2 = "wyrak";
+            Assert.AreEqual(expected, result.Count());
+            Assert.AreEqual(expected2, result.First().Name);
         }
     }
 }

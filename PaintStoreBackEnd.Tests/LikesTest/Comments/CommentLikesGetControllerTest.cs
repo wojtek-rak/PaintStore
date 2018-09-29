@@ -30,9 +30,11 @@ namespace PaintStoreBackEnd.Tests
             var mock = init.mock;
 
             var controller = new CommentsLikesGetController(mock.Object);
-            var result = controller.GetCommentLikes(new PostComments { Id = 1 }).Count();
+            var result = controller.GetCommentLikes(new PostComments { Id = 1 });
             var expected = 2;
-            Assert.AreEqual(expected, result);
+            var expected2 = "wyrak";
+            Assert.AreEqual(expected, result.Count());
+            Assert.AreEqual(expected2, result.First().Name);
         }
     }
 }

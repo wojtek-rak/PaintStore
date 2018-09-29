@@ -39,7 +39,14 @@ PostRequest:      Link to postrequest
 Input data type:  Data name (application/json)
 Output:           Data type (application/json)
 ```
-
+Search
+------
+#### Get Search (sorted by indexer)
+```
+PostRequest:  api/Search 
+Message:      Name 
+Output:       SearchResult  
+```
 Comments
 ------
 #### Get image's comments (sorted by likes)

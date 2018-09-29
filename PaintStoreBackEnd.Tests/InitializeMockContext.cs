@@ -52,11 +52,13 @@ namespace PaintStoreBackEnd.Tests
                 new Posts { Id = 3,  Title = "Najkomentowszy      ", CategoryTypeId = 2, CategoryToolId = 2, ImgLink = "link3", CreationDate = DateTime.Parse("2010-05-01T07:34:42-5:00"), Description = "Desc3", UserId = 2 , LikeCount = 0, CommentsCount = 2 },
                 new Posts { Id = 4,  Title = "comm bez lików", CategoryTypeId = null, CategoryToolId = null, ImgLink = "link4", CreationDate = DateTime.Parse("2011-05-01T07:34:42-5:00"), Description = "Desc4", UserId = 1  , LikeCount = 1, CommentsCount = 1},
                 new Posts { Id = 5, Title = "zaden2             ", CategoryTypeId = null, CategoryToolId = 1, ImgLink = "link5", CreationDate = DateTime.Parse("2008-04-01T07:34:42-5:00"), Description = "Desc5", UserId = 1, LikeCount = 0, CommentsCount = 0},
-                new Posts { Id = 6, Title = "zaden3             ", CategoryTypeId = null, CategoryToolId = 2, ImgLink = "link6", CreationDate = DateTime.Parse("2008-03-01T07:34:42-5:00"), Description = "Desc6", UserId = 1, LikeCount = 0, CommentsCount = 0} }.AsQueryable();
+                new Posts { Id = 6, Title = "zos             ", CategoryTypeId = null, CategoryToolId = 2, ImgLink = "link6", CreationDate = DateTime.Parse("2008-03-01T07:34:42-5:00"), Description = "Desc6", UserId = 1, LikeCount = 0, CommentsCount = 0} }.AsQueryable();
 
             var mockDataCategoryType = new List<CategoryTypes> {
                 new CategoryTypes { Id = 1, TypeName = "pose", Count = 0 },
-                new CategoryTypes { Id = 2, TypeName = "animal", Count = 2} }.AsQueryable();
+                new CategoryTypes { Id = 2, TypeName = "animal", Count = 2},
+                new CategoryTypes { Id = 3, TypeName = "poZosiase", Count = 10 },
+                new CategoryTypes { Id = 4, TypeName = "deZosiase", Count = 0 } }.AsQueryable();
 
             var mockDataCategoryTool = new List<CategoryTools> {
                 new CategoryTools { Id = 1, ToolName = "pencil", Count = 2 },

@@ -46,7 +46,7 @@ namespace PaintStoreBackEnd.Tests
             Thread.Sleep(100);
             init.mockSetUsers.Verify(m => m.Remove(It.IsAny<Users>()), Times.Once());
             init.mockSetAccount.Verify(m => m.Remove(It.IsAny<Accounts>()), Times.Once());
-            init.mockSetImages.Verify(m => m.Remove(It.IsAny<Posts>()), Times.Exactly(3));
+            init.mockSetImages.Verify(m => m.Remove(It.IsAny<Posts>()), Times.Exactly(5));
             init.mockSetUserFollowers.Verify(m => m.Remove(It.IsAny<UserFollowers>()), Times.Once());
         }
 

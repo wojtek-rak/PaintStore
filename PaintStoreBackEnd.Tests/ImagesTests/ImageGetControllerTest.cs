@@ -24,7 +24,9 @@ namespace PaintStoreBackEnd.Tests
         [Test]
         public void GetImageTest()
         {
-            var mock = InitializeMockContext.InitMock();
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
             var controller = new ImageGetController(mock.Object);
             var result = controller.GetImage(new Posts { Id = 1 }).Count();
             var expected = 1;

@@ -25,7 +25,8 @@ namespace PaintStoreBackEnd.Tests
         [Test]
         public void EditCommentTest()
         {
-            var mock = InitializeMockContext.InitMock();
+            var init = new InitializeMockContext();
+            var mock = init.mock;
 
             var controller = new CommentEditController(mock.Object);
             var expectedString = "Testowy Komentarz";

@@ -26,7 +26,9 @@ namespace PaintStoreBackEnd.Tests
         [Test]
         public void GetCommentsLikesTest()
         {
-            var mock = InitializeMockContext.InitMock();
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
             var controller = new CommentsLikesGetController(mock.Object);
             var result = controller.GetCommentLikes(new PostComments { Id = 1 }).Count();
             var expected = 2;

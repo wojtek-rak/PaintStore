@@ -25,7 +25,9 @@ namespace PaintStoreBackEnd.Tests
         [Test]
         public void GetImageLikesTest()
         {
-            var mock = InitializeMockContext.InitMock();
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
             var controller = new ImageLikesGetController(mock.Object);
             var result = controller.GetImageLikes(new Posts { Id = 1 }).Count();
             var expected = 2;

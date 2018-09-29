@@ -24,10 +24,12 @@ namespace PaintStoreBackEnd.Tests
         [Test]
         public void GetImagesTest()
         {
-            var mock = InitializeMockContext.InitMock();
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
             var controller = new UserImagesGetController(mock.Object);
             var result = controller.GetImages(new Users { Id = 2 }).Count();
-            var expected = 2;
+            var expected = 1;
             Assert.AreEqual(expected, result);
         }
     }

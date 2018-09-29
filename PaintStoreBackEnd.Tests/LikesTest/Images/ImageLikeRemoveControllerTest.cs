@@ -26,7 +26,8 @@ namespace PaintStoreBackEnd.Tests
         [Test]
         public void RemoveImageLikeTest()
         {
-            var mock = InitializeMockContext.InitMock();
+            var init = new InitializeMockContext();
+            var mock = init.mock;
 
             var controller = new ImageLikeRemoveController(mock.Object);
             controller.RemoveImageLike(new PostLikes { Id = 1 });

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using backEnd.Interfaces;
 
 namespace backEnd.Models
 {
-    public partial class Users
+    public partial class Users : IUsers
     {
         public int Id { get; set; }
         public int AccountId { get; set; }

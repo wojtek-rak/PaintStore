@@ -25,7 +25,8 @@ namespace PaintStoreBackEnd.Tests
         [Test]
         public void EditPostTest()
         {
-            var mock = InitializeMockContext.InitMock();
+            var init = new InitializeMockContext();
+            var mock = init.mock;
 
             var controller = new ImageEditController(mock.Object);
             var expectedInt = 2;
@@ -42,7 +43,8 @@ namespace PaintStoreBackEnd.Tests
         [Test]
         public void EditPostCountingToolTestTest()
         {
-            var mock = InitializeMockContext.InitMock();
+            var init = new InitializeMockContext();
+            var mock = init.mock;
 
             var controller = new ImageEditController(mock.Object);
             var expectedInt = 1;
@@ -58,7 +60,8 @@ namespace PaintStoreBackEnd.Tests
         [Test]
         public void EditPostCountingTypeTestTest()
         {
-            var mock = InitializeMockContext.InitMock();
+            var init = new InitializeMockContext();
+            var mock = init.mock;
 
             var controller = new ImageEditController(mock.Object);
             var expectedInt = 1;

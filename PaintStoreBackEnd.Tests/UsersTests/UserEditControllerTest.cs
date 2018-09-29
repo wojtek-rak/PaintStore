@@ -25,7 +25,8 @@ namespace PaintStoreBackEnd.Tests
         [Test]
         public void EditUserTest()
         {
-            var mock = InitializeMockContext.InitMock();
+            var init = new InitializeMockContext();
+            var mock = init.mock;
 
             var controller = new UserEditController(mock.Object);
             var expectedAvatarImgLink = "Testowy Komentarz";

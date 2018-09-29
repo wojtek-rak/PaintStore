@@ -26,7 +26,8 @@ namespace PaintStoreBackEnd.Tests
         [Test]
         public void RemoveCommentLikeTest()
         {
-            var mock = InitializeMockContext.InitMock();
+            var init = new InitializeMockContext();
+            var mock = init.mock;
 
             var controller = new CommentLikeRemoveController(mock.Object);
             controller.RemoveCommentLike(new CommentLikes { Id = 1 });

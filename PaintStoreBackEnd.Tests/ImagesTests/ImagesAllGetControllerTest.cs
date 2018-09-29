@@ -24,11 +24,13 @@ namespace PaintStoreBackEnd.Tests
         [Test]
         public void GetAllImage_TheNewest_Test()
         {
-            var mock = InitializeMockContext.InitMock();
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
             var controller = new ImagesAllGetController(mock.Object);
             var result2 = controller.GetAllImages(new Message { Properties = "the_newest" });
             var result = result2.Select(x => x.Title).First();
-            var expected = "Najnowszy";
+            var expected = "comm bez lików";
             Assert.AreEqual(result, expected);
         }
 
@@ -36,11 +38,13 @@ namespace PaintStoreBackEnd.Tests
         [Test]
         public void GetAllImage_MostPopular_Test()
         {
-            var mock = InitializeMockContext.InitMock();
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
             var controller = new ImagesAllGetController(mock.Object);
             var result2 = controller.GetAllImages(new Message { Properties = "most_popular" });
             var result = result2.Select(x => x.Title).First();
-            var expected = "Najkomentowszy";
+            var expected = "Najkomentowszy      ";
             Assert.AreEqual(expected, result);
         }
     }

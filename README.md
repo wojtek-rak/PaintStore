@@ -204,8 +204,8 @@ Comment Likes
 #### Get likes
 ```
 PostRequest: api/CommentsLikesGet
-PostComment: PostComment
-Output:      CommentLikes
+PostComment: Id
+Output:      LikesResult
 ```
 #### Add like
 ```
@@ -225,8 +225,8 @@ Image Likes
 #### Get likes
 ```
 PostRequest: api/ImageLikesGet
-Post:        Post
-Output:      PostLikes
+Post:        Id
+Output:      LikesResult
 ```
 #### Add like
 ```

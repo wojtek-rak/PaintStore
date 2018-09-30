@@ -27,25 +27,46 @@ namespace backEnd.Controllers.SearchControllers
             using (var db = paintStoreContext)
             {
                 var searchList = new List<SearchResult>();
-                var users = db.Users.Where(b => b.Name.ToLower().Contains(name));
-                var types = db.CategoryTypes.Where(b => b.TypeName.ToLower().Contains(name));
-                foreach (var user in users)
+
+                //var users = db.Users.Where(b => b.Name.ToLower().Contains(name));
+
+                db.Users.AsParallel().Where(b => b.Name.ToLower().Contains(name)).ForAll(user =>
                 {
                     var index = user.Name.ToLower() == name ? 99999999 : user.FollowedCount;
-                    if (user.Name.ToLower() == name)
                     searchList.Add(new SearchResult(user)
                     {
                         Indexer = index
                     });
-                }
-                foreach (var type in types)
+                });
+
+                //foreach (var user in users)
+                //{
+                //    var index = user.Name.ToLower() == name ? 99999999 : user.FollowedCount;
+                //    searchList.Add(new SearchResult(user)
+                //    {
+                //        Indexer = index
+                //    });
+                //}
+
+                //var types = db.CategoryTypes.Where(b => b.TypeName.ToLower().Contains(name));
+
+                db.CategoryTypes.AsParallel().Where(b => b.TypeName.ToLower().Contains(name)).ForAll(type =>
                 {
                     var index = type.TypeName.ToLower() == name ? 99999999 : type.Count;
                     searchList.Add(new SearchResult(type)
                     {
                         Indexer = index
                     });
-                }
+                });
+
+                //foreach (var type in types)
+                //{
+                //    var index = type.TypeName.ToLower() == name ? 99999999 : type.Count;
+                //    searchList.Add(new SearchResult(type)
+                //    {
+                //        Indexer = index
+                //    });
+                //}
 
                 var sortedSearchList = searchList.OrderByDescending(x => x.GetIndexer());
                 return sortedSearchList;

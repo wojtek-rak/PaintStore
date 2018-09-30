@@ -44,7 +44,7 @@ Search
 #### Get Search (sorted by indexer)
 ```
 PostRequest:  api/Search 
-Message:      Name 
+Input:        Name 
 Output:       SearchResult  
 ```
 Comments
@@ -52,25 +52,25 @@ Comments
 #### Get image's comments (sorted by likes)
 ```
 PostRequest:  api/CommentsGet 
-Post:         Id 
+Input:        Id 
 Output:       PostCommentsResult 
 ```
 #### Add comment
 ```
 PostRequest:  api/CommentAdd 
-PostComment:  PostComment 
+Input:        PostComment 
 Output:       PostComments 
 ```
 #### Edit comment
 ```
 PostRequest:  api/CommentEdit
-PostComment:  PostComment (ID and content)
+Input:        PostComment (ID and content)
 Output:       PostComment 
 ```
 #### Remove comment (whole)
 ```
 PostRequest:  api/CommentRemove
-PostComment:  PostComment (ID)
+Input:        PostComment (ID)
 Output:       PostComment 
 ```
 Images
@@ -78,37 +78,37 @@ Images
 #### Upload image to cloudinary
 ```
 PostRequest:  api/UploadImage
-Image:        Image file
+Input:        Image file
 Output:       Image (with properties from Models/UploadModels
 ```
 #### Get Post
 ```
 PostRequest:  api/ImageGet
-Post:         Id
+Input:        Id
 Output:       PostDetailsResult
 ```
 #### Get Post from follows (newest)
 ```
 PostRequest:  api/ImagesFollowingGet
-Users:        ID
+Input:        ID
 Output:       PostsResult
 ```
 #### Add Post
 ```
 PostRequest:   api/ImageAdd
-Post:          Post 
+Input:         Post 
 Output:        Post 
 ```
 #### Remove Post (whole)
 ```
 PostRequest:  api/ImageRemove
-Post:         Post (ID)
+Input:        Post (ID)
 Output:       Post 
 ```
 #### Edit Post
 ```
 PostRequest:   api/ImageEdit
-Post:          Post (ID, and prop you want edit, (you can edit: Title, Description, CategoryToolId, CategoryTypeId))
+Input:         Post (ID, and prop you want edit, (you can edit: Title, Description, CategoryToolId, CategoryTypeId))
 Output:        Post 
 ```
 #### Get all posts
@@ -117,13 +117,13 @@ PostRequest: api/ImagesAllGet
 ```
 + the newest </br>
 ```
-Message Properties: "the_newest"
-Output:             PostsResult
+Input:       Properties "the_newest"
+Output:      PostsResult
 ```
 + most popular </br>
 ```
-Message Properties: "most_popular"
-Output:              PostsResult 
+Input:       Properties "most_popular"
+Output:      PostsResult 
 ```
 #### Get Posts by category
 ```
@@ -131,23 +131,21 @@ PostRequest: api/ImagesGetByCategory
 ```
 + both category </br>
 ```
-Message Properties: "both" 
-Message CategoryType: CategoryType 
-Message CategoryTool: CategoryTool 
+Input:  Properties "both" 
+        CategoryType Name 
+        CategoryTool Name 
 Output: PostsResult with given categories 
 ```
 + tool category </br>
 ```
-Message Properties: "tool" 
-Message CategoryType: "" 
-Message CategoryTool: CategoryTool 
+Input:  Properties "tool"  
+        CategoryTool Name 
 Output: PostsResult with given category 
 ```
 + type category </br>
 ```
-Message Properties: "type"
-Message CategoryType: CategoryType
-Message CategoryTool: "" 
+Input:  Properties "type"
+        CategoryType: Name
 Output: PostsResult with given category 
 ```
 
@@ -156,19 +154,19 @@ Account
 #### Add account
 ```
 PostRequest:  api/AccountAdd
-Account:      Account
+Input:        Account
 Output:       Account 
 ```
 #### Edit account
 ```
 PostRequest:  api/AccountEdit
-Account:      Account (ID and prop you want to edit (cannot edit CreationDate and id))
+Input:        Account (ID and prop you want to edit (cannot edit CreationDate and id))
 Output:       Account 
 ```
 #### Remove account
 ```
 PostRequest:  api/AccountRemove
-Account:      Account (ID and passwordHash)
+Input:        Account (ID and passwordHash)
 Output:       Account 
 ```
 
@@ -177,25 +175,25 @@ User
 #### Get user
 ```
 PostRequest:  api/UserGet
-User:         Id
+Input:        Id
 Output:       UsersResult 
 ```
 #### Get user's images
 ```
 PostRequest:  api/UserImagesGet
-User:         Id 
+Input:        Id 
 Output:       Images 
 ```
 #### Add user
 ```
 PostRequest:  api/UserAdd
-User:         User
+Input:        User
 Output:       User 
 ```
 #### Edit user
 ```
 PostRequest:  api/UserEdit
-User:         User (ID and prop you want to edit (cannot edit account id and id))
+Input:        User (ID and prop you want to edit (cannot edit account id and id))
 Output:       User 
 ```
 
@@ -204,19 +202,19 @@ Comment Likes
 #### Get likes
 ```
 PostRequest: api/CommentsLikesGet
-PostComment: Id
+Input:       Id
 Output:      LikesResult
 ```
 #### Add like
 ```
 PostRequest:    api/CommentLikeAdd
-Comment Like:   Comment Like 
+Input:          Comment Like 
 Output:         Comment Like 
 ```
 #### Remove like
 ```
 PostRequest:  api/CommentLikeRemove
-Comment Like: Comment Like ( ID )
+Input:        Comment Like ( ID )
 Output:       Comment Like 
 ```
 
@@ -225,19 +223,19 @@ Image Likes
 #### Get likes
 ```
 PostRequest: api/ImageLikesGet
-Post:        Id
+Input:       Id
 Output:      LikesResult
 ```
 #### Add like
 ```
 PostRequest: api/ImageLikeAdd
-PostLike:    PostLike 
+Input:       PostLike 
 Output:      PostLike 
 ```
 #### Remove like
 ```
 PostRequest: api/ImageLikeRemove
-PostLike:    PostLike ( ID )
+Input:       PostLike ( ID )
 Output:      PostLike
 ```
 
@@ -246,7 +244,7 @@ Category
 #### Get, or add and get category
 ```
 PostRequest: api/CategoryGetAdd
-Category:    Category ( "TypeName" or "ToolName")
+Input:       Category: "TypeName" or "ToolName")
 Output:      CategoryType or CategoryTool
 ```
 
@@ -255,14 +253,26 @@ User Followers
 #### Add Follow
 ```
 PostRequest: api/FollowersAdd
-Follow:      Follow 
+Input:       Follow 
 Output:      Follow 
 ```
 #### Remove Follow
 ```
 PostRequest: api/FollowersRemove
-Follow:      Follow ( ID )
+Input:       Follow ( ID )
 Output:      Follow
+```
+#### Get Followed
+```
+PostRequest: api/FollowedGet
+Input:       Id 
+Output:      LikesResult 
+```
+#### Get Following
+```
+PostRequest: api/FollowingGet
+Input:       Id 
+Output:      LikesResult 
 ```
 
 Implemented (auto) Countings

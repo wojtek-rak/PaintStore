@@ -80,7 +80,8 @@ namespace PaintStoreBackEnd.Tests
 
             var mockDataUserFollowers = new List<UserFollowers> {
                 new UserFollowers { Id = 1, FollowedUserId = 1, FollowingUserId = 2},
-                new UserFollowers { Id = 2, FollowedUserId = 3, FollowingUserId = 2} }.AsQueryable();
+                new UserFollowers { Id = 2, FollowedUserId = 3, FollowingUserId = 2},
+                new UserFollowers { Id = 3, FollowedUserId = 1, FollowingUserId = 3} }.AsQueryable();
 
 
             mockSetAccount = InitMockDbSet(mockDataAccounts);

@@ -47,7 +47,7 @@ namespace PaintStoreBackEnd.Tests
             init.mockSetUsers.Verify(m => m.Remove(It.IsAny<Users>()), Times.Once());
             init.mockSetAccount.Verify(m => m.Remove(It.IsAny<Accounts>()), Times.Once());
             init.mockSetImages.Verify(m => m.Remove(It.IsAny<Posts>()), Times.Exactly(5));
-            init.mockSetUserFollowers.Verify(m => m.Remove(It.IsAny<UserFollowers>()), Times.Once());
+            init.mockSetUserFollowers.Verify(m => m.Remove(It.IsAny<UserFollowers>()), Times.Exactly(2));
         }
 
         [Test]
@@ -80,13 +80,16 @@ namespace PaintStoreBackEnd.Tests
             var controller = new AccountRemoveController(mock.Object);
             //var controller = new AccountRemoveController(mock.Object);
 
-            Assert.That(Time(() => controller.RemoveAccount(new Accounts { Id = 1, PasswordHash = "!@#sdaAWEDAFSFDSAE" })), Is.LessThanOrEqualTo(TimeSpan.FromSeconds(0)));
+            var timespan = 10; // can be 0 for result
+
+            Assert.That(Time(() => controller.RemoveAccount(new Accounts { Id = 1, PasswordHash = "!@#sdaAWEDAFSFDSAE" })), Is.LessThanOrEqualTo(TimeSpan.FromSeconds(timespan)));
 
             //mock.Verify(m => m.SaveChanges(), Times.Once());
             init.mockSetUsers.Verify(m => m.Remove(It.IsAny<Users>()), Times.Once());
             init.mockSetAccount.Verify(m => m.Remove(It.IsAny<Accounts>()), Times.Once());
-            init.mockSetImages.Verify(m => m.Remove(It.IsAny<Posts>()), Times.Exactly(3));
-            init.mockSetUserFollowers.Verify(m => m.Remove(It.IsAny<UserFollowers>()), Times.Once());
+            init.mockSetImages.Verify(m => m.Remove(It.IsAny<Posts>()), Times.Exactly(5));
+            init.mockSetUserFollowers.Verify(m => m.Remove(It.IsAny<UserFollowers>()), Times.Exactly(2));
+
         }
 
 

@@ -1,5 +1,9 @@
 # PaintStore_backEnd
 
+![alt text](https://img.shields.io/badge/version-1.0.1-brightgreen.svg) 
+![alt text](https://img.shields.io/badge/state-in%20development-red.svg)
+
+
 Api for database support, and uploading images to Cloudinary
 
 To configure:

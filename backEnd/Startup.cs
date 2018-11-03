@@ -6,6 +6,7 @@ using Akka.Actor;
 using Akka.DI.AutoFac;
 using Akka.DI.Core;
 using Akka.Util.Internal;
+using AutoMapper;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using backEnd.Actors;
@@ -107,7 +108,7 @@ namespace backEnd
                     // or use below code 
                 });
             });
-
+            services.AddAutoMapper();
             services.AddSingleton<IActivityManagerStartup, ActivityManager>();
             services.AddMvc().AddControllersAsServices();
             services.AddDbContext<PaintStoreContext>(options =>

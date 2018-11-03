@@ -39,7 +39,7 @@ Add appsettings.json file with this text,
 Description
 =====
 ```
-PostRequest:      Link to postrequest
+TypeOfRequest:    Link to request
 Input data type:  Data name (application/json)
 Output:           Data type (application/json)
 ```
@@ -47,112 +47,115 @@ Search
 ------
 #### Get Search (sorted by indexer)
 ```
-PostRequest:  api/Search 
-Input:        Name 
+GET Request:  api/Search/{searchWord} 
+Input:        string 
 Output:       SearchResult  
 ```
 Comments
 ------
 #### Get image's comments (sorted by likes)
 ```
-PostRequest:  api/CommentsGet 
-Input:        Id 
+GET Request:  api/Comments/{postId}
+Input:        int 
 Output:       PostCommentsResult 
 ```
 #### Add comment
 ```
-PostRequest:  api/CommentAdd 
+POST Request: api/Comments/AddPostComment 
 Input:        PostComment 
 Output:       PostComments 
 ```
 #### Edit comment
 ```
-PostRequest:  api/CommentEdit
+PUT Request:  api/Comments/EditPostComment
 Input:        PostComment (ID and content)
 Output:       PostComment 
 ```
 #### Remove comment (whole)
 ```
-PostRequest:  api/CommentRemove
-Input:        PostComment (ID)
-Output:       PostComment 
+DELETE Request: api/Comments/DeletePostComment/{commentId}
+Input:          int
+Output:         PostComment 
 ```
 Images
 ------
 #### Upload image to cloudinary
 ```
-PostRequest:  api/UploadImage
+POST Request: api/UploadImage
 Input:        Image file
 Output:       Image (with properties from Models/UploadModels
 ```
 #### Get Post
 ```
-PostRequest:  api/ImageGet
-Input:        Id
+GET Request:  api/Posts/{postId}
+Input:        int
 Output:       PostDetailsResult
 ```
 #### Get Post from follows (newest)
 ```
-PostRequest:  api/ImagesFollowingGet
-Input:        ID
+GET Request:  api/Posts/{userId}/GetFollowingPosts
+Input:        int
 Output:       PostsResult
 ```
 #### Add Post
 ```
-PostRequest:   api/ImageAdd
+POST Request:  api/Posts/AddPost
 Input:         Post 
 Output:        Post 
 ```
 #### Remove Post (whole)
 ```
-PostRequest:  api/ImageRemove
-Input:        Post (ID)
-Output:       Post 
+DELETE Request: api/Posts/DeletePost/{postId}
+Input:          int
+Output:         Post 
 ```
 #### Edit Post
 ```
-PostRequest:   api/ImageEdit
+PUT Request:   api/Posts/EditPost
 Input:         Post (ID, and prop you want edit, (you can edit: Title, Description, CategoryToolId, CategoryTypeId))
 Output:        Post 
 ```
 #### Get all posts
 ```
-PostRequest: api/ImagesAllGet
+PostRequest: api/Posts/AllPosts/{message}
 ```
 + the newest </br>
 ```
-Input:       Properties "the_newest"
+Input:       string message = "the_newest"
 Output:      PostsResult
 ```
 + most popular </br>
 ```
-Input:       Properties "most_popular"
+Input:       string message = "most_popular"
 Output:      PostsResult 
 ```
 #### Get Posts by category
 ```
-PostRequest: api/ImagesGetByCategory
-```
-+ both category </br>
-```
-Input:  Properties "both" 
-        CategoryType Name 
-        CategoryTool Name 
-Output: PostsResult with given categories 
+PostRequest: api/Posts/AllPosts/{message}/{name}
 ```
 + tool category </br>
 ```
-Input:  Properties "tool"  
-        CategoryTool Name 
+Input:  string message = "tool"  
+        string name = CategoryTool Name 
 Output: PostsResult with given category 
 ```
 + type category </br>
 ```
-Input:  Properties "type"
-        CategoryType: Name
+Input:  string message = type"
+        string name = CategoryType Name
 Output: PostsResult with given category 
 ```
 
+```
+PostRequest: api/Posts/AllPosts/{message}/{typeName}/{toolName}
+```
++ both category </br>
+```
+Input:  string message = "both" 
+        string typeName = CategoryType Name 
+        string toolName = CategoryTool Name 
+Output: PostsResult with given categories 
+```
 Account
 ------
 #### Add account

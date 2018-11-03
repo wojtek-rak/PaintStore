@@ -117,7 +117,7 @@ Output:        Post
 ```
 #### Get all posts
 ```
-PostRequest: api/Posts/AllPosts/{message}
+GET Request: api/Posts/AllPosts/{message}
 ```
 + the newest </br>
 ```
@@ -131,7 +131,7 @@ Output:      PostsResult
 ```
 #### Get Posts by category
 ```
-PostRequest: api/Posts/AllPosts/{message}/{name}
+GET Request: api/Posts/AllPosts/{message}/{name}
 ```
 + tool category </br>
 ```
@@ -145,11 +145,10 @@ Input:  string message = type"
         string name = CategoryType Name
 Output: PostsResult with given category 
 ```
-
-```
-PostRequest: api/Posts/AllPosts/{message}/{typeName}/{toolName}
-```
 + both category </br>
+```
+GET Request: api/Posts/AllPosts/{message}/{typeName}/{toolName}
+```
 ```
 Input:  string message = "both" 
         string typeName = CategoryType Name 
@@ -160,46 +159,46 @@ Account
 ------
 #### Add account
 ```
-PostRequest:  api/AccountAdd
+POST Request: api/Accounts/AddAccount
 Input:        Account
 Output:       Account 
 ```
 #### Edit account
 ```
-PostRequest:  api/AccountEdit
+PUT Request:  api/Accounts/EditAccount
 Input:        Account (ID and prop you want to edit (cannot edit CreationDate and id))
 Output:       Account 
 ```
 #### Remove account
 ```
-PostRequest:  api/AccountRemove
-Input:        Account (ID and passwordHash)
-Output:       Account 
+POST* Request: api/DeleteAccount
+Input:         Account (ID and passwordHash)
+Output:        Account 
 ```
 
 User
 ------
 #### Get user
 ```
-PostRequest:  api/UserGet
-Input:        Id
+GET Request:  api/Users/{userId}
+Input:        int
 Output:       UsersResult 
 ```
 #### Get user's images
 ```
-PostRequest:  api/UserImagesGet
-Input:        Id 
-Output:       Images 
+GET Request:  api/Users/{userId}/GetPosts
+Input:        int
+Output:       Posts 
 ```
 #### Add user
 ```
-PostRequest:  api/UserAdd
+POST Request: api/Users/AddUser
 Input:        User
 Output:       User 
 ```
 #### Edit user
 ```
-PostRequest:  api/UserEdit
+PUT Request:  api/Users/EditUser
 Input:        User (ID and prop you want to edit (cannot edit account id and id))
 Output:       User 
 ```
@@ -208,77 +207,77 @@ Comment Likes
 ------
 #### Get likes
 ```
-PostRequest: api/CommentsLikesGet
-Input:       Id
+GET Request: api/Likes/Comment/{commentId}
+Input:       int
 Output:      LikesResult
 ```
 #### Add like
 ```
-PostRequest:    api/CommentLikeAdd
+POST Request:   api/Likes/Comment/AddLike
 Input:          Comment Like 
 Output:         Comment Like 
 ```
 #### Remove like
 ```
-PostRequest:  api/CommentLikeRemove
-Input:        Comment Like ( ID )
-Output:       Comment Like 
+DELETE Request: api/Likes/Comment/RemoveLike/{likeId}
+Input:          int
+Output:         Comment Like 
 ```
 
 Image Likes
 ------
 #### Get likes
 ```
-PostRequest: api/ImageLikesGet
+GET Request: api/Likes/Post/{postId}
 Input:       Id
 Output:      LikesResult
 ```
 #### Add like
 ```
-PostRequest: api/ImageLikeAdd
-Input:       PostLike 
-Output:      PostLike 
+POST Request: api/Likes/Post/AddLike
+Input:        PostLike 
+Output:       PostLike 
 ```
 #### Remove like
 ```
-PostRequest: api/ImageLikeRemove
-Input:       PostLike ( ID )
-Output:      PostLike
+DELETE Request: api/Likes/Post/RemoveLike/{likeId}
+Input:         PostLike ( ID )
+Output:        PostLike
 ```
 
 Category
 ------
 #### Get, or add and get category
 ```
-PostRequest: api/CategoryGetAdd
-Input:       Category: "TypeName" or "ToolName")
-Output:      CategoryType or CategoryTool
+POST Request: api/CategoryGetAdd
+Input:        Category: "TypeName" or "ToolName")
+Output:       CategoryType or CategoryTool
 ```
 
 User Followers
 ------
 #### Add Follow
 ```
-PostRequest: api/FollowersAdd
-Input:       Follow 
-Output:      Follow 
+POST Request: api/Followers/AddFollower
+Input:        Follow 
+Output:       Follow 
 ```
 #### Remove Follow
 ```
-PostRequest: api/FollowersRemove
-Input:       Follow ( ID )
-Output:      Follow
+DELETE Request: api/Followers/DeleteFollower/{followId}
+Input:          int
+Output:         Follow
 ```
 #### Get Followed
 ```
-PostRequest: api/FollowedGet
-Input:       Id 
+GET Request: api/Followers/GetFollowed/{userId}
+Input:       int 
 Output:      LikesResult 
 ```
 #### Get Following
 ```
-PostRequest: api/FollowingGet
-Input:       Id 
+GET Request: api/Followers/GetFollowing/{userId}
+Input:       int 
 Output:      LikesResult 
 ```
 

@@ -28,6 +28,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting.Internal;
 using backEnd.Controllers.UploadImagesControllers;
 using CloudinaryDotNet;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace backEnd
 {
@@ -109,6 +110,8 @@ namespace backEnd
                 });
             });
             services.AddAutoMapper();
+            services.AddSwaggerGen(c =>
+                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1"}));
             services.AddSingleton<IActivityManagerStartup, ActivityManager>();
             services.AddMvc().AddControllersAsServices();
             services.AddDbContext<PaintStoreContext>(options =>
@@ -152,6 +155,9 @@ namespace backEnd
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IActivityManagerStartup activityManager, IServiceScopeFactory _scopeFactory)
         {
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "my API V1"));
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

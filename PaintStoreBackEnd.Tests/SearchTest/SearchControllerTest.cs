@@ -38,7 +38,7 @@ namespace PaintStoreBackEnd.Tests
 
             var timespan = 0; // can be 0 for result
 
-            IEnumerable<SearchResult> searchList = controller.GetSearch(new Users { Name = "zosia" });
+            IEnumerable<SearchResult> searchList = controller.GetSearch( "zosia");
 
             Assert.That(Time(() => MultiplyMehod(controller)), Is.LessThanOrEqualTo(TimeSpan.FromSeconds(timespan)));
 
@@ -49,8 +49,8 @@ namespace PaintStoreBackEnd.Tests
 
         private IEnumerable<SearchResult> MultiplyMehod(SearchController controller)
         {
-            for (int i = 0; i < 99; i++) controller.GetSearch(new Users {Name = "zosia"});
-            return controller.GetSearch(new Users {Name = "zosia"});
+            for (int i = 0; i < 99; i++) controller.GetSearch( "zosia");
+            return controller.GetSearch("zosia");
         }
 
         [Test]
@@ -60,7 +60,7 @@ namespace PaintStoreBackEnd.Tests
             var mock = init.mock;
 
             var controller = new SearchController(mock.Object);
-            var searchList = controller.GetSearch(new Users { Name = "zosia" });
+            var searchList = controller.GetSearch("zosia");
             Assert.AreEqual(searchList.First().Name, "Zosia");
             Assert.AreEqual(searchList.Count(), 3);
             Assert.AreEqual(searchList.Skip(1).First().TypeName, "poZosiase");

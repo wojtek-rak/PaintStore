@@ -21,6 +21,7 @@ using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
 namespace backEnd.ControllersForTesting
 {
     [Route("api/[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class AllGet2Controller : Controller
     {
         private readonly PaintStoreContext paintStoreContext;

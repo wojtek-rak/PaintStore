@@ -18,6 +18,7 @@ namespace backEnd.Controllers.LikeControllers.Images
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ImageLikeAddController : Controller
     {
         private readonly PaintStoreContext paintStoreContext;

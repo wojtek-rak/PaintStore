@@ -18,6 +18,7 @@ namespace backEnd.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ImageRemoveController : Controller
     {
         private readonly PaintStoreContext paintStoreContext;

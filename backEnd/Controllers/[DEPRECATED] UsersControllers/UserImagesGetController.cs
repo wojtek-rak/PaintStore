@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace backEnd.Controllers
 {
     [Route("api/[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class UserImagesGetController : Controller
     {
         private readonly PaintStoreContext paintStoreContext;

@@ -19,6 +19,7 @@ namespace backEnd.Controllers.FollowersControllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class FollowedGetController : Controller
     {
         private readonly PaintStoreContext paintStoreContext;

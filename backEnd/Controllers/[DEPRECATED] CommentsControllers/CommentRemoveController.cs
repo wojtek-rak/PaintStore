@@ -19,6 +19,7 @@ namespace backEnd.Controllers.LikeControllers.Comment
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class CommentRemoveController : Controller
     {
 

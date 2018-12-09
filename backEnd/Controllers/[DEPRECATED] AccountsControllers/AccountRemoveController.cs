@@ -18,6 +18,7 @@ namespace backEnd.Controllers.CommentsControllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class AccountRemoveController : Controller
     {
         private readonly PaintStoreContext paintStoreContext;

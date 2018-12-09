@@ -25,6 +25,7 @@ namespace backEnd.Controllers
     /// </summary>
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class CommentsGetController : Controller
     {
         private readonly PaintStoreContext paintStoreContext;

@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace backEnd.Controllers.CommentsControllers
 {
     [Route("api/[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class AccountAddController : Controller
     {
         private readonly PaintStoreContext paintStoreContext;

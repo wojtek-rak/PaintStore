@@ -20,6 +20,7 @@ namespace backEnd.Controllers.CommentsControllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class CommentEditController : Controller
     {
         private readonly PaintStoreContext paintStoreContext;

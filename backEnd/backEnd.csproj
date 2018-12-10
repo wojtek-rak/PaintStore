@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\[DEPRECATED] CategoryControllers\" />
     <Folder Include="wwwroot\" />
     <Folder Include="wwwroot\Uploads\" />
   </ItemGroup>

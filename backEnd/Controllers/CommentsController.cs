@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using backEnd.Controllers.CategoryControllers;
 using backEnd.Models;
 using backEnd.Models.ResultsModels;
+using backEnd.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,61 +15,35 @@ namespace backEnd.Controllers
     [Route("api/Comments")]
     public class CommentsController : Controller
     {
-        private readonly PaintStoreContext paintStoreContext;
+        private readonly IPostCommentsService _postCommentsService;
 
-        public CommentsController(PaintStoreContext ctx)
+        public CommentsController(IPostCommentsService postCommentsService)
         {
-            paintStoreContext = ctx;
+            _postCommentsService = postCommentsService;
         }
 
         [HttpGet("{postId}")]
         public IActionResult GetComments(int postId)
         {
-            List<PostCommentsResult> commentsResult = new List<PostCommentsResult>();
-            using (var db = paintStoreContext)
-            {
-                var comments = db.PostComments.Where(b => b.PostId == postId).OrderByDescending(x => x.LikeCount);
-                foreach (var comment in comments)
-                {
-                    var userAvatarImgLink = db.Users.First(x => x.Id == comment.UserId).AvatarImgLink;
-                    commentsResult.Add(new PostCommentsResult(comment){UserOwnerImgLink = userAvatarImgLink});
-                }
-                return Ok(commentsResult);
-            }
+            return Ok(_postCommentsService.GetComments(postId));
         }
 
         [HttpPost("AddPostComment")]
         public IActionResult AddComment([FromBody] PostComments comment)
         {
-            ImagesManager.ImageCommentCountPlus(paintStoreContext, comment.PostId);
-            paintStoreContext.PostComments.Add(comment);
-            var count = paintStoreContext.SaveChanges();
-            return Ok(comment);
+            return Ok(_postCommentsService.AddComment(comment));
         }
 
         [HttpPut("EditPostComment")]
         public IActionResult EditComment([FromBody] PostComments comment)
         {
-            var commentToUptade = paintStoreContext.PostComments.Where(x => x.Id == comment.Id).First();
-            commentToUptade.Content = comment.Content;
-            var count = paintStoreContext.SaveChanges();
-            return Ok(commentToUptade);
+            return Ok(_postCommentsService.EditComment(comment));
         }
 
         [HttpDelete("DeletePostComment/{commentId}")]
         public IActionResult CommentRemove(int commentId)
         {
-            ImagesManager.ImageCommentCountMinus(paintStoreContext, paintStoreContext.PostComments.
-                Where(x => x.Id == commentId).First().PostId);
-            paintStoreContext.PostComments.Remove(paintStoreContext.PostComments.
-                Where(x => x.Id == commentId).First());
-            foreach(var like in paintStoreContext.CommentLikes.Where(x => x.CommentId == commentId))
-            {
-                paintStoreContext.CommentLikes.Remove(paintStoreContext.CommentLikes.
-                    Where(x => x.Id == like.Id).First());
-            }
-            var count = paintStoreContext.SaveChanges();
-            return Ok(commentId);
+            return Ok(_postCommentsService.CommentRemove(commentId));
         }
 
     }

@@ -113,8 +113,10 @@ namespace backEnd
             services.AddAutoMapper();
 
             services.AddTransient<IPostsService, PostService>();
+            services.AddTransient<ILikesService, LikesService>();
             services.AddTransient<IAccountsService, AccountsService>();
             services.AddTransient<IFollowersService, FollowersService>();
+            services.AddTransient<IPostCommentsService, PostCommentsService>();
 
             services.AddSwaggerGen(c =>
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1"}));

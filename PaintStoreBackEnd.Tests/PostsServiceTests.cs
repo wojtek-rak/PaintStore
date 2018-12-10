@@ -52,7 +52,7 @@ namespace PaintStoreBackEnd.Tests
 
 
         [Test]
-        public void GetAllPosts_MostPopular_MostPopula()
+        public void GetAllPosts_MostPopular_MostPopular()
         {
             var init = new InitializeMockContext();
             var mock = init.mock;

@@ -14,6 +14,12 @@ using backEnd.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
+////////////////////////////////////////////////////////////
+//                                                        //
+//                        DEPRECATED                      //
+//                                                        //
+////////////////////////////////////////////////////////////
+/// 
 namespace backEnd.Controllers.CommentsControllers
 {
     [Produces("application/json")]
@@ -32,42 +38,44 @@ namespace backEnd.Controllers.CommentsControllers
         }
 
         [HttpPost]
-        public Accounts RemoveAccount([FromBody] Accounts account)
+        public IActionResult RemoveAccount([FromBody] Accounts account)
         {
-            using (var db = paintStoreContext)
-            {
+            return Ok("DEPRECATED API ENDPOIND");
+            //    using (var db = paintStoreContext)
+            //    {
 
-                var accountToRemove = db.Accounts.First(x => x.Id == account.Id);
-                if (account.PasswordHash == db.Accounts.First(x => x.Id == account.Id).PasswordHash)
-                {
-                    var userToRemove = db.Users.First(x => x.AccountId == accountToRemove.Id);
+            //        var accountToRemove = db.Accounts.First(x => x.Id == account.Id);
+            //        if (account.PasswordHash == db.Accounts.First(x => x.Id == account.Id).PasswordHash)
+            //        {
+            //            var userToRemove = db.Users.First(x => x.AccountId == accountToRemove.Id);
 
-                    //var task = removeSupervisorActor.Ask(new SupervisorMessage_RmImages(userToRemove, db));
+            //            //var task = removeSupervisorActor.Ask(new SupervisorMessage_RmImages(userToRemove, db));
 
-                    var postRemover = new ImageRemoveController(db);
+            //            var postRemover = new ImageRemoveController(db);
 
-                    foreach (var post in db.Posts.Where(x => x.UserId == userToRemove.Id))
-                    {
-                        PostsController.PostRemover(paintStoreContext, post.Id);
-                    }
+            //            foreach (var post in db.Posts.Where(x => x.UserId == userToRemove.Id))
+            //            {
+            //                PostsController.PostRemover(paintStoreContext, post.Id);
+            //            }
 
-                    foreach (var follow in db.UserFollowers.
-                        Where(x => x.FollowedUserId == userToRemove.Id || x.FollowingUserId == userToRemove.Id))
-                    {
-                        FollowersRemoveController.FollowRemover(paintStoreContext, follow);
-                    }
-                    var userRemove = db.Users.Remove(userToRemove);
-                    var accountRemove = db.Accounts.Remove(accountToRemove);
+            //            foreach (var follow in db.UserFollowers.
+            //                Where(x => x.FollowedUserId == userToRemove.Id || x.FollowingUserId == userToRemove.Id))
+            //            {
+            //                FollowersRemoveController.FollowRemover(paintStoreContext, follow);
+            //            }
+            //            var userRemove = db.Users.Remove(userToRemove);
+            //            var accountRemove = db.Accounts.Remove(accountToRemove);
 
-                    //task.Wait();
-                    var count = db.SaveChanges();
-                    return accountToRemove;
-                }
-                else
-                {
-                    return new Accounts { PasswordHash = "Password incorrect" };
-                }
-            }
+            //            //task.Wait();
+            //            var count = db.SaveChanges();
+            //            return accountToRemove;
+            //        }
+            //        else
+            //        {
+            //            return new Accounts { PasswordHash = "Password incorrect" };
+            //        }
+            //    }
+            //}
         }
     }
 }

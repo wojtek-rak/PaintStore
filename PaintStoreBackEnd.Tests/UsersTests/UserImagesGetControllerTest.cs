@@ -15,7 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PaintStoreBackEnd.Tests
+namespace PaintStoreBackEnd.Tests.InProgress
 {
 
     [TestFixture]

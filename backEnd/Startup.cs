@@ -29,6 +29,7 @@ using Microsoft.AspNetCore.Hosting.Internal;
 using backEnd.Controllers.UploadImagesControllers;
 using CloudinaryDotNet;
 using Swashbuckle.AspNetCore.Swagger;
+using backEnd.Services;
 
 namespace backEnd
 {
@@ -110,6 +111,11 @@ namespace backEnd
                 });
             });
             services.AddAutoMapper();
+
+            services.AddTransient<IPostsService, PostService>();
+            services.AddTransient<IAccountsService, AccountsService>();
+            services.AddTransient<IFollowersService, FollowersService>();
+
             services.AddSwaggerGen(c =>
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1"}));
             services.AddSingleton<IActivityManagerStartup, ActivityManager>();

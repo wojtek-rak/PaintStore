@@ -6,6 +6,11 @@ using backEnd.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
+////////////////////////////////////////////////////////////
+//                                                        //
+//                        DEPRECATED                      //
+//                                                        //
+////////////////////////////////////////////////////////////
 namespace backEnd.Controllers.CommentsControllers
 {
     [Produces("application/json")]

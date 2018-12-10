@@ -1,36 +1,46 @@
-﻿using backEnd.Controllers;
-using backEnd.Controllers.CommentsControllers;
-using backEnd.Controllers.LikeControllers.Comment;
-using backEnd.Models;
-using Microsoft.AspNetCore.Mvc.Controllers;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-
-using Microsoft.Extensions.DependencyInjection;
-using Moq;
-using Newtonsoft.Json;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using Akka.Actor;
-using backEnd.Actors;
-using backEnd.Actors.RemoveActors;
-using JetBrains.dotMemoryUnit;
+using backEnd.Controllers.CommentsControllers;
+using backEnd.Models;
+using backEnd.Services;
+using Moq;
+using NUnit.Framework;
 
-namespace PaintStoreBackEnd.Tests.Deprecated
+namespace PaintStoreBackEnd.Tests
 {
-
     [TestFixture]
-    class AccountRemoveControllerTest
+    public class AccountsServiceTests
     {
         [Test]
-        public void AccountRemoveTest()
+        public void AddAccount_EmptyAcc_AddAccount()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var accountsService = new AccountsService(mock.Object, new PostService(mock.Object));
+            var editedCom = accountsService.AddAccount(new Accounts { });
+            mock.Verify(m => m.SaveChanges(), Times.Once());
+            init.mockSetAccount.Verify(m => m.Add(It.IsAny<Accounts>()), Times.Once());
+        }
+
+        [Test]
+        public void EditAccount_ChangeValues_Changed()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var controller = new AccountsService(mock.Object, new PostService(mock.Object));
+            var expectedEmail = "Testowy Komentarz";
+            var expectedHash = "hashSW@";
+            var editedUser = controller.EditAccount(new Accounts { Id = 1, Email = expectedEmail, PasswordHash = expectedHash });
+
+            mock.Verify(m => m.SaveChanges(), Times.Once());
+            Assert.AreEqual(expectedEmail, editedUser.Email);
+            Assert.AreEqual(expectedHash, editedUser.PasswordHash);
+        }
+        [Test]
+        public void RemoveAccount_ValidPassword_Remove()
         {
             var init = new InitializeMockContext();
             var mock = init.mock;
@@ -39,7 +49,7 @@ namespace PaintStoreBackEnd.Tests.Deprecated
             //var actorRemove = actorSystem.ActorOf(Props.Create(() => new RemoveAccountImagesActor()));
             //var actorSupervisor = actorSystem.ActorOf(Props.Create(() => new SupervisorActor(actorRemove)));
 
-            var controller = new AccountRemoveController(mock.Object);
+            var controller = new AccountsService(mock.Object, new PostService(mock.Object));
             var removeAccountt = controller.RemoveAccount(new Accounts { Id = 1, PasswordHash = "!@#sdaAWEDAFSFDSAE" });
 
             //mock.Verify(m => m.SaveChanges(), Times.Once());
@@ -51,25 +61,7 @@ namespace PaintStoreBackEnd.Tests.Deprecated
         }
 
         [Test]
-        public void AccountRemoveWithBadPasswdTest()
-        {
-            Assert.True(true);
-            //var init = new InitializeMockContext();
-            //var mock = init.mock;
-
-            ////var actorSystem = ActorSystem.Create("PSActorSystem");
-            ////var actorRemove = actorSystem.ActorOf(Props.Create(() => new RemoveAccountImagesActor()));
-            ////var actorSupervisor = actorSystem.ActorOf(Props.Create(() => new SupervisorActor(actorRemove)));
-
-            //var controller = new AccountRemoveController(mock.Object);
-            ////var controller = new AccountRemoveController(mock.Object);
-            //var removeAccountt = controller.RemoveAccount(new Accounts { Id = 1, PasswordHash = "!@#sawdasd" });
-            //var expectedMsg = "Password incorrect";
-            //Assert.AreEqual(expectedMsg, removeAccountt.PasswordHash);
-        }
-
-        [Test]
-        public void AccountRemovePerformenceTest()
+        public void RemoveAccount_WithBadPasswd_NoRemove()
         {
             var init = new InitializeMockContext();
             var mock = init.mock;
@@ -78,7 +70,24 @@ namespace PaintStoreBackEnd.Tests.Deprecated
             //var actorRemove = actorSystem.ActorOf(Props.Create(() => new RemoveAccountImagesActor()));
             //var actorSupervisor = actorSystem.ActorOf(Props.Create(() => new SupervisorActor(actorRemove)));
 
-            var controller = new AccountRemoveController(mock.Object);
+            var controller = new AccountsService(mock.Object, new PostService(mock.Object));
+            //var controller = new AccountRemoveController(mock.Object);
+            var removeAccountt = controller.RemoveAccount(new Accounts { Id = 1, PasswordHash = "!@#sawdasd" });
+            var expectedMsg = "Password incorrect";
+            Assert.AreEqual(expectedMsg, removeAccountt.PasswordHash);
+        }
+
+        [Test]
+        public void RemoveAccount_PerformenceTest()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            //var actorSystem = ActorSystem.Create("PSActorSystem");
+            //var actorRemove = actorSystem.ActorOf(Props.Create(() => new RemoveAccountImagesActor()));
+            //var actorSupervisor = actorSystem.ActorOf(Props.Create(() => new SupervisorActor(actorRemove)));
+
+            var controller = new AccountsService(mock.Object, new PostService(mock.Object));
             //var controller = new AccountRemoveController(mock.Object);
 
             var timespan = 10; // can be 0 for result
@@ -92,6 +101,18 @@ namespace PaintStoreBackEnd.Tests.Deprecated
             init.mockSetUserFollowers.Verify(m => m.Remove(It.IsAny<UserFollowers>()), Times.Exactly(2));
 
         }
+
+
+
+        private TimeSpan Time(Action toTime)
+        {
+            var timer = Stopwatch.StartNew();
+            toTime();
+            timer.Stop();
+            return timer.Elapsed;
+        }
+
+
 
 
         /// <summary>
@@ -125,16 +146,5 @@ namespace PaintStoreBackEnd.Tests.Deprecated
 
         //    //controller.RemoveAccount(new Accounts { Id = 1, PasswordHash = "!@#sdaAWEDAFSFDSAE" })
         //}
-
-        private TimeSpan Time(Action toTime)
-        {
-            var timer = Stopwatch.StartNew();
-            toTime();
-            timer.Stop();
-            return timer.Elapsed;
-        }
     }
-
 }
-
-

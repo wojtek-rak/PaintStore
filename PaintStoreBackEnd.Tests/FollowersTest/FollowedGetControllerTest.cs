@@ -18,7 +18,7 @@ using System.Text;
 using System.Threading.Tasks;
 using backEnd.Controllers.FollowersControllers;
 
-namespace PaintStoreBackEnd.Tests
+namespace PaintStoreBackEnd.Tests.Deprecated
 {
 
     [TestFixture]

@@ -114,6 +114,7 @@ namespace backEnd
 
             services.AddTransient<IPostsService, PostService>();
             services.AddTransient<ILikesService, LikesService>();
+            services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IAccountsService, AccountsService>();
             services.AddTransient<IFollowersService, FollowersService>();
             services.AddTransient<IPostCommentsService, PostCommentsService>();

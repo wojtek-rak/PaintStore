@@ -15,7 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PaintStoreBackEnd.Tests.InProgress
+namespace PaintStoreBackEnd.Tests.Deprecated
 {
 
     [TestFixture]

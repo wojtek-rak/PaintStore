@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace backEnd.Controllers
 {
     [Route("api/[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class CategoryGetAddController : Controller
     {
         private readonly PaintStoreContext paintStoreContext;

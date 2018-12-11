@@ -21,17 +21,17 @@ namespace PaintStoreBackEnd.Tests.Deprecated
     [TestFixture]
     class ImageGetControllerTest
     {
-        [Test]
-        public void GetImageTest()
-        {
-            var init = new InitializeMockContext();
-            var mock = init.mock;
+        //[Test]
+        //public void GetImageTest()
+        //{
+        //    var init = new InitializeMockContext();
+        //    var mock = init.mock;
 
-            var controller = new ImageGetController(mock.Object);
-            var result = controller.GetImage(new Posts { Id = 1 }).Count();
-            var expected = 1;
-            Assert.AreEqual(expected, result);
-        }
+        //    var controller = new ImageGetController(mock.Object);
+        //    var result = controller.GetImage(new Posts { Id = 1 }).Count();
+        //    var expected = 1;
+        //    Assert.AreEqual(expected, result);
+        //}
     }
 }
 

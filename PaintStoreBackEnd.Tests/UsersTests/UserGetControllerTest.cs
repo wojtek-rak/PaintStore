@@ -20,29 +20,29 @@ namespace PaintStoreBackEnd.Tests.Deprecated
     [TestFixture]
     class UserGetControllerTest
     {
-        [Test]
-        public void GetUserTest()
-        {
-            var init = new InitializeMockContext();
-            var mock = init.mock;
+        //[Test]
+        //public void GetUserTest()
+        //{
+        //    var init = new InitializeMockContext();
+        //    var mock = init.mock;
 
-            var controller = new UserGetController(mock.Object);
-            var result = controller.GetUser(new Users { Id = 1 }).Count();
-            var expected = 1;
-            Assert.AreEqual(result, expected);
-        }
+        //    var controller = new UserGetController(mock.Object);
+        //    var result = controller.GetUser(new Users { Id = 1 }).Count();
+        //    var expected = 1;
+        //    Assert.AreEqual(result, expected);
+        //}
 
-        [Test]
-        public void GetUserCategoryToolTest()
-        {
-            var init = new InitializeMockContext();
-            var mock = init.mock;
+        //[Test]
+        //public void GetUserCategoryToolTest()
+        //{
+        //    var init = new InitializeMockContext();
+        //    var mock = init.mock;
 
-            var controller = new UserGetController(mock.Object);
-            var result = controller.GetUser(new Users {Id = 1});
-            var expected = "pencil";
-            Assert.AreEqual(result.First().MostUsedCategoryToolName, expected);
-        }
+        //    var controller = new UserGetController(mock.Object);
+        //    var result = controller.GetUser(new Users {Id = 1});
+        //    var expected = "pencil";
+        //    Assert.AreEqual(result.First().MostUsedCategoryToolName, expected);
+        //}
     }
 }
 

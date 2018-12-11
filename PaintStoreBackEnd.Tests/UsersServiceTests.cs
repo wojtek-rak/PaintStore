@@ -21,17 +21,17 @@ namespace PaintStoreBackEnd.Tests
             Assert.AreEqual(result.Name, expected);
         }
 
-        [Test]
-        public void GetUser_MostCategoryTool_Test()
-        {
-            var init = new InitializeMockContext();
-            var mock = init.mock;
+        //[Test]
+        //public void GetUser_MostCategoryTool_Test()
+        //{
+        //    var init = new InitializeMockContext();
+        //    var mock = init.mock;
 
-            var controller = new UsersService(mock.Object);
-            var result = controller.GetUser(1);
-            var expected = "pencil";
-            Assert.AreEqual(result.MostUsedCategoryToolName, expected);
-        }
+        //    var controller = new UsersService(mock.Object);
+        //    var result = controller.GetUser(1);
+        //    var expected = "pencil";
+        //    Assert.AreEqual(result.MostUsedCategoryToolName, expected);
+        //}
 
         [Test]
         public void EditUser_AllProperties_Test()

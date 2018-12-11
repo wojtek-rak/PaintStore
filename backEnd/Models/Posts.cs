@@ -10,8 +10,6 @@ namespace backEnd.Models
         public int UserId { get; set; }
         public string UserOwnerName { get; set; }
         public string Title { get; set; }
-        public int? CategoryTypeId { get; set; }
-        public int? CategoryToolId { get; set; }
         public string ImgLink { get; set; }
         public DateTime CreationDate { get; set; }
         public string Description { get; set; }
@@ -21,5 +19,9 @@ namespace backEnd.Models
         public int PopularActivity { get; set; }
         public int NewestActivity { get; set; }
         public int MixedActivity { get; set; }
+        public bool? Edited { get; set; }
+        //TEMP
+        //public int CategoryToolId { get; set; }
+        //public int CategoryTypeId { get; set; }
     }
 }

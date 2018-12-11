@@ -43,9 +43,9 @@ namespace backEnd.Controllers
         }
 
         [HttpGet("AllPosts/{message}/{name}")]
-        public IActionResult GetPostsByTag(string message, string tag)
+        public IActionResult GetPostsByTag(string tag)
         {
-            return Ok(_postsService.GetPostsByTag(message, tag));
+            return Ok(_postsService.GetPostsByTag(tag));
         }
 
 

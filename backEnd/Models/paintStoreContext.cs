@@ -26,9 +26,10 @@ namespace backEnd.Models
         public virtual DbSet<PostComments> PostComments { get; set; }
         public virtual DbSet<PostLikes> PostLikes { get; set; }
         public virtual DbSet<Posts> Posts { get; set; }
+        public virtual DbSet<PostTags> PostTags { get; set; }
+        public virtual DbSet<Tags> Tags { get; set; }
         public virtual DbSet<UserFollowers> UserFollowers { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-
         public IConfiguration Configuration { get; }
         private string ConnString { get; set; }
         public PaintStoreContext(DbContextOptions<PaintStoreContext> options) : base(options)
@@ -41,6 +42,7 @@ namespace backEnd.Models
         public PaintStoreContext()
         {
         }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -70,7 +72,7 @@ namespace backEnd.Models
             modelBuilder.Entity<CategoryTools>(entity =>
             {
                 entity.HasIndex(e => e.ToolName)
-                    .HasName("UQ__Category__006DA27122153F13")
+                    .HasName("UQ__Category__006DA271C21386E2")
                     .IsUnique();
 
                 entity.Property(e => e.ToolName)
@@ -82,7 +84,7 @@ namespace backEnd.Models
             modelBuilder.Entity<CategoryTypes>(entity =>
             {
                 entity.HasIndex(e => e.TypeName)
-                    .HasName("UQ__Category__D4E7DFA86EAD0395")
+                    .HasName("UQ__Category__D4E7DFA8627FF10C")
                     .IsUnique();
 
                 entity.Property(e => e.TypeName)
@@ -99,6 +101,8 @@ namespace backEnd.Models
 
                 entity.Property(e => e.CreationDate).HasColumnType("date");
 
+                entity.Property(e => e.Edited).HasDefaultValueSql("('0')");
+
                 entity.Property(e => e.LikeCount).HasDefaultValueSql("('0')");
             });
 
@@ -109,6 +113,8 @@ namespace backEnd.Models
                 entity.Property(e => e.CreationDate).HasColumnType("date");
 
                 entity.Property(e => e.Description).IsUnicode(false);
+
+                entity.Property(e => e.Edited).HasDefaultValueSql("('0')");
 
                 entity.Property(e => e.ImgLink)
                     .IsRequired()
@@ -134,10 +140,22 @@ namespace backEnd.Models
                 entity.Property(e => e.ViewCount).HasDefaultValueSql("('0')");
             });
 
+            modelBuilder.Entity<Tags>(entity =>
+            {
+                entity.HasIndex(e => e.TagName)
+                    .HasName("UQ__Tags__BDE0FD1D5942FE60")
+                    .IsUnique();
+
+                entity.Property(e => e.TagName)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+            });
+
             modelBuilder.Entity<Users>(entity =>
             {
                 entity.HasIndex(e => e.AccountId)
-                    .HasName("UQ__Users__349DA5A7A2EB228F")
+                    .HasName("UQ__Users__349DA5A79015285E")
                     .IsUnique();
 
                 entity.Property(e => e.About)

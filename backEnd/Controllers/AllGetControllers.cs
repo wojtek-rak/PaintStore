@@ -75,10 +75,10 @@ namespace backEnd.ControllersForTesting
                     stringBuilder.Append(comm.UserOwnerName);
                     stringBuilder.Append(", ");
                     stringBuilder.Append(comm.Title);
-                    stringBuilder.Append(", ");
-                    stringBuilder.Append(comm.CategoryTypeId);
-                    stringBuilder.Append(", ");
-                    stringBuilder.Append(comm.CategoryToolId);
+                    //stringBuilder.Append(", ");
+                    //stringBuilder.Append(comm.CategoryTypeId);
+                    //stringBuilder.Append(", ");
+                    //stringBuilder.Append(comm.CategoryToolId);
                     stringBuilder.Append(", ");
                     stringBuilder.Append(comm.ImgLink);
                     stringBuilder.Append(", ");

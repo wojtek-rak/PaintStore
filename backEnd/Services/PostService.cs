@@ -23,16 +23,17 @@ namespace backEnd.Services
             {
                 var post = db.Posts.First(b => b.Id == postId);
 
-                var categoryTypeName = post.CategoryTypeId == null ? null : 
-                    db.CategoryTypes.First(x => x.Id == post.CategoryTypeId).TypeName;
-                var categoryToolName = post.CategoryToolId == null ? null : 
-                    db.CategoryTools.First(x => x.Id == post.CategoryToolId).ToolName;
+                //TODO TAGI
+                //var categoryTypeName = post.CategoryTypeId == null ? null : 
+                //    db.CategoryTypes.First(x => x.Id == post.CategoryTypeId).TypeName;
+                //var categoryToolName = post.CategoryToolId == null ? null : 
+                //    db.CategoryTools.First(x => x.Id == post.CategoryToolId).ToolName;
                 var postDetailsResult = new PostDetailsResult(post)
                 {
                     CreationDate = post.CreationDate,
                     Description = post.Description,
-                    CategoryTypeName = categoryTypeName,
-                    CategoryToolName = categoryToolName
+                    //CategoryTypeName = categoryTypeName,
+                    //CategoryToolName = categoryToolName
                         
                 };
 
@@ -85,33 +86,26 @@ namespace backEnd.Services
             return imagesResult;
         }
 
-        public List<PostsResults> GetPostsByTag(string message, string tag)
+        public List<PostsResults> GetPostsByTag(string tag)
         {
             List<PostsResults> imagesResult = new List<PostsResults>();
             using (var db = paintStoreContext)
             {
-
+                var tagId = db.Tags.First(x => x.TagName == tag).Id;
+                var postsIds = db.PostTags.Where(x => x.TagId == tagId).Select(y => y.PostId).ToList();
                 IQueryable<Posts> images = null;
-                if (message == "type")
-                {
-                    images = db.Posts.Where(
-                        x => x.CategoryTypeId == db.CategoryTypes.
-                                 Where(y => y.TypeName == tag).First().Id);
-                }
-                if (message == "tool")
-                {
-                    images = db.Posts.Where(
-                        x => x.CategoryToolId == db.CategoryTools.
-                                 Where(y => y.ToolName == tag).First().Id);
-                }
-                if (message == "both")
-                {
-                    images = db.Posts.Where(
-                            x => x.CategoryTypeId == db.CategoryTypes.
-                                     Where(y => y.TypeName == tag).First().Id).
-                        Where(x => x.CategoryToolId == db.CategoryTools.
-                                       Where(y => y.ToolName == tag).First().Id);
-                }
+                //var query = 
+                //    context.Posts.Where(post =>
+                //        post.Tags.All(tag => 
+                //            tagIds.Contains(tag.TagId)));
+
+                images = db.Posts.Where(post =>
+                    postsIds.Contains(post.Id));
+                    
+
+                //images = db.Posts.Where(
+                //    x => x.Id == db.PostTags.
+                //             Where(y => y.TagId == postTagId));
                 foreach (var image in images)
                 {
                     var userOwnerImgLink = db.Users.First(x => x.Id == image.UserId).AvatarImgLink;
@@ -127,14 +121,15 @@ namespace backEnd.Services
             using(var db = paintStoreContext)
             {
                 UsersManager.UserPostsCountPlus(db, post.UserId);
-                if(post.CategoryToolId != null)
-                {
-                    CategoryManager.CategoryToolCountPlus(db, post.CategoryToolId);
-                }
-                if (post.CategoryTypeId != null)
-                {
-                    CategoryManager.CategoryTypesCountPlus(db, post.CategoryTypeId);
-                }
+                //TODO TAGI
+                //if(post.CategoryToolId != null)
+                //{
+                //    CategoryManager.CategoryToolCountPlus(db, post.CategoryToolId);
+                //}
+                //if (post.CategoryTypeId != null)
+                //{
+                //    CategoryManager.CategoryTypesCountPlus(db, post.CategoryTypeId);
+                //}
 
                 db.Posts.Add(post);
                 var count = db.SaveChanges();            }
@@ -149,18 +144,19 @@ namespace backEnd.Services
 
                 if (post.Title != null) postToUptade.Title = post.Title;
                 if (post.Description != null) postToUptade.Description = post.Description;
-                if (post.CategoryTypeId != null)
-                {
-                    if (postToUptade.CategoryTypeId != null) CategoryManager.CategoryTypesCountMinus(db, postToUptade.CategoryTypeId);
-                    postToUptade.CategoryTypeId = post.CategoryTypeId;
-                    CategoryManager.CategoryTypesCountPlus(db, postToUptade.CategoryTypeId);
-                }
-                if (post.CategoryToolId != null)
-                {
-                    if (postToUptade.CategoryToolId != null) CategoryManager.CategoryToolCountMinus(db, postToUptade.CategoryToolId);
-                    postToUptade.CategoryToolId = post.CategoryToolId;
-                    CategoryManager.CategoryToolCountPlus(db, postToUptade.CategoryToolId);
-                }
+                //TODO TAGI
+                //if (post.CategoryTypeId != null)
+                //{
+                //    if (postToUptade.CategoryTypeId != null) CategoryManager.CategoryTypesCountMinus(db, postToUptade.CategoryTypeId);
+                //    postToUptade.CategoryTypeId = post.CategoryTypeId;
+                //    CategoryManager.CategoryTypesCountPlus(db, postToUptade.CategoryTypeId);
+                //}
+                //if (post.CategoryToolId != null)
+                //{
+                //    if (postToUptade.CategoryToolId != null) CategoryManager.CategoryToolCountMinus(db, postToUptade.CategoryToolId);
+                //    postToUptade.CategoryToolId = post.CategoryToolId;
+                //    CategoryManager.CategoryToolCountPlus(db, postToUptade.CategoryToolId);
+                //}
                 var count = db.SaveChanges();
                 return postToUptade;
             }
@@ -174,15 +170,15 @@ namespace backEnd.Services
                     x => x.Id == postId).First();
 
                 UsersManager.UserPostsCountMinus(db, tempPost.UserId);
-
-                if (tempPost.CategoryToolId != null)
-                {
-                    CategoryManager.CategoryToolCountMinus(db, tempPost.CategoryToolId);
-                }
-                if (tempPost.CategoryTypeId != null)
-                {
-                    CategoryManager.CategoryTypesCountMinus(db, tempPost.CategoryTypeId);
-                }
+                //TODO TAGI
+                //if (tempPost.CategoryToolId != null)
+                //{
+                //    CategoryManager.CategoryToolCountMinus(db, tempPost.CategoryToolId);
+                //}
+                //if (tempPost.CategoryTypeId != null)
+                //{
+                //    CategoryManager.CategoryTypesCountMinus(db, tempPost.CategoryTypeId);
+                //}
 
                 db.Posts.Remove(db.Posts.
                     Where(x => x.Id == postId).First());

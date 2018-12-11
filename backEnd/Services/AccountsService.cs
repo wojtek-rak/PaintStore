@@ -51,8 +51,6 @@ namespace backEnd.Services
 
                     //var task = removeSupervisorActor.Ask(new SupervisorMessage_RmImages(userToRemove, db));
 
-                    var postRemover = new ImageRemoveController(db);
-
                     foreach (var post in db.Posts.Where(x => x.UserId == userToRemove.Id))
                     {
                         _postsService.PostRemover(post.Id);

@@ -13,7 +13,7 @@ namespace backEnd.Services
         PostDetailsResult GetPost(int postId);
         List<PostsResults> GetFollowingPosts(int userId);
         List<PostsResults> GetAllPosts(string message);
-        List<PostsResults> GetPostsByTag(string message, string tag);
+        List<PostsResults> GetPostsByTag(string tag);
         //IActionResult GetPostsByCategory(string message, string name);
         //IActionResult GetPostsByCategory(string message, string typeName, string toolName);
         Posts AddImage([FromBody] Posts post);

@@ -23,24 +23,7 @@ namespace backEnd.Services
                 
                 //userToGet.MostUsedCategoryToolName = db.Posts.Where(x => x.UserId == user.Id).GroupBy(x => x.CategoryToolId);
 
-                var toolId = db.Posts.Where(x => x.UserId == userId)
-                    .Where(x => x.CategoryToolId != null)
-                    .GroupBy(post => post.CategoryToolId)
-                    .Select(group => new
-                    {
-                        ToolId = group.Key,
-                        Count =  group.Count()
-                    })
-                    .OrderByDescending(y => y.Count)
-                    .First().ToolId;
-                if (toolId != null)
-                {
-                    usersResult = new UsersResult(userToGet)
-                    {
-                        MostUsedCategoryToolName = db.CategoryTools.First(x => x.Id == toolId).ToolName
-                    };
-                }
-                else usersResult = new UsersResult(userToGet);
+                usersResult = new UsersResult(userToGet);
                 return usersResult;
             }
         }

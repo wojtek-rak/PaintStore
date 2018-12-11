@@ -28,6 +28,8 @@ namespace PaintStoreBackEnd.Tests
         public Mock<DbSet<PostLikes>> mockSetPostLikes;
         public Mock<DbSet<CommentLikes>> mockSetCommentLikes;
         public Mock<DbSet<UserFollowers>> mockSetUserFollowers;
+        public Mock<DbSet<Tags>> mockSetTags;
+        public Mock<DbSet<PostTags>> mockSetPostTags;
         public Mock<PaintStoreContext> mock;
         public InitializeMockContext()
         {
@@ -50,12 +52,12 @@ namespace PaintStoreBackEnd.Tests
                 new PostComments { Id = 4, CreationDate = DateTime.Parse("2008-05-01T07:34:42-5:00"), Content = "Ale Kom", PostId = 4, UserId = 2, LikeCount = 0  }}.AsQueryable();
 
             var mockDataImages = new List<Posts> {
-                new Posts { Id = 1, Title = "zaden             ", CategoryTypeId = null, CategoryToolId = 1, ImgLink = "link1", CreationDate = DateTime.Parse("2008-05-01T07:34:42-5:00"), Description = "Desc1", UserId = 1, LikeCount = 2, CommentsCount = 0},
-                new Posts { Id = 2, Title = "Najnowszy         ", CategoryTypeId = 2, CategoryToolId = null, ImgLink = "link2", CreationDate = DateTime.Parse("2009-05-01T07:34:42-5:00"), Description = "Desc2", UserId = 1 , LikeCount = 1, CommentsCount = 1},
-                new Posts { Id = 3,  Title = "Najkomentowszy      ", CategoryTypeId = 2, CategoryToolId = 2, ImgLink = "link3", CreationDate = DateTime.Parse("2010-05-01T07:34:42-5:00"), Description = "Desc3", UserId = 2 , LikeCount = 0, CommentsCount = 2 },
-                new Posts { Id = 4,  Title = "comm bez lików", CategoryTypeId = null, CategoryToolId = null, ImgLink = "link4", CreationDate = DateTime.Parse("2011-05-01T07:34:42-5:00"), Description = "Desc4", UserId = 1  , LikeCount = 1, CommentsCount = 1},
-                new Posts { Id = 5, Title = "zaden2             ", CategoryTypeId = null, CategoryToolId = 1, ImgLink = "link5", CreationDate = DateTime.Parse("2008-04-01T07:34:42-5:00"), Description = "Desc5", UserId = 1, LikeCount = 0, CommentsCount = 0},
-                new Posts { Id = 6, Title = "zos             ", CategoryTypeId = null, CategoryToolId = 2, ImgLink = "link6", CreationDate = DateTime.Parse("2008-03-01T07:34:42-5:00"), Description = "Desc6", UserId = 1, LikeCount = 0, CommentsCount = 0} }.AsQueryable();
+                new Posts { Id = 1, Title = "zaden             ", ImgLink = "link1", CreationDate = DateTime.Parse("2008-05-01T07:34:42-5:00"), Description = "Desc1", UserId = 1, LikeCount = 2, CommentsCount = 0},
+                new Posts { Id = 2, Title = "Najnowszy         ", ImgLink = "link2", CreationDate = DateTime.Parse("2009-05-01T07:34:42-5:00"), Description = "Desc2", UserId = 1 , LikeCount = 1, CommentsCount = 1},
+                new Posts { Id = 3,  Title = "Najkomentowszy      ", ImgLink = "link3", CreationDate = DateTime.Parse("2010-05-01T07:34:42-5:00"), Description = "Desc3", UserId = 2 , LikeCount = 0, CommentsCount = 2 },
+                new Posts { Id = 4,  Title = "comm bez lików", ImgLink = "link4", CreationDate = DateTime.Parse("2011-05-01T07:34:42-5:00"), Description = "Desc4", UserId = 1  , LikeCount = 1, CommentsCount = 1},
+                new Posts { Id = 5, Title = "zaden2             ", ImgLink = "link5", CreationDate = DateTime.Parse("2008-04-01T07:34:42-5:00"), Description = "Desc5", UserId = 1, LikeCount = 0, CommentsCount = 0},
+                new Posts { Id = 6, Title = "zos             ", ImgLink = "link6", CreationDate = DateTime.Parse("2008-03-01T07:34:42-5:00"), Description = "Desc6", UserId = 1, LikeCount = 0, CommentsCount = 0} }.AsQueryable();
 
             var mockDataCategoryType = new List<CategoryTypes> {
                 new CategoryTypes { Id = 1, TypeName = "pose", Count = 0 },
@@ -82,7 +84,20 @@ namespace PaintStoreBackEnd.Tests
                 new UserFollowers { Id = 1, FollowedUserId = 1, FollowingUserId = 2},
                 new UserFollowers { Id = 2, FollowedUserId = 3, FollowingUserId = 2},
                 new UserFollowers { Id = 3, FollowedUserId = 1, FollowingUserId = 3} }.AsQueryable();
+            
+            var mockDataTags = new List<Tags> {
+                new Tags { Id = 1, TagName = "krajobraz", Count = 3 },
+                new Tags { Id = 2, TagName = "banan", Count = 1 },
+                new Tags { Id = 3, TagName = "owoce", Count = 2} }.AsQueryable();
 
+            var mockDataPostTags = new List<PostTags> {
+                new PostTags { Id = 1, PostId = 2, TagId = 1},
+                new PostTags { Id = 2, PostId = 2, TagId = 2},
+                new PostTags { Id = 3, PostId = 2, TagId = 3},
+                new PostTags { Id = 4, PostId = 1, TagId = 1},
+                new PostTags { Id = 5, PostId = 1, TagId = 3},
+                new PostTags { Id = 6, PostId = 3, TagId = 1}
+            }.AsQueryable();
 
             mockSetAccount = InitMockDbSet(mockDataAccounts);
             mockSetUsers = InitMockDbSet(mockDataUsers);
@@ -93,6 +108,8 @@ namespace PaintStoreBackEnd.Tests
             mockSetPostLikes = InitMockDbSet(mockDataPostLikes);
             mockSetCommentLikes = InitMockDbSet(mockDataCommentLikes);
             mockSetUserFollowers = InitMockDbSet(mockDataUserFollowers);
+            mockSetTags = InitMockDbSet(mockDataTags);
+            mockSetPostTags = InitMockDbSet(mockDataPostTags);
 
             mock.Setup(x => x.Accounts)
                             .Returns(mockSetAccount.Object);
@@ -112,6 +129,10 @@ namespace PaintStoreBackEnd.Tests
                             .Returns(mockSetCommentLikes.Object);
             mock.Setup(x => x.UserFollowers)
                             .Returns(mockSetUserFollowers.Object);
+            mock.Setup(x => x.Tags)
+                .Returns(mockSetTags.Object);
+            mock.Setup(x => x.PostTags)
+                .Returns(mockSetPostTags.Object);
             
 
             this.mock = mock;

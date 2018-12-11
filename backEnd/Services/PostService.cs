@@ -22,8 +22,11 @@ namespace backEnd.Services
             using (var db = paintStoreContext)
             {
                 var post = db.Posts.First(b => b.Id == postId);
+                var tagsIds = db.PostTags.Where(x => x.PostId == postId).Select(y => y.TagId).ToList();
 
-                //TODO TAGI
+                var tagsList = db.Tags.Where(tag =>
+                    tagsIds.Contains(tag.Id)).Select(x => x.TagName).ToList();
+
                 //var categoryTypeName = post.CategoryTypeId == null ? null : 
                 //    db.CategoryTypes.First(x => x.Id == post.CategoryTypeId).TypeName;
                 //var categoryToolName = post.CategoryToolId == null ? null : 
@@ -32,6 +35,7 @@ namespace backEnd.Services
                 {
                     CreationDate = post.CreationDate,
                     Description = post.Description,
+                    TagsList = tagsList
                     //CategoryTypeName = categoryTypeName,
                     //CategoryToolName = categoryToolName
                         

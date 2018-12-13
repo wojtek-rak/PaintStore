@@ -18,7 +18,7 @@ namespace backEnd.Services
         {
             paintStoreContext = ctx;
         }
-        public PostDetailsResult GetPost(int postId)
+        public PostDetailsResult GetPost(int userId, int postId)
         {
             using (var db = paintStoreContext)
             {
@@ -28,6 +28,9 @@ namespace backEnd.Services
                 var tagsList = db.Tags.Where(tag =>
                     tagsIds.Contains(tag.Id)).Select(x => x.TagName).ToList();
 
+                bool liked = false;
+                if (db.PostLikes.Any(x => x.PostId == postId && x.UserId == userId)) liked = true;
+                
                 //var categoryTypeName = post.CategoryTypeId == null ? null : 
                 //    db.CategoryTypes.First(x => x.Id == post.CategoryTypeId).TypeName;
                 //var categoryToolName = post.CategoryToolId == null ? null : 
@@ -36,10 +39,11 @@ namespace backEnd.Services
                 {
                     CreationDate = post.CreationDate,
                     Description = post.Description,
-                    TagsList = tagsList
+                    TagsList = tagsList,
+                    Liked = liked
                     //CategoryTypeName = categoryTypeName,
                     //CategoryToolName = categoryToolName
-                        
+
                 };
 
                 return postDetailsResult;

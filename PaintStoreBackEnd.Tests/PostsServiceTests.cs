@@ -20,9 +20,33 @@ namespace PaintStoreBackEnd.Tests
             var mock = init.mock;
 
             var postService = new PostService(mock.Object);
-            var result = postService.GetPost(1);
+            var result = postService.GetPost(1, 1);
             var expected = "link1";
             Assert.AreEqual(expected, result.ImgLink);
+        }
+
+        [Test]
+        public void GetPost_Liked_ReturnPost()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var postService = new PostService(mock.Object);
+            var result = postService.GetPost(2, 1);
+            var expected = true;
+            Assert.AreEqual(expected, result.Liked);
+        }
+
+        [Test]
+        public void GetPost_NotLiked_ReturnPost()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var postService = new PostService(mock.Object);
+            var result = postService.GetPost(1, 1);
+            var expected = false;
+            Assert.AreEqual(expected, result.Liked);
         }
 
         [Test]

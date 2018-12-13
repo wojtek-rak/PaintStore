@@ -23,10 +23,10 @@ namespace backEnd.Controllers
             _postsService = postsService;
         }
 
-        [HttpGet("{postId}")]
-        public IActionResult GetPost(int postId)
+        [HttpGet("{userId}/{postId}")]
+        public IActionResult GetPost(int userId, int postId)
         {
-            return Ok(_postsService.GetPost(postId));
+            return Ok(_postsService.GetPost(userId, postId));
         }
 
         [HttpGet("{userId}/GetFollowingPosts")]

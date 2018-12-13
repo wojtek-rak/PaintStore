@@ -10,7 +10,7 @@ namespace backEnd.Services
 {
     public interface IPostsService
     {
-        PostDetailsResult GetPost(int postId);
+        PostDetailsResult GetPost(int userId, int postId);
         List<PostsResults> GetFollowingPosts(int userId);
         List<PostsResults> GetAllPosts(string message);
         List<PostsResults> GetPostsByTag(string tag);

@@ -21,6 +21,7 @@ namespace backEnd.Services
         {
             using (var db = paintStoreContext)
             {
+                account.CreationDate = DateTime.Now;
                 db.Accounts.Add(account);
                 var count = db.SaveChanges();
                 return account;

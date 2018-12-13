@@ -134,7 +134,7 @@ namespace backEnd.Services
                 //{
                 //    CategoryManager.CategoryTypesCountPlus(db, post.CategoryTypeId);
                 //}
-
+                post.CreationDate = DateTime.Now;
                 db.Posts.Add(post);
                 var count = db.SaveChanges();            }
             return post;

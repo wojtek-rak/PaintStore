@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using backEnd.Controllers.CategoryControllers;
 using backEnd.Models;
@@ -32,6 +33,7 @@ namespace backEnd.Services
         public PostComments AddComment(PostComments comment)
         {
             ImagesManager.ImageCommentCountPlus(paintStoreContext, comment.PostId);
+            comment.CreationDate = DateTime.Now;
             paintStoreContext.PostComments.Add(comment);
             var count = paintStoreContext.SaveChanges();
             return comment;

@@ -70,6 +70,20 @@ namespace PaintStoreBackEnd.Tests
             Assert.AreEqual(expectedTagsCountInt2 - 1, mock.Object.Tags.First(x => x.TagName == tagName2).Count);
 
         }
+        [Test]
+        public void GetPostTags_ValidPostId_Test()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var postId = 1;
+            var tagsService = new TagsService(mock.Object);
+            var result = tagsService.GetTags(postId).Count;
+            var expected = 2;
+
+            Assert.AreEqual(expected, result);
+
+        }
        
     }
 }

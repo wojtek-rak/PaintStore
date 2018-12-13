@@ -89,6 +89,18 @@ namespace PaintStoreBackEnd.Tests
         }
 
         [Test]
+        public void GetPostsByTag_Tags_MostRecent()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var controller = new PostService(mock.Object);
+            var result = controller.GetPostsByTag( "owoce").Count;
+            var expected = 2;
+            Assert.AreEqual(result, expected);
+        }
+
+        [Test]
         public void PostRemover_PostWithCommentsLikes_RemoveEvrything()
         {
             var init = new InitializeMockContext();

@@ -28,51 +28,44 @@ namespace PaintStoreBackEnd.Tests
     class SearchControllerTest
     {
 
+
+
         [Test]
-        public void SearchPerformenceTest()
+        public void GetSearch_User_Test()
         {
             var init = new InitializeMockContext();
             var mock = init.mock;
 
             var controller = new SearchController(mock.Object);
-
-            var timespan = 0; // can be 0 for result
-
-            IEnumerable<SearchResult> searchList = controller.GetSearch( "zosia");
-
-            Assert.That(Time(() => MultiplyMehod(controller)), Is.LessThanOrEqualTo(TimeSpan.FromSeconds(timespan)));
-
-            Assert.AreEqual(searchList.First().Name, "Zosia");
-            Assert.AreEqual(searchList.Count(), 3);
-            Assert.AreEqual(searchList.Skip(1).First().TypeName, "poZosiase");
+            var name = "zosia";
+            var searchList = controller.GetSearch(name);
+            Assert.AreEqual(searchList.First().Name.ToLower(), name);
+            Assert.AreEqual(searchList.Count(), 1);
         }
-
-        private IEnumerable<SearchResult> MultiplyMehod(SearchController controller)
-        {
-            for (int i = 0; i < 99; i++) controller.GetSearch( "zosia");
-            return controller.GetSearch("zosia");
-        }
-
         [Test]
-        public void SearchTest()
+        public void GetSearch_Tag_Test()
         {
             var init = new InitializeMockContext();
             var mock = init.mock;
 
             var controller = new SearchController(mock.Object);
-            var searchList = controller.GetSearch("zosia");
-            Assert.AreEqual(searchList.First().Name, "Zosia");
-            Assert.AreEqual(searchList.Count(), 3);
-            Assert.AreEqual(searchList.Skip(1).First().TypeName, "poZosiase");
+            var name = "banan";
+            var searchList = controller.GetSearch(name);
+            Assert.AreEqual(name, searchList.First().TagName);
+            Assert.AreEqual(searchList.Count(), 1);
+        }
+        [Test]
+        public void GetSearch_NoElement_Test()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var controller = new SearchController(mock.Object);
+            var name = "dasasddasfgassad";
+            var searchList = controller.GetSearch(name);
+            Assert.AreEqual(searchList.Count(), 0);
         }
 
-        private TimeSpan Time(Action toTime)
-        {
-            var timer = Stopwatch.StartNew();
-            toTime();
-            timer.Stop();
-            return timer.Elapsed;
-        }
+
     }
 }
-

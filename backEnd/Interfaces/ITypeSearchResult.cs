@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace backEnd.Interfaces
 {
-    public interface ITypeSearchResult
+    public interface ITagsSearchResult
     {
         int Id { get; set; }
-        string TypeName { get; set; }
+        string TagName { get; set; }
         int Count { get; set; }
     }
 }

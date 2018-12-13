@@ -4,7 +4,7 @@ using backEnd.Interfaces;
 
 namespace backEnd.Models
 {
-    public partial class CategoryTypes : ITypeSearchResult
+    public partial class CategoryTypes
     {
         public int Id { get; set; }
         public string TypeName { get; set; }

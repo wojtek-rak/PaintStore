@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using backEnd.Controllers.CategoryControllers;
 using backEnd.Interfaces;
+using backEnd.Managers;
 using backEnd.Models;
 using backEnd.Models.ResultsModels;
 
@@ -125,7 +126,6 @@ namespace backEnd.Services
             using(var db = paintStoreContext)
             {
                 UsersManager.UserPostsCountPlus(db, post.UserId);
-                //TODO TAGI
                 //if(post.CategoryToolId != null)
                 //{
                 //    CategoryManager.CategoryToolCountPlus(db, post.CategoryToolId);
@@ -148,7 +148,7 @@ namespace backEnd.Services
 
                 if (post.Title != null) postToUptade.Title = post.Title;
                 if (post.Description != null) postToUptade.Description = post.Description;
-                //TODO TAGI
+                postToUptade.Edited = true;
                 //if (post.CategoryTypeId != null)
                 //{
                 //    if (postToUptade.CategoryTypeId != null) CategoryManager.CategoryTypesCountMinus(db, postToUptade.CategoryTypeId);
@@ -174,15 +174,13 @@ namespace backEnd.Services
                     x => x.Id == postId).First();
 
                 UsersManager.UserPostsCountMinus(db, tempPost.UserId);
-                //TODO TAGI
-                //if (tempPost.CategoryToolId != null)
-                //{
-                //    CategoryManager.CategoryToolCountMinus(db, tempPost.CategoryToolId);
-                //}
-                //if (tempPost.CategoryTypeId != null)
-                //{
-                //    CategoryManager.CategoryTypesCountMinus(db, tempPost.CategoryTypeId);
-                //}
+
+                var tagsToRemove = db.PostTags.Where(x => x.PostId == postId).ToList();
+                foreach (var tagToRemove in tagsToRemove)
+                {
+                    db.PostTags.Remove(tagToRemove);
+                    TagsManager.TagsCountMinus(db, tagToRemove.TagId);
+                }
 
                 db.Posts.Remove(db.Posts.
                     Where(x => x.Id == postId).First());

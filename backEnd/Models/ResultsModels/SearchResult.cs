@@ -6,10 +6,10 @@ using backEnd.Interfaces;
 
 namespace backEnd.Models.ResultsModels
 {
-    public class SearchResult : ITypeSearchResult, IUsersSearchResult
+    public class SearchResult : ITagsSearchResult, IUsersSearchResult
     {
         public int Id { get; set; }
-        public string TypeName { get; set; }
+        public string TagName { get; set; }
         public int Count { get; set; }
         public string Name { get; set; }
         public string AvatarImgLink { get; set; }
@@ -20,11 +20,11 @@ namespace backEnd.Models.ResultsModels
             return Indexer;
         }
 
-        public SearchResult(ITypeSearchResult iType)
+        public SearchResult(ITagsSearchResult iTag)
         {
-            Id = iType.Id;
-            TypeName = iType.TypeName;
-            Count = iType.Count;
+            Id = iTag.Id;
+            TagName = iTag.TagName;
+            Count = iTag.Count;
             //Indexer = iType.Count;
         }
         

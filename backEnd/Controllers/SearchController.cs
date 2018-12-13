@@ -50,10 +50,10 @@ namespace backEnd.Controllers.SearchControllers
 
                 //var types = db.CategoryTypes.Where(b => b.TypeName.ToLower().Contains(name));
 
-                db.CategoryTypes.AsParallel().Where(b => b.TypeName.ToLower().Contains(name)).ForAll(type =>
+                db.Tags.AsParallel().Where(b => b.TagName.ToLower().Contains(name)).ForAll(tag =>
                 {
-                    var index = type.TypeName.ToLower() == name ? 99999999 : type.Count;
-                    searchList.Add(new SearchResult(type)
+                    var index = tag.TagName.ToLower() == name ? 99999999 : tag.Count;
+                    searchList.Add(new SearchResult(tag)
                     {
                         Indexer = index
                     });

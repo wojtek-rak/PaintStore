@@ -37,20 +37,14 @@ namespace backEnd.ControllersForTesting
             StringBuilder stringBuilder = new StringBuilder();
             using (var db = paintStoreContext)
             {
-                foreach (var comm in db.PostComments)
+                foreach (var comm in db.Tags)
                 {
                     stringBuilder.Append("{ ");
                     stringBuilder.Append(comm.Id);
                     stringBuilder.Append(", ");
-                    stringBuilder.Append(comm.PostId);
+                    stringBuilder.Append(comm.TagName);
                     stringBuilder.Append(", ");
-                    stringBuilder.Append(comm.UserId);
-                    stringBuilder.Append(", ");
-                    stringBuilder.Append(comm.CreationDate);
-                    stringBuilder.Append(", ");
-                    stringBuilder.Append(comm.Content);
-                    stringBuilder.Append(", ");
-                    stringBuilder.Append(comm.LikeCount);
+                    stringBuilder.Append(comm.Count);
                     stringBuilder.Append(" }");
                     list.Add(stringBuilder.ToString());
                     stringBuilder.Clear();

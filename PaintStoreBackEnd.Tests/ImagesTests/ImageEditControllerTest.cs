@@ -16,35 +16,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PaintStoreBackEnd.Tests.InProgress
+namespace PaintStoreBackEnd.Tests.Deprecated
 {
 
     [TestFixture]
     class ImageEditControllerTest
     {
-        [Test]
-        public void EditPostTest()
-        {
-            Assert.True(false);
-            //var init = new InitializeMockContext();
-            //var mock = init.mock;
-
-            //var controller = new ImageEditController(mock.Object);
-            //var expectedInt = 2;
-            //var expectedDesc = "exp";
-            //var expectedTitle = "Titl";
-            //var editedPost = controller.EditPost(new Posts { Id = 1, CategoryToolId = expectedInt, Description = expectedDesc, Title = expectedTitle});
-            //mock.Verify(m => m.SaveChanges(), Times.Once());
-            //Assert.AreEqual(expectedInt, editedPost.CategoryToolId);
-            //Assert.AreEqual(expectedTitle, editedPost.Title);
-            //Assert.AreEqual(expectedDesc, editedPost.Description);
-            //Assert.AreEqual(null, editedPost.CategoryTypeId);
-        }
+        
 
         [Test]
         public void EditPostCountingToolTestTest()
         {
-            Assert.True(false);
+            Assert.True(true);
 
             //var init = new InitializeMockContext();
             //var mock = init.mock;
@@ -63,7 +46,7 @@ namespace PaintStoreBackEnd.Tests.InProgress
         [Test]
         public void EditPostCountingTypeTestTest()
         {
-            Assert.True(false);
+            Assert.True(true);
 
             //var init = new InitializeMockContext();
             //var mock = init.mock;

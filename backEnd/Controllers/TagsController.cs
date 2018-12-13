@@ -18,5 +18,10 @@ namespace backEnd.Controllers
         {
             _tagsService = tagsService; 
         }
+        [HttpGet("{message}")]
+        public IActionResult GetAllPosts(string message)
+        {
+            return Ok(_tagsService.GetOrAddTag(message));
+        }
     }
 }

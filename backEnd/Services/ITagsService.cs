@@ -6,7 +6,8 @@ namespace backEnd.Services
     public interface ITagsService
     {
         List<Tags> GetTags(int postId);
-        Tags AddTag(Tags tag);
+        Tags GetOrAddTag(string tagName);
+        int AddPostTags(List<string> tagsList, int postId);
 
     }
 }

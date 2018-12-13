@@ -41,6 +41,7 @@ namespace backEnd.Services
         {
             var commentToUptade = paintStoreContext.PostComments.Where(x => x.Id == comment.Id).First();
             commentToUptade.Content = comment.Content;
+            commentToUptade.Edited = true;
             var count = paintStoreContext.SaveChanges();
             return commentToUptade;
         }

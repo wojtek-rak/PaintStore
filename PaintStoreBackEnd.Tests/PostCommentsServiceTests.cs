@@ -102,5 +102,18 @@ namespace PaintStoreBackEnd.Tests
 
             Assert.AreEqual(expectedCommentCountInt + 1, mock.Object.Posts.Where(x => x.Id == imageId).First().CommentsCount);
         }
+        [Test]
+        public void EditComment_BoolEdited_ChangeToTrue()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var postCommentsService = new PostCommentsService(mock.Object);
+            var expectedBool = mock.Object.PostComments.First(x => x.Id == 1).Edited;
+            var editedPost = postCommentsService.EditComment(new PostComments { Id = 1});
+            mock.Verify(m => m.SaveChanges(), Times.Once());
+            Assert.AreEqual(expectedBool, null);
+            Assert.AreEqual(true, editedPost.Edited);
+        }
     }
 }

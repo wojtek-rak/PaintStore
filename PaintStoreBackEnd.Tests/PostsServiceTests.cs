@@ -95,6 +95,35 @@ namespace PaintStoreBackEnd.Tests
         }
 
         [Test]
+        public void PostRemover_TagsCounting_ReduceCountByOne()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+            var tagId = 1;
+            var expectedTagsCountInt = mock.Object.Tags.First(x => x.Id == tagId).Count;
+
+            var controller = new PostService(mock.Object);
+            controller.PostRemover(2);
+            mock.Verify(m => m.SaveChanges(), Times.Once());
+
+            Assert.AreEqual(expectedTagsCountInt - 1, mock.Object.Tags.First(x => x.Id == tagId).Count);
+        }
+        [Test]
+        public void PostRemover_WithNoTags_NoCountChange()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+            var tagId = 1;
+            var expectedTagsCountInt = mock.Object.Tags.First(x => x.Id == tagId).Count;
+
+            var controller = new PostService(mock.Object);
+            controller.PostRemover(6);
+            mock.Verify(m => m.SaveChanges(), Times.Once());
+
+            Assert.AreEqual(expectedTagsCountInt, mock.Object.Tags.First(x => x.Id == tagId).Count);
+        }
+
+        [Test]
         public void AddImageTest()
         {
             var init = new InitializeMockContext();
@@ -108,7 +137,7 @@ namespace PaintStoreBackEnd.Tests
 
 
         [Test]
-        public void AddImageCountingTest()
+        public void AddImageCounting_ValidData_Test()
         {
             var init = new InitializeMockContext();
             var mock = init.mock;
@@ -122,5 +151,33 @@ namespace PaintStoreBackEnd.Tests
             Assert.AreEqual(expectedImageCountInt + 1, mock.Object.Users.Where(x => x.Id == userId).First().PostsCount);
         }
 
+        [Test]
+        public void EditPost_ValidData_Test()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var controller = new PostService(mock.Object);
+            var expectedInt = 2;
+            var expectedDesc = "exp";
+            var expectedTitle = "Titl";
+            var editedPost = controller.EditPost(new Posts { Id = 1, Description = expectedDesc, Title = expectedTitle });
+            mock.Verify(m => m.SaveChanges(), Times.Once());
+            Assert.AreEqual(expectedTitle, editedPost.Title);
+            Assert.AreEqual(expectedDesc, editedPost.Description);
+        }
+        [Test]
+        public void EditPost_BoolEdited_ChangeToTrue()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var controller = new PostService(mock.Object);
+            var expectedBool = mock.Object.Posts.First(x => x.Id == 1).Edited;
+            var editedPost = controller.EditPost(new Posts { Id = 1 });
+            mock.Verify(m => m.SaveChanges(), Times.Once());
+            Assert.AreEqual(expectedBool, null);
+            Assert.AreEqual(true, editedPost.Edited);
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using backEnd.Models.InputModels;
 using backEnd.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,10 +19,10 @@ namespace backEnd.Controllers
         {
             _tagsService = tagsService; 
         }
-        [HttpGet("{message}")]
-        public IActionResult GetAllPosts(string message)
+        [HttpPost("AddPostTags")]
+        public IActionResult AddTagsToPost([FromBody] PostAddTags postAddTags)
         {
-            return Ok(_tagsService.GetOrAddTag(message));
+            return Ok(_tagsService.AddPostTags(postAddTags.TagsList, postAddTags.PostId));
         }
     }
 }

@@ -15,7 +15,7 @@ namespace backEnd.Services
         {
             paintStoreContext = ctx;
         }
-        public List<PostCommentsResult> GetComments(int postId)
+        public List<PostCommentsResult> GetComments(int userId, int postId)
         {
             List<PostCommentsResult> commentsResult = new List<PostCommentsResult>();
             using (var db = paintStoreContext)
@@ -23,8 +23,10 @@ namespace backEnd.Services
                 var comments = db.PostComments.Where(b => b.PostId == postId).OrderByDescending(x => x.LikeCount);
                 foreach (var comment in comments)
                 {
+                    bool liked = false;
+                    if (db.CommentLikes.Any(x => x.CommentId == comment.Id && x.UserId == userId)) liked = true;
                     var userAvatarImgLink = db.Users.First(x => x.Id == comment.UserId).AvatarImgLink;
-                    commentsResult.Add(new PostCommentsResult(comment){UserOwnerImgLink = userAvatarImgLink});
+                    commentsResult.Add(new PostCommentsResult(comment){UserOwnerImgLink = userAvatarImgLink, Liked = liked});
                 }
                 return commentsResult;
             }

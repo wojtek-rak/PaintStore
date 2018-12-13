@@ -19,7 +19,7 @@ namespace PaintStoreBackEnd.Tests
             var mock = init.mock;
 
             var controller = new PostCommentsService(mock.Object);
-            var result = controller.GetComments(3).Count();
+            var result = controller.GetComments(1 ,3).Count();
             var expected = 2;
             Assert.AreEqual(expected, result);
         }
@@ -30,9 +30,21 @@ namespace PaintStoreBackEnd.Tests
             var mock = init.mock;
 
             var controller = new PostCommentsService(mock.Object);
-            var result = controller.GetComments(3).First();
+            var result = controller.GetComments(1, 3).First();
             var expected = 1;
             Assert.AreEqual(expected, result.LikeCount);
+        }
+        [Test]
+        public void GetComments_CommentsLiked_CheckNumber()
+        {
+            POSTSSS
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var controller = new PostCommentsService(mock.Object);
+            var result = controller.GetComments(1, 3).Count();
+            var expected = 2;
+            Assert.AreEqual(expected, result);
         }
 
         [Test]

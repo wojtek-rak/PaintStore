@@ -22,10 +22,10 @@ namespace backEnd.Controllers
             _postCommentsService = postCommentsService;
         }
 
-        [HttpGet("{postId}")]
-        public IActionResult GetComments(int postId)
+        [HttpGet("{userId}/{postId}")]
+        public IActionResult GetComments(int userId, int postId)
         {
-            return Ok(_postCommentsService.GetComments(postId));
+            return Ok(_postCommentsService.GetComments(userId, postId));
         }
 
         [HttpPost("AddPostComment")]

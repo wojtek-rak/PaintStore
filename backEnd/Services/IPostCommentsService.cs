@@ -6,7 +6,7 @@ namespace backEnd.Services
 {
     public interface IPostCommentsService
     {
-        List<PostCommentsResult> GetComments(int postId);
+        List<PostCommentsResult> GetComments(int userId, int postId);
         PostComments AddComment(PostComments comment);
         PostComments EditComment(PostComments comment);
         int CommentRemove(int commentId);

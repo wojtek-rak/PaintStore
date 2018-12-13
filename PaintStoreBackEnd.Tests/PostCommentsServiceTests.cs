@@ -37,14 +37,25 @@ namespace PaintStoreBackEnd.Tests
         [Test]
         public void GetComments_CommentsLiked_CheckNumber()
         {
-            POSTSSS
             var init = new InitializeMockContext();
             var mock = init.mock;
 
             var controller = new PostCommentsService(mock.Object);
-            var result = controller.GetComments(1, 3).Count();
-            var expected = 2;
-            Assert.AreEqual(expected, result);
+            var result = controller.GetComments(2, 2).First();
+            var expected = true;
+            Assert.AreEqual(expected, result.Liked);
+        }
+
+        [Test]
+        public void GetComments_NoCommentsLiked_CheckNumber()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var controller = new PostCommentsService(mock.Object);
+            var result = controller.GetComments(1, 2).First();
+            var expected = false;
+            Assert.AreEqual(expected, result.Liked);
         }
 
         [Test]

@@ -28,10 +28,12 @@ namespace PaintStoreBackEnd.Tests
         {
             var init = new InitializeMockContext();
             var mock = init.mock;
-
+            
             var controller = new PostCommentsService(mock.Object);
             var result = controller.GetComments(1, 3).First();
             var expected = 1;
+            var expected2 = "Zosia";
+            Assert.AreEqual(expected2, result.UserName);
             Assert.AreEqual(expected, result.LikeCount);
         }
         [Test]

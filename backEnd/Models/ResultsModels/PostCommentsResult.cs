@@ -10,6 +10,7 @@ namespace backEnd.Models.ResultsModels
     {
         public int Id { get; set; }
         public int UserId { get; set; }
+        public string UserName { get; set; }
         public string UserOwnerImgLink { get; set; }
         public DateTime CreationDate { get; set; }
         public string Content { get; set; }

@@ -26,7 +26,8 @@ namespace backEnd.Services
                     bool liked = false;
                     if (db.CommentLikes.Any(x => x.CommentId == comment.Id && x.UserId == userId)) liked = true;
                     var userAvatarImgLink = db.Users.First(x => x.Id == comment.UserId).AvatarImgLink;
-                    commentsResult.Add(new PostCommentsResult(comment){UserOwnerImgLink = userAvatarImgLink, Liked = liked});
+                    var userName = db.Users.First(x => x.Id == comment.UserId).Name;
+                    commentsResult.Add(new PostCommentsResult(comment){UserOwnerImgLink = userAvatarImgLink, Liked = liked, UserName = userName});
                 }
                 return commentsResult;
             }

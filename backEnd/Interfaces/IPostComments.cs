@@ -9,5 +9,6 @@ namespace backEnd.Interfaces
         DateTime CreationDate { get; set; }
         string Content { get; set; }
         int LikeCount { get; set; }
+        bool? Edited { get; set; }
     }
 }

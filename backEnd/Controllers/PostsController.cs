@@ -39,7 +39,7 @@ namespace backEnd.Controllers
         [HttpGet("AllPosts/{message}")]
         public IActionResult GetAllPosts(string message)
         {
-            return Ok(GetAllPosts(message));
+            return Ok(_postsService.GetAllPosts(message));
         }
 
         [HttpGet("AllPostsByTag/{tag}")]

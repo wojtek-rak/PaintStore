@@ -15,6 +15,7 @@ namespace backEnd.Models.ResultsModels
         public string Content { get; set; }
         public int LikeCount { get; set; }
         public bool Liked { get; set; }
+        public bool? Edited { get; set; }
 
         public PostCommentsResult(IPostComments iPostComments)
         {
@@ -23,6 +24,8 @@ namespace backEnd.Models.ResultsModels
             CreationDate = iPostComments.CreationDate;
             Content = iPostComments.Content;
             LikeCount = iPostComments.LikeCount;
+            Edited = iPostComments.Edited;
+            
         }
     }
 }

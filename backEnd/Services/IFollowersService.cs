@@ -9,8 +9,8 @@ namespace backEnd.Services
 {
     public interface IFollowersService
     {
-        List<LikesResult> GetFollowedUser(int userId);
-        List<LikesResult> GetFollowingUser(int userId);
+        List<LikesResult> GetFollowedUser(int loggedUserId, int userId);
+        List<LikesResult> GetFollowingUser(int loggedUserId, int userId);
         UserFollowers AddFollower(UserFollowers follow);
         int FollowRemove(int userIdFollowing, int userIdFollowed);
 

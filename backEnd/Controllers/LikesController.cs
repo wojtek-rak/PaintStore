@@ -20,10 +20,10 @@ namespace backEnd.Controllers
         {
             _likesService = likesService;
         }
-        [HttpGet("Post/{postId}")]
-        public IActionResult GetPostLikes(int postId)
+        [HttpGet("Post/{loggedUserId}/postId}")]
+        public IActionResult GetPostLikes(int loggedUserId, int postId)
         {
-            return Ok(_likesService.GetPostLikes(postId));
+            return Ok(_likesService.GetPostLikes(loggedUserId, postId));
         }
 
         [HttpPost("Post/AddLike")]
@@ -40,10 +40,10 @@ namespace backEnd.Controllers
 
 
 
-        [HttpGet("Comment/{commentId}")]
-        public IActionResult GetCommentLikes(int commentId)
+        [HttpGet("Comment/{loggedUserId}/commentId}")]
+        public IActionResult GetCommentLikes(int loggedUserId, int commentId)
         {
-            return Ok(_likesService.GetCommentLikes(commentId));
+            return Ok(_likesService.GetCommentLikes(loggedUserId, commentId));
         }
 
         [HttpPost("Comment/AddLike")]

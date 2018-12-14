@@ -17,7 +17,7 @@ namespace PaintStoreBackEnd.Tests
             var mock = init.mock;
 
             var controller = new LikesService(mock.Object);
-            var result = controller.GetPostLikes(1);
+            var result = controller.GetPostLikes(1, 1);
             var expected = 2;
             var expected2 = "wyrak";
             Assert.AreEqual(expected, result.Count());
@@ -83,7 +83,7 @@ namespace PaintStoreBackEnd.Tests
             var mock = init.mock;
 
             var controller = new LikesService(mock.Object);
-            var result = controller.GetCommentLikes(1);
+            var result = controller.GetCommentLikes(1, 1);
             var expected = 2;
             var expected2 = "wyrak";
             Assert.AreEqual(expected, result.Count());

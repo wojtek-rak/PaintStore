@@ -16,7 +16,7 @@ namespace backEnd.Services
             paintStoreContext = ctx;
         }
 
-        public List<LikesResult> GetFollowedUser(int userId)
+        public List<LikesResult> GetFollowedUser(int loggedUserId, int userId)
         {
             var followsList = new List<LikesResult>();
             using (var db = paintStoreContext)
@@ -26,13 +26,15 @@ namespace backEnd.Services
                 foreach (var follow in follows)
                 {
                     var userTemp = db.Users.First(x => x.Id == follow.FollowingUserId);
-                    followsList.Add(new LikesResult(follow.FollowingUserId, userTemp.Name, userTemp.AvatarImgLink));
+                    bool followed = false;
+                    if (db.UserFollowers.Any(x => x.FollowedUserId == userTemp.Id && x.FollowingUserId == loggedUserId)) followed = true;
+                    followsList.Add(new LikesResult(follow.FollowingUserId, userTemp.Name, userTemp.AvatarImgLink, followed));
                 }
             }
             return followsList;
         }
 
-        public List<LikesResult> GetFollowingUser(int userId)
+        public List<LikesResult> GetFollowingUser(int loggedUserId, int userId)
         {
             using (var db = paintStoreContext)
             {
@@ -42,7 +44,9 @@ namespace backEnd.Services
                 foreach (var follow in follows)
                 {
                     var userTemp = db.Users.First(x => x.Id == follow.FollowedUserId);
-                    followsList.Add(new LikesResult(follow.FollowedUserId, userTemp.Name, userTemp.AvatarImgLink));
+                    bool followed = false;
+                    if (db.UserFollowers.Any(x => x.FollowedUserId == userTemp.Id && x.FollowingUserId == loggedUserId)) followed = true;
+                    followsList.Add(new LikesResult(follow.FollowedUserId, userTemp.Name, userTemp.AvatarImgLink, followed));
                 }
                 return followsList;
             }

@@ -16,9 +16,11 @@ namespace PaintStoreBackEnd.Tests
             var mock = init.mock;
 
             var followersService = new FollowersService(mock.Object);
-            var result = followersService.GetFollowingUser(2);
+            var result = followersService.GetFollowingUser(1, 2);
             var expected = 2;
             var expected2 = "Kasia";
+            var expected3 = false;
+            Assert.AreEqual(expected3, result.First().Followed);
             Assert.AreEqual(expected, result.Count());
             Assert.AreEqual(expected2, result.First().Name);
         }
@@ -29,9 +31,11 @@ namespace PaintStoreBackEnd.Tests
             var mock = init.mock;
 
             var controller = new FollowersService(mock.Object);
-            var result = controller.GetFollowedUser(1);
+            var result = controller.GetFollowedUser(2, 1);
             var expected = 2;
+            var expected3 = true;
             var expected2 = "wyrak";
+            Assert.AreEqual(expected3, result.First().Followed);
             Assert.AreEqual(expected, result.Count());
             Assert.AreEqual(expected2, result.First().Name);
         }

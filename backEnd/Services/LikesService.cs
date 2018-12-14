@@ -14,7 +14,7 @@ namespace backEnd.Services
         {
             paintStoreContext = ctx;
         }
-        public List<LikesResult> GetPostLikes(int postId)
+        public List<LikesResult> GetPostLikes(int loggedUserId, int postId)
         {
             using (var db = paintStoreContext)
             {
@@ -25,7 +25,9 @@ namespace backEnd.Services
                 foreach (var like in likes)
                 {
                     var user = db.Users.First(x => x.Id == like.UserId);
-                    postLikesList.Add(new LikesResult(like.UserId, user.Name, user.AvatarImgLink));
+                    bool followed = false;
+                    if (db.UserFollowers.Any(x => x.FollowedUserId == user.Id && x.FollowingUserId == loggedUserId)) followed = true;
+                    postLikesList.Add(new LikesResult(like.UserId, user.Name, user.AvatarImgLink, followed));
                 }
                 return postLikesList;
             }
@@ -54,7 +56,7 @@ namespace backEnd.Services
             }
         }
 
-        public List<LikesResult> GetCommentLikes(int commentId)
+        public List<LikesResult> GetCommentLikes(int loggedUserId, int commentId)
         {
             using (var db = paintStoreContext)
             {
@@ -64,7 +66,9 @@ namespace backEnd.Services
                 foreach (var like in likes)
                 {
                     var user = db.Users.First(x => x.Id == like.UserId);
-                    commentLikesList.Add(new LikesResult(like.UserId, user.Name, user.AvatarImgLink));
+                    bool followed = false;
+                    if (db.UserFollowers.Any(x => x.FollowedUserId == user.Id && x.FollowingUserId == loggedUserId)) followed = true;
+                    commentLikesList.Add(new LikesResult(like.UserId, user.Name, user.AvatarImgLink, followed));
                 }
                 return commentLikesList;
             }

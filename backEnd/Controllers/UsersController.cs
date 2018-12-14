@@ -21,7 +21,7 @@ namespace backEnd.Controllers
             _usersService = usersService;
         }
 
-         [HttpGet("{loggedUserId/userId}")]
+         [HttpGet("{loggedUserId}/{userId}")]
          public IActionResult GetUser(int loggedUserId, int userId)
          {
              return Ok(_usersService.GetUser(loggedUserId, userId));

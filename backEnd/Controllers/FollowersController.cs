@@ -22,14 +22,14 @@ namespace backEnd.Controllers
             _followersService = followersService;
         }
 
-        [HttpGet("GetFollowed/{loggedUserId}/userId}")]
+        [HttpGet("GetFollowed/{loggedUserId}/{userId}")]
         public IActionResult GetFollowedUser(int loggedUserId, int userId)
         {
             return Ok(_followersService.GetFollowedUser(loggedUserId, userId));
 
         }  
 
-        [HttpGet("GetFollowing/{loggedUserId}/userId}")]
+        [HttpGet("GetFollowing/{loggedUserId}/{userId}")]
         public IActionResult GetFollowingUser(int loggedUserId, int userId)
         {
             return Ok(_followersService.GetFollowingUser(loggedUserId, userId));

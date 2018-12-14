@@ -12,7 +12,7 @@ namespace backEnd.Services
         List<LikesResult> GetFollowedUser(int userId);
         List<LikesResult> GetFollowingUser(int userId);
         UserFollowers AddFollower(UserFollowers follow);
-        int FollowRemove(int followId);
+        int FollowRemove(int userIdFollowing, int userIdFollowed);
 
 
     }

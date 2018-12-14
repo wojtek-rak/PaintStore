@@ -58,7 +58,7 @@ namespace PaintStoreBackEnd.Tests
             var mock = init.mock;
 
             var controller = new LikesService(mock.Object);
-            controller.RemoveImageLike(1);
+            controller.RemoveImageLike(2, 1);
             mock.Verify(m => m.SaveChanges(), Times.Once());
         }
         [Test]
@@ -70,7 +70,7 @@ namespace PaintStoreBackEnd.Tests
             var expectedLikeCountInt = mock.Object.Posts.Where(x => x.Id == imageId).First().LikeCount;
 
             var controller = new LikesService(mock.Object);
-            controller.RemoveImageLike(1);
+            controller.RemoveImageLike(2, 1);
             mock.Verify(m => m.SaveChanges(), Times.Once());
 
             Assert.AreEqual(expectedLikeCountInt - 1, mock.Object.Posts.Where(x => x.Id == imageId).First().LikeCount);
@@ -123,7 +123,7 @@ namespace PaintStoreBackEnd.Tests
             var mock = init.mock;
 
             var controller = new LikesService(mock.Object);
-            controller.RemoveCommentLike(1);
+            controller.RemoveCommentLike(2, 1);
             mock.Verify(m => m.SaveChanges(), Times.Once());
         }
         [Test]
@@ -135,7 +135,7 @@ namespace PaintStoreBackEnd.Tests
             var expectedLikeCountInt = mock.Object.PostComments.Where(x => x.Id == commentId).First().LikeCount;
 
             var controller = new LikesService(mock.Object);
-            controller.RemoveCommentLike(1);
+            controller.RemoveCommentLike(2, 1);
             mock.Verify(m => m.SaveChanges(), Times.Once());
 
             Assert.AreEqual(expectedLikeCountInt - 1, mock.Object.PostComments.Where(x => x.Id == commentId).First().LikeCount);

@@ -41,10 +41,10 @@ namespace backEnd.Controllers
             return Ok(_followersService.AddFollower(follow));
         }
 
-        [HttpDelete("DeleteFollower/{followId}")]
-        public IActionResult FollowRemove(int followId)
+        [HttpDelete("DeleteFollower/{userIdFollowing}/{userIdFollowed}")]
+        public IActionResult FollowRemove(int userIdFollowing, int userIdFollowed)
         {
-            return Ok(_followersService.FollowRemove(followId));
+            return Ok(_followersService.FollowRemove(userIdFollowing, userIdFollowed));
         }
 
     }

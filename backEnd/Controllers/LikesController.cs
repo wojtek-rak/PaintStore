@@ -32,10 +32,10 @@ namespace backEnd.Controllers
             return Ok(_likesService.AddImageLike(like));
         }
 
-        [HttpDelete("Post/RemoveLike/{likeId}")]
-        public IActionResult RemoveImageLike(int likeId)
+        [HttpDelete("Post/RemoveLike/{userId}/{postId}")]
+        public IActionResult RemoveImageLike(int userId, int postId)
         {
-            return Ok(_likesService.RemoveImageLike(likeId));
+            return Ok(_likesService.RemoveImageLike(userId, postId));
         }
 
 
@@ -52,10 +52,10 @@ namespace backEnd.Controllers
             return Ok(_likesService.AddCommentLike(like));
         }
 
-        [HttpDelete("Comment/RemoveLike/{likeId}")]
-        public IActionResult RemoveCommentLike(int likeId)
+        [HttpDelete("Comment/RemoveLike/{userId}/{commentId}")]
+        public IActionResult RemoveCommentLike(int userId, int commentId)
         {
-            return Ok(_likesService.RemoveCommentLike(likeId));
+            return Ok(_likesService.RemoveCommentLike(userId, commentId));
         }
 
 

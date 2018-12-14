@@ -8,9 +8,9 @@ namespace backEnd.Services
     {
         List<LikesResult> GetPostLikes(int postId);
         PostLikes AddImageLike(PostLikes like);
-        int RemoveImageLike(int likeId);
+        int RemoveImageLike(int userId, int postId);
         List<LikesResult> GetCommentLikes(int commentId);
         CommentLikes AddCommentLike(CommentLikes like);
-        int RemoveCommentLike(int likeId);
+        int RemoveCommentLike(int userId, int commentId);
     }
 }

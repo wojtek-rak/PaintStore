@@ -60,17 +60,20 @@ namespace backEnd.Services
             return follow;
         }
 
-        public int FollowRemove(int followId)
+        public int FollowRemove(int userIdFollowing, int userIdFollowed)
         {
             using (var db = paintStoreContext)
             {
+                var followId = db.UserFollowers
+                    .First(x => x.FollowingUserId == userIdFollowing && x.FollowedUserId == userIdFollowed).Id;
+
                 var tempFollow = db.UserFollowers.First(x => x.Id == followId);
                 FollowersManager.UserFollowedCountMinus(db, tempFollow.FollowedUserId);
                 FollowersManager.UserFollowingCountMinus(db, tempFollow.FollowingUserId);
                 db.UserFollowers.Remove(db.UserFollowers.First(x => x.Id == followId));
                 var count = db.SaveChanges();
+                return followId;
             }
-            return followId;
         }
     }
 }

@@ -39,14 +39,19 @@ namespace backEnd.Services
             return like;
         }
 
-        public int RemoveImageLike(int likeId)
+        public int RemoveImageLike(int userId, int postId)
         {
-            ImagesManager.ImageLikesCountMinus(paintStoreContext, paintStoreContext.PostLikes.
-                Where(x => x.Id == likeId).First().PostId);
-            paintStoreContext.PostLikes.Remove(paintStoreContext.PostLikes.
-                Where(x => x.Id == likeId).First());
-            var count = paintStoreContext.SaveChanges();
-            return likeId;
+            using (var db = paintStoreContext)
+            {
+                var likeId = db.PostLikes.First(x => x.PostId == postId && x.UserId == userId).Id;
+
+                    ImagesManager.ImageLikesCountMinus(paintStoreContext, paintStoreContext.PostLikes.
+                        Where(x => x.Id == likeId).First().PostId);
+                paintStoreContext.PostLikes.Remove(paintStoreContext.PostLikes.
+                    Where(x => x.Id == likeId).First());
+                var count = paintStoreContext.SaveChanges();
+                return likeId;
+            }
         }
 
         public List<LikesResult> GetCommentLikes(int commentId)
@@ -73,14 +78,19 @@ namespace backEnd.Services
             return like;
         }
 
-        public int RemoveCommentLike(int likeId)
+        public int RemoveCommentLike(int userId, int commentId)
         {
-            CommentsManager.CommentLikesCountMinus(paintStoreContext, paintStoreContext.CommentLikes.
-                Where(x => x.Id == likeId).First().CommentId);
-            paintStoreContext.CommentLikes.Remove(paintStoreContext.CommentLikes.
-                Where(x => x.Id == likeId).First());
-            var count = paintStoreContext.SaveChanges();
-            return likeId;
+            using (var db = paintStoreContext)
+            {
+                var likeId = db.CommentLikes.First(x => x.CommentId == commentId && x.UserId == userId).Id;
+
+                CommentsManager.CommentLikesCountMinus(paintStoreContext, paintStoreContext.CommentLikes.
+                    Where(x => x.Id == likeId).First().CommentId);
+                paintStoreContext.CommentLikes.Remove(paintStoreContext.CommentLikes.
+                    Where(x => x.Id == likeId).First());
+                var count = paintStoreContext.SaveChanges();
+                return likeId;
+            }
         }
     }
 }

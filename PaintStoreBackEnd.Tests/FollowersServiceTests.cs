@@ -43,7 +43,7 @@ namespace PaintStoreBackEnd.Tests
             var mock = init.mock;
 
             var controller = new FollowersService(mock.Object);
-            var editedCom = controller.FollowRemove(1);
+            var editedCom = controller.FollowRemove(2, 1);
             mock.Verify(m => m.SaveChanges(), Times.Once());
             init.mockSetUserFollowers.Verify(m => m.Remove(It.IsAny<UserFollowers>()), Times.Once());
         }
@@ -64,7 +64,7 @@ namespace PaintStoreBackEnd.Tests
                                Where(y => y.Id == followID).First().FollowingUserId).First().FollowingCount;
 
             var controller = new FollowersService(mock.Object);
-            var editedCom = controller.FollowRemove(followID);
+            var editedCom = controller.FollowRemove(2, 1);
 
             mock.Verify(m => m.SaveChanges(), Times.Once());
             Assert.AreEqual(expectedFollowedCountInt - 1, mock.Object.Users.

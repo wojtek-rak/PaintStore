@@ -14,7 +14,7 @@ namespace backEnd.Services
             paintStoreContext = ctx;
         }
 
-        public UsersResult GetUser(int userId)
+        public UsersResult GetUser(int loggedUserId, int userId)
         {
             UsersResult usersResult;
             using (var db = paintStoreContext)
@@ -22,8 +22,10 @@ namespace backEnd.Services
                 var userToGet = db.Users.First(b => b.Id == userId);
                 
                 //userToGet.MostUsedCategoryToolName = db.Posts.Where(x => x.UserId == user.Id).GroupBy(x => x.CategoryToolId);
+                bool followed = false;
+                if (db.UserFollowers.Any(x => x.FollowedUserId == userToGet.Id && x.FollowingUserId == loggedUserId)) followed = true;
 
-                usersResult = new UsersResult(userToGet);
+                usersResult = new UsersResult(userToGet){Followed = followed};
                 return usersResult;
             }
         }

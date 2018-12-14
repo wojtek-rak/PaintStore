@@ -16,8 +16,10 @@ namespace PaintStoreBackEnd.Tests
             var mock = init.mock;
 
             var usersService = new UsersService(mock.Object);
-            var result = usersService.GetUser(1);
+            var result = usersService.GetUser(2, 1);
+            var expected2 = true;
             var expected = "Kasia";
+            Assert.AreEqual(expected2, result.Followed);
             Assert.AreEqual(result.Name, expected);
         }
 

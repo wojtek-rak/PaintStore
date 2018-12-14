@@ -6,7 +6,7 @@ namespace backEnd.Services
 {
     public interface IUsersService
     {
-        UsersResult GetUser(int userId);
+        UsersResult GetUser(int loggedUserId, int userId);
         List<Posts> GetPosts(int userId);
         Users AddUser(Users user);
         Users EditUser(Users user);

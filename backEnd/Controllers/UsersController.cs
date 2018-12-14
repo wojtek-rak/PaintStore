@@ -21,10 +21,10 @@ namespace backEnd.Controllers
             _usersService = usersService;
         }
 
-         [HttpGet("{userId}")]
-         public IActionResult GetUser(int userId)
+         [HttpGet("{loggedUserId/userId}")]
+         public IActionResult GetUser(int loggedUserId, int userId)
          {
-             return Ok(_usersService.GetUser(userId));
+             return Ok(_usersService.GetUser(loggedUserId, userId));
          }
         [HttpGet("{userId}/GetPosts")]
         public IActionResult GetPosts(int userId)

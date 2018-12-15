@@ -22,7 +22,12 @@ namespace backEnd.Controllers
         {
             _postsService = postsService;
         }
-
+        /// <summary>
+        /// Get Post's Details
+        /// </summary>
+        /// <param name="userId">actually logged user</param>
+        /// <param name="postId"></param>
+        /// <returns></returns>
         [HttpGet("{userId}/{postId}")]
         public IActionResult GetPost(int userId, int postId)
         {

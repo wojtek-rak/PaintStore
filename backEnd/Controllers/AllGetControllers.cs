@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Text;
 using System.Data.SqlClient;
+using System.Reflection;
 using backEnd.Models;
 using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
 
@@ -30,28 +31,53 @@ namespace backEnd.ControllersForTesting
         {
             paintStoreContext = ctx;
         }
-        [HttpGet("{comments}")]
+
+        [HttpGet("{base}")]
         public IEnumerable<String> GetAllComments()
         {
             List<String> list = new List<String>();
-            StringBuilder stringBuilder = new StringBuilder();
-            using (var db = paintStoreContext)
-            {
-                foreach (var comm in db.Tags)
-                {
-                    stringBuilder.Append("{ ");
-                    stringBuilder.Append(comm.Id);
-                    stringBuilder.Append(", ");
-                    stringBuilder.Append(comm.TagName);
-                    stringBuilder.Append(", ");
-                    stringBuilder.Append(comm.Count);
-                    stringBuilder.Append(" }");
-                    list.Add(stringBuilder.ToString());
-                    stringBuilder.Clear();
-                }
-            }
+            //StringBuilder stringBuilder = new StringBuilder();
+            //using (var db = paintStoreContext)
+            //{
+            //    foreach (var comm in db.Tags)
+            //    {
+            //        stringBuilder.Append("{ ");
+            //        stringBuilder.Append(comm.Id);
+            //        stringBuilder.Append(", ");
+            //        stringBuilder.Append(comm.TagName);
+            //        stringBuilder.Append(", ");
+            //        stringBuilder.Append(comm.Count);
+            //        stringBuilder.Append(" }");
+            //        list.Add(stringBuilder.ToString());
+            //        stringBuilder.Clear();
+            //    }
+            //}
+            list.Add("AppContext.BaseDirectory = " + AppContext.BaseDirectory);
+            list.Add("Assembly = " + $"{Assembly.GetExecutingAssembly().GetName().Name}.XML");
             return list;
         }
+        //[HttpGet("{comments}")]
+        //public IEnumerable<String> GetAllComments()
+        //{
+        //    List<String> list = new List<String>();
+        //    StringBuilder stringBuilder = new StringBuilder();
+        //    using (var db = paintStoreContext)
+        //    {
+        //        foreach (var comm in db.Tags)
+        //        {
+        //            stringBuilder.Append("{ ");
+        //            stringBuilder.Append(comm.Id);
+        //            stringBuilder.Append(", ");
+        //            stringBuilder.Append(comm.TagName);
+        //            stringBuilder.Append(", ");
+        //            stringBuilder.Append(comm.Count);
+        //            stringBuilder.Append(" }");
+        //            list.Add(stringBuilder.ToString());
+        //            stringBuilder.Clear();
+        //        }
+        //    }
+        //    return list;
+        //}
         [HttpGet("{images}/{img}")]
         public IEnumerable<String> GetAllImages()
         {

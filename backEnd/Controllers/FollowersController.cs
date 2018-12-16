@@ -36,7 +36,11 @@ namespace backEnd.Controllers
         {
             return Ok(_followersService.GetFollowingUser(loggedUserId, userId));
         }  
-
+        /// <summary>
+        /// Add follower
+        /// </summary>
+        /// <param name="follow"></param>
+        /// <response code="409">If there is already such an object in the database, or when followedId == followingId</response>         
         [HttpPost("AddFollower")]
         public IActionResult AddFollower([FromBody] UserFollowers follow)
         {

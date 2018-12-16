@@ -26,6 +26,22 @@ namespace PaintStoreBackEnd.Tests
         }
 
         [Test]
+        public void GetPostLikes_NoLoggedUser_ReturnsTwoNoFollowed()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var controller = new LikesService(mock.Object);
+            var result = controller.GetPostLikes(1, 1);
+            var expected = 2;
+            var expected2 = "wyrak";
+            var expected3 = false;
+            Assert.AreEqual(expected, result.Count());
+            Assert.AreEqual(expected2, result.First().Name);
+            Assert.AreEqual(expected3, result.First().Followed);
+        }
+
+        [Test]
         public void AddImageLike_ValidLike_Test()
         {
             var init = new InitializeMockContext();
@@ -103,7 +119,21 @@ namespace PaintStoreBackEnd.Tests
             Assert.AreEqual(expected, result.Count());
             Assert.AreEqual(expected2, result.First().Name);
         }
+        [Test]
+        public void GetCommentsLikes_NoLoggedUser_ReturnsTwoNoFollowed()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
 
+            var controller = new LikesService(mock.Object);
+            var result = controller.GetCommentLikes(-1, 1);
+            var expected = 2;
+            var expected2 = "wyrak";
+            var expected3 = false;
+            Assert.AreEqual(expected, result.Count());
+            Assert.AreEqual(expected2, result.First().Name);
+            Assert.AreEqual(expected3, result.First().Followed);
+        }
         [Test]
         public void AddCommentLike_ValidLike_Test()
         {

@@ -23,6 +23,19 @@ namespace PaintStoreBackEnd.Tests
             Assert.AreEqual(result.Name, expected);
         }
 
+        [Test]
+        public void GetUser_NoLoggedUser_ReturnUserNoFOllowed()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var usersService = new UsersService(mock.Object);
+            var result = usersService.GetUser(-1, 1);
+            var expected2 = false;
+            var expected = "Kasia";
+            Assert.AreEqual(expected2, result.Followed);
+            Assert.AreEqual(result.Name, expected);
+        }
         //[Test]
         //public void GetUser_MostCategoryTool_Test()
         //{

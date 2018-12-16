@@ -11,7 +11,7 @@ namespace PaintStoreBackEnd.Tests
     public class FollowersServiceTests
     {
         [Test]
-        public void GetFollowingUser_ValidUserId_ReturnPosts()
+        public void GetFollowingUser_ValidUserId_ReturnFollows()
         {
             var init = new InitializeMockContext();
             var mock = init.mock;
@@ -25,8 +25,24 @@ namespace PaintStoreBackEnd.Tests
             Assert.AreEqual(expected, result.Count());
             Assert.AreEqual(expected2, result.First().Name);
         }
+
         [Test]
-        public void GetFollowedUser_ValidUserId_ReturnPosts()
+        public void GetFollowingUser_NotLoggedUserId_AllNotFollowing()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var followersService = new FollowersService(mock.Object);
+            var result = followersService.GetFollowingUser(-1, 2);
+            var expected = 2;
+            var expected2 = "Kasia";
+            var expected3 = false;
+            Assert.AreEqual(expected3, result.First().Followed);
+            Assert.AreEqual(expected, result.Count());
+            Assert.AreEqual(expected2, result.First().Name);
+        }
+        [Test]
+        public void GetFollowedUser_ValidUserId_ReturnFollows()
         {
             var init = new InitializeMockContext();
             var mock = init.mock;
@@ -35,6 +51,22 @@ namespace PaintStoreBackEnd.Tests
             var result = controller.GetFollowedUser(2, 1);
             var expected = 2;
             var expected3 = true;
+            var expected2 = "wyrak";
+            Assert.AreEqual(expected3, result.First().Followed);
+            Assert.AreEqual(expected, result.Count());
+            Assert.AreEqual(expected2, result.First().Name);
+        }
+
+        [Test]
+        public void GetFollowedUser_NotLoggedUserId_AllNotFollowed()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var controller = new FollowersService(mock.Object);
+            var result = controller.GetFollowedUser(-1, 1);
+            var expected = 2;
+            var expected3 = false;
             var expected2 = "wyrak";
             Assert.AreEqual(expected3, result.First().Followed);
             Assert.AreEqual(expected, result.Count());

@@ -49,6 +49,18 @@ namespace PaintStoreBackEnd.Tests
         }
 
         [Test]
+        public void GetComments_NoUser_NotLiked()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var controller = new PostCommentsService(mock.Object);
+            var result = controller.GetComments(-1, 2).First();
+            var expected = false;
+            Assert.AreEqual(expected, result.Liked);
+        }
+
+        [Test]
         public void GetComments_NoCommentsLiked_CheckNumber()
         {
             var init = new InitializeMockContext();

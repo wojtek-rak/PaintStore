@@ -48,6 +48,17 @@ namespace PaintStoreBackEnd.Tests
             var expected = false;
             Assert.AreEqual(expected, result.Liked);
         }
+        [Test]
+        public void GetPost_NoLoggedUser_ReturnPost()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var postService = new PostService(mock.Object);
+            var result = postService.GetPost(-1, 1);
+            var expected = false;
+            Assert.AreEqual(expected, result.Liked);
+        }
 
         [Test]
         public void GetFollowingPost_UserWithPosts_PostList()

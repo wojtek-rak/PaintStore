@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>backEnd</name>
+    </assembly>
+    <members>
+        <member name="M:backEnd.Controllers.FollowersController.AddFollower(backEnd.Models.UserFollowers)">
+            <summary>
+            Add follower
+            </summary>
+            <param name="follow"></param>
+            <response code="409">If there is already such an object in the database, or when followedId == followingId</response>         
+        </member>
+        <member name="M:backEnd.Controllers.LikesController.AddImageLike(backEnd.Models.PostLikes)">
+            <response code="409">If there is already that like</response>     
+        </member>
+        <member name="M:backEnd.Controllers.LikesController.AddCommentLike(backEnd.Models.CommentLikes)">
+            <response code="409">If there is already that like</response>     
+        </member>
+        <member name="M:backEnd.Controllers.PostsController.GetPost(System.Int32,System.Int32)">
+            <summary>
+            Get Post's Details
+            </summary>
+            <param name="userId">actually logged user</param>
+            <param name="postId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:backEnd.Controllers.UploadImagesControllers.UploadImageController.Get">
+            <summary>
+            testing GET: api/values
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:backEnd.Controllers.UploadImagesControllers.SaveImage">
+            <summary>
+            Currently not used in project
+            </summary>
+        </member>
+        <member name="T:backEnd.Controllers.CommentsGetController">
+            <summary>
+             Use /api/CommentsGet to get comments with POST string
+            </summary>
+        </member>
+        <member name="T:backEnd.Models.UploadModels.Image">
+            <summary>
+            Model that will be passed to view
+            </summary>
+        </member>
+        <member name="F:backEnd.Models.UploadModels.Image.Caption">
+            <summary>
+            Image caption to show
+            </summary>
+        </member>
+        <member name="F:backEnd.Models.UploadModels.Image.Url">
+            <summary>
+            Cloudinary image URL
+            </summary>
+        </member>
+        <member name="F:backEnd.Models.UploadModels.Image.Format">
+            <summary>
+            Image format
+            </summary>
+        </member>
+        <member name="F:backEnd.Models.UploadModels.Image.PublicId">
+            <summary>
+            Cloudinary public ID of image
+            </summary>
+        </member>
+        <member name="T:backEnd.Models.UploadModels.ImageUploadParamsExt">
+            <summary>
+            We can inherit API class to make more convenient for us
+            These fields will not be passes to cloudinary
+            They will be used just at showing images after uploading
+            </summary>
+        </member>
+        <member name="F:backEnd.Models.UploadModels.ImageUploadParamsExt.Caption">
+            <summary>
+            Image caption to show
+            </summary>
+        </member>
+    </members>
+</doc>

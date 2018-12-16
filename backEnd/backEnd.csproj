@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netcoreapp2.0\backEnd.xml</DocumentationFile>
+    <DocumentationFile>backEnd.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

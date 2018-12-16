@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using backEnd.Exceptions;
 using backEnd.Models;
 using backEnd.Services;
 using Moq;
@@ -90,6 +91,30 @@ namespace PaintStoreBackEnd.Tests
             controller.AddFollower(new UserFollowers { FollowedUserId = 2, FollowingUserId = 1 });
             init.mockSetUserFollowers.Verify(m => m.Add(It.IsAny<UserFollowers>()), Times.Once());
             mock.Verify(m => m.SaveChanges(), Times.Once());
+        }
+        [Test]
+        public void AddFollow_SameUser_ThrowEx()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var controller = new FollowersService(mock.Object);
+            ;
+            Assert.Throws<NegotiatedContentResultExeption>(() => 
+                controller.AddFollower(new UserFollowers { FollowedUserId = 2, FollowingUserId = 2 })
+                );
+        }
+        [Test]
+        public void AddFollow_ExistingUser_ThrowEx()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var controller = new FollowersService(mock.Object);
+            ;
+            Assert.Throws<NegotiatedContentResultExeption>(() => 
+                controller.AddFollower(new UserFollowers { FollowedUserId = 1, FollowingUserId = 2 })
+            );
         }
 
         [Test]

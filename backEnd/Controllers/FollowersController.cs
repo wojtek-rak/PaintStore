@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using backEnd.Controllers.FollowersControllers;
+using backEnd.Exceptions;
 using backEnd.Models;
 using backEnd.Models.ResultsModels;
 using backEnd.Services;
@@ -38,7 +40,14 @@ namespace backEnd.Controllers
         [HttpPost("AddFollower")]
         public IActionResult AddFollower([FromBody] UserFollowers follow)
         {
-            return Ok(_followersService.AddFollower(follow));
+            try
+            {
+                return Ok(_followersService.AddFollower(follow));
+            }
+            catch (NegotiatedContentResultExeption e)
+            {
+                return StatusCode(409);
+            }
         }
 
         [HttpDelete("DeleteFollower/{userIdFollowing}/{userIdFollowed}")]

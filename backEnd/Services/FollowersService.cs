@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using backEnd.Controllers.FollowersControllers;
+using backEnd.Exceptions;
 using backEnd.Models;
 using backEnd.Models.ResultsModels;
 
@@ -56,6 +57,12 @@ namespace backEnd.Services
         {
             using (var db = paintStoreContext)
             {
+                if ((db.UserFollowers.Any(x =>
+                    x.FollowedUserId == follow.FollowedUserId && x.FollowingUserId == follow.FollowingUserId))
+                    || follow.FollowedUserId == follow.FollowingUserId)
+                {
+                    throw new NegotiatedContentResultExeption();
+                }
                 FollowersManager.UserFollowedCountPlus(db, follow.FollowedUserId);
                 FollowersManager.UserFollowingCountPlus(db, follow.FollowingUserId);
                 db.UserFollowers.Add(follow);

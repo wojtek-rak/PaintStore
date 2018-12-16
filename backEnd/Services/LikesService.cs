@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using backEnd.Controllers.CategoryControllers;
+using backEnd.Exceptions;
 using backEnd.Models;
 using backEnd.Models.ResultsModels;
 
@@ -35,10 +36,17 @@ namespace backEnd.Services
 
         public PostLikes AddImageLike(PostLikes like)
         {
-            ImagesManager.ImageLikesCountPlus(paintStoreContext, like.PostId);
-            paintStoreContext.PostLikes.Add(like);
-            var count = paintStoreContext.SaveChanges();
-            return like;
+            using (var db = paintStoreContext)
+            {
+                if ((db.PostLikes.Any(x => x.PostId == like.PostId && x.UserId == like.UserId)))
+                {
+                    throw new NegotiatedContentResultExeption();
+                }
+                ImagesManager.ImageLikesCountPlus(db, like.PostId);
+                db.PostLikes.Add(like);
+                var count = db.SaveChanges();
+                return like;
+            }
         }
 
         public int RemoveImageLike(int userId, int postId)
@@ -76,10 +84,17 @@ namespace backEnd.Services
 
         public CommentLikes AddCommentLike(CommentLikes like)
         {
-            CommentsManager.CommentLikesCountPlus(paintStoreContext, like.CommentId);
-            paintStoreContext.CommentLikes.Add(like);
-            var count = paintStoreContext.SaveChanges();
-            return like;
+            using (var db = paintStoreContext)
+            {
+                if ((db.CommentLikes.Any(x => x.CommentId == like.CommentId && x.UserId == like.UserId)))
+                {
+                    throw new NegotiatedContentResultExeption();
+                }
+                CommentsManager.CommentLikesCountPlus(db, like.CommentId);
+                db.CommentLikes.Add(like);
+                var count = db.SaveChanges();
+                return like;
+            }
         }
 
         public int RemoveCommentLike(int userId, int commentId)

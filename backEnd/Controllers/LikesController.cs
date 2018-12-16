@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using backEnd.Controllers.CategoryControllers;
+using backEnd.Exceptions;
 using backEnd.Models;
 using backEnd.Models.ResultsModels;
 using backEnd.Services;
@@ -26,10 +27,18 @@ namespace backEnd.Controllers
             return Ok(_likesService.GetPostLikes(loggedUserId, postId));
         }
 
+        /// <response code="409">If there is already that like</response>     
         [HttpPost("Post/AddLike")]
         public IActionResult AddImageLike([FromBody] PostLikes like)
         {
-            return Ok(_likesService.AddImageLike(like));
+            try
+            {
+                return Ok(_likesService.AddImageLike(like));
+            }
+            catch (NegotiatedContentResultExeption e)
+            {
+                return StatusCode(409);
+            }
         }
 
         [HttpDelete("Post/RemoveLike/{userId}/{postId}")]
@@ -46,10 +55,18 @@ namespace backEnd.Controllers
             return Ok(_likesService.GetCommentLikes(loggedUserId, commentId));
         }
 
+        /// <response code="409">If there is already that like</response>     
         [HttpPost("Comment/AddLike")]
         public IActionResult AddCommentLike([FromBody] CommentLikes like)
         {
-            return Ok(_likesService.AddCommentLike(like));
+            try
+            {
+                return Ok(_likesService.AddCommentLike(like));
+            }
+            catch (NegotiatedContentResultExeption e)
+            {
+                return StatusCode(409);
+            }
         }
 
         [HttpDelete("Comment/RemoveLike/{userId}/{commentId}")]

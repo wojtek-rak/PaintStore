@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using backEnd.Exceptions;
 using backEnd.Models;
 using backEnd.Services;
 using Moq;
@@ -31,9 +32,22 @@ namespace PaintStoreBackEnd.Tests
             var mock = init.mock;
 
             var controller = new LikesService(mock.Object);
-            controller.AddImageLike(new PostLikes { UserId = 2, PostId = 1  });
+            controller.AddImageLike(new PostLikes { UserId = 2, PostId = 3  });
             init.mockSetPostLikes.Verify(m => m.Add(It.IsAny<PostLikes>()), Times.Once());
             mock.Verify(m => m.SaveChanges(), Times.Once());
+        }
+
+        [Test]
+        public void AddImageLike_DuplicateLike_ThrowEx()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var controller = new LikesService(mock.Object);
+            
+            Assert.Throws<NegotiatedContentResultExeption>(() => 
+                controller.AddImageLike(new PostLikes { UserId = 2, PostId = 1  })
+            );
         }
 
         [Test]
@@ -41,7 +55,7 @@ namespace PaintStoreBackEnd.Tests
         {
             var init = new InitializeMockContext();
             var mock = init.mock;
-            var imageId = 1;
+            var imageId = 2;
             var expectedLikeCountInt = mock.Object.Posts.Where(x => x.Id == imageId).First().LikeCount;
 
             var controller = new LikesService(mock.Object);
@@ -101,6 +115,20 @@ namespace PaintStoreBackEnd.Tests
             init.mockSetCommentLikes.Verify(m => m.Add(It.IsAny<CommentLikes>()), Times.Once());
             mock.Verify(m => m.SaveChanges(), Times.Once());
         }
+
+        [Test]
+        public void AddCommentLike_DuplicateLike_ThrowEx()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var controller = new LikesService(mock.Object);
+            
+            Assert.Throws<NegotiatedContentResultExeption>(() => 
+                controller.AddCommentLike(new CommentLikes { UserId = 2, CommentId = 1 })
+            );
+        }
+
         [Test]
         public void AddCommentLike_Counting_Test()
         {

@@ -52,12 +52,12 @@ namespace PaintStoreBackEnd.Tests
                 new PostComments { Id = 4, CreationDate = DateTime.Parse("2008-05-01T07:34:42-5:00"), Content = "Ale Kom", PostId = 4, UserId = 2, LikeCount = 0  }}.AsQueryable();
 
             var mockDataImages = new List<Posts> {
-                new Posts { Id = 1, Title = "zaden             ", ImgLink = "link1", CreationDate = DateTime.Parse("2008-05-01T07:34:42-5:00"), Description = "Desc1", UserId = 1, LikeCount = 2, CommentsCount = 0},
-                new Posts { Id = 2, Title = "Najnowszy         ", ImgLink = "link2", CreationDate = DateTime.Parse("2009-05-01T07:34:42-5:00"), Description = "Desc2", UserId = 1 , LikeCount = 1, CommentsCount = 1},
-                new Posts { Id = 3,  Title = "Najkomentowszy      ", ImgLink = "link3", CreationDate = DateTime.Parse("2010-05-01T07:34:42-5:00"), Description = "Desc3", UserId = 2 , LikeCount = 0, CommentsCount = 2 },
-                new Posts { Id = 4,  Title = "comm bez lików", ImgLink = "link4", CreationDate = DateTime.Parse("2011-05-01T07:34:42-5:00"), Description = "Desc4", UserId = 1  , LikeCount = 1, CommentsCount = 1},
-                new Posts { Id = 5, Title = "zaden2             ", ImgLink = "link5", CreationDate = DateTime.Parse("2008-04-01T07:34:42-5:00"), Description = "Desc5", UserId = 1, LikeCount = 0, CommentsCount = 0},
-                new Posts { Id = 6, Title = "zos             ", ImgLink = "link6", CreationDate = DateTime.Parse("2008-03-01T07:34:42-5:00"), Description = "Desc6", UserId = 1, LikeCount = 0, CommentsCount = 0} }.AsQueryable();
+                new Posts { Id = 1, Title = "zaden             ", ImgLink = "link1", CreationDate = DateTime.Parse("2008-05-01T07:34:42-5:00"), Description = "Desc1", UserId = 1, LikeCount = 2, CommentsCount = 0, PopularActivity = 5},
+                new Posts { Id = 2, Title = "Najnowszy         ", ImgLink = "link2", CreationDate = DateTime.Parse("2009-05-01T07:34:42-5:00"), Description = "Desc2", UserId = 1 , LikeCount = 1, CommentsCount = 1, PopularActivity = 6},
+                new Posts { Id = 3,  Title = "Najkomentowszy      ", ImgLink = "link3", CreationDate = DateTime.Parse("2010-05-01T07:34:42-5:00"), Description = "Desc3", UserId = 2 , LikeCount = 0, CommentsCount = 2, PopularActivity =  7},
+                new Posts { Id = 4,  Title = "comm bez lików", ImgLink = "link4", CreationDate = DateTime.Parse("2011-05-01T07:34:42-5:00"), Description = "Desc4", UserId = 1  , LikeCount = 1, CommentsCount = 1, PopularActivity = 8},
+                new Posts { Id = 5, Title = "zaden2             ", ImgLink = "link5", CreationDate = DateTime.Parse("2008-04-01T07:34:42-5:00"), Description = "Desc5", UserId = 1, LikeCount = 0, CommentsCount = 0, PopularActivity = 19},
+                new Posts { Id = 6, Title = "zos             ", ImgLink = "link6", CreationDate = DateTime.Parse("2008-03-01T07:34:42-5:00"), Description = "Desc6", UserId = 1, LikeCount = 0, CommentsCount = 0, PopularActivity = 3} }.AsQueryable();
 
             var mockDataCategoryType = new List<CategoryTypes> {
                 new CategoryTypes { Id = 1, TypeName = "pose", Count = 0 },

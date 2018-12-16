@@ -26,10 +26,17 @@ namespace backEnd.Controllers
          {
              return Ok(_usersService.GetUser(loggedUserId, userId));
          }
-        [HttpGet("{userId}/GetPosts")]
-        public IActionResult GetPosts(int userId)
+
+        /// <summary>
+        /// Get AllPosts of specific user
+        /// </summary>
+        /// <param name="message">"the_newest" for newest
+        /// "most_popular" for most popular
+        /// </param>
+        [HttpGet("{userId}/GetPosts/{message}")]
+        public IActionResult GetPosts(int userId, string message)
         {
-             return Ok(_usersService.GetPosts(userId));
+             return Ok(_usersService.GetPosts(userId, message));
         }
 
 

@@ -40,7 +40,12 @@ namespace backEnd.Controllers
             return Ok(_postsService.GetFollowingPosts(userId));
 
         }
-
+        /// <summary>
+        /// Get AllPosts
+        /// </summary>
+        /// <param name="message">"the_newest" for newest
+        /// "most_popular" for most popular
+        /// </param>
         [HttpGet("AllPosts/{message}")]
         public IActionResult GetAllPosts(string message)
         {

@@ -84,15 +84,27 @@ namespace PaintStoreBackEnd.Tests
         }
 
         [Test]
-        public void GetImages_UserImages_Test()
+        public void GetImages_UserImagesTheNewest_Test()
         {
             var init = new InitializeMockContext();
             var mock = init.mock;
 
             var controller = new UsersService(mock.Object);
-            var result = controller.GetPosts(2).Count();
-            var expected = 1;
-            Assert.AreEqual(expected, result);
+            var result = controller.GetPosts(1, "the_newest");
+            var expected = 4;
+            Assert.AreEqual(expected, result.First().Id);
+        }
+
+        [Test]
+        public void GetImages_UserImagesMostPopularTest()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var controller = new UsersService(mock.Object);
+            var result = controller.GetPosts(1, "most_popular");
+            var expected = 5;
+            Assert.AreEqual(expected, result.First().Id);
         }
     }
 }

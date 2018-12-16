@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using backEnd.Interfaces;
 using backEnd.Models;
 using backEnd.Models.ResultsModels;
 
@@ -30,12 +31,26 @@ namespace backEnd.Services
             }
         }
 
-        public List<Posts> GetPosts(int userId)
+        public List<PostsResults> GetPosts(int userId, string message)
         {
+            List<PostsResults> postsResult = new List<PostsResults>();
             using (var db = paintStoreContext)
             {
-                var images = db.Posts.Where(b => b.UserId == userId);
-                return images.ToList();
+                IQueryable<IPosts> images = null;
+                if (message == "most_popular")
+                {
+                    images = db.Posts.Where(z => z.UserId == userId).OrderByDescending(y => y.PopularActivity);
+                }
+                if (message == "the_newest")
+                {
+                    images = db.Posts.Where(z => z.UserId == userId).OrderByDescending(x => x.CreationDate);
+                }
+                foreach (var image in images)
+                {
+                    var userOwnerImgLink = db.Users.First(x => x.Id == userId).AvatarImgLink;
+                    postsResult.Add(new PostsResults(image){UserOwnerImgLink = userOwnerImgLink});
+                }
+                return postsResult;
             }
         }
 
@@ -54,14 +69,14 @@ namespace backEnd.Services
             using (var db = paintStoreContext)
             {
                 //todo better
-                var userToUptade = paintStoreContext.Users.Where(x => x.Id == user.Id).First();
-                if (user.About != null) userToUptade.About = user.About;
-                if (user.AvatarImgLink != null) userToUptade.AvatarImgLink = user.AvatarImgLink;
-                if (user.BackgroundImgLink != null) userToUptade.BackgroundImgLink = user.BackgroundImgLink;
-                if (user.Name != null) userToUptade.Name = user.Name;
-                if (user.Link != null) userToUptade.Link = user.Link;
+                var userToUpdate = paintStoreContext.Users.First(x => x.Id == user.Id);
+                if (user.About != null) userToUpdate.About = user.About;
+                if (user.AvatarImgLink != null) userToUpdate.AvatarImgLink = user.AvatarImgLink;
+                if (user.BackgroundImgLink != null) userToUpdate.BackgroundImgLink = user.BackgroundImgLink;
+                if (user.Name != null) userToUpdate.Name = user.Name;
+                if (user.Link != null) userToUpdate.Link = user.Link;
                 var count = paintStoreContext.SaveChanges();
-                return userToUptade;
+                return userToUpdate;
             }
         }
     }

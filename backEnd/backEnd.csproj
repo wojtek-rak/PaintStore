@@ -3,6 +3,7 @@
   <PropertyGroup>
 	<OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+	<DebugType>Full</DebugType>
 	<PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
 	<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 	<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>

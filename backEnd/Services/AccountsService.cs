@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using backEnd.Controllers;
-using backEnd.Controllers.LikeControllers.Comment;
 using backEnd.Models;
 
 namespace backEnd.Services
@@ -12,10 +11,12 @@ namespace backEnd.Services
     {
         private readonly PaintStoreContext paintStoreContext;
         private readonly IPostsService _postsService;
-        public AccountsService(PaintStoreContext ctx, IPostsService postsService)
+        private readonly IFollowersService _followersService;
+        public AccountsService(PaintStoreContext ctx, IPostsService postsService, IFollowersService followersService)
         {
             paintStoreContext = ctx;
             _postsService = postsService;
+            _followersService = followersService;
         }
         public Accounts AddAccount(Accounts account)
         {
@@ -60,9 +61,7 @@ namespace backEnd.Services
                     foreach (var follow in db.UserFollowers.
                         Where(x => x.FollowedUserId == userToRemove.Id || x.FollowingUserId == userToRemove.Id))
                     {
-#warning CHAGE IT
-                        FollowersRemoveController.FollowRemover(paintStoreContext, follow);
-#warning CHAGE IT
+                        _followersService.FollowRemove(follow.FollowingUserId, follow.FollowedUserId);
                     }
                     var userRemove = db.Users.Remove(userToRemove);
                     var accountRemove = db.Accounts.Remove(accountToRemove);

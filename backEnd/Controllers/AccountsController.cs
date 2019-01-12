@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using backEnd.Controllers.LikeControllers.Comment;
 using backEnd.Models;
 using backEnd.Services;
 using Microsoft.AspNetCore.Http;

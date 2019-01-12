@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading;
-using backEnd.Controllers.CommentsControllers;
 using backEnd.Models;
 using backEnd.Services;
 using Moq;
@@ -18,7 +17,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var accountsService = new AccountsService(mock.Object, new PostService(mock.Object));
+            var accountsService = new AccountsService(mock.Object, new PostService(mock.Object), new FollowersService(mock.Object));
             var editedCom = accountsService.AddAccount(new Accounts { });
             mock.Verify(m => m.SaveChanges(), Times.Once());
             init.mockSetAccount.Verify(m => m.Add(It.IsAny<Accounts>()), Times.Once());
@@ -30,7 +29,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new AccountsService(mock.Object, new PostService(mock.Object));
+            var controller = new AccountsService(mock.Object, new PostService(mock.Object), new FollowersService(mock.Object));
             var expectedEmail = "Testowy Komentarz";
             var expectedHash = "hashSW@";
             var editedUser = controller.EditAccount(new Accounts { Id = 1, Email = expectedEmail, PasswordHash = expectedHash });
@@ -49,7 +48,7 @@ namespace PaintStoreBackEnd.Tests
             //var actorRemove = actorSystem.ActorOf(Props.Create(() => new RemoveAccountImagesActor()));
             //var actorSupervisor = actorSystem.ActorOf(Props.Create(() => new SupervisorActor(actorRemove)));
 
-            var controller = new AccountsService(mock.Object, new PostService(mock.Object));
+            var controller = new AccountsService(mock.Object, new PostService(mock.Object), new FollowersService(mock.Object));
             var removeAccountt = controller.RemoveAccount(new Accounts { Id = 1, PasswordHash = "!@#sdaAWEDAFSFDSAE" });
 
             //mock.Verify(m => m.SaveChanges(), Times.Once());
@@ -70,7 +69,7 @@ namespace PaintStoreBackEnd.Tests
             //var actorRemove = actorSystem.ActorOf(Props.Create(() => new RemoveAccountImagesActor()));
             //var actorSupervisor = actorSystem.ActorOf(Props.Create(() => new SupervisorActor(actorRemove)));
 
-            var controller = new AccountsService(mock.Object, new PostService(mock.Object));
+            var controller = new AccountsService(mock.Object, new PostService(mock.Object), new FollowersService(mock.Object));
             //var controller = new AccountRemoveController(mock.Object);
             var removeAccountt = controller.RemoveAccount(new Accounts { Id = 1, PasswordHash = "!@#sawdasd" });
             var expectedMsg = "Password incorrect";
@@ -87,7 +86,7 @@ namespace PaintStoreBackEnd.Tests
             //var actorRemove = actorSystem.ActorOf(Props.Create(() => new RemoveAccountImagesActor()));
             //var actorSupervisor = actorSystem.ActorOf(Props.Create(() => new SupervisorActor(actorRemove)));
 
-            var controller = new AccountsService(mock.Object, new PostService(mock.Object));
+            var controller = new AccountsService(mock.Object, new PostService(mock.Object), new FollowersService(mock.Object));
             //var controller = new AccountRemoveController(mock.Object);
 
             var timespan = 10; // can be 0 for result

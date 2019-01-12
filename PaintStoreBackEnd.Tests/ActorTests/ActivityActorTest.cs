@@ -1,5 +1,4 @@
 ﻿using backEnd.Controllers;
-using backEnd.Controllers.CommentsControllers;
 using backEnd.Models;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.EntityFrameworkCore;

@@ -1,6 +1,4 @@
 ﻿using backEnd.Controllers;
-using backEnd.Controllers.CommentsControllers;
-using backEnd.Controllers.LikeControllers.Comment;
 using backEnd.Models;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.EntityFrameworkCore;

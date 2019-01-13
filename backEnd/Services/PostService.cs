@@ -46,7 +46,6 @@ namespace backEnd.Services
             List<PostsResults> imagesResult = new List<PostsResults>();
             using (var db = _paintStoreContext)
             {
-                //IQueryable<Posts> images = null;
                 var images = db.Posts.
                     Where(x => db.UserFollowers.
                         Where(y => y.FollowingUserId == userId).
@@ -94,18 +93,10 @@ namespace backEnd.Services
                 var tagId = db.Tags.First(x => x.TagName == tag).Id;
                 var postsIds = db.PostTags.Where(x => x.TagId == tagId).Select(y => y.PostId).ToList();
                 IQueryable<Posts> images = null;
-                //var query = 
-                //    context.Posts.Where(post =>
-                //        post.Tags.All(tag => 
-                //            tagIds.Contains(tag.TagId)));
 
                 images = db.Posts.Where(post =>
                     postsIds.Contains(post.Id));
                     
-
-                //images = db.Posts.Where(
-                //    x => x.Id == db.PostTags.
-                //             Where(y => y.TagId == postTagId));
                 foreach (var image in images)
                 {
                     var userOwnerImgLink = db.Users.First(x => x.Id == image.UserId).AvatarImgLink;
@@ -121,17 +112,10 @@ namespace backEnd.Services
             using(var db = _paintStoreContext)
             {
                 UsersManager.UserPostsCountPlus(db, post.UserId);
-                //if(post.CategoryToolId != null)
-                //{
-                //    CategoryManager.CategoryToolCountPlus(db, post.CategoryToolId);
-                //}
-                //if (post.CategoryTypeId != null)
-                //{
-                //    CategoryManager.CategoryTypesCountPlus(db, post.CategoryTypeId);
-                //}
                 post.CreationDate = DateTime.Now;
                 db.Posts.Add(post);
-                var count = db.SaveChanges();            }
+                var count = db.SaveChanges();
+            }
             return post;
         }
 
@@ -139,24 +123,12 @@ namespace backEnd.Services
         {
             using (var db = _paintStoreContext)
             {
-                var postToUptade = db.Posts.Where(x => x.Id == post.Id).First();
+                var postToUptade = db.Posts.First(x => x.Id == post.Id);
 
                 if (post.Title != null) postToUptade.Title = post.Title;
                 if (post.Description != null) postToUptade.Description = post.Description;
                 postToUptade.Edited = true;
-                //if (post.CategoryTypeId != null)
-                //{
-                //    if (postToUptade.CategoryTypeId != null) CategoryManager.CategoryTypesCountMinus(db, postToUptade.CategoryTypeId);
-                //    postToUptade.CategoryTypeId = post.CategoryTypeId;
-                //    CategoryManager.CategoryTypesCountPlus(db, postToUptade.CategoryTypeId);
-                //}
-                //if (post.CategoryToolId != null)
-                //{
-                //    if (postToUptade.CategoryToolId != null) CategoryManager.CategoryToolCountMinus(db, postToUptade.CategoryToolId);
-                //    postToUptade.CategoryToolId = post.CategoryToolId;
-                //    CategoryManager.CategoryToolCountPlus(db, postToUptade.CategoryToolId);
-                //}
-                var count = db.SaveChanges();
+                db.SaveChanges();
                 return postToUptade;
             }
         }
@@ -165,8 +137,7 @@ namespace backEnd.Services
         {
             using (var db = _paintStoreContext)
             {
-                var tempPost = db.Posts.Where(
-                    x => x.Id == postId).First();
+                var tempPost = db.Posts.First(x => x.Id == postId);
 
                 UsersManager.UserPostsCountMinus(db, tempPost.UserId);
 
@@ -177,26 +148,22 @@ namespace backEnd.Services
                     TagsManager.TagsCountMinus(db, tagToRemove.TagId);
                 }
 
-                db.Posts.Remove(db.Posts.
-                    Where(x => x.Id == postId).First());
+                db.Posts.Remove(db.Posts.First(x => x.Id == postId));
                 foreach (var like in db.PostLikes.Where(x => x.PostId == postId))
                 {
-                    db.PostLikes.Remove(db.PostLikes.
-                        Where(x => x.Id == like.Id).First());
+                    db.PostLikes.Remove(db.PostLikes.First(x => x.Id == like.Id));
                 }
 
                 foreach(var comment in db.PostComments.Where(x => x.PostId == postId))
                 {
-                    db.PostComments.Remove(db.PostComments.
-                        Where(x => x.Id == comment.Id).First());
+                    db.PostComments.Remove(db.PostComments.First(x => x.Id == comment.Id));
                     foreach (var like in db.CommentLikes.Where(x => x.CommentId == comment.Id))
                     {
-                        db.CommentLikes.Remove(db.CommentLikes.
-                            Where(x => x.Id == like.Id).First());
+                        db.CommentLikes.Remove(db.CommentLikes.First(x => x.Id == like.Id));
                     }
                 }
 
-                var count = db.SaveChanges();
+                db.SaveChanges();
                 return postId;
             }
         }

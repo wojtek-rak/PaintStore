@@ -79,7 +79,7 @@ namespace backEnd.Controllers.UploadImagesControllers
         public List<Image> Upload()
         {
             // Upload images in background to allow user to see the progress
-            //actor todo
+            //actor TODO
                 try
                 {
                     for (int i = 0; i < m_uploadParams.Count; i++)

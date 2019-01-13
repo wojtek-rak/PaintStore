@@ -30,7 +30,6 @@ namespace backEnd.Services
         {
             using (var db = _paintStoreContext)
             {
-                //TODO better
                 var accountToUpdate = db.Accounts.First(x => x.Id == account.Id);
                 if (account.Email != null) accountToUpdate.Email = account.Email;
                 if (account.PasswordHash != null) accountToUpdate.PasswordHash = account.PasswordHash;
@@ -47,8 +46,6 @@ namespace backEnd.Services
                 if (account.PasswordHash == db.Accounts.First(x => x.Id == account.Id).PasswordHash)
                 {
                     var userToRemove = db.Users.First(x => x.AccountId == accountToRemove.Id);
-
-                    //var task = removeSupervisorActor.Ask(new SupervisorMessage_RmImages(userToRemove, db));
 
                     foreach (var post in db.Posts.Where(x => x.UserId == userToRemove.Id))
                     {

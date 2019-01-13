@@ -32,7 +32,7 @@ namespace backEnd
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             var settingsSection = Configuration.GetSection("AppIdentitySettings");
-            var settings = settingsSection.Get<AppIdentitySettings>();
+            settingsSection.Get<AppIdentitySettings>();
 
             services.AddCors(options =>
             {

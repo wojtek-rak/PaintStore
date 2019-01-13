@@ -88,7 +88,7 @@ namespace backEnd.Services
                 }
                 CommentsManager.CommentLikesCountPlus(db, like.CommentId);
                 db.CommentLikes.Add(like);
-                var count = db.SaveChanges();
+                db.SaveChanges();
                 return like;
             }
         }

@@ -65,7 +65,6 @@ namespace backEnd.Services
         {
             using (var db = _paintStoreContext)
             {
-                //TODO better
                 var userToUpdate = _paintStoreContext.Users.First(x => x.Id == user.Id);
                 if (user.About != null) userToUpdate.About = user.About;
                 if (user.AvatarImgLink != null) userToUpdate.AvatarImgLink = user.AvatarImgLink;

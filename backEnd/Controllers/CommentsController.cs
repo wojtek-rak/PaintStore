@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using backEnd.Controllers.CategoryControllers;
-using backEnd.Models;
-using backEnd.Models.ResultsModels;
+﻿using backEnd.Models;
 using backEnd.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backEnd.Controllers
@@ -45,6 +38,5 @@ namespace backEnd.Controllers
         {
             return Ok(_postCommentsService.CommentRemove(commentId));
         }
-
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace backEnd.Models
+﻿namespace backEnd.Models
 {
     public partial class CommentLikes
     {

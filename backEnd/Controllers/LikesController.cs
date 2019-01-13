@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using backEnd.Controllers.CategoryControllers;
-using backEnd.Exceptions;
+﻿using backEnd.Exceptions;
 using backEnd.Models;
-using backEnd.Models.ResultsModels;
 using backEnd.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backEnd.Controllers

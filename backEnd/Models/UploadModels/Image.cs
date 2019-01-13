@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace backEnd.Models.UploadModels
+﻿namespace backEnd.Models.UploadModels
 {
     /// <summary>
     /// Model that will be passed to view

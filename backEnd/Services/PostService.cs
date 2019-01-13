@@ -114,7 +114,7 @@ namespace backEnd.Services
                 UsersManager.UserPostsCountPlus(db, post.UserId);
                 post.CreationDate = DateTime.Now;
                 db.Posts.Add(post);
-                var count = db.SaveChanges();
+                db.SaveChanges();
             }
             return post;
         }

@@ -54,14 +54,11 @@ namespace backEnd.Services
         {
             using (var db = _paintStoreContext)
             {
-                ImagesManager.ImageCommentCountMinus(db, db.PostComments.
-                    Where(x => x.Id == commentId).First().PostId);
-                db.PostComments.Remove(db.PostComments.
-                    Where(x => x.Id == commentId).First());
+                ImagesManager.ImageCommentCountMinus(db, db.PostComments.First(x => x.Id == commentId).PostId);
+                db.PostComments.Remove(db.PostComments.First(x => x.Id == commentId));
                 foreach(var like in db.CommentLikes.Where(x => x.CommentId == commentId))
                 {
-                    db.CommentLikes.Remove(db.CommentLikes.
-                        Where(x => x.Id == like.Id).First());
+                    db.CommentLikes.Remove(db.CommentLikes.First(x => x.Id == like.Id));
                 }
                 db.SaveChanges();
             }

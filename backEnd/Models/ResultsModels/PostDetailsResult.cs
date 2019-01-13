@@ -4,10 +4,8 @@ using backEnd.Interfaces;
 
 namespace backEnd.Models.ResultsModels
 {
-    public class PostDetailsResult : PostsResults, IPosts
+    public class PostDetailsResult : PostsResults
     {
-        //public string CategoryTypeName { get; set; }
-        //public string CategoryToolName { get; set; }
         public List<string> TagsList { get; set; }
         public DateTime CreationDate { get; set; }
         public string Description { get; set; }

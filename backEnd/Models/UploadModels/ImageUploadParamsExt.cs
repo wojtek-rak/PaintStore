@@ -13,10 +13,5 @@ namespace backEnd.Models.UploadModels
         /// Image caption to show
         /// </summary>
         public string Caption;
-
-        ///// <summary>
-        ///// Transformation that will be applied at showing image, not at uploading
-        ///// </summary>
-        //public Transformation ShowTransform;
     }
 }

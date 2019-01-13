@@ -14,7 +14,6 @@ namespace backEnd.Actors.Services
         private const int SecondCalcActivityInterval = 3600;
 
         private readonly IActorRef supervisorActor;
-        private readonly UpdatePostActivityMessage message;
         private IObservable<long> syncMailObservable;
         private IDisposable subscription = null;
 

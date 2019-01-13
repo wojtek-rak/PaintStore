@@ -2,21 +2,14 @@
 
 namespace backEnd.Exceptions
 {
-    public class NegotiatedContentResultExeption : Exception
+    public class NegotiatedContentResultException : Exception
     {
-        //public T Content { get; set; }
-
-        //public NegotiatedContentResultExeption(T content)
-        //    : base()
-        //{
-        //    Content = content;
-        //}
-        public NegotiatedContentResultExeption()
+        public NegotiatedContentResultException()
             : base() { }
-        public NegotiatedContentResultExeption(string message) 
+        public NegotiatedContentResultException(string message) 
             : base(message) { }
 
-        public NegotiatedContentResultExeption(string message, Exception e)
+        public NegotiatedContentResultException(string message, Exception e)
             : base(message, e) { }
     }
 }

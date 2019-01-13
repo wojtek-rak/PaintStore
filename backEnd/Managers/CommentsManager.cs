@@ -3,17 +3,17 @@ using System.Linq;
 
 namespace backEnd.Controllers.CategoryControllers
 {
-    public class CommentsManager
+    public static class CommentsManager
     {
         public static PostComments CommentLikesCountPlus(PaintStoreContext db, int id)
         {
-            var countTool = db.PostComments.Where(x => x.Id == id).First();
+            var countTool = db.PostComments.First(x => x.Id == id);
             countTool.LikeCount += 1;
             return countTool;
         }
         public static PostComments CommentLikesCountMinus(PaintStoreContext db, int id)
         {
-            var countTool = db.PostComments.Where(x => x.Id == id).First();
+            var countTool = db.PostComments.First(x => x.Id == id);
             countTool.LikeCount -= 1;
             return countTool;
         }

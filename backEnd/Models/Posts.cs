@@ -19,8 +19,5 @@ namespace backEnd.Models
         public int NewestActivity { get; set; }
         public int MixedActivity { get; set; }
         public bool? Edited { get; set; }
-        //TEMP
-        //public int CategoryToolId { get; set; }
-        //public int CategoryTypeId { get; set; }
     }
 }

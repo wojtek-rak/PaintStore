@@ -22,59 +22,12 @@ namespace backEnd
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)//, IHostingEnvironment env)
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            //HostingEnvironment = env;
-            //Console.WriteLine(env.WebRootPath);
-
         }
 
         public IConfiguration Configuration { get; }
-        //public IHostingEnvironment HostingEnvironment { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
-        //public void ConfigureServices(IServiceCollection services)
-        //{
-        //    var settingsSection = Configuration.GetSection("AppIdentitySettings");
-        //    var settings = settingsSection.Get<AppIdentitySettings>();
-
-        //    services.AddCors(options =>
-        //    {
-        //        //options.AddPolicy("AllowSpecificOrigin", builder =>
-        //        //{
-        //        //    builder.WithOrigins("http://localhost", "https://www.microsoft.com");
-        //        //});
-
-        //        options.AddPolicy("AllowAllOrigins", builder =>
-        //        {
-        //            builder.AllowAnyOrigin();
-        //            builder.AllowAnyHeader();
-        //            builder.AllowAnyMethod();
-        //            builder.AllowCredentials();
-        //            // or use below code 
-        //        });
-        //    });
-
-        //    services.AddDbContext<PaintStoreContext>(options =>
-        //        options.UseSqlite("Data Source=PaintStore.db"));
-        //    //services.AddDbContext<PaintStoreContext>(options =>
-        //    //    options.UseSqlServer(Configuration.GetConnectionString("PaintStoreDatabase")));
-
-        //    services.AddSingleton<ISaveImage, SaveImage>();
-        //    services.AddScoped<RemoveSupervisorActor>();
-        //    services.AddScoped<RemoveAccountActor>();
-        //    // Inject AppIdentitySettings so that others can use too
-        //    var system = ActorSystem.Create("PSActorSystem");
-
-        //    services.AddSingleton<ActorSystem>(system);
-        //    services.AddTransient<Account>(s => new Account(settings.CouldName, settings.ApiKey, settings.SecretApiKey));
-        //    services.AddMvc().AddJsonOptions(
-        //    options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-        //    ).AddControllersAsServices();
-
-
-        //}
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
@@ -83,18 +36,12 @@ namespace backEnd
 
             services.AddCors(options =>
             {
-                //options.AddPolicy("AllowSpecificOrigin", builder =>
-                //{
-                //    builder.WithOrigins("http://localhost", "https://www.microsoft.com");
-                //});
-
                 options.AddPolicy("AllowAllOrigins", build =>
                 {
                     build.AllowAnyOrigin();
                     build.AllowAnyHeader();
                     build.AllowAnyMethod();
                     build.AllowCredentials();
-                    // or use below code 
                 });
             });
             services.AddAutoMapper();
@@ -132,30 +79,13 @@ namespace backEnd
             
             //Now register our services with Autofac container
 
-            PaintStoreContext dbContext;
-            var scopeFactory = services
-                .BuildServiceProvider()
-                .GetRequiredService<IServiceScopeFactory>();
-
-            using (var scope = scopeFactory.CreateScope())
-            {
-                var provider = scope.ServiceProvider;
-                using (var db = provider.GetRequiredService<PaintStoreContext>())
-                {
-                    dbContext = db;
-                }
-            }
             var builder = new ContainerBuilder();
 
-            //builder.Register(c => new ConfigReader("mysection")).As<IConfigReader>();
             var actorSystem = ActorSystem.Create("PSActorSystem");
-            builder.Register<ActorSystem>(_ => actorSystem);
-            //var dbContext = services.OfType<PaintStoreContext>();
-            //var actorRemove = actorSystem.ActorOf(Props.Create(() => new RemoveAccountImagesActor()));
-            //var actorActivityManager
+            builder.Register(_ => actorSystem);
             var actorActivity = actorSystem.ActorOf(Props.Create(() => new ActivityActor()));
             var actorSupervisor = actorSystem.ActorOf(Props.Create(() => new SupervisorActor(actorActivity)));
-            builder.Register<IActorRef>(c => actorSupervisor);
+            builder.Register(c => actorSupervisor);
             builder.Populate(services);
             var container = builder.Build();
 

@@ -17,8 +17,6 @@ namespace backEnd.Controllers.UploadImagesControllers
     {
         public string SaveImageOnServer(IHostingEnvironment env, IFormFile file) 
         {
-            long size = 0;
-
             var filename = ContentDispositionHeaderValue
                             .Parse(file.ContentDisposition)
                             .FileName
@@ -29,7 +27,7 @@ namespace backEnd.Controllers.UploadImagesControllers
 
             var filePath = webRoot + "/Uploads" + $@"/{ filename}";
 
-            bool fileExists = (System.IO.File.Exists(filePath) ? true : false);
+            var fileExists = File.Exists(filePath);
 
             if (fileExists)
             {
@@ -38,8 +36,8 @@ namespace backEnd.Controllers.UploadImagesControllers
                 filename = randomNum + filename;
                 filePath = webRoot + "/Uploads" + $@"/{ filename}";
             }
-            size += file.Length;
-            using (FileStream fs = System.IO.File.Create(filePath))
+
+            using (FileStream fs = File.Create(filePath))
             {
                 file.CopyTo(fs);
                 fs.Flush();
@@ -47,13 +45,4 @@ namespace backEnd.Controllers.UploadImagesControllers
             return filename;
         }
     }
-
-    // Extension method used to add the middleware to the HTTP request pipeline.
-    //public static class SaveImageExtensions
-    //{
-    //    public static IApplicationBuilder UseMiddlewareClassTemplate(this IApplicationBuilder builder)
-    //    {
-    //        return builder.UseMiddleware<SaveImage>();
-    //    }
-    //}
 }

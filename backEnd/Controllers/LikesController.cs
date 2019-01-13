@@ -28,7 +28,7 @@ namespace backEnd.Controllers
             {
                 return Ok(_likesService.AddImageLike(like));
             }
-            catch (NegotiatedContentResultExeption e)
+            catch (NegotiatedContentResultException)
             {
                 return StatusCode(409);
             }
@@ -56,7 +56,7 @@ namespace backEnd.Controllers
             {
                 return Ok(_likesService.AddCommentLike(like));
             }
-            catch (NegotiatedContentResultExeption e)
+            catch (NegotiatedContentResultException)
             {
                 return StatusCode(409);
             }

@@ -25,8 +25,6 @@ namespace backEnd.Controllers.SearchControllers
             {
                 var searchList = new List<SearchResult>();
 
-                //var users = db.Users.Where(b => b.Name.ToLower().Contains(name));
-
                 db.Users.AsParallel().Where(b => b.Name.ToLower().Contains(name)).ForAll(user =>
                 {
                     var index = user.Name.ToLower() == name ? 99999999 : user.FollowedCount;
@@ -36,17 +34,6 @@ namespace backEnd.Controllers.SearchControllers
                     });
                 });
 
-                //foreach (var user in users)
-                //{
-                //    var index = user.Name.ToLower() == name ? 99999999 : user.FollowedCount;
-                //    searchList.Add(new SearchResult(user)
-                //    {
-                //        Indexer = index
-                //    });
-                //}
-
-                //var types = db.CategoryTypes.Where(b => b.TypeName.ToLower().Contains(name));
-
                 db.Tags.AsParallel().Where(b => b.TagName.ToLower().Contains(name)).ForAll(tag =>
                 {
                     var index = tag.TagName.ToLower() == name ? 99999999 : tag.Count;
@@ -55,15 +42,6 @@ namespace backEnd.Controllers.SearchControllers
                         Indexer = index
                     });
                 });
-
-                //foreach (var type in types)
-                //{
-                //    var index = type.TypeName.ToLower() == name ? 99999999 : type.Count;
-                //    searchList.Add(new SearchResult(type)
-                //    {
-                //        Indexer = index
-                //    });
-                //}
 
                 var sortedSearchList = searchList.OrderByDescending(x => x.GetIndexer());
                 return sortedSearchList;

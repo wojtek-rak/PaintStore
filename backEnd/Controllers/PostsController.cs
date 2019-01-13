@@ -14,6 +14,7 @@ namespace backEnd.Controllers
         {
             _postsService = postsService;
         }
+
         /// <summary>
         /// Get Post's Details
         /// </summary>
@@ -32,6 +33,7 @@ namespace backEnd.Controllers
             return Ok(_postsService.GetFollowingPosts(userId));
 
         }
+
         /// <summary>
         /// Get AllPosts
         /// </summary>
@@ -50,12 +52,12 @@ namespace backEnd.Controllers
             return Ok(_postsService.GetPostsByTag(tag));
         }
 
-
         [HttpPost("AddPost")]
         public IActionResult AddImage([FromBody] Posts post)
         {
             return Ok(_postsService.AddImage(post));
         }
+
         [HttpPut("EditPost")]
         public IActionResult EditPost([FromBody] Posts post)
         {
@@ -68,29 +70,5 @@ namespace backEnd.Controllers
         {
             return Ok(_postsService.PostRemover(postId));
         }
-        //[HttpGet("AllPosts/{message}/{typeName}/{toolName}")]
-        //public IActionResult GetPostsByCategory(string message, string typeName, string toolName)
-        //{
-        //    using (var db = paintStoreContext)
-        //    {
-
-        //        List<PostsResults> imagesResult = new List<PostsResults>();
-        //        IQueryable<Posts> images = null;
-        //        if (message == "both")
-        //        {
-        //            images = db.Posts.Where(
-        //                    x => x.CategoryTypeId == db.CategoryTypes.
-        //                             Where(y => y.TypeName == typeName).First().Id).
-        //                Where(x => x.CategoryToolId == db.CategoryTools.
-        //                               Where(y => y.ToolName == toolName).First().Id);
-        //        }
-        //        foreach (var image in images)
-        //        {
-        //            var userOwnerImgLink = db.Users.First(x => x.Id == image.UserId).AvatarImgLink;
-        //            imagesResult.Add(new PostsResults(image){UserOwnerImgLink = userOwnerImgLink});
-        //        }
-        //        return Ok(imagesResult);
-        //    }
-        //}
     }
 }

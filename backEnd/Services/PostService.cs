@@ -11,15 +11,15 @@ namespace backEnd.Services
 {
     public class PostService : IPostsService
     {
-        private readonly PaintStoreContext paintStoreContext;
+        private readonly PaintStoreContext _paintStoreContext;
 
         public PostService(PaintStoreContext ctx)
         {
-            paintStoreContext = ctx;
+            _paintStoreContext = ctx;
         }
         public PostDetailsResult GetPost(int userId, int postId)
         {
-            using (var db = paintStoreContext)
+            using (var db = _paintStoreContext)
             {
                 var post = db.Posts.First(b => b.Id == postId);
                 var tagsIds = db.PostTags.Where(x => x.PostId == postId).Select(y => y.TagId).ToList();
@@ -27,22 +27,14 @@ namespace backEnd.Services
                 var tagsList = db.Tags.Where(tag =>
                     tagsIds.Contains(tag.Id)).Select(x => x.TagName).ToList();
 
-                bool liked = false;
-                if (db.PostLikes.Any(x => x.PostId == postId && x.UserId == userId)) liked = true;
-                
-                //var categoryTypeName = post.CategoryTypeId == null ? null : 
-                //    db.CategoryTypes.First(x => x.Id == post.CategoryTypeId).TypeName;
-                //var categoryToolName = post.CategoryToolId == null ? null : 
-                //    db.CategoryTools.First(x => x.Id == post.CategoryToolId).ToolName;
+                bool liked = db.PostLikes.Any(x => x.PostId == postId && x.UserId == userId);
+
                 var postDetailsResult = new PostDetailsResult(post)
                 {
                     CreationDate = post.CreationDate,
                     Description = post.Description,
                     TagsList = tagsList,
                     Liked = liked
-                    //CategoryTypeName = categoryTypeName,
-                    //CategoryToolName = categoryToolName
-
                 };
 
                 return postDetailsResult;
@@ -52,7 +44,7 @@ namespace backEnd.Services
         public List<PostsResults> GetFollowingPosts(int userId)
         {
             List<PostsResults> imagesResult = new List<PostsResults>();
-            using (var db = paintStoreContext)
+            using (var db = _paintStoreContext)
             {
                 //IQueryable<Posts> images = null;
                 var images = db.Posts.
@@ -73,7 +65,7 @@ namespace backEnd.Services
         public List<PostsResults> GetAllPosts(string message)
         {
             List<PostsResults> imagesResult = new List<PostsResults>();
-            using (var db = paintStoreContext)
+            using (var db = _paintStoreContext)
             {
                 IQueryable<IPosts> images = null;
                 if (message == "most_popular")
@@ -97,7 +89,7 @@ namespace backEnd.Services
         public List<PostsResults> GetPostsByTag(string tag)
         {
             List<PostsResults> imagesResult = new List<PostsResults>();
-            using (var db = paintStoreContext)
+            using (var db = _paintStoreContext)
             {
                 var tagId = db.Tags.First(x => x.TagName == tag).Id;
                 var postsIds = db.PostTags.Where(x => x.TagId == tagId).Select(y => y.PostId).ToList();
@@ -126,7 +118,7 @@ namespace backEnd.Services
 
         public Posts AddImage(Posts post)
         {
-            using(var db = paintStoreContext)
+            using(var db = _paintStoreContext)
             {
                 UsersManager.UserPostsCountPlus(db, post.UserId);
                 //if(post.CategoryToolId != null)
@@ -145,7 +137,7 @@ namespace backEnd.Services
 
         public Posts EditPost(Posts post)
         {
-            using (var db = paintStoreContext)
+            using (var db = _paintStoreContext)
             {
                 var postToUptade = db.Posts.Where(x => x.Id == post.Id).First();
 
@@ -171,7 +163,7 @@ namespace backEnd.Services
 
         public int PostRemover(int postId)
         {
-            using (var db = paintStoreContext)
+            using (var db = _paintStoreContext)
             {
                 var tempPost = db.Posts.Where(
                     x => x.Id == postId).First();

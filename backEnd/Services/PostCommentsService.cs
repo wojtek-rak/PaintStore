@@ -9,22 +9,21 @@ namespace backEnd.Services
 {
     public class PostCommentsService : IPostCommentsService
     {
-        private readonly PaintStoreContext paintStoreContext;
+        private readonly PaintStoreContext _paintStoreContext;
 
         public PostCommentsService(PaintStoreContext ctx)
         {
-            paintStoreContext = ctx;
+            _paintStoreContext = ctx;
         }
         public List<PostCommentsResult> GetComments(int userId, int postId)
         {
             List<PostCommentsResult> commentsResult = new List<PostCommentsResult>();
-            using (var db = paintStoreContext)
+            using (var db = _paintStoreContext)
             {
                 var comments = db.PostComments.Where(b => b.PostId == postId).OrderByDescending(x => x.LikeCount);
                 foreach (var comment in comments)
                 {
-                    bool liked = false;
-                    if (db.CommentLikes.Any(x => x.CommentId == comment.Id && x.UserId == userId)) liked = true;
+                    bool liked = db.CommentLikes.Any(x => x.CommentId == comment.Id && x.UserId == userId);
                     var userAvatarImgLink = db.Users.First(x => x.Id == comment.UserId).AvatarImgLink;
                     var userName = db.Users.First(x => x.Id == comment.UserId).Name;
                     commentsResult.Add(new PostCommentsResult(comment){UserOwnerImgLink = userAvatarImgLink, Liked = liked, UserName = userName});
@@ -35,25 +34,25 @@ namespace backEnd.Services
 
         public PostComments AddComment(PostComments comment)
         {
-            ImagesManager.ImageCommentCountPlus(paintStoreContext, comment.PostId);
+            ImagesManager.ImageCommentCountPlus(_paintStoreContext, comment.PostId);
             comment.CreationDate = DateTime.Now;
-            paintStoreContext.PostComments.Add(comment);
-            var count = paintStoreContext.SaveChanges();
+            _paintStoreContext.PostComments.Add(comment);
+            _paintStoreContext.SaveChanges();
             return comment;
         }
 
         public PostComments EditComment(PostComments comment)
         {
-            var commentToUptade = paintStoreContext.PostComments.Where(x => x.Id == comment.Id).First();
+            var commentToUptade = _paintStoreContext.PostComments.First(x => x.Id == comment.Id);
             commentToUptade.Content = comment.Content;
             commentToUptade.Edited = true;
-            var count = paintStoreContext.SaveChanges();
+            _paintStoreContext.SaveChanges();
             return commentToUptade;
         }
 
         public int CommentRemove(int commentId)
         {
-            using (var db = paintStoreContext)
+            using (var db = _paintStoreContext)
             {
                 ImagesManager.ImageCommentCountMinus(db, db.PostComments.
                     Where(x => x.Id == commentId).First().PostId);
@@ -64,7 +63,7 @@ namespace backEnd.Services
                     db.CommentLikes.Remove(db.CommentLikes.
                         Where(x => x.Id == like.Id).First());
                 }
-                var count = db.SaveChanges();
+                db.SaveChanges();
             }
             return commentId;
         }

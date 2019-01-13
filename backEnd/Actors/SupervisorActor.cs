@@ -1,4 +1,5 @@
 ﻿using Akka.Actor;
+using System;
 using backEnd.Actors.Messages;
 using backEnd.Models;
 
@@ -7,28 +8,20 @@ namespace backEnd.Actors.RemoveActors
     public class SupervisorActor : ReceiveActor
     {
         private IActorRef originalSender;
-        //private IActorRef removeAccountActorRef;
-        private IActorRef activityActorRef;
-        private IDBContextCreate idbcontexContextCreate;
+        private readonly IActorRef _activityActorRef;
+        private readonly IDBContextCreate idbcontexContextCreate;
+       
 
         public SupervisorActor(IActorRef activActorRef)
         {
             idbcontexContextCreate = new DBContextCreate();
-            activityActorRef = activActorRef;
+            _activityActorRef = activActorRef;
 
             Receive<UpdatePostActivityMessage>(message =>
             {
                 originalSender = Sender;
                 activActorRef.Tell(new UpdatePostActivityMessage(idbcontexContextCreate));
             });
-
-            //Receive<SupervisorMessage_RmImages>(message =>
-            //{
-            //    Sender.Tell(new ChildSucceededMessage());
-            //    originalSender = Sender;
-            //    removeAccountActorRef.Tell(new StartChildImagesRmMessage(message.UserToRm, message.ctx));
-
-            //});
             Receive<ChildSucceededMessage>(message =>
             {
                 originalSender.Tell(message);

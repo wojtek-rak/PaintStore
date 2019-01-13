@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-//using backEnd.Models;
-
 namespace backEnd
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {

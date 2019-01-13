@@ -132,7 +132,7 @@ namespace PaintStoreBackEnd.Tests
 
             var controller = new FollowersService(mock.Object);
             ;
-            Assert.Throws<NegotiatedContentResultExeption>(() => 
+            Assert.Throws<NegotiatedContentResultException>(() => 
                 controller.AddFollower(new UserFollowers { FollowedUserId = 2, FollowingUserId = 2 })
                 );
         }
@@ -144,7 +144,7 @@ namespace PaintStoreBackEnd.Tests
 
             var controller = new FollowersService(mock.Object);
             ;
-            Assert.Throws<NegotiatedContentResultExeption>(() => 
+            Assert.Throws<NegotiatedContentResultException>(() => 
                 controller.AddFollower(new UserFollowers { FollowedUserId = 1, FollowingUserId = 2 })
             );
         }

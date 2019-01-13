@@ -40,7 +40,7 @@ namespace backEnd.Controllers
             {
                 return Ok(_followersService.AddFollower(follow));
             }
-            catch (NegotiatedContentResultExeption e)
+            catch (NegotiatedContentResultException)
             {
                 return StatusCode(409);
             }

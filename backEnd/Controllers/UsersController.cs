@@ -24,6 +24,7 @@ namespace backEnd.Controllers
         /// <summary>
         /// Get AllPosts of specific user
         /// </summary>
+        /// <param name="userId"></param>
         /// <param name="message">"the_newest" for newest
         /// "most_popular" for most popular
         /// </param>

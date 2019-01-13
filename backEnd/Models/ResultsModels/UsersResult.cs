@@ -4,7 +4,6 @@ namespace backEnd.Models.ResultsModels
 {
     public class UsersResult : Users
     {
-        //public string MostUsedCategoryToolName { get; set; }
         public bool Followed { get; set; }
         public UsersResult(IUsers iUsers)
         {

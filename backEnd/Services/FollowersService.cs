@@ -25,8 +25,7 @@ namespace backEnd.Services
                 foreach (var follow in follows)
                 {
                     var userTemp = db.Users.First(x => x.Id == follow.FollowingUserId);
-                    bool followed = false;
-                    if (db.UserFollowers.Any(x => x.FollowedUserId == userTemp.Id && x.FollowingUserId == loggedUserId)) followed = true;
+                    bool followed = db.UserFollowers.Any(x => x.FollowedUserId == userTemp.Id && x.FollowingUserId == loggedUserId);
                     followsList.Add(new LikesResult(follow.FollowingUserId, userTemp.Name, userTemp.AvatarImgLink, followed));
                 }
             }
@@ -43,8 +42,7 @@ namespace backEnd.Services
                 foreach (var follow in follows)
                 {
                     var userTemp = db.Users.First(x => x.Id == follow.FollowedUserId);
-                    bool followed = false;
-                    if (db.UserFollowers.Any(x => x.FollowedUserId == userTemp.Id && x.FollowingUserId == loggedUserId)) followed = true;
+                    bool followed = db.UserFollowers.Any(x => x.FollowedUserId == userTemp.Id && x.FollowingUserId == loggedUserId);
                     followsList.Add(new LikesResult(follow.FollowedUserId, userTemp.Name, userTemp.AvatarImgLink, followed));
                 }
                 return followsList;
@@ -59,12 +57,12 @@ namespace backEnd.Services
                     x.FollowedUserId == follow.FollowedUserId && x.FollowingUserId == follow.FollowingUserId))
                     || follow.FollowedUserId == follow.FollowingUserId)
                 {
-                    throw new NegotiatedContentResultExeption();
+                    throw new NegotiatedContentResultException();
                 }
                 FollowersManager.UserFollowedCountPlus(db, follow.FollowedUserId);
                 FollowersManager.UserFollowingCountPlus(db, follow.FollowingUserId);
                 db.UserFollowers.Add(follow);
-                var count = db.SaveChanges();
+                db.SaveChanges();
             }
             return follow;
         }
@@ -80,7 +78,7 @@ namespace backEnd.Services
                 FollowersManager.UserFollowedCountMinus(db, tempFollow.FollowedUserId);
                 FollowersManager.UserFollowingCountMinus(db, tempFollow.FollowingUserId);
                 db.UserFollowers.Remove(db.UserFollowers.First(x => x.Id == followId));
-                var count = db.SaveChanges();
+                db.SaveChanges();
                 return followId;
             }
         }

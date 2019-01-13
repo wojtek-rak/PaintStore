@@ -8,25 +8,22 @@ namespace backEnd.Services
 {
     public class UsersService : IUsersService
     {
-        private readonly PaintStoreContext paintStoreContext;
+        private readonly PaintStoreContext _paintStoreContext;
 
         public UsersService(PaintStoreContext ctx)
         {
-            paintStoreContext = ctx;
+            _paintStoreContext = ctx;
         }
 
         public UsersResult GetUser(int loggedUserId, int userId)
         {
-            UsersResult usersResult;
-            using (var db = paintStoreContext)
+            using (var db = _paintStoreContext)
             {
                 var userToGet = db.Users.First(b => b.Id == userId);
                 
-                //userToGet.MostUsedCategoryToolName = db.Posts.Where(x => x.UserId == user.Id).GroupBy(x => x.CategoryToolId);
-                bool followed = false;
-                if (db.UserFollowers.Any(x => x.FollowedUserId == userToGet.Id && x.FollowingUserId == loggedUserId)) followed = true;
+                bool followed = db.UserFollowers.Any(x => x.FollowedUserId == userToGet.Id && x.FollowingUserId == loggedUserId);
 
-                usersResult = new UsersResult(userToGet){Followed = followed};
+                var usersResult = new UsersResult(userToGet){Followed = followed};
                 return usersResult;
             }
         }
@@ -34,14 +31,14 @@ namespace backEnd.Services
         public List<PostsResults> GetPosts(int userId, string message)
         {
             List<PostsResults> postsResult = new List<PostsResults>();
-            using (var db = paintStoreContext)
+            using (var db = _paintStoreContext)
             {
                 IQueryable<IPosts> images = null;
                 if (message == "most_popular")
                 {
                     images = db.Posts.Where(z => z.UserId == userId).OrderByDescending(y => y.PopularActivity);
                 }
-                if (message == "the_newest")
+                else if (message == "the_newest")
                 {
                     images = db.Posts.Where(z => z.UserId == userId).OrderByDescending(x => x.CreationDate);
                 }
@@ -56,26 +53,26 @@ namespace backEnd.Services
 
         public Users AddUser(Users user)
         {
-            using (var db = paintStoreContext)
+            using (var db = _paintStoreContext)
             {
-                paintStoreContext.Users.Add(user);
-                var count = paintStoreContext.SaveChanges();
+                db.Users.Add(user);
+                db.SaveChanges();
                 return user;
             }
         }
 
         public Users EditUser(Users user)
         {
-            using (var db = paintStoreContext)
+            using (var db = _paintStoreContext)
             {
-                //todo better
-                var userToUpdate = paintStoreContext.Users.First(x => x.Id == user.Id);
+                //TODO better
+                var userToUpdate = _paintStoreContext.Users.First(x => x.Id == user.Id);
                 if (user.About != null) userToUpdate.About = user.About;
                 if (user.AvatarImgLink != null) userToUpdate.AvatarImgLink = user.AvatarImgLink;
                 if (user.BackgroundImgLink != null) userToUpdate.BackgroundImgLink = user.BackgroundImgLink;
                 if (user.Name != null) userToUpdate.Name = user.Name;
                 if (user.Link != null) userToUpdate.Link = user.Link;
-                var count = paintStoreContext.SaveChanges();
+                _paintStoreContext.SaveChanges();
                 return userToUpdate;
             }
         }

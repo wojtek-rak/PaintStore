@@ -61,7 +61,7 @@ namespace PaintStoreBackEnd.Tests
 
             var controller = new LikesService(mock.Object);
             
-            Assert.Throws<NegotiatedContentResultExeption>(() => 
+            Assert.Throws<NegotiatedContentResultException>(() => 
                 controller.AddImageLike(new PostLikes { UserId = 2, PostId = 1  })
             );
         }
@@ -154,7 +154,7 @@ namespace PaintStoreBackEnd.Tests
 
             var controller = new LikesService(mock.Object);
             
-            Assert.Throws<NegotiatedContentResultExeption>(() => 
+            Assert.Throws<NegotiatedContentResultException>(() => 
                 controller.AddCommentLike(new CommentLikes { UserId = 2, CommentId = 1 })
             );
         }

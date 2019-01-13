@@ -21,7 +21,6 @@ namespace backEnd.Models.ResultsModels
             Id = iTag.Id;
             TagName = iTag.TagName;
             Count = iTag.Count;
-            //Indexer = iType.Count;
         }
         
 
@@ -31,7 +30,6 @@ namespace backEnd.Models.ResultsModels
             Name = iUser.Name;
             AvatarImgLink = iUser.AvatarImgLink;
             FollowedCount = iUser.FollowedCount;
-            //Indexer = iUser.FollowedCount;
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace backEnd.Models
 {
@@ -28,15 +27,11 @@ namespace backEnd.Models
         public virtual DbSet<Tags> Tags { get; set; }
         public virtual DbSet<UserFollowers> UserFollowers { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-        public IConfiguration Configuration { get; }
-        private string ConnString { get; set; }
+
         public PaintStoreContext(DbContextOptions<PaintStoreContext> options) : base(options)
         {
         }
-        //public PaintStoreContext(string connectionString)
-        //{
-        //    ConnString = connectionString;
-        //}
+
         public PaintStoreContext()
         {
         }
@@ -46,7 +41,6 @@ namespace backEnd.Models
             if (!optionsBuilder.IsConfigured)
             {
                 //To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                //optionsBuilder.UseSqlServer(ConnString);
                 optionsBuilder.UseSqlite("Data Source=PaintStore.db");
             }
         }

@@ -1,11 +1,11 @@
 # PaintStore_backEnd
 
+REST service supporting social media service.
+
 |Version|Quality|Coverage|State|
 |---|---|---|---|
 |![alt text](https://img.shields.io/badge/version-1.0.1-brightgreen.svg) |[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=wojtek-rak_PaintStore_BackEnd&metric=alert_status)](https://sonarcloud.io/dashboard?id=wojtek-rak_PaintStore_BackEnd)|[![alt text](https://img.shields.io/badge/Coverage-63.6%25-red.svg)](https://sonarcloud.io/component_measures?id=wojtek-rak_PaintStore_BackEnd&metric=coverage)| ![alt text](https://img.shields.io/badge/state-in%20development-red.svg)|
 
-
-REST service supporting social media service.
 
 Description
 =====

@@ -17,31 +17,29 @@ To configure:
 -------
 Add appsettings.json file with this text,
 ```json
-    
- {
-  "ConnectionStrings": {
-    "PaintStoreDatabase": "(your_conection_string)"
-  },
-  "AppIdentitySettings": {
-    "CouldName": "(your_CouldName)",
-    "ApiKey": "(your_ApiKey)",
-    "SecretApiKey": "(your_SecretApiKey)",
-    },
-    "Logging": {
-      "IncludeScopes": false,
-      "Debug": {
-        "LogLevel": {
-          "Default": "Warning"
-        }
+{  
+   "ConnectionStrings":{  
+      "PaintStoreDatabase":"(your_conection_string)"
+   },
+   "AppIdentitySettings":{  
+      "CouldName":"(your_CouldName)",
+      "ApiKey":"(your_ApiKey)",
+      "SecretApiKey":"(your_SecretApiKey)"
+   },
+   "Logging":{  
+      "IncludeScopes":false,
+      "Debug":{  
+         "LogLevel":{  
+            "Default":"Warning"
+         }
       },
-      "Console": {
-        "LogLevel": {
-          "Default": "Warning"
-        }
+      "Console":{  
+         "LogLevel":{  
+            "Default":"Warning"
+         }
       }
-    }
-  }
-
+   }
+}
 ```
 
 
@@ -49,14 +47,13 @@ Implemented Features
 ------
 #### Auto Countings for:
 ```
-Post likes in Post
-Comment likes in Comment
-Post count in User
-Comment count in Post
-Followed user in User
-Following user in User
-CategoryType count in CategoryType
-CategoryTool count in CategoryTool
+PostLikes count
+CommentLikes count
+Post count
+Comment count
+FollowedUsers count
+FollowingUsers count
+Tags count
 ```
 #### Validation for:
 ```

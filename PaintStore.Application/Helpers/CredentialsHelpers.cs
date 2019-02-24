@@ -25,6 +25,12 @@ namespace PaintStore.Application.Helpers
 
             return algorithm.ComputeHash(plainTextWithSaltBytes);            
         }
-
+        public static string CreateSalt(int size = 60)
+        {
+            var rng = new System.Security.Cryptography.RNGCryptoServiceProvider();
+            var buff = new byte[size];
+            rng.GetBytes(buff);
+            return Convert.ToBase64String(buff);
+        }
     }
 }

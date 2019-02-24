@@ -7,6 +7,6 @@ namespace PaintStore.Domain.ResultsModels
     public class SignInResult
     {
         public int UserId { get; set; }
-        public int Token { get; set; }
+        public string Token { get; set; }
     }
 }

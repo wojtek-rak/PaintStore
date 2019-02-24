@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Moq;
 using NUnit.Framework;
 using PaintStore.Application.Services;
 using PaintStore.Domain.InputModels;
@@ -12,19 +13,20 @@ namespace PaintStoreBackEnd.Tests
     public class SignInServiceTests
     {
         [Test]
-        public void GetFollowingUser_ValidUserId_ReturnFollows()
+        public void SignIn_ValidEmail_GenerateToken()
         {
             var init = new InitializeMockContext();
             var mock = init.mock;
 
             var signInService = new SignInService(mock.Object);
-            var result = signInService.SignIn(new SignInCommand() { Email = "Wojtek@wp.pl", Password = "123456"});
+            var result = signInService.SignIn(new SignInCommand() { Email = "kasia@kreska.pl"});
 
-            Assert.Fail();
+            Assert.AreNotEqual(result.Token, null);
+            mock.Verify(m => m.SaveChanges(), Times.Once());
         }
 
         [Test]
-        public void GetFollowingUser_NotLoggedUserId_AllNotFollowing()
+        public void SignOut_SignedUser_EraseToken()
         {
             var init = new InitializeMockContext();
             var mock = init.mock;
@@ -32,7 +34,8 @@ namespace PaintStoreBackEnd.Tests
             var signInService = new SignInService(mock.Object);
             var result = signInService.SignOut(new SignOutCommand() { UserId = 3});
 
-            Assert.Fail();
+            Assert.AreEqual(result, true);
+            mock.Verify(m => m.SaveChanges(), Times.Once());
         }
     }
 

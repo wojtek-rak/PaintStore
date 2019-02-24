@@ -66,7 +66,7 @@ namespace PaintStore.Application.Services
             using (var db = _paintStoreContext)
             {
                 var newUser = new Users() {Email = user.Email, Name = user.Name, Link = user.Name.ToLower(), About = ""};
-                newUser.PasswordSoil = CreateSalt();
+                newUser.PasswordSoil = CredentialsHelpers.CreateSalt();
                 var  encoding = new ASCIIEncoding();
                 var soil = encoding.GetBytes(newUser.PasswordSoil);
                 var password = encoding.GetBytes(user.Password);
@@ -134,12 +134,6 @@ namespace PaintStore.Application.Services
             }
         }
 
-        private string CreateSalt(int size = 60)
-        {
-            var rng = new System.Security.Cryptography.RNGCryptoServiceProvider();
-            var buff = new byte[size];
-            rng.GetBytes(buff);
-            return Convert.ToBase64String(buff);
-        }
+        
     }
 }

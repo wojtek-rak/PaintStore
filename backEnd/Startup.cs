@@ -5,20 +5,21 @@ using Akka.Actor;
 using AutoMapper;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using backEnd.Actors;
-using backEnd.Actors.RemoveActors;
-using backEnd.Actors.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using backEnd.Models;
-using backEnd.Models.UploadModels;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Swagger;
-using backEnd.Services;
+using PaintStore.Application.Actors;
+using PaintStore.Application.Actors.Services;
+using PaintStore.Application.Interfaces;
+using PaintStore.Application.Services;
+using PaintStore.BackEnd.Middlewares;
+using PaintStore.Domain.UploadModels;
+using PaintStore.Persistence;
 
-namespace backEnd
+namespace PaintStore.BackEnd
 {
     public class Startup
     {
@@ -45,12 +46,12 @@ namespace backEnd
                 });
             });
             services.AddAutoMapper();
-
+            
             services.AddTransient<IPostsService, PostService>();
             services.AddTransient<ILikesService, LikesService>();
+            services.AddTransient<ISignInService, SignInService>();
             services.AddTransient<ITagsService, TagsService>();
             services.AddTransient<IUsersService, UsersService>();
-            services.AddTransient<IAccountsService, AccountsService>();
             services.AddTransient<IFollowersService, FollowersService>();
             services.AddTransient<IPostCommentsService, PostCommentsService>();
 
@@ -109,7 +110,7 @@ namespace backEnd
             activityManager.RunManager();
 
             app.UseCors("AllowAllOrigins");
-
+            app.UseMiddleware<AuthenticationMiddleware>();
             app.UseMvc();
         }
 

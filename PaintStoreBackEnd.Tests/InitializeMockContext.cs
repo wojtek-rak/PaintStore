@@ -1,7 +1,4 @@
-﻿using backEnd.Controllers;
-using backEnd.Models;
-using Microsoft.AspNetCore.Mvc.Controllers;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
@@ -14,17 +11,19 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PaintStore.Domain.Entities;
+using PaintStore.Persistence;
 
 namespace PaintStoreBackEnd.Tests
 {
     class InitializeMockContext
     {
-        public Mock<DbSet<Accounts>> mockSetAccount; 
+        //public Mock<DbSet<Accounts>> mockSetAccount; 
         public Mock<DbSet<Users>> mockSetUsers;
         public Mock<DbSet<PostComments>> mockSetComments;
         public Mock<DbSet<Posts>> mockSetImages;
-        public Mock<DbSet<CategoryTypes>> mockSetCategoryTypes;
-        public Mock<DbSet<CategoryTools>> mockSetCategoryTools;
+        //public Mock<DbSet<CategoryTypes>> mockSetCategoryTypes;
+        //public Mock<DbSet<CategoryTools>> mockSetCategoryTools;
         public Mock<DbSet<PostLikes>> mockSetPostLikes;
         public Mock<DbSet<CommentLikes>> mockSetCommentLikes;
         public Mock<DbSet<UserFollowers>> mockSetUserFollowers;
@@ -34,16 +33,16 @@ namespace PaintStoreBackEnd.Tests
         public InitializeMockContext()
         {
             var mock = new Mock<PaintStoreContext>();
-            var mockDataAccounts = new List<Accounts> {
-                new Accounts { Id = 1, CreationDate = DateTime.Now, Email = "kasia@kreska.pl", PasswordHash = "!@#sdaAWEDAFSFDSAE"},
-                new Accounts { Id = 2, CreationDate = DateTime.Now, Email = "zosia@kreska.pl", PasswordHash = "eWDs@daDSAdsFSFSAE" },
-                new Accounts { Id = 3, CreationDate = DateTime.Now, Email = "wyrak@kreska.pl", PasswordHash = "easddsdweeewFSFSAE" }
-            }.AsQueryable();
+            //var mockDataAccounts = new List<Accounts> {
+            //    new Accounts { Id = 1, CreationDate = DateTime.Now, Email = "kasia@kreska.pl", PasswordHash = "!@#sdaAWEDAFSFDSAE"},
+            //    new Accounts { Id = 2, CreationDate = DateTime.Now, Email = "zosia@kreska.pl", PasswordHash = "eWDs@daDSAdsFSFSAE" },
+            //    new Accounts { Id = 3, CreationDate = DateTime.Now, Email = "wyrak@kreska.pl", PasswordHash = "easddsdweeewFSFSAE" }
+            //}.AsQueryable();
 
             var mockDataUsers = new List<Users> {
-                new Users { Id = 1, Name = "Kasia", Link = "kasialink", AvatarImgLink = "1appa", BackgroundImgLink = "1bappa", About = "1xD", AccountId = 1, FollowedCount = 1, FollowingCount = 0, PostsCount = 3},
-                new Users { Id = 2, Name = "Zosia", Link = "tosialink", AvatarImgLink = "2appa", BackgroundImgLink = "2bappa", About = "2xD", AccountId = 2, FollowedCount = 0, FollowingCount = 2, PostsCount = 1},
-                new Users { Id = 3, Name = "wyrak", Link = "towyreeak", AvatarImgLink = "3appa", BackgroundImgLink = "3bappa", About = "3xD", AccountId = 3, FollowedCount = 1, FollowingCount = 0, PostsCount = 0}}.AsQueryable();
+                new Users { Id = 1, Name = "Kasia", Link = "kasialink", AvatarImgLink = "1appa", BackgroundImgLink = "1bappa", About = "1xD", CreationDate = DateTime.Now, Email = "kasia@kreska.pl", PasswordHash = "!@#sdaAWEDAFSFDSAE", PasswordSoil = "soiled", Token = null, FollowedCount = 1, FollowingCount = 0, PostsCount = 3},
+                new Users { Id = 2, Name = "Zosia", Link = "tosialink", AvatarImgLink = "2appa", BackgroundImgLink = "2bappa", About = "2xD", CreationDate = DateTime.Now, Email = "zosia@kreska.pl", PasswordHash = "eWDs@daDSAdsFSFSAE", PasswordSoil = "soiled", Token = null, FollowedCount = 0, FollowingCount = 2, PostsCount = 1},
+                new Users { Id = 3, Name = "wyrak", Link = "towyreeak", AvatarImgLink = "3appa", BackgroundImgLink = "3bappa", About = "3xD", CreationDate = DateTime.Now, Email = "wyrak@kreska.pl", PasswordHash = "easddsdweeewFSFSAE", PasswordSoil = "soiled", Token = "to", FollowedCount = 1, FollowingCount = 0, PostsCount = 0}}.AsQueryable();
 
             var mockDataComments = new List<PostComments> {
                 new PostComments { Id = 1, CreationDate = DateTime.Parse("2008-05-01T07:34:42-5:00"), Content = "Ale Kom", PostId = 2, UserId = 2, LikeCount = 2 },
@@ -59,15 +58,15 @@ namespace PaintStoreBackEnd.Tests
                 new Posts { Id = 5, Title = "zaden2             ", ImgLink = "link5", CreationDate = DateTime.Parse("2008-04-01T07:34:42-5:00"), Description = "Desc5", UserId = 1, LikeCount = 0, CommentsCount = 0, PopularActivity = 19},
                 new Posts { Id = 6, Title = "zos             ", ImgLink = "link6", CreationDate = DateTime.Parse("2008-03-01T07:34:42-5:00"), Description = "Desc6", UserId = 1, LikeCount = 0, CommentsCount = 0, PopularActivity = 3} }.AsQueryable();
 
-            var mockDataCategoryType = new List<CategoryTypes> {
-                new CategoryTypes { Id = 1, TypeName = "pose", Count = 0 },
-                new CategoryTypes { Id = 2, TypeName = "animal", Count = 2},
-                new CategoryTypes { Id = 3, TypeName = "poZosiase", Count = 10 },
-                new CategoryTypes { Id = 4, TypeName = "deZosiase", Count = 0 } }.AsQueryable();
+            //var mockDataCategoryType = new List<CategoryTypes> {
+            //    new CategoryTypes { Id = 1, TypeName = "pose", Count = 0 },
+            //    new CategoryTypes { Id = 2, TypeName = "animal", Count = 2},
+            //    new CategoryTypes { Id = 3, TypeName = "poZosiase", Count = 10 },
+            //    new CategoryTypes { Id = 4, TypeName = "deZosiase", Count = 0 } }.AsQueryable();
 
-            var mockDataCategoryTool = new List<CategoryTools> {
-                new CategoryTools { Id = 1, ToolName = "pencil", Count = 2 },
-                new CategoryTools { Id = 2, ToolName = "aquarels", Count = 2} }.AsQueryable();
+            //var mockDataCategoryTool = new List<CategoryTools> {
+            //    new CategoryTools { Id = 1, ToolName = "pencil", Count = 2 },
+            //    new CategoryTools { Id = 2, ToolName = "aquarels", Count = 2} }.AsQueryable();
 
             var mockDataPostLikes = new List<PostLikes> {
                 new PostLikes { Id = 1, UserId = 2, PostId = 1 },
@@ -99,30 +98,30 @@ namespace PaintStoreBackEnd.Tests
                 new PostTags { Id = 6, PostId = 3, TagId = 1}
             }.AsQueryable();
 
-            mockSetAccount = InitMockDbSet(mockDataAccounts);
+            //mockSetAccount = InitMockDbSet(mockDataAccounts);
             mockSetUsers = InitMockDbSet(mockDataUsers);
             mockSetComments = InitMockDbSet(mockDataComments);
             mockSetImages = InitMockDbSet(mockDataImages);
-            mockSetCategoryTypes = InitMockDbSet(mockDataCategoryType);
-            mockSetCategoryTools = InitMockDbSet(mockDataCategoryTool);
+            //mockSetCategoryTypes = InitMockDbSet(mockDataCategoryType);
+            //mockSetCategoryTools = InitMockDbSet(mockDataCategoryTool);
             mockSetPostLikes = InitMockDbSet(mockDataPostLikes);
             mockSetCommentLikes = InitMockDbSet(mockDataCommentLikes);
             mockSetUserFollowers = InitMockDbSet(mockDataUserFollowers);
             mockSetTags = InitMockDbSet(mockDataTags);
             mockSetPostTags = InitMockDbSet(mockDataPostTags);
 
-            mock.Setup(x => x.Accounts)
-                            .Returns(mockSetAccount.Object);
+            //mock.Setup(x => x.Accounts)
+            //                .Returns(mockSetAccount.Object);
             mock.Setup(x => x.Users)
                             .Returns(mockSetUsers.Object);
             mock.Setup(x => x.PostComments)
                             .Returns(mockSetComments.Object);
             mock.Setup(x => x.Posts)
                             .Returns(mockSetImages.Object);
-            mock.Setup(x => x.CategoryTypes)
-                            .Returns(mockSetCategoryTypes.Object);
-            mock.Setup(x => x.CategoryTools)
-                            .Returns(mockSetCategoryTools.Object);
+            //mock.Setup(x => x.CategoryTypes)
+            //                .Returns(mockSetCategoryTypes.Object);
+            //mock.Setup(x => x.CategoryTools)
+            //                .Returns(mockSetCategoryTools.Object);
             mock.Setup(x => x.PostLikes)
                             .Returns(mockSetPostLikes.Object);
             mock.Setup(x => x.CommentLikes)

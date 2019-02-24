@@ -1,8 +1,9 @@
-﻿using backEnd.Models;
-using backEnd.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using PaintStore.Application.Interfaces;
+using PaintStore.Domain.Entities;
+using PaintStore.Domain.InputModels;
 
-namespace backEnd.Controllers
+namespace PaintStore.BackEnd.Controllers
 {
     [Produces("application/json")]
     [Route("api/Users")]
@@ -36,7 +37,7 @@ namespace backEnd.Controllers
 
 
         [HttpPost("AddUser")]
-        public IActionResult AddUser([FromBody] Users user)
+        public IActionResult AddUser([FromBody] AddUserCommand user)
         {
             return Ok(_usersService.AddUser(user));
         }
@@ -45,6 +46,18 @@ namespace backEnd.Controllers
         public IActionResult EditUser([FromBody] Users user)
         {
             return Ok(_usersService.EditUser(user));
+        }
+
+        [HttpPut("EditUserCredentials")]
+        public IActionResult EditUserCredentials([FromBody] Users user)
+        {
+            return Ok(_usersService.EditUserCredentials(user));
+        }
+
+        [HttpDelete("DeleteUser")]
+        public IActionResult RemoveUser([FromBody] Users user)
+        {
+            return Ok(_usersService.RemoveUser(user));
         }
 
     }

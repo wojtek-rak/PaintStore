@@ -1,8 +1,8 @@
-﻿using backEnd.Models;
-using backEnd.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using PaintStore.Application.Interfaces;
+using PaintStore.Domain.Entities;
 
-namespace backEnd.Controllers
+namespace PaintStore.BackEnd.Controllers
 {
     [Produces("application/json")]
     [Route("api/Posts")]

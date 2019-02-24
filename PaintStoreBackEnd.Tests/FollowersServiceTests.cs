@@ -1,9 +1,9 @@
 ﻿using System.Linq;
-using backEnd.Exceptions;
-using backEnd.Models;
-using backEnd.Services;
 using Moq;
 using NUnit.Framework;
+using PaintStore.Application.Services;
+using PaintStore.Domain.Entities;
+using PaintStore.Domain.Exceptions;
 
 namespace PaintStoreBackEnd.Tests
 {

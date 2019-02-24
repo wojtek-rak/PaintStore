@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using backEnd.Controllers;
-using backEnd.Models;
-using backEnd.Services;
 using Moq;
 using NUnit.Framework;
+using PaintStore.Application.Services;
+using PaintStore.Domain.Entities;
 
 namespace PaintStoreBackEnd.Tests
 {

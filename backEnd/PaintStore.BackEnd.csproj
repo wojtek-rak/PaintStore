@@ -7,6 +7,7 @@
 	<PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
 	<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 	<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+	<UserSecretsId>3fe6a66a-0d45-4329-a5c1-16cd69e6177c</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -30,8 +31,7 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.3.1" />
     <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
-    <PackageReference Include="EntityFramework" Version="6.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.2" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.2" />
     <PackageReference Include="NUnit" Version="3.11.0" />
     <PackageReference Include="NUnit.Runners" Version="3.9.0" />

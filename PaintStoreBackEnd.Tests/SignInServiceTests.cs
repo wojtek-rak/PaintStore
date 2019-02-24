@@ -38,5 +38,4 @@ namespace PaintStoreBackEnd.Tests
             mock.Verify(m => m.SaveChanges(), Times.Once());
         }
     }
-
 }

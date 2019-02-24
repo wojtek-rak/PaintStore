@@ -18,7 +18,7 @@ using PaintStore.Application.Services;
 using PaintStore.Domain.UploadModels;
 using PaintStore.Persistence;
 
-namespace backEnd
+namespace PaintStore.BackEnd
 {
     public class Startup
     {

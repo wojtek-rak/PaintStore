@@ -6,6 +6,7 @@ using Moq;
 using NUnit.Framework;
 using PaintStore.Application.Services;
 using PaintStore.Domain.Entities;
+using PaintStore.Domain.InputModels;
 
 namespace PaintStoreBackEnd.Tests
 {
@@ -81,7 +82,7 @@ namespace PaintStoreBackEnd.Tests
             var mock = init.mock;
 
             var controller = new UsersService(mock.Object, new PostService(mock.Object), new FollowersService(mock.Object));
-            var editedCom = controller.AddUser(new Users {  });
+            var editedCom = controller.AddUser(new AddUserCommand() { Email  = "Mail", Password = "Passwd", Name = "Loxin"});
             mock.Verify(m => m.SaveChanges(), Times.Once());
             init.mockSetUsers.Verify(m => m.Add(It.IsAny<Users>()), Times.Once());
         }

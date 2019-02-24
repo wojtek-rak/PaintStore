@@ -1,7 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using PaintStore.Application.Helpers;
 using PaintStore.Application.Interfaces;
 using PaintStore.Domain.Entities;
+using PaintStore.Domain.InputModels;
 using PaintStore.Domain.Interfaces;
 using PaintStore.Domain.ResultsModels;
 using PaintStore.Persistence;
@@ -57,13 +61,19 @@ namespace PaintStore.Application.Services
             }
         }
 
-        public Users AddUser(Users user)
+        public Users AddUser(AddUserCommand user)
         {
             using (var db = _paintStoreContext)
             {
-                db.Users.Add(user);
+                var newUser = new Users() {Email = user.Email, Name = user.Name, Link = user.Name.ToLower(), About = ""};
+                newUser.PasswordSoil = CreateSalt();
+                var  encoding = new ASCIIEncoding();
+                var soil = encoding.GetBytes(newUser.PasswordSoil);
+                var password = encoding.GetBytes(user.Password);
+                newUser.PasswordHash = System.Text.Encoding.UTF8.GetString(CredentialsHelpers.GenerateSaltedHash(password, soil));
+                db.Users.Add(newUser);
                 db.SaveChanges();
-                return user;
+                return newUser;
             }
         }
 
@@ -122,6 +132,14 @@ namespace PaintStore.Application.Services
                     return new Users() { PasswordHash = "Password incorrect" };
                 }
             }
+        }
+
+        private string CreateSalt(int size = 60)
+        {
+            var rng = new System.Security.Cryptography.RNGCryptoServiceProvider();
+            var buff = new byte[size];
+            rng.GetBytes(buff);
+            return Convert.ToBase64String(buff);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PaintStore.Application.Interfaces;
 using PaintStore.Domain.Entities;
+using PaintStore.Domain.InputModels;
 
 namespace backEnd.Controllers
 {
@@ -36,7 +37,7 @@ namespace backEnd.Controllers
 
 
         [HttpPost("AddUser")]
-        public IActionResult AddUser([FromBody] Users user)
+        public IActionResult AddUser([FromBody] AddUserCommand user)
         {
             return Ok(_usersService.AddUser(user));
         }
@@ -53,7 +54,7 @@ namespace backEnd.Controllers
             return Ok(_usersService.EditUserCredentials(user));
         }
 
-        [HttpPost("DeleteUser")]
+        [HttpDelete("DeleteUser")]
         public IActionResult RemoveUser([FromBody] Users user)
         {
             return Ok(_usersService.RemoveUser(user));

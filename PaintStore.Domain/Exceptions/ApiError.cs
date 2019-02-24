@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace PaintStore.Domain.Exceptions
 {
@@ -19,13 +18,13 @@ namespace PaintStore.Domain.Exceptions
             IsError = true;
         }
 
-        public ApiError(ModelStateDictionary modelState)
-        {
-            IsError = true;
+        //public ApiError(ModelStateDictionary modelState)
+        //{
+        //    IsError = true;
 
-            Errors = modelState.ToDictionary(
-                kvp => kvp.Key,
-                kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray());
-        }
+        //    Errors = modelState.ToDictionary(
+        //        kvp => kvp.Key,
+        //        kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray());
+        //}
     }
 }

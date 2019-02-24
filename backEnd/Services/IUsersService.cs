@@ -10,5 +10,7 @@ namespace backEnd.Services
         List<PostsResults> GetPosts(int userId, string message);
         Users AddUser(Users user);
         Users EditUser(Users user);
+        Users EditUserCredentials(Users account);
+        Users RemoveUser(Users account);
     }
 }

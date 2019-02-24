@@ -16,9 +16,6 @@ namespace backEnd.Models
     }
     public partial class PaintStoreContext : DbContext
     {
-        public virtual DbSet<Accounts> Accounts { get; set; }
-        public virtual DbSet<CategoryTools> CategoryTools { get; set; }
-        public virtual DbSet<CategoryTypes> CategoryTypes { get; set; }
         public virtual DbSet<CommentLikes> CommentLikes { get; set; }
         public virtual DbSet<PostComments> PostComments { get; set; }
         public virtual DbSet<PostLikes> PostLikes { get; set; }
@@ -47,44 +44,6 @@ namespace backEnd.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Accounts>(entity =>
-            {
-                entity.Property(e => e.CreationDate).HasColumnType("date");
-
-                entity.Property(e => e.Email)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.PasswordHash)
-                    .IsRequired()
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<CategoryTools>(entity =>
-            {
-                entity.HasIndex(e => e.ToolName)
-                    .HasName("UQ__Category__006DA271C21386E2")
-                    .IsUnique();
-
-                entity.Property(e => e.ToolName)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<CategoryTypes>(entity =>
-            {
-                entity.HasIndex(e => e.TypeName)
-                    .HasName("UQ__Category__D4E7DFA8627FF10C")
-                    .IsUnique();
-
-                entity.Property(e => e.TypeName)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
-            });
-
             modelBuilder.Entity<PostComments>(entity =>
             {
                 entity.Property(e => e.Content)
@@ -146,9 +105,20 @@ namespace backEnd.Models
 
             modelBuilder.Entity<Users>(entity =>
             {
-                entity.HasIndex(e => e.AccountId)
-                    .HasName("UQ__Users__349DA5A79015285E")
-                    .IsUnique();
+                entity.Property(e => e.CreationDate).HasColumnType("date");
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PasswordHash)
+                    .IsRequired()
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PasswordSoil)
+                    .IsRequired()
+                    .IsUnicode(false);
 
                 entity.Property(e => e.About)
                     .IsRequired()

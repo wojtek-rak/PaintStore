@@ -47,5 +47,17 @@ namespace backEnd.Controllers
             return Ok(_usersService.EditUser(user));
         }
 
+        [HttpPut("EditUserCredentials")]
+        public IActionResult EditUserCredentials([FromBody] Users user)
+        {
+            return Ok(_usersService.EditUserCredentials(user));
+        }
+
+        [HttpPost("DeleteUser")]
+        public IActionResult RemoveUser([FromBody] Users user)
+        {
+            return Ok(_usersService.RemoveUser(user));
+        }
+
     }
 }

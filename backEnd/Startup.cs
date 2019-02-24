@@ -50,7 +50,6 @@ namespace backEnd
             services.AddTransient<ILikesService, LikesService>();
             services.AddTransient<ITagsService, TagsService>();
             services.AddTransient<IUsersService, UsersService>();
-            services.AddTransient<IAccountsService, AccountsService>();
             services.AddTransient<IFollowersService, FollowersService>();
             services.AddTransient<IPostCommentsService, PostCommentsService>();
 

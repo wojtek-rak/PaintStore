@@ -9,10 +9,14 @@ namespace backEnd.Services
     public class UsersService : IUsersService
     {
         private readonly PaintStoreContext _paintStoreContext;
+        private readonly IPostsService _postsService;
+        private readonly IFollowersService _followersService;
 
-        public UsersService(PaintStoreContext ctx)
+        public UsersService(PaintStoreContext ctx, IPostsService postsService, IFollowersService followersService)
         {
             _paintStoreContext = ctx;
+            _postsService = postsService;
+            _followersService = followersService;
         }
 
         public UsersResult GetUser(int loggedUserId, int userId)
@@ -73,6 +77,48 @@ namespace backEnd.Services
                 if (user.Link != null) userToUpdate.Link = user.Link;
                 _paintStoreContext.SaveChanges();
                 return userToUpdate;
+            }
+        }
+
+        public Users EditUserCredentials(Users account)
+        {
+            using (var db = _paintStoreContext)
+            {
+                var accountToUpdate = db.Users.First(x => x.Id == account.Id);
+                if (account.Email != null) accountToUpdate.Email = account.Email;
+                if (account.PasswordHash != null) accountToUpdate.PasswordHash = account.PasswordHash;
+                db.SaveChanges();
+                return accountToUpdate;
+            }
+        }
+
+        public Users RemoveUser(Users account)
+        {
+            using (var db = _paintStoreContext)
+            {
+                var userToRemove = db.Users.First(x => x.Id == account.Id);
+                if (account.PasswordHash == db.Users.First(x => x.Id == account.Id).PasswordHash)
+                {
+
+                    foreach (var post in db.Posts.Where(x => x.UserId == userToRemove.Id))
+                    {
+                        _postsService.PostRemover(post.Id);
+                    }
+
+                    foreach (var follow in db.UserFollowers.
+                        Where(x => x.FollowedUserId == userToRemove.Id || x.FollowingUserId == userToRemove.Id))
+                    {
+                        _followersService.FollowRemove(follow.FollowingUserId, follow.FollowedUserId);
+                    }
+                    db.Users.Remove(userToRemove);
+
+                    db.SaveChanges();
+                    return userToRemove;
+                }
+                else
+                {
+                    return new Users() { PasswordHash = "Password incorrect" };
+                }
             }
         }
     }

@@ -3,7 +3,6 @@
     public interface IUsers
     {
          int Id { get; set; }
-         int AccountId { get; set; }
          string Name { get; set; }
          string Link { get; set; }
          string AvatarImgLink { get; set; }

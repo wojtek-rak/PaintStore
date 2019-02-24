@@ -1,5 +1,4 @@
 ﻿using backEnd.Controllers;
-using backEnd.Models;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,9 +14,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Akka.Actor;
-using backEnd.Actors;
-using backEnd.Actors.Messages;
-using backEnd.Actors.RemoveActors;
+using PaintStore.Application.Actors;
+using PaintStore.Application.Actors.Messages;
+using PaintStore.Persistence;
 
 namespace PaintStoreBackEnd.Tests.ActorTests
 {

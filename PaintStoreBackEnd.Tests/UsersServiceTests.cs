@@ -2,10 +2,10 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
-using backEnd.Models;
-using backEnd.Services;
 using Moq;
 using NUnit.Framework;
+using PaintStore.Application.Services;
+using PaintStore.Domain.Entities;
 
 namespace PaintStoreBackEnd.Tests
 {

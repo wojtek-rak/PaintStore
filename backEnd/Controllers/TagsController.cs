@@ -1,6 +1,6 @@
-﻿using backEnd.Models.InputModels;
-using backEnd.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using PaintStore.Application.Interfaces;
+using PaintStore.Domain.InputModels;
 
 namespace backEnd.Controllers
 {

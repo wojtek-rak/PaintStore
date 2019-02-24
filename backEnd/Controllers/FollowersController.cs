@@ -1,7 +1,7 @@
-﻿using backEnd.Exceptions;
-using backEnd.Models;
-using backEnd.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using PaintStore.Application.Interfaces;
+using PaintStore.Domain.Entities;
+using PaintStore.Domain.Exceptions;
 
 namespace backEnd.Controllers
 {

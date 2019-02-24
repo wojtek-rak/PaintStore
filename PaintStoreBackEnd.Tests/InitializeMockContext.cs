@@ -1,5 +1,4 @@
 ﻿using backEnd.Controllers;
-using backEnd.Models;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +13,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PaintStore.Domain.Entities;
+using PaintStore.Persistence;
 
 namespace PaintStoreBackEnd.Tests
 {

@@ -7,7 +7,7 @@ using System.IO;
 using Microsoft.AspNetCore.Cors;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
-using backEnd.Models.UploadModels;
+using PaintStore.Domain.UploadModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 

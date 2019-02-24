@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using backEnd.Models;
-using backEnd.Models.ResultsModels;
 using Microsoft.AspNetCore.Mvc;
+using PaintStore.Domain.ResultsModels;
+using PaintStore.Persistence;
 
 namespace backEnd.Controllers.SearchControllers
 {

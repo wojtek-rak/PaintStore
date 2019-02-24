@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using backEnd.Controllers.SearchControllers;
-using backEnd.Models.ResultsModels;
 using NUnit.Framework;
+using PaintStore.Domain.ResultsModels;
 
 namespace PaintStoreBackEnd.Tests.Performance
 {

@@ -1,5 +1,5 @@
 ﻿using backEnd.Controllers;
-using backEnd.Models;
+
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,7 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using backEnd.Controllers.SearchControllers;
-using backEnd.Models.ResultsModels;
+
 using NUnit.Framework.Internal;
 
 namespace PaintStoreBackEnd.Tests

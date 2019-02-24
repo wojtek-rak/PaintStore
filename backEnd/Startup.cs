@@ -5,18 +5,18 @@ using Akka.Actor;
 using AutoMapper;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using backEnd.Actors;
-using backEnd.Actors.RemoveActors;
-using backEnd.Actors.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using backEnd.Models;
-using backEnd.Models.UploadModels;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Swagger;
-using backEnd.Services;
+using PaintStore.Application.Actors;
+using PaintStore.Application.Actors.Services;
+using PaintStore.Application.Interfaces;
+using PaintStore.Application.Services;
+using PaintStore.Domain.UploadModels;
+using PaintStore.Persistence;
 
 namespace backEnd
 {

@@ -1,18 +1,5 @@
-﻿using backEnd.Controllers;
-using Microsoft.AspNetCore.Mvc.Controllers;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-
-using Microsoft.Extensions.DependencyInjection;
-using Moq;
-using Newtonsoft.Json;
+﻿using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Akka.Actor;
 using PaintStore.Application.Actors;
 using PaintStore.Application.Actors.Messages;

@@ -121,6 +121,9 @@ namespace PaintStore.Persistence
                     .IsRequired()
                     .IsUnicode(false);
 
+                entity.Property(e => e.Token)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.About)
                     .IsRequired()
                     .IsUnicode(false);

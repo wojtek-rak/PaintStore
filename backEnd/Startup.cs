@@ -46,9 +46,10 @@ namespace PaintStore.BackEnd
                 });
             });
             services.AddAutoMapper();
-
+            
             services.AddTransient<IPostsService, PostService>();
             services.AddTransient<ILikesService, LikesService>();
+            services.AddTransient<ISignInService, SignInService>();
             services.AddTransient<ITagsService, TagsService>();
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IFollowersService, FollowersService>();

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using backEnd.Controllers.SearchControllers;
 using NUnit.Framework;
+using PaintStore.BackEnd.Controllers;
 using PaintStore.Domain.ResultsModels;
 
 namespace PaintStoreBackEnd.Tests.Performance

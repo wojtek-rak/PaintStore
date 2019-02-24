@@ -2,7 +2,7 @@
 using PaintStore.Application.Interfaces;
 using PaintStore.Domain.Entities;
 
-namespace backEnd.Controllers
+namespace PaintStore.BackEnd.Controllers
 {
     [Produces("application/json")]
     [Route("api/Posts")]

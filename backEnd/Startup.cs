@@ -15,6 +15,7 @@ using PaintStore.Application.Actors;
 using PaintStore.Application.Actors.Services;
 using PaintStore.Application.Interfaces;
 using PaintStore.Application.Services;
+using PaintStore.BackEnd.Middlewares;
 using PaintStore.Domain.UploadModels;
 using PaintStore.Persistence;
 
@@ -108,7 +109,7 @@ namespace PaintStore.BackEnd
             activityManager.RunManager();
 
             app.UseCors("AllowAllOrigins");
-
+            app.UseMiddleware<AuthenticationMiddleware>();
             app.UseMvc();
         }
 

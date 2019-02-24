@@ -3,7 +3,7 @@ using PaintStore.Application.Interfaces;
 using PaintStore.Domain.Entities;
 using PaintStore.Domain.Exceptions;
 
-namespace backEnd.Controllers
+namespace PaintStore.BackEnd.Controllers
 {
     [Produces("application/json")]
     [Route("api/Followers")]

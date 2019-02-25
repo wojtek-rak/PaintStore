@@ -24,7 +24,19 @@ namespace PaintStore.BackEnd.Controllers
         [HttpPost("In")]
         public IActionResult SignIn([FromBody] SignInCommand signInCommand)
         {
-            return Ok(_signInService.SignIn(signInCommand));
+            try
+            {
+                var userToken = _signInService.SignIn(signInCommand);
+                return Ok(userToken);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return StatusCode(401);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         [HttpPost("Out")]

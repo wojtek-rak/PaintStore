@@ -16,4 +16,7 @@
   </ItemGroup>
 
 
+  <ItemGroup>
+    <Compile Remove="Services\ASCIIEncoding.cs" />
+  </ItemGroup>
 </Project>

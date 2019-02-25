@@ -71,7 +71,7 @@ namespace PaintStore.BackEnd.Middlewares
         {
             if (context.Request.Method == "GET") return true;
             if (context.Request.Path.StartsWithSegments("/api/Users/AddUser")) return true;
-            if (context.Request.Path.StartsWithSegments("/api/api/SignIn/In")) return true;
+            if (context.Request.Path.StartsWithSegments("/api/SignIn/In")) return true;
             return false;
         }
 

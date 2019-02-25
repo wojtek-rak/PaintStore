@@ -40,12 +40,11 @@ namespace PaintStore.BackEnd.Middlewares
                     {
                         var userToAuth = db.Users.First(x => x.Id == userId);
 
-                        var soil = _encoding.GetBytes(userToAuth.PasswordSoil);
-                        var passwordBytes = _encoding.GetBytes(password);
+                        var tokenBytes = _encoding.GetBytes(password);
 
-                        var passwordHash =Encoding.UTF8.GetString(CredentialsHelpers.GenerateSaltedHash(passwordBytes, soil));
+                        var token = Encoding.UTF8.GetString(tokenBytes);//CredentialsHelpers.GenerateSaltedHash(passwordBytes, soil));
 
-                        if (passwordHash == userToAuth.PasswordHash)
+                        if (token == userToAuth.Token)
                         {
                             await _next.Invoke(context);
                         }

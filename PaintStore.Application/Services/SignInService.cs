@@ -23,7 +23,9 @@ namespace PaintStore.Application.Services
         {
             using (var db = _paintStoreContext)
             {
-                var userToSignIn = db.Users.First(x => x.Email == signInCommand.Email);
+                var userToSignIn = db.Users.FirstOrDefault(x => x.Email == signInCommand.Email);
+
+                if (userToSignIn == null) throw new UnauthorizedAccessException();
 
                 var soil = _encoding.GetBytes(userToSignIn.PasswordSoil);
                 var passwordBytes = _encoding.GetBytes(signInCommand.Password);
@@ -58,7 +60,7 @@ namespace PaintStore.Application.Services
                 }
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }

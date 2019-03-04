@@ -32,19 +32,30 @@ namespace PaintStore.BackEnd
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            var settingsSection = Configuration.GetSection("AppIdentitySettings");
-            settingsSection.Get<AppIdentitySettings>();
+            //var settingsSection = Configuration.GetSection("AppIdentitySettings");
+            //settingsSection.Get<AppIdentitySettings>();
+
+            services.Configure<AppIdentitySettings>(Configuration.GetSection("AppIdentitySettings"));
 
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowAllOrigins", build =>
-                {
-                    build.AllowAnyOrigin();
-                    build.AllowAnyHeader();
-                    build.AllowAnyMethod();
-                    build.AllowCredentials();
-                });
+                options.AddPolicy("CorsPolicy",
+                    opt => opt.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
             });
+
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("AllowAllOrigins", build =>
+            //    {
+
+            //        build.AllowAnyOrigin();
+            //        build.AllowAnyHeader();
+            //        build.AllowAnyMethod();
+            //        build.AllowCredentials();
+            //    });
+            //});
             services.AddAutoMapper();
             
             services.AddTransient<IPostsService, PostService>();
@@ -109,7 +120,8 @@ namespace PaintStore.BackEnd
 
             activityManager.RunManager();
 
-            app.UseCors("AllowAllOrigins");
+            app.UseCors("CorsPolicy");
+            //app.UseCors("AllowAllOrigins");
             app.UseMiddleware<AuthenticationMiddleware>();
             app.UseMvc();
         }

@@ -7,6 +7,7 @@ using System.IO;
 using Microsoft.AspNetCore.Cors;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+using Microsoft.Extensions.Options;
 using PaintStore.Domain.UploadModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -18,10 +19,11 @@ namespace PaintStore.BackEnd.Controllers
     {
         private readonly IHostingEnvironment _env;
         private readonly Account _account;
-        public UploadImageController(IHostingEnvironment env, Account account)
+        public UploadImageController(IHostingEnvironment env, IOptions<AppIdentitySettings> appIdentitySettings)
         {
             _env = env;
-            _account = account;
+            var acc = appIdentitySettings.Value;
+            _account = new Account(){ ApiKey = acc.ApiKey, ApiSecret = acc.SecretApiKey, Cloud = acc.CouldName};
         }
         /// <summary>
         /// testing GET: api/values
@@ -34,7 +36,7 @@ namespace PaintStore.BackEnd.Controllers
         }
 
         [HttpPost]
-        [EnableCors("AllowAllOrigins")]
+        //[EnableCors("AllowAllOrigins")]
         public IActionResult Upload(IFormFile file)
         {
             var filename = ContentDispositionHeaderValue

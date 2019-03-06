@@ -9,10 +9,10 @@ import { LoggedIn } from "../classes/logged-in";
   styleUrls: ["./information-label.component.scss"]
 })
 export class InformationLabelComponent extends LoggedIn implements OnInit {
-  @ViewChild("wrapper") wrapper;
+  @ViewChild("wrapper") wrapper : any;
   // @Input() loggedUser: IsUserLoggedIn;
-  private labelName: string;
-  private data: ShortUserInfo[];
+  private labelName: string = ""; // TODO
+  private data: ShortUserInfo[] = []; // TODO
 
   constructor() {
     super();
@@ -31,14 +31,23 @@ export class InformationLabelComponent extends LoggedIn implements OnInit {
     const el = this.wrapper.nativeElement;
     el.classList.remove("opacity");
     setTimeout(() => {
-      el.classList.remove("display");
-      document.querySelector("body").classList.remove("stop-scrolling");
+        el.classList.remove("display");
+
+        const nullCheck = (document.querySelector("body"));
+        if (nullCheck === null) return;
+
+        nullCheck.classList.remove("stop-scrolling");
     }, 200);
   }
 
-  show(data, name) {
+  show(data : any, name : any) {
     // stop scrolling when label visible
-    document.querySelector("body").classList.add("stop-scrolling");
+
+      const nullCheck = (document.querySelector("body"));
+      if (nullCheck === null) return;
+
+
+      nullCheck.classList.add("stop-scrolling");
 
     // show element
     const el = this.wrapper.nativeElement;

@@ -8,26 +8,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-var RegisterComponent = /** @class */ (function () {
-    function RegisterComponent() {
+let RegisterComponent = class RegisterComponent {
+    constructor() { }
+    ngOnInit() {
     }
-    RegisterComponent.prototype.ngOnInit = function () {
-    };
-    RegisterComponent.prototype.onRegister = function (form) {
+    onRegister(form) {
         console.log(form);
-    };
-    RegisterComponent.prototype.onLogin = function (form) {
+    }
+    onLogin(form) {
         console.log(form);
-    };
-    RegisterComponent = __decorate([
-        Component({
-            selector: 'app-register',
-            templateUrl: './register.component.html',
-            styleUrls: ['./register.component.scss']
-        }),
-        __metadata("design:paramtypes", [])
-    ], RegisterComponent);
-    return RegisterComponent;
-}());
+    }
+};
+RegisterComponent = __decorate([
+    Component({
+        selector: 'app-register',
+        templateUrl: './register.component.html',
+        styleUrls: ['./register.component.scss']
+    }),
+    __metadata("design:paramtypes", [])
+], RegisterComponent);
 export { RegisterComponent };
 //# sourceMappingURL=register.component.js.map

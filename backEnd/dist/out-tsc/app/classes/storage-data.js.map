@@ -1,1 +1,1 @@
-{"version":3,"file":"storage-data.js","sourceRoot":"","sources":["../../../../ClientApp/app/classes/storage-data.ts"],"names":[],"mappings":"AAAA;IAAA;IAMA,CAAC;IAHe,kBAAM,GAApB;QACE,OAAO,IAAI,CAAC,GAAG,CAAC;IAClB,CAAC;IAJc,eAAG,GAAG,IAAI,CAAC;IAK5B,kBAAC;CAAA,AAND,IAMC;SANqB,WAAW"}
+{"version":3,"file":"storage-data.js","sourceRoot":"","sources":["../../../../ClientApp/app/classes/storage-data.ts"],"names":[],"mappings":"AAAA,MAAM;IAGG,MAAM,CAAC,MAAM;QAClB,OAAO,IAAI,CAAC,GAAG,CAAC;IAClB,CAAC;;AAJc,eAAG,GAAG,IAAI,CAAC"}

@@ -8,20 +8,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-var NotFoundComponent = /** @class */ (function () {
-    function NotFoundComponent() {
+let NotFoundComponent = class NotFoundComponent {
+    constructor() { }
+    ngOnInit() {
     }
-    NotFoundComponent.prototype.ngOnInit = function () {
-    };
-    NotFoundComponent = __decorate([
-        Component({
-            selector: 'app-not-found',
-            templateUrl: './not-found.component.html',
-            styleUrls: ['./not-found.component.scss']
-        }),
-        __metadata("design:paramtypes", [])
-    ], NotFoundComponent);
-    return NotFoundComponent;
-}());
+};
+NotFoundComponent = __decorate([
+    Component({
+        selector: 'app-not-found',
+        templateUrl: './not-found.component.html',
+        styleUrls: ['./not-found.component.scss']
+    }),
+    __metadata("design:paramtypes", [])
+], NotFoundComponent);
 export { NotFoundComponent };
 //# sourceMappingURL=not-found.component.js.map

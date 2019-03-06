@@ -1,13 +1,3 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -22,13 +12,12 @@ import { ImageService } from "../services/image.service";
 import { ActivatedRoute } from "@angular/router";
 import { LoggedIn } from "../classes/logged-in";
 import { LoginManager } from "../classes/login-manager";
-var ImageComponent = /** @class */ (function (_super) {
-    __extends(ImageComponent, _super);
-    function ImageComponent(service, route) {
-        var _this = _super.call(this) || this;
-        _this.service = service;
-        _this.route = route;
-        _this._image = {
+let ImageComponent = class ImageComponent extends LoggedIn {
+    constructor(service, route) {
+        super();
+        this.service = service;
+        this.route = route;
+        this._image = {
             commentsCount: 0,
             creationDate: "",
             description: "",
@@ -42,40 +31,38 @@ var ImageComponent = /** @class */ (function (_super) {
             userOwnerName: "",
             liked: false
         };
-        _this.formValid = true;
-        _this._loading = false;
-        _this.commentIdToRemove = null;
-        return _this;
+        this._comments = [];
+        this.formValid = true;
+        this._loading = false;
+        this.commentIdToRemove = 0; // TODO sprawdz czy sie nie wyjebalo
     }
-    ImageComponent.prototype.ngOnInit = function () {
-        _super.prototype.ngOnInit.call(this);
+    ngOnInit() {
+        super.ngOnInit();
         console.log(this.loggedIn, LoginManager.userLoggedIn());
         this.getCommentsData();
         this.getImageData();
-    };
-    ImageComponent.prototype.getImageData = function () {
-        var _this = this;
+    }
+    getImageData() {
         this.service
             .ImageByPath(this._loggedId.toString(), this.route.snapshot.params.id)
-            .subscribe(function (res) {
-            _this._image = res;
+            .subscribe(res => {
+            this._image = res;
             // console.log(res);
         });
-    };
-    ImageComponent.prototype.getCommentsData = function () {
-        var _this = this;
+    }
+    getCommentsData() {
         this.service
             .CommentsByImgPath(this._loggedId.toString(), this.route.snapshot.params.id)
-            .subscribe(function (res) {
-            _this._comments = res;
-            _this._comments.forEach(function (comm) {
+            .subscribe(res => {
+            this._comments = res;
+            this._comments.forEach(comm => {
                 comm.isEditing = false;
                 comm.editValid = true;
             });
             // console.log(this._comments);
         });
-    };
-    ImageComponent.prototype.isCommentValid = function (text) {
+    }
+    isCommentValid(text) {
         if (text === null)
             return false;
         if (typeof text === undefined)
@@ -85,16 +72,15 @@ var ImageComponent = /** @class */ (function (_super) {
         if (typeof text.length === undefined || text.length < 5)
             return false;
         return true;
-    };
-    ImageComponent.prototype.onCommentUpload = function (form) {
-        var _this = this;
+    }
+    onCommentUpload(form) {
         if (!this.isCommentValid(form.value.text)) {
             // if comment is null
             this.formValid = false;
         }
         else {
             this._loading = true;
-            var comment = {
+            const comment = {
                 PostId: this.route.snapshot.params.id,
                 UserId: this._loggedId,
                 Content: form.value.text,
@@ -103,25 +89,24 @@ var ImageComponent = /** @class */ (function (_super) {
             // send message
             this.service
                 .uploadComment(comment, this._loggedId, this._loggedToken)
-                .subscribe(function (res) {
-                _this.Message.show("Comment uploaded succesfully.");
-                _this.formValid = true;
-                _this._loading = false;
-                _this.getCommentsData();
+                .subscribe(res => {
+                this.Message.show("Comment uploaded succesfully.");
+                this.formValid = true;
+                this._loading = false;
+                this.getCommentsData();
             });
             form.resetForm();
         }
-    };
-    ImageComponent.prototype.confirm = function () {
-        var _this = this;
+    }
+    confirm() {
         this.service
             .removeComment(this.commentIdToRemove, this._loggedId, this._loggedToken)
-            .subscribe(function (res) {
-            _this.getCommentsData();
-            _this.Message.show("Comment deleted succesfully.");
+            .subscribe((res) => {
+            this.getCommentsData();
+            this.Message.show("Comment deleted succesfully.");
         });
-    };
-    ImageComponent.prototype.photoLike = function () {
+    }
+    photoLike() {
         this._image.likeCount += 1;
         this._image.liked = true;
         this.service
@@ -129,41 +114,39 @@ var ImageComponent = /** @class */ (function (_super) {
             userId: this._loggedId,
             postId: this.route.snapshot.params.id
         }, this._loggedId, this._loggedToken)
-            .subscribe(function (res) {
+            .subscribe(res => {
             // console.log(res);
         });
-    };
-    ImageComponent.prototype.photoUnlike = function () {
+    }
+    photoUnlike() {
         this._image.likeCount -= 1;
         this._image.liked = false;
         this.service
             .unlikePost(this._loggedId.toString(), this.route.snapshot.params.id, this._loggedId, this._loggedToken)
-            .subscribe(function (res) {
+            .subscribe(res => {
             // console.log(res);
         });
-    };
-    ImageComponent.prototype.showLiking = function () {
-        var _this = this;
-        var informationToSend;
+    }
+    showLiking() {
+        let informationToSend;
         this.service
             .getPostLikes(this._loggedId.toString(), this.route.snapshot.params.id)
-            .subscribe(function (res) {
+            .subscribe(res => {
             console.log("polubili ten post:\n", res);
             informationToSend = res;
-            _this.label.show(informationToSend, "Liked this image");
+            this.label.show(informationToSend, "Liked this image");
         });
-    };
-    ImageComponent.prototype.commentShowLiked = function (id) {
-        var _this = this;
-        var informationToSend;
+    }
+    commentShowLiked(id) {
+        let informationToSend;
         this.service
             .getCommentLikes(this._loggedId.toString(), id.toString())
-            .subscribe(function (res) {
+            .subscribe(res => {
             informationToSend = res;
-            _this.label.show(informationToSend, "Liked this comment");
+            this.label.show(informationToSend, "Liked this comment");
         });
-    };
-    ImageComponent.prototype.commentLike = function (comment) {
+    }
+    commentLike(comment) {
         comment.liked = true;
         comment.likeCount += 1;
         this.service
@@ -171,39 +154,38 @@ var ImageComponent = /** @class */ (function (_super) {
             userId: this._loggedId,
             commentId: comment.id
         }, this._loggedId, this._loggedToken)
-            .subscribe(function (res) {
+            .subscribe(res => {
             // console.log(res);
         });
-    };
-    ImageComponent.prototype.commentUnlike = function (comment) {
+    }
+    commentUnlike(comment) {
         comment.liked = false;
         comment.likeCount -= 1;
         this.service
             .unlikeComment(this._loggedId, comment.id, this._loggedToken)
-            .subscribe(function (res) {
+            .subscribe(res => {
             // console.log(res);
         });
-    };
-    ImageComponent.prototype.removeComment = function (id) {
+    }
+    removeComment(id) {
         this.commentIdToRemove = id;
         this.confirmLabel.show();
-    };
-    ImageComponent.prototype.editComment = function (comment) {
+    }
+    editComment(comment) {
         comment.isEditing = true;
-    };
-    ImageComponent.prototype.sendEditComment = function (form, comment) {
-        var _this = this;
-        var text = form.form.value.value;
+    }
+    sendEditComment(form, comment) {
+        let text = form.form.value.value;
         if (this.isCommentValid(text)) {
             comment.editValid = true;
-            var data = {
+            let data = {
                 id: comment.id,
                 content: text
             };
             this.service
                 .editComment(data, this._loggedId, this._loggedToken)
-                .subscribe(function (res) {
-                _this.Message.show("Comment edited succesfully.", res);
+                .subscribe(res => {
+                this.Message.show("Comment edited succesfully.", res);
                 comment.isEditing = false;
                 comment.edited = true;
                 comment.content = text;
@@ -212,57 +194,44 @@ var ImageComponent = /** @class */ (function (_super) {
         else {
             comment.editValid = false;
         }
-    };
-    ImageComponent.prototype.discard = function (comment) {
+    }
+    discard(comment) {
         comment.isEditing = false;
         comment.editValid = true;
-    };
-    Object.defineProperty(ImageComponent.prototype, "image", {
-        get: function () {
-            return this._image;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ImageComponent.prototype, "comments", {
-        get: function () {
-            return this._comments;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ImageComponent.prototype, "loading", {
-        get: function () {
-            return this._loading;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    __decorate([
-        ViewChild("msg"),
-        __metadata("design:type", Object)
-    ], ImageComponent.prototype, "Message", void 0);
-    __decorate([
-        ViewChild("msgDelete"),
-        __metadata("design:type", Object)
-    ], ImageComponent.prototype, "msgDelete", void 0);
-    __decorate([
-        ViewChild("confirmLabel"),
-        __metadata("design:type", Object)
-    ], ImageComponent.prototype, "confirmLabel", void 0);
-    __decorate([
-        ViewChild("label"),
-        __metadata("design:type", Object)
-    ], ImageComponent.prototype, "label", void 0);
-    ImageComponent = __decorate([
-        Component({
-            selector: "app-image",
-            templateUrl: "./image.component.html",
-            styleUrls: ["./image.component.scss"]
-        }),
-        __metadata("design:paramtypes", [ImageService, ActivatedRoute])
-    ], ImageComponent);
-    return ImageComponent;
-}(LoggedIn));
+    }
+    get image() {
+        return this._image;
+    }
+    get comments() {
+        return this._comments;
+    }
+    get loading() {
+        return this._loading;
+    }
+};
+__decorate([
+    ViewChild("msg"),
+    __metadata("design:type", Object)
+], ImageComponent.prototype, "Message", void 0);
+__decorate([
+    ViewChild("msgDelete"),
+    __metadata("design:type", Object)
+], ImageComponent.prototype, "msgDelete", void 0);
+__decorate([
+    ViewChild("confirmLabel"),
+    __metadata("design:type", Object)
+], ImageComponent.prototype, "confirmLabel", void 0);
+__decorate([
+    ViewChild("label"),
+    __metadata("design:type", Object)
+], ImageComponent.prototype, "label", void 0);
+ImageComponent = __decorate([
+    Component({
+        selector: "app-image",
+        templateUrl: "./image.component.html",
+        styleUrls: ["./image.component.scss"]
+    }),
+    __metadata("design:paramtypes", [ImageService, ActivatedRoute])
+], ImageComponent);
 export { ImageComponent };
 //# sourceMappingURL=image.component.js.map

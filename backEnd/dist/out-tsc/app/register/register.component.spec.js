@@ -1,20 +1,20 @@
 import { async, TestBed } from '@angular/core/testing';
 import { RegisterComponent } from './register.component';
-describe('RegisterComponent', function () {
-    var component;
-    var fixture;
-    beforeEach(async(function () {
+describe('RegisterComponent', () => {
+    let component;
+    let fixture;
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [RegisterComponent]
         })
             .compileComponents();
     }));
-    beforeEach(function () {
+    beforeEach(() => {
         fixture = TestBed.createComponent(RegisterComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
-    it('should create', function () {
+    it('should create', () => {
         expect(component).toBeTruthy();
     });
 });

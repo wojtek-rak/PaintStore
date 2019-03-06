@@ -9,39 +9,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-var AccountService = /** @class */ (function () {
-    function AccountService(_http) {
+let AccountService = class AccountService {
+    constructor(_http) {
         this._http = _http;
         this.host = "http://paintstorerest.azurewebsites.net/";
     }
-    AccountService.prototype.selectUserById = function (id) {
+    selectUserById(id) {
         return this._http.get(this.host + "api/Posts/Users/" + id);
-    };
-    AccountService.prototype.getUserToken = function (data) {
+    }
+    getUserToken(data) {
         // let data = {
         //   email: name,
         //   password: password
         // };
         return this._http.post(this.host + "api/SignIn/In", data);
-    };
-    AccountService.prototype.registerUser = function (data) {
+    }
+    registerUser(data) {
         return this._http.post(this.host + "api/Users/AddUser", data);
-    };
-    AccountService.prototype.logoutUser = function (data, id, token) {
-        var headers = new HttpHeaders();
+    }
+    logoutUser(data, id, token) {
+        let headers = new HttpHeaders();
         headers = headers.append("Authorization", "Basic " + btoa("" + id + ":" + token));
         headers = headers.append("Content-Type", "application/json");
         return this._http.post(this.host + "api/SignIn/Out", data, {
             headers: headers
         });
-    };
-    AccountService = __decorate([
-        Injectable({
-            providedIn: "root"
-        }),
-        __metadata("design:paramtypes", [HttpClient])
-    ], AccountService);
-    return AccountService;
-}());
+    }
+};
+AccountService = __decorate([
+    Injectable({
+        providedIn: "root"
+    }),
+    __metadata("design:paramtypes", [HttpClient])
+], AccountService);
 export { AccountService };
 //# sourceMappingURL=account.service.js.map

@@ -1,13 +1,3 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -21,17 +11,16 @@ import { Component, ViewChild } from "@angular/core";
 import { ImageService } from "../services/image.service";
 import { ActivatedRoute } from "@angular/router";
 import { LoggedIn } from "../classes/logged-in";
-var ProfileComponent = /** @class */ (function (_super) {
-    __extends(ProfileComponent, _super);
+let ProfileComponent = class ProfileComponent extends LoggedIn {
     // private _loggedUser: IsUserLoggedIn = {
     //   isLoggedIn: true,
     //   userId: 1
     // };
-    function ProfileComponent(imageService, route) {
-        var _this = _super.call(this) || this;
-        _this.imageService = imageService;
-        _this.route = route;
-        _this.user = {
+    constructor(imageService, route) {
+        super();
+        this.imageService = imageService;
+        this.route = route;
+        this.user = {
             about: "",
             accountId: 0,
             avatarImgLink: "",
@@ -44,69 +33,60 @@ var ProfileComponent = /** @class */ (function (_super) {
             name: "",
             postsCount: 0
         };
-        _this.url = _this.route.snapshot.params.id;
-        return _this;
+        this.url = this.route.snapshot.params.id;
     }
-    ProfileComponent.prototype.ngOnInit = function () {
-        _super.prototype.ngOnInit.call(this);
+    ngOnInit() {
+        super.ngOnInit();
         this.getUserData();
-    };
-    ProfileComponent.prototype.getUserData = function () {
-        var _this = this;
+    }
+    getUserData() {
         this.imageService
             .selectUserById(this._loggedId.toString(), this.url)
-            .subscribe(function (res) {
-            _this.user = res;
-            console.log(_this.user);
+            .subscribe(res => {
+            this.user = res;
+            console.log(this.user);
         });
-    };
-    ProfileComponent.prototype.showFollowed = function () {
-        var _this = this;
-        var informationToSend;
+    }
+    showFollowed() {
+        let informationToSend;
         this.imageService
             .getFollowed(this._loggedId.toString(), this.url)
-            .subscribe(function (res) {
+            .subscribe(res => {
             informationToSend = res;
-            _this.label.show(informationToSend, "Followed by this user");
+            this.label.show(informationToSend, "Followed by this user");
         });
-    };
-    ProfileComponent.prototype.showFollowing = function () {
-        var _this = this;
-        var informationToSend;
+    }
+    showFollowing() {
+        let informationToSend;
         this.imageService
             .getFollowing(this._loggedId.toString(), this.url)
-            .subscribe(function (res) {
+            .subscribe(res => {
             informationToSend = res;
-            _this.label.show(informationToSend, "Following by this user");
+            this.label.show(informationToSend, "Following by this user");
         });
-    };
-    ProfileComponent.prototype.getUser = function () {
+    }
+    getUser() {
         return this.user;
-    };
-    Object.defineProperty(ProfileComponent.prototype, "loggedUser", {
-        get: function () {
-            return this._loggedId;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ProfileComponent.prototype.getUrl = function () {
+    }
+    get loggedUser() {
+        return this._loggedId;
+    }
+    getUrl() {
         return this.url;
-    };
-    __decorate([
-        ViewChild("label"),
-        __metadata("design:type", Object)
-    ], ProfileComponent.prototype, "label", void 0);
-    ProfileComponent = __decorate([
-        Component({
-            selector: "app-profile",
-            templateUrl: "./profile.component.html",
-            styleUrls: ["./profile.component.scss"]
-        }),
-        __metadata("design:paramtypes", [ImageService,
-            ActivatedRoute])
-    ], ProfileComponent);
-    return ProfileComponent;
-}(LoggedIn));
+    }
+};
+__decorate([
+    ViewChild("label"),
+    __metadata("design:type", Object)
+], ProfileComponent.prototype, "label", void 0);
+ProfileComponent = __decorate([
+    Component({
+        selector: "app-profile",
+        templateUrl: "./profile.component.html",
+        styleUrls: ["./profile.component.scss"]
+    }),
+    __metadata("design:paramtypes", [ImageService,
+        ActivatedRoute])
+], ProfileComponent);
 export { ProfileComponent };
 //# sourceMappingURL=profile.component.js.map

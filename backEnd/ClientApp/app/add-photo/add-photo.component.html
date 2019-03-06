@@ -7,6 +7,7 @@
           label: 'Title'
         }" formControlName="title"></input-text>
       <input-textarea [data]="{ label: 'Description' }" formControlName="description"></input-textarea>
+      <label class="input-description">Tags</label>
       <tag-input [maxItems]="'10'" [addOnPaste]="'true'" [animationDuration]="{ enter: '0ms', leave: '0ms' }"
         [placeholder]="'Press Enter to add item'" [separatorKeyCodes]="'[32, 13]'" formControlName="tags"></tag-input>
       <!-- <input-option

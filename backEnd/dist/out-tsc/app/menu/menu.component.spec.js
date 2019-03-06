@@ -1,20 +1,20 @@
 import { async, TestBed } from '@angular/core/testing';
 import { MenuComponent } from './menu.component';
-describe('MenuComponent', function () {
-    var component;
-    var fixture;
-    beforeEach(async(function () {
+describe('MenuComponent', () => {
+    let component;
+    let fixture;
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [MenuComponent]
         })
             .compileComponents();
     }));
-    beforeEach(function () {
+    beforeEach(() => {
         fixture = TestBed.createComponent(MenuComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
-    it('should create', function () {
+    it('should create', () => {
         expect(component).toBeTruthy();
     });
 });

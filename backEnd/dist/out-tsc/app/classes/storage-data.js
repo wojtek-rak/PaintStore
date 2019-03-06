@@ -1,11 +1,7 @@
-var StorageData = /** @class */ (function () {
-    function StorageData() {
-    }
-    StorageData.getKey = function () {
+export class StorageData {
+    static getKey() {
         return this.key;
-    };
-    StorageData.key = "id";
-    return StorageData;
-}());
-export { StorageData };
+    }
+}
+StorageData.key = "id";
 //# sourceMappingURL=storage-data.js.map

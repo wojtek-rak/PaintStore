@@ -10,57 +10,43 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { ImageService } from "../services/image.service";
-var TagsComponent = /** @class */ (function () {
-    function TagsComponent(route, service) {
+let TagsComponent = class TagsComponent {
+    constructor(route, service) {
         this.route = route;
         this.service = service;
         this._tagname = "";
         this._images = [];
         this._loading = false;
     }
-    TagsComponent.prototype.ngOnInit = function () {
+    ngOnInit() {
         this._tagname = this.route.snapshot.params.id;
         this.getImages();
-    };
-    TagsComponent.prototype.getImages = function () {
-        var _this = this;
+    }
+    getImages() {
         this._loading = true;
-        this.service.imagesByTag(this._tagname).subscribe(function (res) {
+        this.service.imagesByTag(this._tagname).subscribe(res => {
             console.log(res);
-            _this._images = res;
-            _this._loading = false;
+            this._images = res;
+            this._loading = false;
         });
-    };
-    Object.defineProperty(TagsComponent.prototype, "tagname", {
-        get: function () {
-            return this._tagname;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TagsComponent.prototype, "images", {
-        get: function () {
-            return this._images;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TagsComponent.prototype, "loading", {
-        get: function () {
-            return this._loading;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    TagsComponent = __decorate([
-        Component({
-            selector: "app-tags",
-            templateUrl: "./tags.component.html",
-            styleUrls: ["./tags.component.scss"]
-        }),
-        __metadata("design:paramtypes", [ActivatedRoute, ImageService])
-    ], TagsComponent);
-    return TagsComponent;
-}());
+    }
+    get tagname() {
+        return this._tagname;
+    }
+    get images() {
+        return this._images;
+    }
+    get loading() {
+        return this._loading;
+    }
+};
+TagsComponent = __decorate([
+    Component({
+        selector: "app-tags",
+        templateUrl: "./tags.component.html",
+        styleUrls: ["./tags.component.scss"]
+    }),
+    __metadata("design:paramtypes", [ActivatedRoute, ImageService])
+], TagsComponent);
 export { TagsComponent };
 //# sourceMappingURL=tags.component.js.map

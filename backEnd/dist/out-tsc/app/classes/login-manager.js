@@ -1,13 +1,12 @@
 import { LocalStorageService } from "angular-web-storage";
 import { StorageData } from "./storage-data";
-var LoginManager = /** @class */ (function () {
-    function LoginManager() {
-    }
-    LoginManager.checkAuth = function () {
+export class LoginManager {
+    constructor() { }
+    static checkAuth() {
         if (this._userId === null &&
             this._userLoggedIn === null &&
             this._userToken === null) {
-            var data = this.local.get(StorageData.getKey());
+            let data = this.local.get(StorageData.getKey());
             console.log(data);
             if (data === null) {
                 this._userLoggedIn = false;
@@ -20,30 +19,28 @@ var LoginManager = /** @class */ (function () {
                 this._userLoggedIn = true;
             }
         }
-    };
-    LoginManager.loginUser = function (data) {
+    }
+    static loginUser(data) {
         this.local.set(StorageData.getKey(), data);
-    };
-    LoginManager.logoutUser = function () {
+    }
+    static logoutUser() {
         this.local.remove(StorageData.getKey());
-    };
-    LoginManager.userId = function () {
+    }
+    static userId() {
         this.checkAuth();
         return this._userId;
-    };
-    LoginManager.userLoggedIn = function () {
+    }
+    static userLoggedIn() {
         this.checkAuth();
         return this._userLoggedIn;
-    };
-    LoginManager.userToken = function () {
+    }
+    static userToken() {
         this.checkAuth();
         return this._userToken;
-    };
-    LoginManager._userId = 0; // TODO CHANGE FROM NULL
-    LoginManager._userLoggedIn = false; // TODO CHANGE FROM NULL
-    LoginManager._userToken = ""; // TODO CHANGE FROM NULL
-    LoginManager.local = new LocalStorageService();
-    return LoginManager;
-}());
-export { LoginManager };
+    }
+}
+LoginManager._userId = 0; // TODO CHANGE FROM NULL
+LoginManager._userLoggedIn = false; // TODO CHANGE FROM NULL
+LoginManager._userToken = ""; // TODO CHANGE FROM NULL
+LoginManager.local = new LocalStorageService();
 //# sourceMappingURL=login-manager.js.map

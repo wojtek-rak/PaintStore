@@ -9,8 +9,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component, ViewChild, ViewChildren, Renderer2, ElementRef, QueryList } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-var MenuLeftComponent = /** @class */ (function () {
-    function MenuLeftComponent(renderer, router, route) {
+let MenuLeftComponent = class MenuLeftComponent {
+    constructor(renderer, router, route) {
         this.renderer = renderer;
         this.router = router;
         this.route = route;
@@ -20,60 +20,70 @@ var MenuLeftComponent = /** @class */ (function () {
             selected: 'selected'
         };
     }
-    MenuLeftComponent.prototype.ngAfterViewInit = function () {
-        var _this = this;
+    ngAfterViewInit() {
         // bind events to menuLeft
-        this.renderer.listen(this.menuLeft.nativeElement, 'mouseenter', function () {
-            _this.renderer.addClass(_this.menuLeft.nativeElement, 'opened');
+        if (this.menuLeft === undefined)
+            return;
+        this.renderer.listen(this.menuLeft.nativeElement, 'mouseenter', () => {
+            if (this.menuLeft === undefined)
+                return;
+            this.renderer.addClass(this.menuLeft.nativeElement, 'opened');
         });
-        this.renderer.listen(this.menuLeft.nativeElement, 'mouseleave', function () {
-            _this.renderer.removeClass(_this.menuLeft.nativeElement, 'opened');
+        if (this.menuLeft === undefined)
+            return;
+        this.renderer.listen(this.menuLeft.nativeElement, 'mouseleave', () => {
+            if (this.menuLeft === undefined)
+                return;
+            this.renderer.removeClass(this.menuLeft.nativeElement, 'opened');
         });
-        this.li.forEach(function (li, index) {
-            _this.renderer.listen(li.nativeElement, 'click', function () {
+        if (this.li === undefined)
+            return;
+        this.li.forEach((li, index) => {
+            this.renderer.listen(li.nativeElement, 'click', () => {
                 // add or remove category from category list
-                var listElement = _this.categoryList[index];
-                if (_this.categories.includes(listElement)) {
+                let listElement = this.categoryList[index];
+                if (this.categories.includes(listElement)) {
                     // remove element from an array
-                    var indexInCategories = _this.categories.indexOf(listElement);
+                    let indexInCategories = this.categories.indexOf(listElement);
                     if (indexInCategories !== -1)
-                        _this.categories.splice(indexInCategories, 1);
+                        this.categories.splice(indexInCategories, 1);
                 }
                 else {
                     // add element to an array
-                    _this.categories.push(listElement);
+                    this.categories.push(listElement);
                 }
             });
         });
-        this.renderer.listen(this.close.nativeElement, 'click', function () {
-            _this.categories = [];
+        if (this.close === undefined)
+            return;
+        this.renderer.listen(this.close.nativeElement, 'click', () => {
+            this.categories = [];
         });
-    };
-    MenuLeftComponent.prototype.ngOnInit = function () {
+    }
+    ngOnInit() {
         // set li elements active if change path
         //...
-    };
-    __decorate([
-        ViewChild('menuLeft'),
-        __metadata("design:type", ElementRef)
-    ], MenuLeftComponent.prototype, "menuLeft", void 0);
-    __decorate([
-        ViewChild('close'),
-        __metadata("design:type", ElementRef)
-    ], MenuLeftComponent.prototype, "close", void 0);
-    __decorate([
-        ViewChildren('li'),
-        __metadata("design:type", QueryList)
-    ], MenuLeftComponent.prototype, "li", void 0);
-    MenuLeftComponent = __decorate([
-        Component({
-            selector: 'app-menu-left',
-            templateUrl: './menu-left.component.html',
-            styleUrls: ['./menu-left.component.scss']
-        }),
-        __metadata("design:paramtypes", [Renderer2, Router, ActivatedRoute])
-    ], MenuLeftComponent);
-    return MenuLeftComponent;
-}());
+    }
+};
+__decorate([
+    ViewChild('menuLeft'),
+    __metadata("design:type", ElementRef)
+], MenuLeftComponent.prototype, "menuLeft", void 0);
+__decorate([
+    ViewChild('close'),
+    __metadata("design:type", ElementRef)
+], MenuLeftComponent.prototype, "close", void 0);
+__decorate([
+    ViewChildren('li'),
+    __metadata("design:type", QueryList)
+], MenuLeftComponent.prototype, "li", void 0);
+MenuLeftComponent = __decorate([
+    Component({
+        selector: 'app-menu-left',
+        templateUrl: './menu-left.component.html',
+        styleUrls: ['./menu-left.component.scss']
+    }),
+    __metadata("design:paramtypes", [Renderer2, Router, ActivatedRoute])
+], MenuLeftComponent);
 export { MenuLeftComponent };
 //# sourceMappingURL=menu-left.component.js.map

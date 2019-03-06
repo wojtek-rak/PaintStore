@@ -8,20 +8,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-var MessagesComponent = /** @class */ (function () {
-    function MessagesComponent() {
+let MessagesComponent = class MessagesComponent {
+    constructor() { }
+    ngOnInit() {
     }
-    MessagesComponent.prototype.ngOnInit = function () {
-    };
-    MessagesComponent = __decorate([
-        Component({
-            selector: 'app-messages',
-            templateUrl: './messages.component.html',
-            styleUrls: ['./messages.component.scss']
-        }),
-        __metadata("design:paramtypes", [])
-    ], MessagesComponent);
-    return MessagesComponent;
-}());
+};
+MessagesComponent = __decorate([
+    Component({
+        selector: 'app-messages',
+        templateUrl: './messages.component.html',
+        styleUrls: ['./messages.component.scss']
+    }),
+    __metadata("design:paramtypes", [])
+], MessagesComponent);
 export { MessagesComponent };
 //# sourceMappingURL=messages.component.js.map

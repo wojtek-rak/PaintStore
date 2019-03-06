@@ -8,65 +8,63 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component, Input, ViewChild, EventEmitter, Output } from "@angular/core";
-var AgreeLabelComponent = /** @class */ (function () {
-    function AgreeLabelComponent() {
+let AgreeLabelComponent = class AgreeLabelComponent {
+    constructor() {
         this.emitter = new EventEmitter();
     }
-    AgreeLabelComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        document.addEventListener("click", function (e) {
+    ngOnInit() {
+        document.addEventListener("click", e => {
             if (e.path[0].classList.contains("message-container")) {
-                _this.close();
+                this.close();
             }
         });
-    };
-    AgreeLabelComponent.prototype.confirm = function () {
+    }
+    confirm() {
         this.close();
         this.emitter.emit();
-    };
-    AgreeLabelComponent.prototype.show = function () {
-        var nullCheck = (document.querySelector("body"));
+    }
+    show() {
+        const nullCheck = (document.querySelector("body"));
         if (nullCheck === null)
             return;
         nullCheck.classList.add("stop-scrolling");
-        var el = this.wrapper.nativeElement;
+        const el = this.wrapper.nativeElement;
         el.classList.add("display");
-        setTimeout(function () {
+        setTimeout(() => {
             el.classList.add("opacity");
         }, 0);
-    };
-    AgreeLabelComponent.prototype.close = function () {
-        var nullCheck = (document.querySelector("body"));
+    }
+    close() {
+        const nullCheck = (document.querySelector("body"));
         if (nullCheck === null)
             return;
         nullCheck.classList.remove("stop-scrolling");
-        var el = this.wrapper.nativeElement;
+        const el = this.wrapper.nativeElement;
         el.classList.remove("opacity");
-        setTimeout(function () {
+        setTimeout(() => {
             el.classList.remove("display");
         }, 200);
-    };
-    __decorate([
-        Input(),
-        __metadata("design:type", Object)
-    ], AgreeLabelComponent.prototype, "message", void 0);
-    __decorate([
-        Output(),
-        __metadata("design:type", EventEmitter)
-    ], AgreeLabelComponent.prototype, "emitter", void 0);
-    __decorate([
-        ViewChild("wrapper"),
-        __metadata("design:type", Object)
-    ], AgreeLabelComponent.prototype, "wrapper", void 0);
-    AgreeLabelComponent = __decorate([
-        Component({
-            selector: "app-agree-label",
-            templateUrl: "./agree-label.component.html",
-            styleUrls: ["./agree-label.component.scss"]
-        }),
-        __metadata("design:paramtypes", [])
-    ], AgreeLabelComponent);
-    return AgreeLabelComponent;
-}());
+    }
+};
+__decorate([
+    Input(),
+    __metadata("design:type", Object)
+], AgreeLabelComponent.prototype, "message", void 0);
+__decorate([
+    Output(),
+    __metadata("design:type", EventEmitter)
+], AgreeLabelComponent.prototype, "emitter", void 0);
+__decorate([
+    ViewChild("wrapper"),
+    __metadata("design:type", Object)
+], AgreeLabelComponent.prototype, "wrapper", void 0);
+AgreeLabelComponent = __decorate([
+    Component({
+        selector: "app-agree-label",
+        templateUrl: "./agree-label.component.html",
+        styleUrls: ["./agree-label.component.scss"]
+    }),
+    __metadata("design:paramtypes", [])
+], AgreeLabelComponent);
 export { AgreeLabelComponent };
 //# sourceMappingURL=agree-label.component.js.map

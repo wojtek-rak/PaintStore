@@ -8,19 +8,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-var AppComponent = /** @class */ (function () {
-    function AppComponent() {
+let AppComponent = class AppComponent {
+    constructor() {
         this.sidebar = true;
     }
-    AppComponent = __decorate([
-        Component({
-            selector: 'app-root',
-            templateUrl: './app.component.html',
-            styleUrls: ['./app.component.scss']
-        }),
-        __metadata("design:paramtypes", [])
-    ], AppComponent);
-    return AppComponent;
-}());
+};
+AppComponent = __decorate([
+    Component({
+        selector: 'app-root',
+        templateUrl: './app.component.html',
+        styleUrls: ['./app.component.scss']
+    }),
+    __metadata("design:paramtypes", [])
+], AppComponent);
 export { AppComponent };
 //# sourceMappingURL=app.component.js.map

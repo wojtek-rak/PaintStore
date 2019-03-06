@@ -1,13 +1,3 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -21,42 +11,39 @@ import { Component, forwardRef } from "@angular/core";
 import { InputField } from "../input-field";
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS } from "@angular/forms";
 import { requiredTextValidator } from "../../validators/text-validator";
-var InputOptionComponent = /** @class */ (function (_super) {
-    __extends(InputOptionComponent, _super);
-    function InputOptionComponent() {
-        return _super.call(this) || this;
+let InputOptionComponent = InputOptionComponent_1 = class InputOptionComponent extends InputField {
+    constructor() {
+        super();
     }
-    InputOptionComponent_1 = InputOptionComponent;
-    InputOptionComponent.prototype.validate = function (c) {
-        var checkUndefinded = this.data;
+    validate(c) {
+        const checkUndefinded = this.data;
         if (checkUndefinded === undefined)
             return;
-        var validator = requiredTextValidator(c, checkUndefinded.label);
-        _super.prototype.setMessage.call(this, validator);
+        let validator = requiredTextValidator(c, checkUndefinded.label);
+        super.setMessage(validator);
         return validator;
-    };
-    InputOptionComponent = InputOptionComponent_1 = __decorate([
-        Component({
-            selector: "input-option",
-            templateUrl: "./input-option.component.html",
-            styleUrls: ["./input-option.component.scss"],
-            providers: [
-                {
-                    provide: NG_VALUE_ACCESSOR,
-                    useExisting: forwardRef(function () { return InputOptionComponent_1; }),
-                    multi: true
-                },
-                {
-                    provide: NG_VALIDATORS,
-                    useExisting: forwardRef(function () { return InputOptionComponent_1; }),
-                    multi: true
-                }
-            ]
-        }),
-        __metadata("design:paramtypes", [])
-    ], InputOptionComponent);
-    return InputOptionComponent;
-    var InputOptionComponent_1;
-}(InputField));
+    }
+};
+InputOptionComponent = InputOptionComponent_1 = __decorate([
+    Component({
+        selector: "input-option",
+        templateUrl: "./input-option.component.html",
+        styleUrls: ["./input-option.component.scss"],
+        providers: [
+            {
+                provide: NG_VALUE_ACCESSOR,
+                useExisting: forwardRef(() => InputOptionComponent_1),
+                multi: true
+            },
+            {
+                provide: NG_VALIDATORS,
+                useExisting: forwardRef(() => InputOptionComponent_1),
+                multi: true
+            }
+        ]
+    }),
+    __metadata("design:paramtypes", [])
+], InputOptionComponent);
 export { InputOptionComponent };
+var InputOptionComponent_1;
 //# sourceMappingURL=input-option.component.js.map

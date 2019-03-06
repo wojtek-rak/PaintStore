@@ -1,20 +1,20 @@
 import { async, TestBed } from '@angular/core/testing';
 import { AgreeLabelComponent } from './agree-label.component';
-describe('AgreeLabelComponent', function () {
-    var component;
-    var fixture;
-    beforeEach(async(function () {
+describe('AgreeLabelComponent', () => {
+    let component;
+    let fixture;
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [AgreeLabelComponent]
         })
             .compileComponents();
     }));
-    beforeEach(function () {
+    beforeEach(() => {
         fixture = TestBed.createComponent(AgreeLabelComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
-    it('should create', function () {
+    it('should create', () => {
         expect(component).toBeTruthy();
     });
 });

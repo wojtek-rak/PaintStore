@@ -1,37 +1,23 @@
 import { LoginManager } from "./login-manager";
-var LoggedIn = /** @class */ (function () {
-    function LoggedIn() {
+export class LoggedIn {
+    constructor() {
         this._loggedIn = false;
         this._loggedId = 0;
         this._loggedToken = "";
     }
-    LoggedIn.prototype.ngOnInit = function () {
+    ngOnInit() {
         this._loggedIn = LoginManager.userLoggedIn();
         this._loggedId = LoginManager.userId();
         this._loggedToken = LoginManager.userToken();
-    };
-    Object.defineProperty(LoggedIn.prototype, "loggedIn", {
-        get: function () {
-            return this._loggedIn;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(LoggedIn.prototype, "loggedId", {
-        get: function () {
-            return this._loggedId;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(LoggedIn.prototype, "loggedToken", {
-        get: function () {
-            return this._loggedToken;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return LoggedIn;
-}());
-export { LoggedIn };
+    }
+    get loggedIn() {
+        return this._loggedIn;
+    }
+    get loggedId() {
+        return this._loggedId;
+    }
+    get loggedToken() {
+        return this._loggedToken;
+    }
+}
 //# sourceMappingURL=logged-in.js.map

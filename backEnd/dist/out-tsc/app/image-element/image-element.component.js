@@ -8,23 +8,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component, Input } from "@angular/core";
-var ImageElementComponent = /** @class */ (function () {
-    function ImageElementComponent() {
-    }
-    ImageElementComponent.prototype.ngOnInit = function () { };
-    __decorate([
-        Input(),
-        __metadata("design:type", Object)
-    ], ImageElementComponent.prototype, "image", void 0);
-    ImageElementComponent = __decorate([
-        Component({
-            selector: "app-image-element",
-            templateUrl: "./image-element.component.html",
-            styleUrls: ["./image-element.component.scss"]
-        }),
-        __metadata("design:paramtypes", [])
-    ], ImageElementComponent);
-    return ImageElementComponent;
-}());
+let ImageElementComponent = class ImageElementComponent {
+    constructor() { }
+    ngOnInit() { }
+};
+__decorate([
+    Input(),
+    __metadata("design:type", Object)
+], ImageElementComponent.prototype, "image", void 0);
+ImageElementComponent = __decorate([
+    Component({
+        selector: "app-image-element",
+        templateUrl: "./image-element.component.html",
+        styleUrls: ["./image-element.component.scss"]
+    }),
+    __metadata("design:paramtypes", [])
+], ImageElementComponent);
 export { ImageElementComponent };
 //# sourceMappingURL=image-element.component.js.map

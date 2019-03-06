@@ -19,7 +19,7 @@ export class SettingsComponent implements OnInit {
     description: "moj opis"
   };
 
-  form: FormGroup;
+  form: any; // By³o FRORM GROUP TODO GRUBIEJ
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {

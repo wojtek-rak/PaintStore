@@ -25,7 +25,7 @@ export class AccountService {
     return this._http.post(this.host + "api/Users/AddUser", data);
   }
 
-  logoutUser(data, id: number, token: string) {
+  logoutUser(data : any, id: number, token: string) {
     let headers = new HttpHeaders();
     headers = headers.append(
       "Authorization",

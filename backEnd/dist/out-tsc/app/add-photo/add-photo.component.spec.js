@@ -1,20 +1,20 @@
 import { async, TestBed } from '@angular/core/testing';
 import { AddPhotoComponent } from './add-photo.component';
-describe('AddPhotoComponent', function () {
-    var component;
-    var fixture;
-    beforeEach(async(function () {
+describe('AddPhotoComponent', () => {
+    let component;
+    let fixture;
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [AddPhotoComponent]
         })
             .compileComponents();
     }));
-    beforeEach(function () {
+    beforeEach(() => {
         fixture = TestBed.createComponent(AddPhotoComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
-    it('should create', function () {
+    it('should create', () => {
         expect(component).toBeTruthy();
     });
 });

@@ -14,8 +14,8 @@ import { requiredTextValidator } from "../validators/text-validator";
 import { emailValidator } from "../validators/email-validator";
 import { passwordsValidator } from "../validators/passwords-validator";
 import { fileValidator } from "../validators/file-validator";
-var SettingsComponent = /** @class */ (function () {
-    function SettingsComponent(fb) {
+let SettingsComponent = class SettingsComponent {
+    constructor(fb) {
         this.fb = fb;
         this._user = {
             name: "ania",
@@ -24,7 +24,7 @@ var SettingsComponent = /** @class */ (function () {
             description: "moj opis"
         };
     }
-    SettingsComponent.prototype.ngOnInit = function () {
+    ngOnInit() {
         this.form = this.fb.group({
             userName: [this.user.name, [Validators.required, requiredTextValidator]],
             email: [this.user.email, [Validators.required, emailValidator]],
@@ -33,26 +33,21 @@ var SettingsComponent = /** @class */ (function () {
             password: ["", passwordsValidator],
             file: ["", fileValidator]
         });
-    };
-    SettingsComponent.prototype.onFormUpload = function (form) {
+    }
+    onFormUpload(form) {
         console.log(form);
-    };
-    Object.defineProperty(SettingsComponent.prototype, "user", {
-        get: function () {
-            return this._user;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    SettingsComponent = __decorate([
-        Component({
-            selector: "app-settings",
-            templateUrl: "./settings.component.html",
-            styleUrls: ["./settings.component.scss"]
-        }),
-        __metadata("design:paramtypes", [FormBuilder])
-    ], SettingsComponent);
-    return SettingsComponent;
-}());
+    }
+    get user() {
+        return this._user;
+    }
+};
+SettingsComponent = __decorate([
+    Component({
+        selector: "app-settings",
+        templateUrl: "./settings.component.html",
+        styleUrls: ["./settings.component.scss"]
+    }),
+    __metadata("design:paramtypes", [FormBuilder])
+], SettingsComponent);
 export { SettingsComponent };
 //# sourceMappingURL=settings.component.js.map

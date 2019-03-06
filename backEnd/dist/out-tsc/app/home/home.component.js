@@ -8,20 +8,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-var HomeComponent = /** @class */ (function () {
-    function HomeComponent() {
+let HomeComponent = class HomeComponent {
+    constructor() { }
+    ngOnInit() {
     }
-    HomeComponent.prototype.ngOnInit = function () {
-    };
-    HomeComponent = __decorate([
-        Component({
-            selector: 'app-home',
-            templateUrl: './home.component.html',
-            styleUrls: ['./home.component.scss']
-        }),
-        __metadata("design:paramtypes", [])
-    ], HomeComponent);
-    return HomeComponent;
-}());
+};
+HomeComponent = __decorate([
+    Component({
+        selector: 'app-home',
+        templateUrl: './home.component.html',
+        styleUrls: ['./home.component.scss']
+    }),
+    __metadata("design:paramtypes", [])
+], HomeComponent);
 export { HomeComponent };
 //# sourceMappingURL=home.component.js.map

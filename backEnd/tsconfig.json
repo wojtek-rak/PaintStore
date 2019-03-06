@@ -9,14 +9,15 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "strictNullChecks": false,
+    "skipLibCheck": true,
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
-    "target": "es5",
+    "target": "es2016",
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
-      "es2017",
+      "es2016",
       "dom"
     ]
   }

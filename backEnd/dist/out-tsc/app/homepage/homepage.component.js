@@ -1,13 +1,3 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -21,19 +11,17 @@ import { Component } from "@angular/core";
 import { ImageService } from "../services/image.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { LoggedIn } from "../classes/logged-in";
-var HomepageComponent = /** @class */ (function (_super) {
-    __extends(HomepageComponent, _super);
-    function HomepageComponent(imgService, activatedRoute, router) {
-        var _this = _super.call(this) || this;
-        _this.imgService = imgService;
-        _this.activatedRoute = activatedRoute;
-        _this.router = router;
-        _this._images = [];
-        _this.loading = false;
-        return _this;
+let HomepageComponent = class HomepageComponent extends LoggedIn {
+    constructor(imgService, activatedRoute, router) {
+        super();
+        this.imgService = imgService;
+        this.activatedRoute = activatedRoute;
+        this.router = router;
+        this._images = [];
+        this.loading = false;
     }
-    HomepageComponent.prototype.ngOnInit = function () {
-        _super.prototype.ngOnInit.call(this);
+    ngOnInit() {
+        super.ngOnInit();
         if (this._loggedIn) {
             if (this.router.url === "/") {
                 this.followedImages();
@@ -53,50 +41,42 @@ var HomepageComponent = /** @class */ (function (_super) {
                 this.recentImages();
             }
         }
-    };
-    HomepageComponent.prototype.recentImages = function () {
-        var _this = this;
+    }
+    recentImages() {
         this.loading = true;
-        this.imgService.selectRecentImages().subscribe(function (res) {
-            _this.loading = false;
-            _this._images = res;
+        this.imgService.selectRecentImages().subscribe(res => {
+            this.loading = false;
+            this._images = res;
         });
-    };
-    HomepageComponent.prototype.popularImages = function () {
-        var _this = this;
+    }
+    popularImages() {
         this.loading = true;
-        this.imgService.selectPopularImages().subscribe(function (res) {
-            _this.loading = false;
-            _this._images = res;
-            console.log(_this._images);
+        this.imgService.selectPopularImages().subscribe(res => {
+            this.loading = false;
+            this._images = res;
+            console.log(this._images);
         });
-    };
-    HomepageComponent.prototype.followedImages = function () {
-        var _this = this;
+    }
+    followedImages() {
         this.loading = true;
-        this.imgService.selectFollowedImages(this._loggedId).subscribe(function (res) {
-            _this.loading = false;
-            _this._images = res;
+        this.imgService.selectFollowedImages(this._loggedId).subscribe(res => {
+            this.loading = false;
+            this._images = res;
         });
-    };
-    Object.defineProperty(HomepageComponent.prototype, "images", {
-        get: function () {
-            return this._images;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    HomepageComponent = __decorate([
-        Component({
-            selector: "app-homepage",
-            templateUrl: "./homepage.component.html",
-            styleUrls: ["./homepage.component.scss"]
-        }),
-        __metadata("design:paramtypes", [ImageService,
-            ActivatedRoute,
-            Router])
-    ], HomepageComponent);
-    return HomepageComponent;
-}(LoggedIn));
+    }
+    get images() {
+        return this._images;
+    }
+};
+HomepageComponent = __decorate([
+    Component({
+        selector: "app-homepage",
+        templateUrl: "./homepage.component.html",
+        styleUrls: ["./homepage.component.scss"]
+    }),
+    __metadata("design:paramtypes", [ImageService,
+        ActivatedRoute,
+        Router])
+], HomepageComponent);
 export { HomepageComponent };
 //# sourceMappingURL=homepage.component.js.map

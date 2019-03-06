@@ -22,11 +22,11 @@ import { AccountService } from "../services/account.service";
   styleUrls: ["./menu.component.scss"]
 })
 export class MenuComponent extends LoggedIn implements OnInit {
-  @ViewChild("menu") menu: ElementRef;
-  @ViewChild("menuToggled") menuToggled: ElementRef;
-  @ViewChild("button") button: ElementRef;
-  @ViewChild("input") input: ElementRef;
-  @ViewChild("input2") input2: ElementRef;
+  @ViewChild("menu") menu: any;
+    @ViewChild("menuToggled") menuToggled: any;
+    @ViewChild("button") button: any; // TODO
+    @ViewChild("input") input: any; // TODO
+    @ViewChild("input2") input2: any;
 
   private host = "http://localhost:4200/";
   private loginPage = "http://localhost:4200/homepage";

@@ -173,8 +173,8 @@ export class ImageService {
     return this._http.get(this.host + "api/Posts/AllPostsByTag/" + tag);
   }
 
-  public uploadImage(data, id: number, token: string) {
-    let headers = new HttpHeaders(), fileRes: FileRes = null;
+  public uploadImage(data : any, id: number, token: string) {
+    let headers = new HttpHeaders(), fileRes: any = null; // TODO GRUBO
     headers = headers.append(
       "Authorization",
       "Basic " + btoa("" + id + ":" + token)

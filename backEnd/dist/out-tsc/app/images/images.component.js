@@ -10,10 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { ImageService } from "../services/image.service";
-var ImagesComponent = /** @class */ (function () {
+let ImagesComponent = class ImagesComponent {
     // private id = this.route.parent.snapshot.paramMap.get("id");
     // private path = this.route.snapshot.routeConfig.path;
-    function ImagesComponent(imageService, route) {
+    constructor(imageService, route) {
         this.imageService = imageService;
         this.route = route;
         this.selectedRoutes = {
@@ -24,50 +24,44 @@ var ImagesComponent = /** @class */ (function () {
         this.loading = false;
         this._images = [];
     }
-    ImagesComponent.prototype.ngOnInit = function () {
+    ngOnInit() {
         this.getData();
-    };
-    ImagesComponent.prototype.getData = function () {
-        var _this = this;
+    }
+    getData() {
         if (this.route.snapshot.routeConfig === null)
             return;
         if (this.route.parent === null)
             return;
-        var path = this.route.snapshot.routeConfig.path;
-        var id = this.route.parent.snapshot.paramMap.get("id");
+        let path = this.route.snapshot.routeConfig.path;
+        let id = this.route.parent.snapshot.paramMap.get("id");
         if (id === null)
             return;
         this.loading = true;
         if (path === this.selectedRoutes.recent) {
-            this.imageService.selectUserTrendingImages(id).subscribe(function (res) {
-                _this._images = res;
-                _this.loading = false;
+            this.imageService.selectUserTrendingImages(id).subscribe(res => {
+                this._images = res;
+                this.loading = false;
             });
         }
         else {
-            this.imageService.selectUserRecentImages(id).subscribe(function (res) {
-                _this._images = res;
-                _this.loading = false;
+            this.imageService.selectUserRecentImages(id).subscribe(res => {
+                this._images = res;
+                this.loading = false;
             });
         }
-    };
-    Object.defineProperty(ImagesComponent.prototype, "images", {
-        get: function () {
-            return this._images;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ImagesComponent = __decorate([
-        Component({
-            selector: "app-images",
-            templateUrl: "./images.component.html",
-            styleUrls: ["./images.component.scss"]
-        }),
-        __metadata("design:paramtypes", [ImageService,
-            ActivatedRoute])
-    ], ImagesComponent);
-    return ImagesComponent;
-}());
+    }
+    get images() {
+        return this._images;
+    }
+};
+ImagesComponent = __decorate([
+    Component({
+        selector: "app-images",
+        templateUrl: "./images.component.html",
+        styleUrls: ["./images.component.scss"]
+    }),
+    __metadata("design:paramtypes", [ImageService,
+        ActivatedRoute])
+], ImagesComponent);
 export { ImagesComponent };
 //# sourceMappingURL=images.component.js.map

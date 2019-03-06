@@ -8,20 +8,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-var SubmitButtonComponent = /** @class */ (function () {
-    function SubmitButtonComponent() {
+let SubmitButtonComponent = class SubmitButtonComponent {
+    constructor() { }
+    ngOnInit() {
     }
-    SubmitButtonComponent.prototype.ngOnInit = function () {
-    };
-    SubmitButtonComponent = __decorate([
-        Component({
-            selector: 'app-submit-button',
-            templateUrl: './submit-button.component.html',
-            styleUrls: ['./submit-button.component.scss']
-        }),
-        __metadata("design:paramtypes", [])
-    ], SubmitButtonComponent);
-    return SubmitButtonComponent;
-}());
+};
+SubmitButtonComponent = __decorate([
+    Component({
+        selector: 'app-submit-button',
+        templateUrl: './submit-button.component.html',
+        styleUrls: ['./submit-button.component.scss']
+    }),
+    __metadata("design:paramtypes", [])
+], SubmitButtonComponent);
 export { SubmitButtonComponent };
 //# sourceMappingURL=submit-button.component.js.map

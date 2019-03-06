@@ -7,76 +7,73 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, ElementRef, ViewChild } from "@angular/core";
+import { Component, ViewChild } from "@angular/core";
 import { ImageService } from "../services/image.service";
-var SearchComponent = /** @class */ (function () {
-    function SearchComponent(service) {
+let SearchComponent = class SearchComponent {
+    constructor(service) {
         this.service = service;
-        this.res = null;
+        this.res = []; // TODO
         this.loading = false;
     }
-    SearchComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        document.addEventListener("click", function (e) {
+    ngOnInit() {
+        document.addEventListener("click", e => {
             // console.log(e);
-            if (e.target !== _this.SearchResult.nativeElement &&
-                !_this.SearchResult.nativeElement.contains(e.target) &&
-                (e.target !== _this.SearchField.nativeElement &&
-                    !_this.SearchField.nativeElement.contains(e.target))) {
-                _this.SearchResult.nativeElement.classList.remove("display");
+            if (e.target !== this.SearchResult.nativeElement &&
+                !this.SearchResult.nativeElement.contains(e.target) &&
+                (e.target !== this.SearchField.nativeElement &&
+                    !this.SearchField.nativeElement.contains(e.target))) {
+                this.SearchResult.nativeElement.classList.remove("display");
             }
         });
-    };
-    SearchComponent.prototype.search = function (value) {
-        var _this = this;
+    }
+    search(value) {
         this.loading = true;
         if (value !== null && value !== "") {
-            this.service.search(value).subscribe(function (res) {
+            this.service.search(value).subscribe(res => {
                 if (JSON.stringify(res) !== "[]") {
-                    _this.res = res;
-                    console.log(_this.res);
-                    _this.SearchResult.nativeElement.classList.add("display");
+                    this.res = res;
+                    console.log(this.res);
+                    this.SearchResult.nativeElement.classList.add("display");
                 }
                 else {
-                    _this.res = null;
-                    _this.SearchResult.nativeElement.classList.remove("display");
+                    this.res = []; // TODO
+                    this.SearchResult.nativeElement.classList.remove("display");
                 }
-                _this.loading = false;
-            }, function (error) {
+                this.loading = false;
+            }, error => {
                 console.log("error!", error);
             });
         }
         else {
             this.SearchResult.nativeElement.classList.remove("display");
-            this.res = null;
+            this.res = []; // TODO
             this.loading = false;
         }
-    };
-    __decorate([
-        ViewChild("input"),
-        __metadata("design:type", ElementRef)
-    ], SearchComponent.prototype, "Input", void 0);
-    __decorate([
-        ViewChild("button"),
-        __metadata("design:type", ElementRef)
-    ], SearchComponent.prototype, "Button", void 0);
-    __decorate([
-        ViewChild("searchResult"),
-        __metadata("design:type", ElementRef)
-    ], SearchComponent.prototype, "SearchResult", void 0);
-    __decorate([
-        ViewChild("searchField"),
-        __metadata("design:type", ElementRef)
-    ], SearchComponent.prototype, "SearchField", void 0);
-    SearchComponent = __decorate([
-        Component({
-            selector: "app-search",
-            templateUrl: "./search.component.html",
-            styleUrls: ["./search.component.scss"]
-        }),
-        __metadata("design:paramtypes", [ImageService])
-    ], SearchComponent);
-    return SearchComponent;
-}());
+    }
+};
+__decorate([
+    ViewChild("input"),
+    __metadata("design:type", Object)
+], SearchComponent.prototype, "Input", void 0);
+__decorate([
+    ViewChild("button"),
+    __metadata("design:type", Object)
+], SearchComponent.prototype, "Button", void 0);
+__decorate([
+    ViewChild("searchResult"),
+    __metadata("design:type", Object)
+], SearchComponent.prototype, "SearchResult", void 0);
+__decorate([
+    ViewChild("searchField"),
+    __metadata("design:type", Object)
+], SearchComponent.prototype, "SearchField", void 0);
+SearchComponent = __decorate([
+    Component({
+        selector: "app-search",
+        templateUrl: "./search.component.html",
+        styleUrls: ["./search.component.scss"]
+    }),
+    __metadata("design:paramtypes", [ImageService])
+], SearchComponent);
 export { SearchComponent };
 //# sourceMappingURL=search.component.js.map

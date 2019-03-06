@@ -1,7 +1,3 @@
-var Image = /** @class */ (function () {
-    function Image() {
-    }
-    return Image;
-}());
-export { Image };
+export class Image {
+}
 //# sourceMappingURL=image.js.map

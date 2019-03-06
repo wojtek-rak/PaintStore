@@ -48,7 +48,7 @@ import { InputPasswordComponent } from "./forms/input-password/input-password.co
 import { InputOptionComponent } from "./forms/input-option/input-option.component";
 import { ImageElementComponent } from "./image-element/image-element.component";
 import { TagsComponent } from "./tags/tags.component";
-var appRoutes = [
+const appRoutes = [
     {
         path: "",
         component: HomepageComponent
@@ -123,63 +123,60 @@ var appRoutes = [
         component: NotFoundComponent
     }
 ];
-var AppModule = /** @class */ (function () {
-    function AppModule() {
-    }
-    AppModule = __decorate([
-        NgModule({
-            declarations: [
-                AppComponent,
-                HomepageComponent,
-                ImageComponent,
-                MessagesComponent,
-                NotFoundComponent,
-                SearchComponent,
-                AddPhotoComponent,
-                MenuComponent,
-                RegisterComponent,
-                SignInComponent,
-                SignUpComponent,
-                HomeComponent,
-                ProfileComponent,
-                MenuLeftComponent,
-                IndexComponent,
-                FooterComponent,
-                ConfirmationMessageComponent,
-                AgreeLabelComponent,
-                ImagesComponent,
-                FollowButtonComponent,
-                InformationLabelComponent,
-                SettingsComponent,
-                InputFileComponent,
-                InputTextComponent,
-                TextareaComponent,
-                SubmitButtonComponent,
-                ConfirmPasswordComponent,
-                InputEmailComponent,
-                InputPasswordComponent,
-                InputOptionComponent,
-                ImageElementComponent,
-                TagsComponent
-                // InputEmailComponent
-            ],
-            imports: [
-                RouterModule.forRoot(appRoutes),
-                TagInputModule,
-                BrowserAnimationsModule,
-                FormsModule,
-                ReactiveFormsModule,
-                BrowserModule,
-                HttpClientModule,
-                MatTabsModule,
-                FileDropModule,
-                AngularWebStorageModule
-            ],
-            providers: [ImageService, AccountService],
-            bootstrap: [AppComponent]
-        })
-    ], AppModule);
-    return AppModule;
-}());
+let AppModule = class AppModule {
+};
+AppModule = __decorate([
+    NgModule({
+        declarations: [
+            AppComponent,
+            HomepageComponent,
+            ImageComponent,
+            MessagesComponent,
+            NotFoundComponent,
+            SearchComponent,
+            AddPhotoComponent,
+            MenuComponent,
+            RegisterComponent,
+            SignInComponent,
+            SignUpComponent,
+            HomeComponent,
+            ProfileComponent,
+            MenuLeftComponent,
+            IndexComponent,
+            FooterComponent,
+            ConfirmationMessageComponent,
+            AgreeLabelComponent,
+            ImagesComponent,
+            FollowButtonComponent,
+            InformationLabelComponent,
+            SettingsComponent,
+            InputFileComponent,
+            InputTextComponent,
+            TextareaComponent,
+            SubmitButtonComponent,
+            ConfirmPasswordComponent,
+            InputEmailComponent,
+            InputPasswordComponent,
+            InputOptionComponent,
+            ImageElementComponent,
+            TagsComponent
+            // InputEmailComponent
+        ],
+        imports: [
+            RouterModule.forRoot(appRoutes),
+            TagInputModule,
+            BrowserAnimationsModule,
+            FormsModule,
+            ReactiveFormsModule,
+            BrowserModule,
+            HttpClientModule,
+            MatTabsModule,
+            FileDropModule,
+            AngularWebStorageModule
+        ],
+        providers: [ImageService, AccountService],
+        bootstrap: [AppComponent]
+    })
+], AppModule);
 export { AppModule };
 //# sourceMappingURL=app.module.js.map

@@ -8,50 +8,49 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component, ViewChild } from "@angular/core";
-var ConfirmationMessageComponent = /** @class */ (function () {
-    function ConfirmationMessageComponent() {
+let ConfirmationMessageComponent = class ConfirmationMessageComponent {
+    constructor() {
         this.message = "";
     }
     // ngOnInit() {
     //   // this.showMessage();
     // }
-    ConfirmationMessageComponent.prototype.show = function (message) {
+    show(message) {
         this.message = message;
         // show confirmation message
-        var el = this.msgElement.nativeElement;
+        let el = this.msgElement.nativeElement;
         el.classList.add("visible");
         // remove message after 8 seconds
-        setTimeout(function () {
+        setTimeout(() => {
             if (el.classList.contains("visible")) {
                 el.classList.add("hidden");
-                setTimeout(function () {
+                setTimeout(() => {
                     el.classList.remove("hidden");
                     el.classList.remove("visible");
                 }, 300);
             }
         }, 4000);
-    };
-    ConfirmationMessageComponent.prototype.closeMessage = function (id) {
-        var el = this.msgElement.nativeElement;
+    }
+    closeMessage(id) {
+        let el = this.msgElement.nativeElement;
         el.classList.add("hidden");
-        setTimeout(function () {
+        setTimeout(() => {
             el.classList.remove("hidden");
             el.classList.remove("visible");
         }, 300);
-    };
-    __decorate([
-        ViewChild("msg"),
-        __metadata("design:type", Object)
-    ], ConfirmationMessageComponent.prototype, "msgElement", void 0);
-    ConfirmationMessageComponent = __decorate([
-        Component({
-            selector: "app-confirmation-message",
-            templateUrl: "./confirmation-message.component.html",
-            styleUrls: ["./confirmation-message.component.scss"]
-        }),
-        __metadata("design:paramtypes", [])
-    ], ConfirmationMessageComponent);
-    return ConfirmationMessageComponent;
-}());
+    }
+};
+__decorate([
+    ViewChild("msg"),
+    __metadata("design:type", Object)
+], ConfirmationMessageComponent.prototype, "msgElement", void 0);
+ConfirmationMessageComponent = __decorate([
+    Component({
+        selector: "app-confirmation-message",
+        templateUrl: "./confirmation-message.component.html",
+        styleUrls: ["./confirmation-message.component.scss"]
+    }),
+    __metadata("design:paramtypes", [])
+], ConfirmationMessageComponent);
 export { ConfirmationMessageComponent };
 //# sourceMappingURL=confirmation-message.component.js.map

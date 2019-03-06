@@ -8,23 +8,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-var SignUpComponent = /** @class */ (function () {
-    function SignUpComponent() {
+let SignUpComponent = class SignUpComponent {
+    constructor() { }
+    ngOnInit() {
     }
-    SignUpComponent.prototype.ngOnInit = function () {
-    };
-    SignUpComponent.prototype.onRegister = function (form) {
+    onRegister(form) {
         console.log(form);
-    };
-    SignUpComponent = __decorate([
-        Component({
-            selector: 'app-sign-up',
-            templateUrl: './sign-up.component.html',
-            styleUrls: ['./sign-up.component.scss']
-        }),
-        __metadata("design:paramtypes", [])
-    ], SignUpComponent);
-    return SignUpComponent;
-}());
+    }
+};
+SignUpComponent = __decorate([
+    Component({
+        selector: 'app-sign-up',
+        templateUrl: './sign-up.component.html',
+        styleUrls: ['./sign-up.component.scss']
+    }),
+    __metadata("design:paramtypes", [])
+], SignUpComponent);
 export { SignUpComponent };
 //# sourceMappingURL=sign-up.component.js.map

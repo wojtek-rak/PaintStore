@@ -8,20 +8,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-var FooterComponent = /** @class */ (function () {
-    function FooterComponent() {
+let FooterComponent = class FooterComponent {
+    constructor() { }
+    ngOnInit() {
     }
-    FooterComponent.prototype.ngOnInit = function () {
-    };
-    FooterComponent = __decorate([
-        Component({
-            selector: 'app-footer',
-            templateUrl: './footer.component.html',
-            styleUrls: ['./footer.component.scss']
-        }),
-        __metadata("design:paramtypes", [])
-    ], FooterComponent);
-    return FooterComponent;
-}());
+};
+FooterComponent = __decorate([
+    Component({
+        selector: 'app-footer',
+        templateUrl: './footer.component.html',
+        styleUrls: ['./footer.component.scss']
+    }),
+    __metadata("design:paramtypes", [])
+], FooterComponent);
 export { FooterComponent };
 //# sourceMappingURL=footer.component.js.map

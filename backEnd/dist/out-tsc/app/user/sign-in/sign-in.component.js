@@ -8,23 +8,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-var SignInComponent = /** @class */ (function () {
-    function SignInComponent() {
+let SignInComponent = class SignInComponent {
+    constructor() { }
+    ngOnInit() {
     }
-    SignInComponent.prototype.ngOnInit = function () {
-    };
-    SignInComponent.prototype.onLogin = function (form) {
+    onLogin(form) {
         console.log(form);
-    };
-    SignInComponent = __decorate([
-        Component({
-            selector: 'app-sign-in',
-            templateUrl: './sign-in.component.html',
-            styleUrls: ['./sign-in.component.scss']
-        }),
-        __metadata("design:paramtypes", [])
-    ], SignInComponent);
-    return SignInComponent;
-}());
+    }
+};
+SignInComponent = __decorate([
+    Component({
+        selector: 'app-sign-in',
+        templateUrl: './sign-in.component.html',
+        styleUrls: ['./sign-in.component.scss']
+    }),
+    __metadata("design:paramtypes", [])
+], SignInComponent);
 export { SignInComponent };
 //# sourceMappingURL=sign-in.component.js.map

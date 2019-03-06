@@ -1,0 +1,74 @@
+<div class="centered-profile">
+  <div class="flex-wrapper">
+    <div class="profile-introduction-container">
+      <div class="profile-introduction">
+        <div class="profile-section">
+          <div class="image-with-description">
+            <div class="avatar-container huge-avatar">
+              <a
+                class="avatar-link"
+                routerLink="/user/{{ getUser().accountId }}"
+              >
+                <img src="{{ getUser().avatarImgLink }}" />
+              </a>
+            </div>
+
+            <div class="description">
+              <h2>
+                <a routerLink="/user/{{ getUser().accountId }}">{{
+                  getUser().name
+                }}</a>
+              </h2>
+              <p class="content-secondary">{{ getUser().link }}</p>
+              <!-- to do: add info here -->
+            </div>
+          </div>
+
+          <div class="buttons-wrapper" *ngIf="loggedId != getUrl()">
+            <app-follow-button
+              [idDestinateUser]="getUrl()"
+              [followed]="getUser().followed"
+            ></app-follow-button>
+          </div>
+        </div>
+
+        <div class="profile-section about-section">
+          <h3>About</h3>
+          <p class="content-secondary">{{ getUser().about }}</p>
+        </div>
+
+        <div class="profile-section statistic-section">
+          <h3>Statistics</h3>
+          <p class="content-secondary">
+            <span (click)="showFollowing()">Following</span>
+            <span (click)="showFollowing()">{{
+              getUser().followingCount
+            }}</span>
+          </p>
+          <p class="content-secondary">
+            <span (click)="showFollowed()">Followed by</span>
+            <span (click)="showFollowed()">{{ getUser().followedCount }}</span>
+          </p>
+          <p class="content-secondary"><span>Likes</span> <span>120</span></p>
+          <!-- to do: missing likes in database! -->
+        </div>
+      </div>
+    </div>
+    <div class="profile-images-container">
+      <ul class="menu-list">
+        <li>
+          <a
+            routerLinkActive="active"
+            [routerLink]="['/user', getUrl()]"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Trending
+          </a>
+        </li>
+        <li><a routerLinkActive="active" routerLink="recent">Recent</a></li>
+      </ul>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+<app-information-label #label></app-information-label>

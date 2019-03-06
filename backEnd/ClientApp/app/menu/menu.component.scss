@@ -1,0 +1,286 @@
+menu {
+  background-color: #fff;
+  border-bottom: 1px solid #dedede;
+  // box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  transition-duration: 0.3s;
+}
+
+menu.static {
+  position: relative;
+  box-shadow: none;
+  border-bottom: 0;
+}
+
+.logo {
+  color: BLACK;
+  /* FONT-WEIGHT: 600; */
+  border: 2px SOLID #515151;
+  padding: 8px;
+  font-family: "Playfair Display", serif;
+}
+
+.container-menu-ul li.search {
+  display: flex;
+}
+
+menu.logged-out {
+  form {
+    display: flex;
+  }
+
+  .container-menu {
+    li.menu-user {
+      display: none;
+    }
+
+    .container-menu-ul li.search {
+      display: none;
+    }
+  }
+
+  .join-us-button {
+    display: block;
+  }
+}
+
+form {
+  display: none;
+  flex-shrink: 0;
+  flex-grow: 0;
+  justify-content: space-between;
+  align-items: center;
+
+  input {
+    width: 145px;
+    font-size: 12px;
+    margin-bottom: 0;
+  }
+
+  .label-wrapper:nth-of-type(2) {
+    margin: 0 15px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 9px 20px;
+  }
+}
+
+// .menu-toggled.visible {
+
+// }
+
+.container-menu-ul .join-us-button {
+  display: none;
+}
+
+menu.visible {
+  background: #fff;
+}
+
+.container-menu {
+  width: calc(100% - 160px);
+  margin: 0 auto;
+  max-width: 1290px;
+}
+
+.container-menu-ul {
+  display: flex;
+  height: 70px;
+  transition: 0.2s;
+
+  a {
+    color: #727272;
+  }
+
+  .button-colored {
+    color: white;
+    margin-top: 0;
+  }
+
+  .icon-mail-alt {
+    color: #919191;
+  }
+
+  li {
+    padding: 0px 15px;
+    display: flex;
+    align-items: center;
+  }
+  .bordered {
+    border-left: 1px solid #efefef;
+    border-right: 1px solid #efefef;
+  }
+  .menu-logo {
+    flex-grow: 1;
+    padding-left: 0;
+
+    a {
+      display: inline-block;
+    }
+    img {
+      display: block;
+    }
+  }
+  .menu-user {
+    position: relative;
+    padding-right: 0;
+    padding-left: 0;
+    a {
+      color: #111;
+    }
+    img {
+      border-radius: 15px;
+      margin-right: 10px;
+      display: block;
+    }
+
+    .logged-user-icon {
+      display: block;
+      border-radius: 15px;
+      width: 30px;
+      height: 30px;
+      overflow: hidden;
+      margin-right: 8px;
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    span {
+      margin-right: 8px;
+    }
+    button {
+      color: #c2c2c2;
+      padding: 0;
+      margin: 0;
+      border: 0;
+      background: none;
+      cursor: pointer;
+      height: 50%;
+      width: 30px;
+      margin-left: -8px;
+      font-size: 15px;
+    }
+  }
+}
+
+.menu-toggled.visible {
+  display: block;
+}
+
+.menu-toggled {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  font-size: 15px;
+  width: 235px;
+  z-index: 9;
+  //box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 5px 5px;
+  overflow: hidden;
+  transition: height ease 0.2s;
+
+  a {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    padding: 12px 15px;
+  }
+
+  i {
+    margin-right: 8px;
+    color: #5a5a5a;
+  }
+
+  li {
+    background: #fff;
+    padding: 0;
+    border-top: 1px solid #e9e9e9;
+    border-left: 1px solid #e9e9e9;
+    border-right: 1px solid #e9e9e9;
+    // opacity: 0;
+    // display: none;
+    transition-duration: 0.2s;
+  }
+
+  li:last-of-type {
+    border-bottom: 1px solid #e9e9e9;
+    a,
+    button {
+      padding-bottom: 20px;
+      padding-top: 20px;
+    }
+  }
+
+  // li:nth-of-type(2) {
+  //   transition-delay: 0.06s;
+  // }
+
+  // li:nth-of-type(3) {
+  //   transition-delay: 0.08s;
+  // }
+
+  // li:nth-of-type(4) {
+  //   transition-delay: 0.1s;
+  // }
+
+  li:hover {
+    background: #f2f2f2;
+  }
+
+  a {
+    color: #333;
+    transition: color ease 0.7s;
+  }
+}
+
+.scrolled {
+  .container-menu-ul {
+    height: 45px;
+  }
+}
+
+.container-menu-ul .menu-user .logout {
+  color: #111;
+  transition: color ease 0.7s;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  padding: 20px 15px;
+  text-align: left;
+  background: none;
+  border: none;
+  margin: auto;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  height: auto;
+  width: 100%;
+  margin-left: auto;
+  font-size: 15px;
+  text-align: left;
+}
+
+@media only screen and (max-width: 1120px) {
+  .container-menu {
+    padding: 0 40px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .container-menu {
+    padding: 0 30px;
+  }
+}

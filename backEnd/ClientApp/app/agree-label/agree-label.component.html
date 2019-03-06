@@ -1,0 +1,15 @@
+<div class="message-container" #wrapper>
+  <div class="wrapper">
+    <div class="header">
+      <span>WARNING</span>
+      <span (click)="close()" tabindex="0" class="close-button">X</span>
+    </div>
+    <div class="content">
+      <span class="message">{{ message }}</span>
+      <div class="flex-wrapper">
+        <span (click)="close()" class="button" tabindex="0">NO</span>
+        <span (click)="confirm()" class="button" tabindex="0">YES</span>
+      </div>
+    </div>
+  </div>
+</div>

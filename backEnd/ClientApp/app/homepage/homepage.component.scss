@@ -1,0 +1,42 @@
+$avatar-size: 22px;
+
+@mixin transition($time, $type, $property) {
+  transition: $time $type $property;
+  -moz-transition: $time $type $property;
+  -webkit-transition: $time $type $property;
+}
+
+.animation-container {
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  @include transition(0.6s, ease, height);
+  border-bottom: 1px solid grey;
+}
+
+.animation-content {
+  @include transition(0.4s, ease, opacity);
+  background: url("https://www.designyourway.net/diverse/drawtuts/drawing-the-human-eye.jpg") -25px -50px;
+  background-repeat: no-repeat;
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+  background-size: calc(100% + 50px);
+}
+
+.completed {
+  height: 200px;
+  .animation-content {
+    height: 100%;
+  }
+}
+.hidden {
+  opacity: 0;
+}
+
+.container {
+  margin-bottom: 70px;
+}

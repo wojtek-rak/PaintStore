@@ -1,0 +1,25 @@
+<div class="label-wrapper">
+  <label class="input-description" for="title">{{ data.label }}</label>
+  <span
+    *ngIf="data.editable === true && editing === false"
+    (click)="startEditing()"
+    >Edit</span
+  >
+  <input
+    [ngClass]="validateMessage !== '' ? 'invalid' : null"
+    [ngClass]="editing === true || data.editable !== true ? null : 'hidden'"
+    type="text"
+    #input
+    (keyup)="change(this.Input.nativeElement.value)"
+  />
+  <span
+    *ngIf="data.editable === true && editing === true"
+    class="reject"
+    (click)="stopEditing()"
+    >X</span
+  >
+  <!-- id="title" -->
+  <div class="warning" *ngIf="this.validateMessage !== ''">
+    {{ validateMessage }}
+  </div>
+</div>

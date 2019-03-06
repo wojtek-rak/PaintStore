@@ -1,0 +1,79 @@
+<menu #menu>
+  <div class="container-menu">
+    <ul class="container-menu-ul">
+      <li class="menu-logo">
+        <a routerLink=""
+          ><img
+            src="../../assets/img/logo.png"
+            height="80px"
+            style="opacity: 0.5"
+        /></a>
+      </li>
+      <!-- <li> -->
+
+      <!-- TO DO: zapytac Wojtasa czy form moze byc -->
+
+      <form #form="ngForm" (ngSubmit)="onLogin(form)">
+        <div class="label-wrapper">
+          <input
+            placeholder="E-mail"
+            type="text"
+            id="email"
+            name="email"
+            ngModel
+            #input
+            (keyup)="onKeyup()"
+          />
+        </div>
+        <div class="label-wrapper">
+          <input
+            placeholder="Password"
+            type="password"
+            id="password"
+            name="password"
+            ngModel
+            #input2
+            (keyup)="onKeyup()"
+          />
+        </div>
+        <button class="button-colored" type="submit">LOGIN</button>
+      </form>
+
+      <!-- </li> -->
+      <li class="search">
+        <app-search></app-search>
+      </li>
+      <li class="menu-user">
+        <!-- /user/{{ LoginManager.userId() }} -->
+        <a routerLink="/user/{{ loggedId }}" class="logged-user-icon"
+          ><img src="../../assets/img/avatar.png" width="40px"
+        /></a>
+        <button class="menu-toggle-down" (click)="toggleMenu()" #button>
+          <i class="icon-down-open"></i>
+        </button>
+        <div class="menu-toggled" #menuToggled>
+          <ul>
+            <li>
+              <a routerLink="/settings"><i class="icon-cog"></i>Edit profile</a>
+            </li>
+            <li>
+              <a routerLink="/upload-image"><i class="icon-plus"></i>Add</a>
+            </li>
+            <li>
+              <button class="logout" (click)="logout()">
+                <i class="icon-off"></i>Logout
+              </button>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <!-- <li class="join-us-button">
+        <a class="button-colored" (click)="scrollDown()">
+          JOIN
+        </a>
+      </li> -->
+    </ul>
+  </div>
+</menu>
+<div class="scrollmagic-toggle"></div>

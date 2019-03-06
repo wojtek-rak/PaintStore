@@ -1,0 +1,4 @@
+<span class="button-colored">
+  <span (click)="follow()" *ngIf="!this.followed">FOLLOW</span>
+  <span (click)="unFollow()" *ngIf="this.followed">UNFOLLOW</span>
+</span>

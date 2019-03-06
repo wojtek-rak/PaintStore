@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="centered">
+    <div class="tag-wrapper">
+      <span># {{ tagname }}</span>
+    </div>
+    <div class="loading" *ngIf="loading === true">
+      <img src="../../assets/svg/loading-images.svg" />
+    </div>
+    <div class="image-wrapper">
+      <div class="image-element" *ngFor="let image of images">
+        <app-image-element [image]="image"></app-image-element>
+      </div>
+      <span *ngIf="images.length === 0 && !loading"
+        >There is no images yet.</span
+      >
+    </div>
+  </div>
+</div>

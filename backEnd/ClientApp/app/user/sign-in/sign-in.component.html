@@ -1,0 +1,11 @@
+<form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)">
+<!--material icon-->
+  <label for="email_login">E-mail</label>
+  <input type="text" id="email_login" name="email_login" ngModel required>
+
+  <label for="password_login">Podaj hasło</label>
+  <input type="password" id="password_login" name="password_login" ngModel required>
+
+  <button [disabled]="!loginForm.valid" type="submit">Zaloguj się</button>
+</form>
+

@@ -123,7 +123,17 @@ namespace PaintStore.BackEnd
             app.UseCors("CorsPolicy");
             //app.UseCors("AllowAllOrigins");
             app.UseMiddleware<AuthenticationMiddleware>();
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapSpaFallbackRoute(
+                    name: "spa-fallback",
+                    defaults: new { controller = "Home", action = "Index" });
+            });
+
         }
 
     }

@@ -1,0 +1,202 @@
+<div class="photo-header">
+  <div class="author-avatar">
+    <a routerLink="#">
+      <img
+        src="http://a.abcnews.com/images/Politics/AP_president_obama_jef_160623_16x9_992.jpg"
+      />
+    </a>
+  </div>
+  <div class="basic-info">
+    <h3>{{ image.title }}</h3>
+    <span
+      >Added {{ image.creationDate }} by
+      <a class="author-link" routerLink="/user/{{ image.userId }}">{{
+        image.userOwnerName
+      }}</a></span
+    >
+  </div>
+  <div class="likes">
+    <span (click)="showLiking()" class="like-description"
+      >{{ image.likeCount }} likes
+    </span>
+    <span
+      class="like"
+      [ngClass]="image.liked === true ? 'liked' : null"
+      *ngIf="loggedIn"
+    >
+      <span *ngIf="!image.liked" (click)="photoLike()">
+        Like
+      </span>
+
+      <span (click)="photoUnlike()" *ngIf="image.liked">Liked!</span>
+    </span>
+  </div>
+</div>
+<div class="centered">
+  <div class="hero-img"><img src="{{ image.imgLink }}" /></div>
+  <div class="photo">
+    <div class="photo-content">
+      <!-- <div class="photo-header">
+        <p class="content-secondary">
+          Added {{ image.creationDate }} by
+          <a class="author-link" routerLink="/user/{{image.userId}}">{{
+            image.userOwnerName
+          }}</a>
+        </p>
+        <div class="photo-title">
+          <h2>{{ image.title }}</h2>
+          <div class="likes">
+            <span (click)="showLiking()">{{ image.likeCount }} likes </span>
+            <span (click)="photoLike()" class="like" *ngIf="!image.liked"
+              >Like</span
+            >
+            <span (click)="photoUnlike()" class="like" *ngIf="image.liked"
+              >Liked!</span
+            >
+          </div>
+        </div>
+        <p class="description">{{ image.description }}</p>
+        <p class="photo-tags content-secondary">
+          <span class="tag-title">Tags: </span
+          ><span *ngFor="let tag of image.tagsList">{{ tag }} </span>
+          <span *ngIf="image.tagsList.length === 0">no tags added</span>
+        </p>
+      </div> -->
+      <div class="comments-wrapper">
+        <div class="all-comments">
+          <div class="add-comment" *ngIf="loggedIn">
+            <form
+              #commentUpload="ngForm"
+              (ngSubmit)="onCommentUpload(commentUpload)"
+            >
+              <div class="flex-wrapper">
+                <div class="image-author">
+                  <div class="avatar-container">
+                    <a class="avatar-link" routerLink="">
+                      <img src="https://via.placeholder.com/40x40" />
+                    </a>
+                  </div>
+                </div>
+                <textarea id="text" name="text" ngModel></textarea>
+              </div>
+              <div class="warning" *ngIf="this.formValid === false">
+                Comment must contains at least 5 letters.
+              </div>
+              <div class="button-wrapper">
+                <span *ngIf="loading" class="loading"
+                  ><img src="../../assets/svg/loading.svg"
+                /></span>
+                <button
+                  [disabled]="loading"
+                  type="submit"
+                  class="button-colored"
+                >
+                  Send
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <p class="comment-title">Comments ({{ image.commentsCount }})</p>
+
+          <div class="comments-group">
+            <div *ngFor="let comment of comments" class="comment">
+              <div class="image-author">
+                <div class="avatar-container">
+                  <a
+                    class="avatar-link"
+                    routerLink="/user/{{ comment.userId }}"
+                  >
+                    <img src="{{ comment.userOwnerImgLink }}" />
+                  </a>
+                </div>
+              </div>
+              <div class="comment-content">
+                <div class="header">
+                  <h4 class="author">
+                    <a routerLink="/user/{{ comment.userId }}">{{
+                      comment.userName
+                    }}</a>
+                  </h4>
+                  <p class="content-secondary header-info">
+                    {{ comment.creationDate }}
+                  </p>
+                  <span *ngIf="comment.edited" class="header-info"
+                    >(edited)</span
+                  >
+                  <span
+                    class="delete header-info link"
+                    (click)="removeComment(comment.id)"
+                    *ngIf="comment.userId === loggedId"
+                  >
+                    delete
+                  </span>
+                  <span
+                    class="edit header-info link"
+                    (click)="editComment(comment)"
+                    *ngIf="comment.userId === loggedId"
+                  >
+                    edit
+                  </span>
+                  <span class="likes header-info">
+                    <span class="link" (click)="commentShowLiked(comment.id)">
+                      {{ comment.likeCount }} likes
+                    </span>
+                  </span>
+                  <span
+                    class="like"
+                    [ngClass]="comment.liked === true ? 'liked' : null"
+                    *ngIf="loggedIn"
+                  >
+                    <span (click)="commentLike(comment)" *ngIf="!comment.liked">
+                      Like
+                    </span>
+                    <span (click)="commentUnlike(comment)" *ngIf="comment.liked"
+                      >Liked!</span
+                    >
+                  </span>
+                </div>
+                <p *ngIf="!comment.isEditing">{{ comment.content }}</p>
+                <div *ngIf="comment.isEditing">
+                  <form
+                    #editComment="ngForm"
+                    (ngSubmit)="sendEditComment(editComment, comment)"
+                  >
+                    <textarea
+                      name="value"
+                      ngModel="{{ comment.content }}"
+                    ></textarea>
+                    <div class="edit-elements">
+                      <div class="warning" *ngIf="comment.editValid === false">
+                        Comment must contains at least 5 letters.
+                      </div>
+                      <span class="discard" (click)="discard(comment)"
+                        >Discard</span
+                      >
+                      <button type="submit">Edit</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="description">
+          <p>Description</p>
+          <span class="description-content">{{ image.description }}</span>
+          <p class="tag-title">Tags</p>
+          <span *ngFor="let tag of image.tagsList" class="tag">{{ tag }} </span>
+          <span *ngIf="image.tagsList.length === 0">no tags added</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="clear:both"></div>
+</div>
+<app-confirmation-message #msg></app-confirmation-message>
+<app-agree-label
+  #confirmLabel
+  (emitter)="confirm()"
+  [message]="'You are going to delete this comment. Are you sure?'"
+></app-agree-label>
+<app-information-label #label></app-information-label>

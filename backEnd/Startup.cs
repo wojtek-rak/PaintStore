@@ -7,6 +7,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
@@ -56,6 +57,9 @@ namespace PaintStore.BackEnd
             //        build.AllowCredentials();
             //    });
             //});
+
+            services.AddSpaStaticFiles(c => { c.RootPath = "dist";});
+
             services.AddAutoMapper();
             
             services.AddTransient<IPostsService, PostService>();
@@ -109,6 +113,7 @@ namespace PaintStore.BackEnd
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IActivityManagerStartup activityManager, IServiceScopeFactory _scopeFactory)
         {
+            app.UseStaticFiles();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "my API V1"));
@@ -123,11 +128,31 @@ namespace PaintStore.BackEnd
             app.UseCors("CorsPolicy");
             //app.UseCors("AllowAllOrigins");
             app.UseMiddleware<AuthenticationMiddleware>();
+            //app.Use(async (context, next) =>
+            //{
+            //    await next();
+
+            //    if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
+            //    {
+            //        context.Request.Path = "/index.html";
+            //        await next();
+            //    }
+            //});
+
+//app.UseSpa(spa =>
+          //  {
+             //  spa.Options.SourcePath = "dist";
+                //if (env.IsDevelopment())
+                //{
+                //    spa.UseAngularCliServer(npmScript:"start");
+                //}
+            //});
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "homepage");// "{controller=Home}/{action=Index}/{id?}");
 
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { ImageService } from "../services/image.service";
 import { ActivatedRoute } from "@angular/router";
-// import {isComponentView} from "@angular/core/src/view/util";
+// import {isComponentView} from "@angular/core/ClientApp/view/util";
 import { UserComment } from "./comment";
 import { NgForm } from "@angular/forms";
 import { AgreeLabelComponent } from "../agree-label/agree-label.component";

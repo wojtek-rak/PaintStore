@@ -2,7 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
+    "outDir": "./wwwroot/dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
     "module": "es2015",

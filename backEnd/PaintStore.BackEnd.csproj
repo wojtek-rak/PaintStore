@@ -92,25 +92,16 @@
 
 
 
-  <Target Name="Build Angular Debug" Condition="'$(Configuration)'=='Debug'" BeforeTargets="Build">
+  <Target Name="Build Angular Debug" BeforeTargets="Build">
     <Message Text="* * * * * * Building Debug Angular App * * * * * *" Importance="high" />
-    <Exec Command="ng build" />
+    <Exec Command="ng serve" />
   </Target>
 
-  <Target Name="Build Angular Release" Condition="'$(Configuration)'=='Release'" BeforeTargets="Build">
+  <Target Name="Build Angular Release" BeforeTargets="Publish">
     <Message Text="* * * * * * Building Release Angular App * * * * * *" Importance="high" />
     <Exec Command="ng build --prod --aot" />
   </Target>
 
-  <Target Name="Build Angular QA" Condition="'$(Configuration)'=='QA'" BeforeTargets="Build">
-    <Message Text="* * * * * * Building QA Angular App * * * * * *" Importance="high" />
-    <Exec Command="ng build --prod --aot" />
-  </Target>
-
-  <Target Name="Build Angular Staging" Condition="'$(Configuration)'=='Staging'" BeforeTargets="Build">
-    <Message Text="* * * * * * Building Staging Angular App * * * * * *" Importance="high" />
-    <Exec Command="ng build --prod --aot" />
-  </Target>
 
 
 

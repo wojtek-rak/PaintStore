@@ -1,0 +1,24 @@
+<div class="message-container" #wrapper>
+  <div class="wrapper">
+    <div class="header">
+      <span>{{ labelName }}</span>
+      <span (click)="close()" tabindex="0" class="close-button">X</span>
+    </div>
+    <div class="content">
+      <div class="item" *ngFor="let item of getData()">
+        <div class="img-wrapper"><img src="{{ item.avatarImgLink }}" /></div>
+        <span class="name">{{ item.name }}</span>
+        <app-follow-button
+          *ngIf="item.userId !== loggedId"
+          [idDestinateUser]="item.userId"
+          [followed]="item.followed"
+        ></app-follow-button>
+
+        <!--
+          [ngClass]="item.followed === true ? 'followed' : ''"
+          (emitter)="emitter($event)"
+        -->
+      </div>
+    </div>
+  </div>
+</div>

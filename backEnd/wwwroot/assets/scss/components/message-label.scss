@@ -1,0 +1,62 @@
+.message-container {
+  background: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  opacity: 0;
+  display: none;
+  transition: 0.2s;
+
+  .flex-wrapper {
+    justify-content: center;
+  }
+
+  .wrapper {
+    width: calc(100% - 200px);
+    max-width: 700px;
+    overflow: hidden;
+    background: white;
+    box-sizing: border-box;
+    border-radius: 3px;
+    box-shadow: 0 0 30px 5px rgba(0, 0, 0, 0.25);
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .header {
+    background: #eeeeee;
+    padding: 20px 20px 15px;
+    border-bottom: 1px solid #e9e9e9;
+    color: #757575;
+    justify-content: space-between;
+    display: flex;
+  }
+
+  .content {
+    padding: 20px;
+    max-height: calc(100vh - 200px);
+    overflow-y: scroll;
+  }
+
+  .close-button {
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .close-button:hover {
+    color: #a5a5a5;
+  }
+
+  &.opacity {
+    opacity: 1;
+  }
+
+  &.display {
+    display: block;
+  }
+}

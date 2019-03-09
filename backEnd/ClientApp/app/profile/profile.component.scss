@@ -1,0 +1,179 @@
+.centered-profile {
+  max-width: 1290px;
+  margin: 0px auto 30px;
+  padding: 110px 20px 0;
+}
+
+.statistic-section span {
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  transition: 0.05s;
+}
+
+.statistic-section span:hover {
+  border-bottom: 1px solid #a3a3a3;
+}
+
+.button-colored {
+  text-transform: none;
+  font-size: 14px;
+
+  &:nth-of-type(2) {
+    margin-left: 10px;
+    background-color: #a7a7a7;
+  }
+}
+
+.buttons-wrapper {
+  margin-top: 4px;
+  text-align: center;
+}
+
+.avatar-container.huge-avatar {
+  width: 70px;
+  height: 70px;
+  margin-right: 20px;
+}
+
+.image-with-description {
+  display: flex;
+  align-items: center;
+
+  .description {
+    h2 {
+      font-weight: 400;
+    }
+
+    p {
+      margin-top: 2px;
+    }
+  }
+}
+
+.menu-list {
+  margin-bottom: 20px;
+}
+
+.profile-introduction-container {
+  flex-shrink: 0;
+  flex-grow: 0;
+  margin-right: 30px;
+}
+
+.profile-introduction {
+  background: #fff;
+  width: 300px;
+  border-radius: 3px;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+  flex-grow: 0;
+  flex-shrink: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.menu-list {
+  padding: 0;
+}
+
+.about-section {
+  h3 {
+  }
+  p {
+    // margin-top: 16px;
+    color: #707070;
+  }
+}
+
+.statistic-section {
+  p {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #efefef;
+    padding: 4px;
+  }
+  p:first-of-type {
+    padding-top: 0;
+  }
+  p:last-of-type {
+    padding-bottom: 0;
+    border: none;
+  }
+}
+
+.profile-section {
+  padding: 20px 0;
+  border-bottom: 1px solid #efefef;
+
+  &:first-of-type {
+    padding-top: 0;
+  }
+
+  &:last-of-type {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  p:first-of-type {
+    margin-top: 16px;
+  }
+}
+
+//
+
+
+@media screen and(max-width: 1350px) {
+
+  .centered-profile {
+    max-width: 960px;
+  }
+}
+
+@media screen and(max-width: 1000px) {
+
+  .flex-wrapper {
+    flex-direction: column;
+  }
+  .profile-introduction-container {
+    margin: 0 0 40px 0;
+  }
+  
+  .profile-introduction {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    grid-column-gap: 30px;
+  }
+  
+  .profile-section:first-of-type {
+    display: flex;
+      align-items: center;
+  }
+  
+  .about-section {
+    grid-row-start: 1;
+      grid-row-end: 3;
+      grid-column-start: 2;
+    border-bottom: 0;
+  }
+  
+  .buttons-wrapper {
+    margin-right: 20px;
+  }
+  .image-with-description {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+}
+
+@media only screen and (max-width: 670px) {
+  .profile-introduction {
+    display: block;
+  }
+}
+
+@media only screen and (max-width: 410px) { 
+  .profile-section:first-of-type {
+    display: block;
+  }
+}

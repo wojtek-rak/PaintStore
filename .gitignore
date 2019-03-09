@@ -340,3 +340,4 @@ ASALocalRun/
 .mfractor/
 backEnd/wwwroot/.DS_Store
 backEnd/wwwroot/Uploads/.DS_Store
+backEnd/wwwroot/

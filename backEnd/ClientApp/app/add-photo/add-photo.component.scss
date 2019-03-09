@@ -1,0 +1,35 @@
+:host ::ng-deep tag-input {
+  input {
+    margin-bottom: 0;
+  }
+}
+
+:host ::ng-deep input-file .file-label {
+  height: 120px;
+}
+
+.upload-centered {
+  max-width: 600px;
+}
+
+@media only screen and (max-width: 800px) {
+  .flex-wrapper {
+    flex-direction: column;
+  }
+
+  .upload-centered {
+    box-shadow: none;
+    margin: 0 auto;
+  }
+
+  .image-description {
+    width: 100%;
+  }
+  .centered {
+    background: #fff;
+  }
+
+  h2 {
+    padding: 20px 0px;
+  }
+}

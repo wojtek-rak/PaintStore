@@ -1,0 +1,24 @@
+<ng-container>
+  <div class="image-cropped">
+    <a routerLink="/image/{{ image.id }}">
+      <img src="{{ image.imgLink }}" />
+    </a>
+  </div>
+  <div class="image-info">
+    <h3 class="image-title">
+      <a routerLink="/image/{{ image.id }}">{{ image.title }}</a>
+      <span>{{ image.likeCount }} <i class="icon-heart-empty"></i></span>
+      <span>{{ image.commentsCount }} <i class="icon-comment-empty"></i></span>
+    </h3>
+    <div class="image-author">
+      <div class="avatar-container">
+        <a class="avatar-link" routerLink="/user/{{ image.userId }}">
+          <img src="{{ image.userOwnerImgLink }}" />
+        </a>
+      </div>
+      <div class="image-author-name">
+        <a routerLink="/user/{{ image.userId }}">{{ image.userOwnerName }}</a>
+      </div>
+    </div>
+  </div>
+</ng-container>

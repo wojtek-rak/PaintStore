@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="centered">
+    <ul class="menu-list">
+      <li>
+        <a
+          routerLinkActive="active"
+          routerLink="/"
+          [routerLinkActiveOptions]="{ exact: true }"
+          ><span *ngIf="loggedIn">Followed</span>
+          <span *ngIf="!loggedIn">Trending</span></a
+        >
+      </li>
+      <li *ngIf="loggedIn">
+        <a routerLinkActive="active" routerLink="/trending">Trending</a>
+      </li>
+      <li><a routerLinkActive="active" routerLink="/recent">Recent</a></li>
+    </ul>
+
+    <ng-container *ngIf="images">
+      <span *ngIf="images.length === 0 && !loading"
+        >There is no images yet.</span
+      ></ng-container
+    >
+    <div class="loading" *ngIf="loading === true">
+      <img src="../../assets/svg/loading-images.svg" />
+    </div>
+
+    <div class="image-wrapper">
+      <div *ngFor="let image of images" class="image-element">
+        <app-image-element [image]="image"></app-image-element>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ANIMATION -->
+<!--
+  <div class="animation-container completed">
+    <div class="animation-content">
+      <h1 class="title">rysujemy</h1>
+    </div>
+  </div>
+-->

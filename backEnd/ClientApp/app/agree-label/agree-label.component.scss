@@ -1,0 +1,18 @@
+.button {
+  margin: 20px 10px 0;
+  padding: 0px 20px;
+  cursor: pointer;
+  transition: 0.1s;
+}
+
+.button:nth-of-type(2) {
+  color: #3b9cf8;
+}
+
+.button:nth-of-type(2):hover {
+  color: #7ec1ff;
+}
+
+.button:nth-of-type(1):hover {
+  color: #5e5e5e;
+}

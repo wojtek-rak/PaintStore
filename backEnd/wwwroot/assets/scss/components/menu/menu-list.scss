@@ -1,0 +1,12 @@
+.menu-list {
+  padding: 50px 0;
+  display: flex;
+}
+.menu-list li {
+  margin-right: 20px;
+}
+.menu-list a.active {
+  color: $color-secondary;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}

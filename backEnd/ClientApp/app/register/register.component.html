@@ -1,0 +1,32 @@
+<p>Zarejestruj się!</p>
+<form #register="ngForm" (ngSubmit)="onRegister(register)">
+
+  <label for="login">Nazwa:</label>
+  <input type="text" id="login" name="login" ngModel>
+
+  <label for="email">E-mail</label>
+  <input type="text" id="email" name="email" ngModel>
+
+  <label for="password1">Podaj hasło</label>
+  <input type="password" id="password1" name="password1" ngModel>
+
+  <label for="password2">Powtórz hasło</label>
+  <input type="password" id="password2" name="password2" ngModel>
+
+  <!--re-captcha-->
+  <!--przekierowanie do strony z dodanie avatara, czegoś o sobie-->
+
+  <button>Zarejestruj się</button>
+</form>
+
+<p>Zaloguj się</p>
+<form #login="ngForm" (ngSubmit)="onLogin(login)">
+
+  <label for="email">E-mail</label>
+  <input type="text" id="email_login" name="email_login" ngModel>
+
+  <label for="password_login">Podaj hasło</label>
+  <input type="password" id="password_login" name="password_login" ngModel>
+
+  <button>Zaloguj się</button>
+</form>

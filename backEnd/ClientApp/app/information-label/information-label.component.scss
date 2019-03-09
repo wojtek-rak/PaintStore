@@ -1,0 +1,32 @@
+.item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 10px 0;
+}
+
+.item:last-of-type {
+  border-bottom: 0;
+}
+
+.img-wrapper {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.name {
+  margin-left: 10px;
+  flex-grow: 1;
+}
+
+img {
+  object-fit: cover;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

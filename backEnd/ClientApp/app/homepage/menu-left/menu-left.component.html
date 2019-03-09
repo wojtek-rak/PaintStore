@@ -1,0 +1,9 @@
+<div class="menu-left play" #menuLeft>
+  <div class="categories-wrapper">
+    <h3>Categories</h3>
+    <ul class="categories">
+      <li *ngFor="let category of categoryList" [ngClass]="{'selected': categories.includes(category)}" #li><h4>{{category}}</h4></li>
+    </ul>
+    <div class="close" #close><span>X Clear</span></div>
+  </div>
+</div>

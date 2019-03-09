@@ -8,9 +8,18 @@ The portal contains also an images finder. Images are searched by tags or title 
 
 ![alt text](https://raw.githubusercontent.com/wjankowska/screenshots/master/paintstore1.PNG)
 
-Creators
+Authors
 =====
 
+Front-end and Designer
+-
+
+[@Weronika Jankowska]( https://github.com/wjankowska)
+
+Back-end and Architect
+-
+
+[@Wojciech Rak]( https://github.com/wojtek-rak)
 
 Description
 =====

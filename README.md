@@ -16,7 +16,7 @@ Project was made with Angular 6 and ASP.NET Core 2.2
 Description
 =====
 Full endpoint docs: [docs-paintstore.azurewebsites.net/swagger](https://docs-paintstore.azurewebsites.net/swagger)
-
+Currently disabled
 
 
 To configure:

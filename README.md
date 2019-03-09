@@ -55,3 +55,4 @@ Add appsettings.json file with this text,
 }
 ```
 
+[![HitCount](http://hits.dwyl.io/wojtek-rak/PaintStore.svg)](http://hits.dwyl.io/wojtek-rak/PaintStore)

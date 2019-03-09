@@ -1,6 +1,6 @@
-# PaintStore_backEnd
+# PaintStore
 
-REST service supporting social media service.
+A place created for traditional artists, where they can gain feedback, inspiration and advice and meet people with similar interests
 
 |Version|Quality|Coverage|State|
 |---|---|---|---|

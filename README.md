@@ -42,23 +42,3 @@ Add appsettings.json file with this text,
 }
 ```
 
-
-Implemented Features
-------
-#### Auto Countings for:
-```
-PostLikes count
-CommentLikes count
-Post count
-Comment count
-FollowedUsers count
-FollowingUsers count
-Tags count
-```
-#### Validation for:
-```
-Post likes
-Comment likes
-Follows
-```
-

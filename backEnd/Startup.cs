@@ -137,25 +137,6 @@ namespace PaintStore.BackEnd
             app.UseCors("CorsPolicy");
             //app.UseCors("AllowAllOrigins");
             app.UseMiddleware<AuthenticationMiddleware>();
-            //app.Use(async (context, next) =>
-            //{
-            //    await next();
-
-            //    if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
-            //    {
-            //        context.Request.Path = "/index.html";
-            //        await next();
-            //    }
-            //});
-
-//app.UseSpa(spa =>
-          //  {
-             //  spa.Options.SourcePath = "dist";
-                //if (env.IsDevelopment())
-                //{
-                //    spa.UseAngularCliServer(npmScript:"start");
-                //}
-            //});
 
             app.UseMvc(routes =>
             {

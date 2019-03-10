@@ -87,8 +87,10 @@ export class MenuComponent extends LoggedIn implements OnInit {
       .subscribe(
         res => {
           LoginManager.loginUser(res);
-          // window.location.replace(this.host);
-          document.location.reload();
+
+          if (location.href.replace(/.*\/\/[^\/]*/, "") === "/homepage")
+            window.location.replace("");
+          else document.location.reload();
         },
         err => {
           this.input.nativeElement.classList.add("invalid");
@@ -107,8 +109,7 @@ export class MenuComponent extends LoggedIn implements OnInit {
       .logoutUser({ id: this.loggedId }, this._loggedId, this._loggedToken)
       .subscribe(res => {
         LoginManager.logoutUser();
-        // window.location.replace(this.loginPage);
-        document.location.reload();
+        window.location.replace("homepage");
       });
   }
 }

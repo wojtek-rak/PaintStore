@@ -2,10 +2,11 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { UserComment } from "../image/comment";
 import { FollowingData } from "../classes/following-data";
+import { GlobalVariables } from "../classes/global-variables";
 
 @Injectable()
 export class ImageService {
-  private host = "https://paintstorerest.azurewebsites.net/";
+  private host = GlobalVariables.host;
   constructor(private _http: HttpClient) {}
 
   public selectRecentImages() {
@@ -184,6 +185,13 @@ export class ImageService {
   public addAdditionalImageInfo(data, id: number, token: string) {
     let headers = this.getHeaders(id, token);
     return this._http.post(`${this.host}api/Posts/AddPost`, data, {
+      headers: headers
+    });
+  }
+
+  public editImage(data, id: number, token: string) {
+    let headers = this.getHeaders(id, token);
+    return this._http.put(`${this.host}api/Posts/EditPost`, data, {
       headers: headers
     });
   }

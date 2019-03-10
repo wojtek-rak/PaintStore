@@ -1,13 +1,30 @@
 <div class="photo-header">
   <div class="author-avatar">
     <a routerLink="#">
-      <img
-        src="http://a.abcnews.com/images/Politics/AP_president_obama_jef_160623_16x9_992.jpg"
-      />
+      <img src="{{ image.userOwnerImgLink }}" />
     </a>
   </div>
   <div class="basic-info">
-    <h3>{{ image.title }}</h3>
+    <h3>
+      <ng-container *ngIf="!titleEditing"
+        >{{ image.title
+        }}<span (click)="editTitle()" class="edit-delete-icon"
+          >E</span
+        ></ng-container
+      >
+      <ng-container *ngIf="titleEditing && image.title !== ''">
+        <form [formGroup]="titleForm" (ngSubmit)="approveTitle(titleForm)">
+          <input-text
+            [data]="{
+              label: 'Title'
+            }"
+            formControlName="title"
+          ></input-text>
+          <button type="button" (click)="discardTitle()">Discard</button>
+          <button type="submit">Submit</button>
+        </form>
+      </ng-container>
+    </h3>
     <span
       >Added {{ image.creationDate }} by
       <a class="author-link" routerLink="/user/{{ image.userId }}">{{
@@ -36,32 +53,6 @@
   <div class="hero-img"><img src="{{ image.imgLink }}" /></div>
   <div class="photo">
     <div class="photo-content">
-      <!-- <div class="photo-header">
-        <p class="content-secondary">
-          Added {{ image.creationDate }} by
-          <a class="author-link" routerLink="/user/{{image.userId}}">{{
-            image.userOwnerName
-          }}</a>
-        </p>
-        <div class="photo-title">
-          <h2>{{ image.title }}</h2>
-          <div class="likes">
-            <span (click)="showLiking()">{{ image.likeCount }} likes </span>
-            <span (click)="photoLike()" class="like" *ngIf="!image.liked"
-              >Like</span
-            >
-            <span (click)="photoUnlike()" class="like" *ngIf="image.liked"
-              >Liked!</span
-            >
-          </div>
-        </div>
-        <p class="description">{{ image.description }}</p>
-        <p class="photo-tags content-secondary">
-          <span class="tag-title">Tags: </span
-          ><span *ngFor="let tag of image.tagsList">{{ tag }} </span>
-          <span *ngIf="image.tagsList.length === 0">no tags added</span>
-        </p>
-      </div> -->
       <div class="comments-wrapper">
         <div class="all-comments">
           <div class="add-comment" *ngIf="loggedIn">
@@ -125,18 +116,18 @@
                     >(edited)</span
                   >
                   <span
-                    class="delete header-info link"
+                    class="edit-delete-icon header-info"
                     (click)="removeComment(comment.id)"
                     *ngIf="comment.userId === loggedId"
                   >
-                    delete
+                    D
                   </span>
                   <span
-                    class="edit header-info link"
+                    class="edit-delete-icon header-info"
                     (click)="editComment(comment)"
                     *ngIf="comment.userId === loggedId"
                   >
-                    edit
+                    E
                   </span>
                   <span class="likes header-info">
                     <span class="link" (click)="commentShowLiked(comment.id)">

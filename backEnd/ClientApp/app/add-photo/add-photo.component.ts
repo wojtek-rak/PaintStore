@@ -52,8 +52,7 @@ export class AddPhotoComponent extends LoggedIn implements OnInit {
       .addAdditionalImageInfo(data, this._loggedId, this._loggedToken)
       .subscribe(
         res => {
-          // console.log(res);
-          let response = <ImageRes>res;
+          let response = <ImageResponse>res;
           let id = response.id;
 
           // after image, send tags
@@ -147,21 +146,4 @@ export class AddPhotoComponent extends LoggedIn implements OnInit {
   //       .subscribe(response => console.log(response));
   //   }
   // }
-}
-
-interface ImageRes {
-  commentsCount: number;
-  creationDate: string;
-  description: string;
-  edited: boolean;
-  id: number;
-  imgLink: string;
-  likeCount: number;
-  mixedActivity: number;
-  newestActivity: number;
-  popularActivity: number;
-  title: string;
-  userId: number;
-  userOwnerName: string;
-  viewCount: number;
 }

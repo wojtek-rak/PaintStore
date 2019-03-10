@@ -1,5 +1,5 @@
 import { LocalStorageService } from "angular-web-storage";
-import { StorageData } from "./storage-data";
+import { GlobalVariables } from "./global-variables";
 
 export abstract class LoginManager {
   private static _userId: number = 0;
@@ -16,7 +16,7 @@ export abstract class LoginManager {
       this._userLoggedIn === false &&
       this._userToken === ""
     ) {
-      let data = this.local.get(StorageData.getKey());
+      let data = this.local.get(GlobalVariables.key);
       if (data === null) {
         this._userLoggedIn = false;
         this._userId = 0;
@@ -30,11 +30,11 @@ export abstract class LoginManager {
   }
 
   public static loginUser(data: any) {
-    this.local.set(StorageData.getKey(), data);
+    this.local.set(GlobalVariables.key, data);
   }
 
   public static logoutUser() {
-    this.local.remove(StorageData.getKey());
+    this.local.remove(GlobalVariables.key);
   }
 
   public static userId(): number {

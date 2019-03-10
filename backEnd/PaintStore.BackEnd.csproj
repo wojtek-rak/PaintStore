@@ -103,7 +103,7 @@
 
   <Target Name="Build Angular Release" Condition="'$(Configuration)'=='Release'" BeforeTargets="Build">
     <Message Text="* * * * * * Building Release Angular App * * * * * *" Importance="high" />
-    <Exec Command="ng build --prod --aot" />
+    <Exec Command="ng build --prod --aot" WorkingDirectory=".\backEnd\" />
   </Target>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

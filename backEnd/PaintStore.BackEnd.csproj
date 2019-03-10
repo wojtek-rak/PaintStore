@@ -53,14 +53,14 @@
   <ItemGroup>
     <Content Remove="appsettings.json" />
   </ItemGroup>
-  <!--<ItemGroup>
+  <ItemGroup>
     <None Include="appsettings.json" />
     <None Include="Views\Home\Index.cshtml" />
     <None Include="Views\Shared\Error.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <None Include="Views\_ViewImports.cshtml" />
     <None Include="Views\_ViewStart.cshtml" />
-  </ItemGroup>-->
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PaintStore..Persistence\PaintStore.Persistence.csproj" />
     <ProjectReference Include="..\PaintStore.Application\PaintStore.Application.csproj" />

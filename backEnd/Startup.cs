@@ -124,15 +124,7 @@ namespace PaintStore.BackEnd
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseSpa(spa =>
-            {
-                
-                spa.Options.SourcePath = "ClientApp";
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
-            });
+            
              
 
             activityManager.RunManager();
@@ -142,16 +134,25 @@ namespace PaintStore.BackEnd
             app.UseMiddleware<AuthenticationMiddleware>();
 
             app.UseMvc(routes =>
+        {
+            routes.MapRoute(
+                name: "default",
+                template: "api/{controller}/{action}/{id?}");
+
+            routes.MapSpaFallbackRoute(
+                name: "spa-fallback",
+                defaults: new { controller = "Home", action = "Index" });
+        });
+
+            app.UseSpa(spa =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "homepage");// "{controller=Home}/{action=Index}/{id?}");
-
-                routes.MapSpaFallbackRoute(
-                    name: "spa-fallback",
-                    defaults: new { controller = "Home", action = "Index" });
+                
+                spa.Options.SourcePath = "ClientApp";
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
             });
-
         }
 
     }

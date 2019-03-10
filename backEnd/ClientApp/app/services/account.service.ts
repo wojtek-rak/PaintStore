@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
   providedIn: "root"
 })
 export class AccountService {
-  private host = "http://localhost:5000/";
+  private host = "https://paintstorerest.azurewebsites.net/";
   constructor(private _http: HttpClient) {}
 
   public selectUserById(id: number) {

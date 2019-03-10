@@ -30,7 +30,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var usersService = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper));
+            var usersService = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
             var result = usersService.GetUser(2, 1);
             var expected2 = true;
             var expected = "Kasia";
@@ -44,7 +44,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var usersService = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper));
+            var usersService = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
             var result = usersService.GetUser(-1, 1);
             var expected2 = false;
             var expected = "Kasia";
@@ -69,13 +69,13 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper));
+            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
             var expectedAvatarImgLink = "Testowy Komentarz";
             var expectedAbout = "abouut";
             var expectedBackgroundImgLink = "bacckgf";
             var expectedName = "namee";
             var expectedLink = "linkdd";
-            var editedUser = controller.EditUser(new Users { Id = 1, AvatarImgLink = expectedAvatarImgLink,
+            var editedUser = controller.EditUser(new EditUserCommand { Id = 1, AvatarImgLink = expectedAvatarImgLink,
                 About = expectedAbout, BackgroundImgLink = expectedBackgroundImgLink, Name = expectedName, Link = expectedLink});
 
             mock.Verify(m => m.SaveChanges(), Times.Once());
@@ -92,7 +92,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper));
+            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
             var editedCom = controller.AddUser(new AddUserCommand() { Email  = "Mail", Password = "Passwd", Name = "Loxin"});
             mock.Verify(m => m.SaveChanges(), Times.Once());
             init.mockSetUsers.Verify(m => m.Add(It.IsAny<Users>()), Times.Once());
@@ -104,7 +104,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper));
+            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
             var result = controller.GetPosts(1, "the_newest");
             var expected = 4;
             Assert.AreEqual(expected, result.First().Id);
@@ -116,7 +116,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper));
+            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
             var result = controller.GetPosts(1, "most_popular");
             var expected = 5;
             Assert.AreEqual(expected, result.First().Id);
@@ -128,14 +128,13 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper));
+            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
             var expectedEmail = "Testowy Komentarz";
             var expectedHash = "hashSW@";
-            var editedUser = controller.EditUserCredentials(new Users { Id = 1, Email = expectedEmail, PasswordHash = expectedHash });
+            var editedUser = controller.EditUserCredentials(new EditUserCredentialsCommand { Id = 1, Email = expectedEmail, Password = expectedHash });
 
             mock.Verify(m => m.SaveChanges(), Times.Once());
             Assert.AreEqual(expectedEmail, editedUser.Email);
-            Assert.AreEqual(expectedHash, editedUser.PasswordHash);
         }
         [Test]
         public void RemoveUser_ValidPassword_Remove()
@@ -147,8 +146,8 @@ namespace PaintStoreBackEnd.Tests
             //var actorRemove = actorSystem.ActorOf(Props.Create(() => new RemoveAccountImagesActor()));
             //var actorSupervisor = actorSystem.ActorOf(Props.Create(() => new SupervisorActor(actorRemove)));
 
-            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper));
-            var removeAccountt = controller.RemoveUser(new Users { Id = 1, PasswordHash = "!@#sdaAWEDAFSFDSAE" });
+            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
+            var removeAccountt = controller.RemoveUser(new RemoveUserCommand { Id = 1 });
 
             //mock.Verify(m => m.SaveChanges(), Times.Once());
             Thread.Sleep(100);
@@ -167,9 +166,9 @@ namespace PaintStoreBackEnd.Tests
             //var actorRemove = actorSystem.ActorOf(Props.Create(() => new RemoveAccountImagesActor()));
             //var actorSupervisor = actorSystem.ActorOf(Props.Create(() => new SupervisorActor(actorRemove)));
 
-            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper));
+            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
             //var controller = new AccountRemoveController(mock.Object);
-            var removeAccountt = controller.RemoveUser(new Users { Id = 1, PasswordHash = "!@#sawdasd" });
+            var removeAccountt = controller.RemoveUser(new RemoveUserCommand { Id = 1});
             var expectedMsg = "Password incorrect";
             Assert.AreEqual(expectedMsg, removeAccountt.PasswordHash);
         }
@@ -184,12 +183,12 @@ namespace PaintStoreBackEnd.Tests
             //var actorRemove = actorSystem.ActorOf(Props.Create(() => new RemoveAccountImagesActor()));
             //var actorSupervisor = actorSystem.ActorOf(Props.Create(() => new SupervisorActor(actorRemove)));
 
-            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper));
+            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
             //var controller = new AccountRemoveController(mock.Object);
 
             var timespan = 10; // can be 0 for result
 
-            Assert.That(Time(() => controller.RemoveUser(new Users { Id = 1, PasswordHash = "!@#sdaAWEDAFSFDSAE" })), Is.LessThanOrEqualTo(TimeSpan.FromSeconds(timespan)));
+            Assert.That(Time(() => controller.RemoveUser(new RemoveUserCommand { Id = 1})), Is.LessThanOrEqualTo(TimeSpan.FromSeconds(timespan)));
 
             //mock.Verify(m => m.SaveChanges(), Times.Once());
             init.mockSetUsers.Verify(m => m.Remove(It.IsAny<Users>()), Times.Once());

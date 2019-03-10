@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import { GlobalVariables } from "../classes/global-variables";
 
 @Injectable()
 export class UserService {
-  private host = "https://localhost:5000/";
+  private host = GlobalVariables.host;
   constructor(private _http: HttpClient) {}
 
   public selectUserById(id: number) {

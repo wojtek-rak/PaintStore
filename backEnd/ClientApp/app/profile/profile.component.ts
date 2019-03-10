@@ -11,7 +11,7 @@ import { LoggedIn } from "../classes/logged-in";
   styleUrls: ["./profile.component.scss"]
 })
 export class ProfileComponent extends LoggedIn implements OnInit {
-    @ViewChild("label") label : any;
+  @ViewChild("label") label: any;
   private user: User = {
     about: "",
     accountId: 0,

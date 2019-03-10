@@ -3,11 +3,12 @@ import { ImageService } from "../services/image.service";
 import { ActivatedRoute } from "@angular/router";
 // import {isComponentView} from "@angular/core/ClientApp/view/util";
 import { UserComment } from "./comment";
-import { NgForm } from "@angular/forms";
+import { NgForm, FormGroup, Validators, FormBuilder } from "@angular/forms";
 import { AgreeLabelComponent } from "../agree-label/agree-label.component";
 import { ShortUserInfo } from "../classes/short-user-info";
 import { LoggedIn } from "../classes/logged-in";
 import { LoginManager } from "../classes/login-manager";
+import { requiredTextValidator } from "../validators/text-validator";
 
 @Component({
   selector: "app-image",
@@ -15,10 +16,10 @@ import { LoginManager } from "../classes/login-manager";
   styleUrls: ["./image.component.scss"]
 })
 export class ImageComponent extends LoggedIn implements OnInit {
-  @ViewChild("msg") Message : any;
-  @ViewChild("msgDelete") msgDelete : any;
-  @ViewChild("confirmLabel") confirmLabel :any;
-  @ViewChild("label") label : any;
+  @ViewChild("msg") Message: any;
+  @ViewChild("msgDelete") msgDelete: any;
+  @ViewChild("confirmLabel") confirmLabel: any;
+  @ViewChild("label") label: any;
   private _image: ImageExact = {
     commentsCount: 0,
     creationDate: "",
@@ -34,20 +35,38 @@ export class ImageComponent extends LoggedIn implements OnInit {
     liked: false
   };
 
+  private _titleEditing: boolean = false;
+  private _descriptionEditing: boolean = false;
+  private _tagsEditing: boolean = false;
+
   private _comments: Comment[] = [];
   private formValid = true;
   private _loading = false;
   private commentIdToRemove = 0; // TODO sprawdz czy sie nie wyjebalo
+  private titleForm: FormGroup;
+  private descriptionForm: FormGroup;
+  private tagsForm: FormGroup;
 
-  constructor(private service: ImageService, private route: ActivatedRoute) {
+  constructor(
+    private service: ImageService,
+    private route: ActivatedRoute,
+    private fb: FormBuilder
+  ) {
     super();
+  }
+
+  initializeForms() {
+    this.titleForm = this.fb.group({
+      title: [this._image.title, [Validators.required, requiredTextValidator]]
+    });
   }
 
   ngOnInit() {
     super.ngOnInit();
-    console.log(this.loggedIn, LoginManager.userLoggedIn());
+    console.log(this._loggedId);
     this.getCommentsData();
     this.getImageData();
+    // EditImage.requestDescriptionChange();
   }
 
   getImageData() {
@@ -55,7 +74,8 @@ export class ImageComponent extends LoggedIn implements OnInit {
       .ImageByPath(this._loggedId.toString(), this.route.snapshot.params.id)
       .subscribe(res => {
         this._image = <ImageExact>res;
-        // console.log(res);
+        console.log(res);
+        this.initializeForms();
       });
   }
 
@@ -110,11 +130,10 @@ export class ImageComponent extends LoggedIn implements OnInit {
     }
   }
 
-    confirm() {
-
+  confirm() {
     this.service
       .removeComment(this.commentIdToRemove, this._loggedId, this._loggedToken)
-      .subscribe((res : any) => {
+      .subscribe((res: any) => {
         this.getCommentsData();
         this.Message.show("Comment deleted succesfully.");
       });
@@ -173,7 +192,7 @@ export class ImageComponent extends LoggedIn implements OnInit {
       });
   }
 
-  commentLike(comment : any) {
+  commentLike(comment: any) {
     comment.liked = true;
     comment.likeCount += 1;
     this.service
@@ -190,7 +209,7 @@ export class ImageComponent extends LoggedIn implements OnInit {
       });
   }
 
-  commentUnlike(comment : any) {
+  commentUnlike(comment: any) {
     comment.liked = false;
     comment.likeCount -= 1;
     this.service
@@ -205,7 +224,7 @@ export class ImageComponent extends LoggedIn implements OnInit {
     this.confirmLabel.show();
   }
 
-  editComment(comment : any) {
+  editComment(comment: any) {
     comment.isEditing = true;
   }
 
@@ -230,9 +249,61 @@ export class ImageComponent extends LoggedIn implements OnInit {
     }
   }
 
-  discard(comment : any) {
+  discard(comment: any) {
     comment.isEditing = false;
     comment.editValid = true;
+  }
+
+  editTitle() {
+    this._titleEditing = true;
+  }
+
+  discardTitle() {
+    this._titleEditing = false;
+  }
+
+  approveTitle(form: NgForm) {
+    this.service
+      .editImage(
+        {
+          id: this._image.id,
+          title: form.value.title,
+          description: this.image.description
+        },
+        this._loggedId,
+        this._loggedToken
+      )
+      .subscribe(res => {
+        this._titleEditing = false;
+        this.Message.show("Title edited successfully.");
+        this._image.title = form.value.title;
+      });
+  }
+
+  editDescription() {
+    this._descriptionEditing = true;
+  }
+
+  discardDescription() {
+    this._descriptionEditing = false;
+  }
+
+  approveDescription() {
+    this._descriptionEditing = false;
+    // send request
+  }
+
+  editTags() {
+    this._tagsEditing = true;
+  }
+
+  discardTags() {
+    this._tagsEditing = false;
+  }
+
+  approveTags() {
+    this._tagsEditing = false;
+    // send request
   }
 
   get image(): ImageExact {
@@ -245,6 +316,18 @@ export class ImageComponent extends LoggedIn implements OnInit {
 
   get loading(): boolean {
     return this._loading;
+  }
+
+  get titleEditing(): boolean {
+    return this._titleEditing;
+  }
+
+  get descriptionEditing(): boolean {
+    return this._descriptionEditing;
+  }
+
+  get tagsEditing(): boolean {
+    return this._tagsEditing;
   }
 }
 

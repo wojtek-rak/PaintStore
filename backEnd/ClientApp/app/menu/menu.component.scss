@@ -10,6 +10,18 @@ menu {
   transition-duration: 0.3s;
 }
 
+.information {
+  padding: 5px 10px;
+  font-size: 13px;
+  background: #c2c2c2;
+  color: #555555;
+  text-align: center;
+}
+
+.scrollmagic-toggle {
+  padding-bottom: 26px; // to do: remove when not in production
+}
+
 menu.static {
   position: relative;
   box-shadow: none;

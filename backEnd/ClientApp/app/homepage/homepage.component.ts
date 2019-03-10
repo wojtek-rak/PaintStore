@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { ImageService } from "../services/image.service";
 import * as $ from "jquery";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -11,7 +11,7 @@ import { LoggedIn } from "../classes/logged-in";
 })
 export class HomepageComponent extends LoggedIn implements OnInit {
   private _images: Image[] = [];
-  loading: boolean = false;
+  @ViewChild("imagesComponent") imgComp;
 
   constructor(
     private imgService: ImageService,
@@ -41,28 +41,42 @@ export class HomepageComponent extends LoggedIn implements OnInit {
   }
 
   recentImages() {
-    this.loading = true;
-    this.imgService.selectRecentImages().subscribe(res => {
-      this.loading = false;
-      this._images = <Image[]>res;
-    });
+    this.imgComp.showLoadingMsg();
+    this.imgService.selectRecentImages().subscribe(
+      res => {
+        this.imgComp.hideLoadingMsg();
+        this._images = <Image[]>res;
+      },
+      err => {
+        this.imgComp.showErrorMsg();
+      }
+    );
   }
 
   popularImages() {
-    this.loading = true;
-    this.imgService.selectPopularImages().subscribe(res => {
-      this.loading = false;
-      this._images = <Image[]>res;
-      console.log(this._images);
-    });
+    this.imgComp.showLoadingMsg();
+    this.imgService.selectPopularImages().subscribe(
+      res => {
+        this.imgComp.hideLoadingMsg();
+        this._images = <Image[]>res;
+      },
+      err => {
+        this.imgComp.showErrorMsg();
+      }
+    );
   }
 
   followedImages() {
-    this.loading = true;
-    this.imgService.selectFollowedImages(this._loggedId).subscribe(res => {
-      this.loading = false;
-      this._images = <Image[]>res;
-    });
+    this.imgComp.showLoadingMsg();
+    this.imgService.selectFollowedImages(this._loggedId).subscribe(
+      res => {
+        this.imgComp.hideLoadingMsg();
+        this._images = <Image[]>res;
+      },
+      err => {
+        this.imgComp.showErrorMsg();
+      }
+    );
   }
 
   get images(): Array<Image> {

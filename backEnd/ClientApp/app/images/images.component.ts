@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { ImageService } from "../services/image.service";
 
@@ -8,13 +8,12 @@ import { ImageService } from "../services/image.service";
   styleUrls: ["./images.component.scss"]
 })
 export class ImagesComponent implements OnInit {
+  @ViewChild("imagesComponent") imgComp;
   private selectedRoutes = {
     recent: "recent",
     trending: ""
     // followed: "followed"
   };
-
-  loading: boolean = false;
 
   private _images: Image[] = [];
   // private id = this.route.parent.snapshot.paramMap.get("id");
@@ -29,24 +28,35 @@ export class ImagesComponent implements OnInit {
     this.getData();
   }
 
-    getData() {
+  getData() {
+    if (this.route.snapshot.routeConfig === null) return;
+    if (this.route.parent === null) return;
 
-        if (this.route.snapshot.routeConfig === null) return;
-        if (this.route.parent === null) return;
-        let path = this.route.snapshot.routeConfig.path;
-        let id = this.route.parent.snapshot.paramMap.get("id");
-        if (id === null) return;
-    this.loading = true;
+    let path = this.route.snapshot.routeConfig.path;
+    let id = this.route.parent.snapshot.paramMap.get("id");
+
+    if (id === null) return;
+    this.imgComp.showLoadingMsg();
     if (path === this.selectedRoutes.recent) {
-      this.imageService.selectUserTrendingImages(id).subscribe(res => {
-        this._images = <Image[]>res;
-        this.loading = false;
-      });
+      this.imageService.selectUserTrendingImages(id).subscribe(
+        res => {
+          this._images = <Image[]>res;
+          this.imgComp.hideLoadingMsg();
+        },
+        err => {
+          this.imgComp.showErrorMsg();
+        }
+      );
     } else {
-      this.imageService.selectUserRecentImages(id).subscribe(res => {
-        this._images = <Image[]>res;
-        this.loading = false;
-      });
+      this.imageService.selectUserRecentImages(id).subscribe(
+        res => {
+          this._images = <Image[]>res;
+          this.imgComp.hideLoadingMsg();
+        },
+        err => {
+          this.imgComp.showErrorMsg();
+        }
+      );
     }
   }
 

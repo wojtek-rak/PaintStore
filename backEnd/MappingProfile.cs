@@ -12,6 +12,7 @@ namespace PaintStore.BackEnd
         public MappingProfile()
         {
             CreateMap<AddPostCommentCommand, PostComments>();
+            CreateMap<AddUserFollowersCommand, UserFollowers>();
         }  
     }  
 }

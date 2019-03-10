@@ -2,6 +2,7 @@
 using PaintStore.Application.Interfaces;
 using PaintStore.Domain.Entities;
 using PaintStore.Domain.Exceptions;
+using PaintStore.Domain.InputModels;
 
 namespace PaintStore.BackEnd.Controllers
 {
@@ -34,7 +35,7 @@ namespace PaintStore.BackEnd.Controllers
         /// <param name="follow"></param>
         /// <response code="409">If there is already such an object in the database, or when followedId == followingId</response>         
         [HttpPost("AddFollower")]
-        public IActionResult AddFollower([FromBody] UserFollowers follow)
+        public IActionResult AddFollower([FromBody] AddUserFollowersCommand follow)
         {
             try
             {

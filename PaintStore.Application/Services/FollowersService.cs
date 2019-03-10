@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using PaintStore.Application.Interfaces;
 using PaintStore.Application.Managers;
 using PaintStore.Domain.Entities;
 using PaintStore.Domain.Exceptions;
+using PaintStore.Domain.InputModels;
 using PaintStore.Domain.ResultsModels;
 using PaintStore.Persistence;
 
@@ -11,16 +13,19 @@ namespace PaintStore.Application.Services
 {
     public class FollowersService : IFollowersService
     {
-        private readonly PaintStoreContext paintStoreContext;
-        public FollowersService(PaintStoreContext ctx)
+        private readonly PaintStoreContext _paintStoreContext;
+        private readonly IMapper _mapper;  
+
+        public FollowersService(PaintStoreContext ctx, IMapper mapper)
         {
-            paintStoreContext = ctx;
+            _paintStoreContext = ctx;
+            _mapper = mapper; 
         }
 
         public List<LikesResult> GetFollowedUser(int loggedUserId, int userId)
         {
             var followsList = new List<LikesResult>();
-            using (var db = paintStoreContext)
+            using (var db = _paintStoreContext)
             {
                 var follows = db.UserFollowers.Where(b => b.FollowedUserId == userId)
                     .OrderByDescending(following => db.Users.First(userF => userF.Id == following.FollowingUserId).FollowedCount);
@@ -36,7 +41,7 @@ namespace PaintStore.Application.Services
 
         public List<LikesResult> GetFollowingUser(int loggedUserId, int userId)
         {
-            using (var db = paintStoreContext)
+            using (var db = _paintStoreContext)
             {
                 var followsList = new List<LikesResult>();
                 var follows = db.UserFollowers.Where(b => b.FollowingUserId == userId)
@@ -51,9 +56,9 @@ namespace PaintStore.Application.Services
             }
         }
 
-        public UserFollowers AddFollower(UserFollowers follow)
+        public UserFollowers AddFollower(AddUserFollowersCommand follow)
         {
-            using (var db = paintStoreContext)
+            using (var db = _paintStoreContext)
             {
                 if ((db.UserFollowers.Any(x =>
                     x.FollowedUserId == follow.FollowedUserId && x.FollowingUserId == follow.FollowingUserId))
@@ -63,15 +68,16 @@ namespace PaintStore.Application.Services
                 }
                 FollowersManager.UserFollowedCountPlus(db, follow.FollowedUserId);
                 FollowersManager.UserFollowingCountPlus(db, follow.FollowingUserId);
-                db.UserFollowers.Add(follow);
+                var followToAdd = _mapper.Map<UserFollowers>(follow);
+                db.UserFollowers.Add(followToAdd);
                 db.SaveChanges();
+                return followToAdd;
             }
-            return follow;
         }
 
         public int FollowRemove(int userIdFollowing, int userIdFollowed)
         {
-            using (var db = paintStoreContext)
+            using (var db = _paintStoreContext)
             {
                 var followId = db.UserFollowers
                     .First(x => x.FollowingUserId == userIdFollowing && x.FollowedUserId == userIdFollowed).Id;

@@ -1,22 +1,34 @@
 ﻿using System.Linq;
+using AutoMapper;
 using Moq;
 using NUnit.Framework;
 using PaintStore.Application.Services;
+using PaintStore.BackEnd;
 using PaintStore.Domain.Entities;
 using PaintStore.Domain.Exceptions;
+using PaintStore.Domain.InputModels;
 
 namespace PaintStoreBackEnd.Tests
 {
     [TestFixture]
     public class FollowersServiceTests
     {
+        private IMapper mapper;
+        [SetUp]
+        public void Startup()
+        {
+            var config = new MapperConfiguration(cfg => { 
+                cfg.AddProfile<MappingProfile>();
+            });
+            mapper = config.CreateMapper();
+        }
         [Test]
         public void GetFollowingUser_ValidUserId_ReturnFollows()
         {
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var followersService = new FollowersService(mock.Object);
+            var followersService = new FollowersService(mock.Object, mapper);
             var result = followersService.GetFollowingUser(1, 2);
             var expected = 2;
             var expected2 = "Kasia";
@@ -32,7 +44,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var followersService = new FollowersService(mock.Object);
+            var followersService = new FollowersService(mock.Object, mapper);
             var result = followersService.GetFollowingUser(-1, 2);
             var expected = 2;
             var expected2 = "Kasia";
@@ -47,7 +59,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new FollowersService(mock.Object);
+            var controller = new FollowersService(mock.Object, mapper);
             var result = controller.GetFollowedUser(2, 1);
             var expected = 2;
             var expected3 = true;
@@ -63,7 +75,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new FollowersService(mock.Object);
+            var controller = new FollowersService(mock.Object, mapper);
             var result = controller.GetFollowedUser(-1, 1);
             var expected = 2;
             var expected3 = false;
@@ -79,7 +91,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new FollowersService(mock.Object);
+            var controller = new FollowersService(mock.Object, mapper);
             var editedCom = controller.FollowRemove(2, 1);
             mock.Verify(m => m.SaveChanges(), Times.Once());
             init.mockSetUserFollowers.Verify(m => m.Remove(It.IsAny<UserFollowers>()), Times.Once());
@@ -100,7 +112,7 @@ namespace PaintStoreBackEnd.Tests
                 Where(x => x.Id == mock.Object.UserFollowers.
                                Where(y => y.Id == followID).First().FollowingUserId).First().FollowingCount;
 
-            var controller = new FollowersService(mock.Object);
+            var controller = new FollowersService(mock.Object, mapper);
             var editedCom = controller.FollowRemove(2, 1);
 
             mock.Verify(m => m.SaveChanges(), Times.Once());
@@ -119,8 +131,8 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new FollowersService(mock.Object);
-            controller.AddFollower(new UserFollowers { FollowedUserId = 2, FollowingUserId = 1 });
+            var controller = new FollowersService(mock.Object, mapper);
+            controller.AddFollower(new AddUserFollowersCommand { FollowedUserId = 2, FollowingUserId = 1 });
             init.mockSetUserFollowers.Verify(m => m.Add(It.IsAny<UserFollowers>()), Times.Once());
             mock.Verify(m => m.SaveChanges(), Times.Once());
         }
@@ -130,10 +142,10 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new FollowersService(mock.Object);
+            var controller = new FollowersService(mock.Object, mapper);
             ;
             Assert.Throws<NegotiatedContentResultException>(() => 
-                controller.AddFollower(new UserFollowers { FollowedUserId = 2, FollowingUserId = 2 })
+                controller.AddFollower(new AddUserFollowersCommand { FollowedUserId = 2, FollowingUserId = 2 })
                 );
         }
         [Test]
@@ -142,10 +154,10 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new FollowersService(mock.Object);
+            var controller = new FollowersService(mock.Object, mapper);
             ;
             Assert.Throws<NegotiatedContentResultException>(() => 
-                controller.AddFollower(new UserFollowers { FollowedUserId = 1, FollowingUserId = 2 })
+                controller.AddFollower(new AddUserFollowersCommand { FollowedUserId = 1, FollowingUserId = 2 })
             );
         }
 
@@ -156,8 +168,8 @@ namespace PaintStoreBackEnd.Tests
             var mock = init.mock;
             var expectedFollowedCountInt = mock.Object.Users.Where(x => x.Id == 2).First().FollowedCount;
             var expectedFollowingCountnewInt = mock.Object.Users.Where(x => x.Id == 1).First().FollowingCount;
-            var controller = new FollowersService(mock.Object);
-            controller.AddFollower(new UserFollowers { FollowedUserId = 2, FollowingUserId = 1 });
+            var controller = new FollowersService(mock.Object, mapper);
+            controller.AddFollower(new AddUserFollowersCommand { FollowedUserId = 2, FollowingUserId = 1 });
 
             mock.Verify(m => m.SaveChanges(), Times.Once());
 

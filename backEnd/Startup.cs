@@ -58,7 +58,7 @@ namespace PaintStore.BackEnd
             //    });
             //});
 
-            services.AddSpaStaticFiles(c => { c.RootPath = "dist";});
+            services.AddSpaStaticFiles(c => { c.RootPath = "wwwroot";});
 
             services.AddAutoMapper();
             
@@ -116,6 +116,7 @@ namespace PaintStore.BackEnd
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UseSwagger();
+            app.UseDeveloperExceptionPage();
             app.UseSwaggerUI(c =>
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "my API V1"));
             if (env.IsDevelopment())

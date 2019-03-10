@@ -10,8 +10,8 @@ namespace PaintStore.Application.Interfaces
         UsersResult GetUser(int loggedUserId, int userId);
         List<PostsResults> GetPosts(int userId, string message);
         Users AddUser(AddUserCommand user);
-        Users EditUser(Users user);
-        Users EditUserCredentials(Users account);
-        Users RemoveUser(Users account);
+        Users EditUser(EditUserCommand user);
+        Users EditUserCredentials(EditUserCredentialsCommand account);
+        Users RemoveUser(RemoveUserCommand account);
     }
 }

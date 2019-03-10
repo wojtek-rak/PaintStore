@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using PaintStore.Domain.Entities;
+using PaintStore.Domain.InputModels;
 using PaintStore.Domain.ResultsModels;
 
 namespace PaintStore.Application.Interfaces
@@ -8,7 +9,7 @@ namespace PaintStore.Application.Interfaces
     {
         List<LikesResult> GetFollowedUser(int loggedUserId, int userId);
         List<LikesResult> GetFollowingUser(int loggedUserId, int userId);
-        UserFollowers AddFollower(UserFollowers follow);
+        UserFollowers AddFollower(AddUserFollowersCommand follow);
         int FollowRemove(int userIdFollowing, int userIdFollowed);
 
 

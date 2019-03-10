@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using PaintStore.Application.Interfaces;
 using PaintStore.Application.Managers;
 using PaintStore.Domain.Entities;
+using PaintStore.Domain.InputModels;
 using PaintStore.Domain.Interfaces;
 using PaintStore.Domain.ResultsModels;
 using PaintStore.Persistence;
@@ -13,10 +15,12 @@ namespace PaintStore.Application.Services
     public class PostService : IPostsService
     {
         private readonly PaintStoreContext _paintStoreContext;
+        private readonly IMapper _mapper;  
 
-        public PostService(PaintStoreContext ctx)
+        public PostService(PaintStoreContext ctx, IMapper mapper)
         {
             _paintStoreContext = ctx;
+            _mapper = mapper; 
         }
         public PostDetailsResult GetPost(int userId, int postId)
         {
@@ -108,19 +112,21 @@ namespace PaintStore.Application.Services
             return imagesResult;
         }
 
-        public Posts AddImage(Posts post)
+        public Posts AddImage(AddPostCommand post)
         {
             using(var db = _paintStoreContext)
             {
                 UsersManager.UserPostsCountPlus(db, post.UserId);
-                post.CreationDate = DateTime.Now;
-                db.Posts.Add(post);
+                var postToAdd = _mapper.Map<Posts>(post);
+                postToAdd.CreationDate = DateTime.Now;
+                postToAdd.UserOwnerName = db.Users.First(x => x.Id == post.UserId).Name;
+                db.Posts.Add(postToAdd);
                 db.SaveChanges();
+                return postToAdd;
             }
-            return post;
         }
 
-        public Posts EditPost(Posts post)
+        public Posts EditPost(EditPostCommand post)
         {
             using (var db = _paintStoreContext)
             {

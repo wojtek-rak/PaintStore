@@ -1,15 +1,27 @@
 ﻿using System;
 using System.Linq;
+using AutoMapper;
 using Moq;
 using NUnit.Framework;
 using PaintStore.Application.Services;
+using PaintStore.BackEnd;
 using PaintStore.Domain.Entities;
+using PaintStore.Domain.InputModels;
 
 namespace PaintStoreBackEnd.Tests
 {
     [TestFixture]
     public class PostCommentsServiceTests
     {
+        private IMapper mapper;
+        [SetUp]
+        public void Startup()
+        {
+            var config = new MapperConfiguration(cfg => { 
+                cfg.AddProfile<MappingProfile>();
+            });
+            mapper = config.CreateMapper();
+        }
         [Test]
         public void GetComments_ValidPostId_CheckNumber()
         {
@@ -17,7 +29,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new PostCommentsService(mock.Object);
+            var controller = new PostCommentsService(mock.Object, mapper);
             var result = controller.GetComments(1 ,3).Count();
             var expected = 2;
             Assert.AreEqual(expected, result);
@@ -28,7 +40,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
             
-            var controller = new PostCommentsService(mock.Object);
+            var controller = new PostCommentsService(mock.Object, mapper);
             var result = controller.GetComments(1, 3).First();
             var expected = 1;
             var expected2 = "Zosia";
@@ -41,7 +53,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new PostCommentsService(mock.Object);
+            var controller = new PostCommentsService(mock.Object, mapper);
             var result = controller.GetComments(2, 2).First();
             var expected = true;
             Assert.AreEqual(expected, result.Liked);
@@ -53,7 +65,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new PostCommentsService(mock.Object);
+            var controller = new PostCommentsService(mock.Object, mapper);
             var result = controller.GetComments(-1, 2).First();
             var expected = false;
             Assert.AreEqual(expected, result.Liked);
@@ -65,7 +77,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new PostCommentsService(mock.Object);
+            var controller = new PostCommentsService(mock.Object, mapper);
             var result = controller.GetComments(1, 2).First();
             var expected = false;
             Assert.AreEqual(expected, result.Liked);
@@ -77,7 +89,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new PostCommentsService(mock.Object);
+            var controller = new PostCommentsService(mock.Object, mapper);
             var editedCom = controller.CommentRemove(1);
             mock.Verify(m => m.SaveChanges(), Times.Once());
             init.mockSetComments.Verify(m => m.Remove(It.IsAny<PostComments>()), Times.Once());
@@ -92,7 +104,7 @@ namespace PaintStoreBackEnd.Tests
             var imageId = 2;
             var expectedCommentCountInt = mock.Object.Posts.Where(x => x.Id == imageId).First().CommentsCount;
 
-            var controller = new PostCommentsService(mock.Object);
+            var controller = new PostCommentsService(mock.Object, mapper);
             controller.CommentRemove(1);
             mock.Verify(m => m.SaveChanges(), Times.Once());
 
@@ -105,9 +117,9 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new PostCommentsService(mock.Object);
+            var controller = new PostCommentsService(mock.Object, mapper);
             var expectedString = "Testowy Komentarz";
-            var editedCom = controller.EditComment(new PostComments { Id = 1, Content = expectedString });
+            var editedCom = controller.EditComment(new EditPostCommentCommand { Id = 1, Content = expectedString });
             mock.Verify(m => m.SaveChanges(), Times.Once());
             Assert.AreEqual(expectedString, editedCom.Content);
         }
@@ -118,8 +130,8 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new PostCommentsService(mock.Object);
-            controller.AddComment(new PostComments { CreationDate = DateTime.Now, Content = "Testowy Komentarz", PostId = 1, UserId = 1 });
+            var controller = new PostCommentsService(mock.Object, mapper);
+            controller.AddComment(new AddPostCommentCommand {  Content = "Testowy Komentarz", PostId = 1, UserId = 1 });
             init.mockSetComments.Verify(m => m.Add(It.IsAny<PostComments>()), Times.Once());
             mock.Verify(m => m.SaveChanges(), Times.Once());
         }
@@ -132,8 +144,8 @@ namespace PaintStoreBackEnd.Tests
             var imageId = 1;
             var expectedCommentCountInt = mock.Object.Posts.Where(x => x.Id == imageId).First().CommentsCount;
 
-            var controller = new PostCommentsService(mock.Object);
-            controller.AddComment(new PostComments { UserId = 2, PostId = imageId });
+            var controller = new PostCommentsService(mock.Object, mapper);
+            controller.AddComment(new AddPostCommentCommand { UserId = 2, PostId = imageId });
             mock.Verify(m => m.SaveChanges(), Times.Once());
 
             Assert.AreEqual(expectedCommentCountInt + 1, mock.Object.Posts.Where(x => x.Id == imageId).First().CommentsCount);
@@ -144,9 +156,9 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var postCommentsService = new PostCommentsService(mock.Object);
+            var postCommentsService = new PostCommentsService(mock.Object, mapper);
             var expectedBool = mock.Object.PostComments.First(x => x.Id == 1).Edited;
-            var editedPost = postCommentsService.EditComment(new PostComments { Id = 1});
+            var editedPost = postCommentsService.EditComment(new EditPostCommentCommand { Id = 1});
             mock.Verify(m => m.SaveChanges(), Times.Once());
             Assert.AreEqual(expectedBool, null);
             Assert.AreEqual(true, editedPost.Edited);

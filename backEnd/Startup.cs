@@ -136,7 +136,7 @@ namespace PaintStore.BackEnd
             activityManager.RunManager();
 
             app.UseCors("CorsPolicy");
-            //app.UseCors("AllowAllOrigins");
+
             app.UseMiddleware<AuthenticationMiddleware>();
 
             app.UseMvc(routes =>

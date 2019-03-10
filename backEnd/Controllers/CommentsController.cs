@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PaintStore.Application.Interfaces;
 using PaintStore.Domain.Entities;
+using PaintStore.Domain.InputModels;
 
 namespace PaintStore.BackEnd.Controllers
 {
@@ -22,13 +23,13 @@ namespace PaintStore.BackEnd.Controllers
         }
 
         [HttpPost("AddPostComment")]
-        public IActionResult AddComment([FromBody] PostComments comment)
+        public IActionResult AddComment([FromBody] AddPostCommentCommand comment)
         {
             return Ok(_postCommentsService.AddComment(comment));
         }
 
         [HttpPut("EditPostComment")]
-        public IActionResult EditComment([FromBody] PostComments comment)
+        public IActionResult EditComment([FromBody] EditPostCommentCommand comment)
         {
             return Ok(_postCommentsService.EditComment(comment));
         }

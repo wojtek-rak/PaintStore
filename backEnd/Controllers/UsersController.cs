@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using PaintStore.Application.Interfaces;
 using PaintStore.Domain.Entities;
 using PaintStore.Domain.InputModels;
@@ -43,21 +44,33 @@ namespace PaintStore.BackEnd.Controllers
         }
 
         [HttpPut("EditUser")]
-        public IActionResult EditUser([FromBody] Users user)
+        public IActionResult EditUser([FromBody] EditUserCommand user)
         {
             return Ok(_usersService.EditUser(user));
         }
 
         [HttpPut("EditUserCredentials")]
-        public IActionResult EditUserCredentials([FromBody] Users user)
+        public IActionResult EditUserCredentials([FromBody] EditUserCredentialsCommand user)
         {
             return Ok(_usersService.EditUserCredentials(user));
         }
 
         [HttpDelete("DeleteUser")]
-        public IActionResult RemoveUser([FromBody] Users user)
+        public IActionResult RemoveUser([FromBody] RemoveUserCommand user)
         {
-            return Ok(_usersService.RemoveUser(user));
+            try
+            {
+                var userRemoved = _usersService.RemoveUser(user);
+                return Ok(userRemoved);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return StatusCode(401);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
     }

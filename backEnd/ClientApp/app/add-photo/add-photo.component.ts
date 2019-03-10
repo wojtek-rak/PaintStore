@@ -43,29 +43,80 @@ export class AddPhotoComponent extends LoggedIn implements OnInit {
     super.ngOnInit();
   }
 
+  showErrorMsg() {
+    this._uploadWarning = "There was an error, please try again.";
+  }
+
+  private sendMoreInfo(data, tags) {
+    this.service
+      .addAdditionalImageInfo(data, this._loggedId, this._loggedToken)
+      .subscribe(
+        res => {
+          // console.log(res);
+          let response = <ImageRes>res;
+          let id = response.id;
+
+          // after image, send tags
+          this.service
+            .addTagsToImage(
+              {
+                tagsList: ["string"],
+                postId: 4
+              },
+              this._loggedId,
+              this._loggedToken
+            )
+            .subscribe(
+              res => {
+                this.Message.show("File uploaded successfully!");
+              },
+              err => {
+                this.showErrorMsg();
+              }
+            );
+        },
+        err => {
+          this.showErrorMsg();
+        }
+      );
+  }
+
   public onUpload(form: NgForm) {
     if (form.status === "INVALID") {
       this._uploadWarning = "Title and file must be added.";
     } else {
-      let newTags: any[] = [];
+      let newTags = [];
       let tags = form.value.tags;
 
       if (tags !== [] && tags !== "") {
         // console.log(tags);
-        tags.forEach((el: any) => {
+        tags.forEach(el => {
           newTags.push(el.value);
         });
       }
       form.value.tags = newTags;
       // console.log(form.value);
-      this.service.uploadImage(
-        form.value.file,
-        this._loggedId,
-        this._loggedToken
-      );
-      // .subscribe(res => {
-      //   console.log(res)
-      // });
+      let linkToImg = "";
+      this.service
+        .uploadImage(form.value.file, this._loggedId, this._loggedToken)
+        .subscribe(
+          res => {
+            linkToImg = res[0].url;
+            this.sendMoreInfo(
+              {
+                userId: this._loggedId,
+                title: form.value.title,
+                description: form.value.description,
+                imgLink: linkToImg,
+                userOwnerName: ""
+              },
+              tags
+            );
+          },
+          err => {
+            this.showErrorMsg();
+          }
+        );
       this._uploadWarning = "";
     }
   }
@@ -96,4 +147,21 @@ export class AddPhotoComponent extends LoggedIn implements OnInit {
   //       .subscribe(response => console.log(response));
   //   }
   // }
+}
+
+interface ImageRes {
+  commentsCount: number;
+  creationDate: string;
+  description: string;
+  edited: boolean;
+  id: number;
+  imgLink: string;
+  likeCount: number;
+  mixedActivity: number;
+  newestActivity: number;
+  popularActivity: number;
+  title: string;
+  userId: number;
+  userOwnerName: string;
+  viewCount: number;
 }

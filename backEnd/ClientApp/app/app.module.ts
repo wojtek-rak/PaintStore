@@ -44,6 +44,7 @@ import { InputPasswordComponent } from "./forms/input-password/input-password.co
 import { InputOptionComponent } from "./forms/input-option/input-option.component";
 import { ImageElementComponent } from "./image-element/image-element.component";
 import { TagsComponent } from "./tags/tags.component";
+import { ImagesCommonComponent } from './images-common/images-common.component';
 
 const appRoutes: Routes = [
   {
@@ -154,7 +155,8 @@ const appRoutes: Routes = [
     InputPasswordComponent,
     InputOptionComponent,
     ImageElementComponent,
-    TagsComponent
+    TagsComponent,
+    ImagesCommonComponent
     // InputEmailComponent
   ],
   imports: [

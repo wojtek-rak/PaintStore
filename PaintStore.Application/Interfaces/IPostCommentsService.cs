@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using PaintStore.Domain.Entities;
+using PaintStore.Domain.InputModels;
 using PaintStore.Domain.ResultsModels;
 
 namespace PaintStore.Application.Interfaces
@@ -7,8 +8,8 @@ namespace PaintStore.Application.Interfaces
     public interface IPostCommentsService
     {
         List<PostCommentsResult> GetComments(int userId, int postId);
-        PostComments AddComment(PostComments comment);
-        PostComments EditComment(PostComments comment);
+        PostComments AddComment(AddPostCommentCommand comment);
+        PostComments EditComment(EditPostCommentCommand comment);
         int CommentRemove(int commentId);
     }
 }

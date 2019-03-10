@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using PaintStore.Application.Interfaces;
 using PaintStore.Application.Managers;
 using PaintStore.Domain.Entities;
+using PaintStore.Domain.InputModels;
 using PaintStore.Domain.ResultsModels;
 using PaintStore.Persistence;
 
@@ -12,10 +14,12 @@ namespace PaintStore.Application.Services
     public class PostCommentsService : IPostCommentsService
     {
         private readonly PaintStoreContext _paintStoreContext;
+        private readonly IMapper _mapper;  
 
-        public PostCommentsService(PaintStoreContext ctx)
+        public PostCommentsService(PaintStoreContext ctx, IMapper mapper)
         {
             _paintStoreContext = ctx;
+            _mapper = mapper; 
         }
         public List<PostCommentsResult> GetComments(int userId, int postId)
         {
@@ -34,16 +38,17 @@ namespace PaintStore.Application.Services
             }
         }
 
-        public PostComments AddComment(PostComments comment)
+        public PostComments AddComment(AddPostCommentCommand comment)
         {
             ImagesManager.ImageCommentCountPlus(_paintStoreContext, comment.PostId);
-            comment.CreationDate = DateTime.Now;
-            _paintStoreContext.PostComments.Add(comment);
+            var commentToAdd = _mapper.Map<PostComments>(comment);
+            commentToAdd.CreationDate = DateTime.Now;
+            _paintStoreContext.PostComments.Add(commentToAdd);
             _paintStoreContext.SaveChanges();
-            return comment;
+            return commentToAdd;
         }
 
-        public PostComments EditComment(PostComments comment)
+        public PostComments EditComment(EditPostCommentCommand comment)
         {
             var commentToUptade = _paintStoreContext.PostComments.First(x => x.Id == comment.Id);
             commentToUptade.Content = comment.Content;

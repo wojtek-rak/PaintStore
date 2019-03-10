@@ -84,7 +84,8 @@ export class IndexComponent extends LoggedIn implements OnInit {
       .subscribe(res => {
         // to do: walidacja
         LoginManager.loginUser(res);
-        window.location.replace(this.host);
+        // window.location.replace(this.host);
+        document.location.reload();
       });
   }
 

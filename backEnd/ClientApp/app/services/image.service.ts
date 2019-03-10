@@ -6,7 +6,7 @@ import { FollowingData } from "../classes/following-data";
 @Injectable()
 export class ImageService {
   private host = "http://paintstorerest.azurewebsites.net/";
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient) {}
 
   public selectRecentImages() {
     return this._http.get(this.host + "api/Posts/AllPosts/the_newest");
@@ -156,11 +156,11 @@ export class ImageService {
 
     return this._http.delete(
       this.host +
-      "api/Followers/DeleteFollower" +
-      "/" +
-      data.followingUserId +
-      "/" +
-      data.followedUserId,
+        "api/Followers/DeleteFollower" +
+        "/" +
+        data.followingUserId +
+        "/" +
+        data.followedUserId,
       { headers: headers }
     );
   }
@@ -173,8 +173,9 @@ export class ImageService {
     return this._http.get(this.host + "api/Posts/AllPostsByTag/" + tag);
   }
 
-  public uploadImage(data : any, id: number, token: string) {
-    let headers = new HttpHeaders(), fileRes: any = null; // TODO GRUBO
+  public uploadImage(data: any, id: number, token: string) {
+    let headers = new HttpHeaders(),
+      fileRes: any = null; // TODO GRUBO
     headers = headers.append(
       "Authorization",
       "Basic " + btoa("" + id + ":" + token)
@@ -182,20 +183,19 @@ export class ImageService {
 
     let fd = new FormData();
     fd.append("file", data);
-
-    this._http.post(this.host + "api/UploadImage", fd, {
-      headers: headers
-    }).subscribe(res => {
-      fileRes = <FileRes>res;
-      console.log(fileRes);
-    });
+    console.log(data);
+    // this._http.post(this.host + "api/UploadImage", fd, {
+    //   headers: headers
+    // }).subscribe(res => {
+    //   fileRes = <FileRes>res;
+    //   console.log(fileRes);
+    // });
   }
-
 }
 
 interface FileRes {
-  caption: string
-  format: string
-  publicId: string
-  url: string
+  caption: string;
+  format: string;
+  publicId: string;
+  url: string;
 }

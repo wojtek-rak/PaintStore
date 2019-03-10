@@ -23,10 +23,10 @@ import { AccountService } from "../services/account.service";
 })
 export class MenuComponent extends LoggedIn implements OnInit {
   @ViewChild("menu") menu: any;
-    @ViewChild("menuToggled") menuToggled: any;
-    @ViewChild("button") button: any; // TODO
-    @ViewChild("input") input: any; // TODO
-    @ViewChild("input2") input2: any;
+  @ViewChild("menuToggled") menuToggled: any;
+  @ViewChild("button") button: any; // TODO
+  @ViewChild("input") input: any; // TODO
+  @ViewChild("input2") input2: any;
 
   private host = "http://localhost:4200/";
   private loginPage = "http://localhost:4200/homepage";
@@ -87,7 +87,8 @@ export class MenuComponent extends LoggedIn implements OnInit {
       .subscribe(
         res => {
           LoginManager.loginUser(res);
-          window.location.replace(this.host);
+          // window.location.replace(this.host);
+          document.location.reload();
         },
         err => {
           this.input.nativeElement.classList.add("invalid");
@@ -106,7 +107,8 @@ export class MenuComponent extends LoggedIn implements OnInit {
       .logoutUser({ id: this.loggedId }, this._loggedId, this._loggedToken)
       .subscribe(res => {
         LoginManager.logoutUser();
-        window.location.replace(this.loginPage);
+        // window.location.replace(this.loginPage);
+        document.location.reload();
       });
   }
 }

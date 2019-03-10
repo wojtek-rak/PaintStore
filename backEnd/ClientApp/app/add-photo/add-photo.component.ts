@@ -22,9 +22,9 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ["./add-photo.component.scss"]
 })
 export class AddPhotoComponent extends LoggedIn implements OnInit {
-  @ViewChild("message") Message : any;
-  @ViewChild("fileInput") fileInput : any;
-    
+  @ViewChild("message") Message: any;
+  @ViewChild("fileInput") fileInput: any;
+
   private _uploadWarning = "";
   private uploadForm: FormGroup;
 
@@ -47,12 +47,12 @@ export class AddPhotoComponent extends LoggedIn implements OnInit {
     if (form.status === "INVALID") {
       this._uploadWarning = "Title and file must be added.";
     } else {
-      let newTags : any[] = [];
+      let newTags: any[] = [];
       let tags = form.value.tags;
 
       if (tags !== [] && tags !== "") {
         // console.log(tags);
-        tags.forEach((el: any)  => {
+        tags.forEach((el: any) => {
           newTags.push(el.value);
         });
       }
@@ -62,7 +62,7 @@ export class AddPhotoComponent extends LoggedIn implements OnInit {
         form.value.file,
         this._loggedId,
         this._loggedToken
-      )
+      );
       // .subscribe(res => {
       //   console.log(res)
       // });

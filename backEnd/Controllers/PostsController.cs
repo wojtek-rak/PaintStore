@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PaintStore.Application.Interfaces;
 using PaintStore.Domain.Entities;
+using PaintStore.Domain.InputModels;
 
 namespace PaintStore.BackEnd.Controllers
 {
@@ -53,13 +54,13 @@ namespace PaintStore.BackEnd.Controllers
         }
 
         [HttpPost("AddPost")]
-        public IActionResult AddImage([FromBody] Posts post)
+        public IActionResult AddImage([FromBody] AddPostCommand post)
         {
             return Ok(_postsService.AddImage(post));
         }
 
         [HttpPut("EditPost")]
-        public IActionResult EditPost([FromBody] Posts post)
+        public IActionResult EditPost([FromBody] EditPostCommand post)
         {
             
             return Ok(_postsService.EditPost(post));

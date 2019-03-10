@@ -13,6 +13,7 @@ namespace PaintStore.BackEnd
         {
             CreateMap<AddPostCommentCommand, PostComments>();
             CreateMap<AddUserFollowersCommand, UserFollowers>();
+            CreateMap<AddPostCommand, Posts>();
         }  
     }  
 }

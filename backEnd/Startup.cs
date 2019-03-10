@@ -114,6 +114,7 @@ namespace PaintStore.BackEnd
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IActivityManagerStartup activityManager, IServiceScopeFactory _scopeFactory)
         {
             app.UseStaticFiles();
+            app.UseSpaStaticFiles();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "my API V1"));

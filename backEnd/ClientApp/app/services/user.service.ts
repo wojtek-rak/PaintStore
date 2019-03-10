@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 
 @Injectable()
 export class UserService {
-  private host = "http://paintstorerest.azurewebsites.net/";
+  private host = "https://localhost:5000/";
   constructor(private _http: HttpClient) {}
 
   public selectUserById(id: number) {

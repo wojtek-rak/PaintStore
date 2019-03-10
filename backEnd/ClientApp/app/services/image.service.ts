@@ -5,7 +5,7 @@ import { FollowingData } from "../classes/following-data";
 
 @Injectable()
 export class ImageService {
-  private host = "http://paintstorerest.azurewebsites.net/";
+  private host = "https://localhost:5000/";
   constructor(private _http: HttpClient) {}
 
   public selectRecentImages() {

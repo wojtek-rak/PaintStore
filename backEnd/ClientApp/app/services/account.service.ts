@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
   providedIn: "root"
 })
 export class AccountService {
-  private host = "http://paintstorerest.azurewebsites.net/";
+  private host = "http://localhost:5000/";
   constructor(private _http: HttpClient) {}
 
   public selectUserById(id: number) {
@@ -25,7 +25,7 @@ export class AccountService {
     return this._http.post(this.host + "api/Users/AddUser", data);
   }
 
-  logoutUser(data : any, id: number, token: string) {
+  logoutUser(data: any, id: number, token: string) {
     let headers = new HttpHeaders();
     headers = headers.append(
       "Authorization",

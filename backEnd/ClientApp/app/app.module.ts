@@ -159,15 +159,15 @@ const appRoutes: Routes = [
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
-    TagInputModule,
-    BrowserAnimationsModule,
-    FormsModule,
     ReactiveFormsModule,
     BrowserModule,
     HttpClientModule,
     MatTabsModule,
     FileDropModule,
-    AngularWebStorageModule
+    AngularWebStorageModule,
+    TagInputModule,
+    BrowserAnimationsModule,
+    FormsModule
   ],
   providers: [ImageService, AccountService],
   bootstrap: [AppComponent]

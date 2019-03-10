@@ -4,7 +4,7 @@ PaintStore is a portal that allows to share work with others and look for advice
 
 The portal contains also an images finder. Images are searched by tags or title or sorted according to their popularity or date of adding.
 
-[Demo]( http://paintstorerest.azurewebsites.net)
+[Demo]( http://paintstorerest.azurewebsites.net/homepage)
 
 ![alt text](https://raw.githubusercontent.com/wjankowska/screenshots/master/paintstore1.PNG)
 

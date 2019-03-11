@@ -660,3 +660,22 @@ tag-input {
 .centered-block {
   display: block;
 }
+
+// delete edit icon
+
+.edit-delete-icon {
+  cursor: pointer;
+  background: transparent;
+  /* padding: 5px 10px; */
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  transition-duration: 0.2s;
+}
+
+.edit-delete-icon:hover {
+  background: #eaeaea;
+}

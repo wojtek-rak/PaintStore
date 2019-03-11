@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { Image } from "../classes/image";
+import { Component, OnInit, Input, ElementRef, ViewChild } from "@angular/core";
+// import { Image } from "../classes/image";
 
 @Component({
   selector: "app-images-common",
@@ -9,6 +9,7 @@ import { Image } from "../classes/image";
 export class ImagesCommonComponent implements OnInit {
   @Input("images") Images: Image[] = [];
   @Input("classes") classes: string = "";
+  @ViewChild("msg") msg: any;
   private _loading: boolean = false;
   private _fail: boolean = false;
 
@@ -26,6 +27,12 @@ export class ImagesCommonComponent implements OnInit {
   showErrorMsg() {
     this._loading = false;
     this._fail = true;
+  }
+
+  delete($event) {
+    const elToRemove = this.Images.find(x => x.id === $event);
+    this.Images.splice(this.Images.indexOf(elToRemove), 1);
+    this.msg.show("Image deleted successfully.");
   }
 
   // there is no images yet

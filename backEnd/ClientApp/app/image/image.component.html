@@ -8,20 +8,30 @@
     <h3>
       <ng-container *ngIf="!titleEditing"
         >{{ image.title
-        }}<span (click)="editTitle()" class="edit-delete-icon"
+        }}<span
+          *ngIf="image.userId === loggedId"
+          (click)="editTitle()"
+          class="edit-delete-icon"
           >E</span
         ></ng-container
       >
-      <ng-container *ngIf="titleEditing && image.title !== ''">
+      <!-- change title form  -->
+      <ng-container
+        *ngIf="titleEditing && image.title !== '' && image.userId === loggedId"
+      >
         <form [formGroup]="titleForm" (ngSubmit)="approveTitle(titleForm)">
           <input-text
             [data]="{
-              label: 'Title'
+              label: ''
             }"
             formControlName="title"
           ></input-text>
-          <button type="button" (click)="discardTitle()">Discard</button>
-          <button type="submit">Submit</button>
+          <div class="edit-elements">
+            <button class="discard" type="button" (click)="discardTitle()">
+              Discard
+            </button>
+            <button class="submit" type="submit">Submit</button>
+          </div>
         </form>
       </ng-container>
     </h3>
@@ -161,10 +171,10 @@
                       <div class="warning" *ngIf="comment.editValid === false">
                         Comment must contains at least 5 letters.
                       </div>
-                      <span class="discard" (click)="discard(comment)"
-                        >Discard</span
-                      >
-                      <button type="submit">Edit</button>
+                      <button class="discard" (click)="discard(comment)">
+                        Discard
+                      </button>
+                      <button class="submit" type="submit">Edit</button>
                     </div>
                   </form>
                 </div>
@@ -173,11 +183,66 @@
           </div>
         </div>
         <div class="description">
-          <p>Description</p>
-          <span class="description-content">{{ image.description }}</span>
-          <p class="tag-title">Tags</p>
-          <span *ngFor="let tag of image.tagsList" class="tag">{{ tag }} </span>
-          <span *ngIf="image.tagsList.length === 0">no tags added</span>
+          <p class="desc-title">
+            Description
+            <span class="edit-delete-icon" (click)="editDescription()">E</span>
+          </p>
+          <!-- update description form  -->
+          <ng-container *ngIf="descriptionEditing && image.userId === loggedId">
+            <form
+              [formGroup]="descriptionForm"
+              (ngSubmit)="approveDescription(descriptionForm)"
+            >
+              <input-textarea
+                [data]="{
+                  label: ''
+                }"
+                formControlName="description"
+              ></input-textarea>
+              <div class="edit-elements">
+                <button
+                  class="discard"
+                  type="button"
+                  (click)="discardDescription()"
+                >
+                  Discard
+                </button>
+                <button class="submit" type="submit">Submit</button>
+              </div>
+            </form>
+          </ng-container>
+
+          <span class="description-content" *ngIf="!descriptionEditing">{{
+            image.description
+          }}</span>
+          <p class="desc-title">
+            Tags <span class="edit-delete-icon" (click)="editTags()">E</span>
+          </p>
+          <!-- update tags form  -->
+          <ng-container *ngIf="tagsEditing && image.userId === loggedId">
+            <form [formGroup]="tagsForm" (ngSubmit)="approveTags(tagsForm)">
+              <tag-input
+                [maxItems]="'10'"
+                [addOnPaste]="'true'"
+                [animationDuration]="{ enter: '0ms', leave: '0ms' }"
+                [placeholder]="'Press Enter to add item'"
+                [separatorKeyCodes]="'[32, 13]'"
+                formControlName="tags"
+              ></tag-input>
+              <div class="edit-elements">
+                <button class="discard" type="button" (click)="discardTags()">
+                  Discard
+                </button>
+                <button class="submit" type="submit">Submit</button>
+              </div>
+            </form>
+          </ng-container>
+          <ng-container *ngIf="!tagsEditing">
+            <span *ngFor="let tag of image.tagsList" class="tag"
+              >{{ tag }}
+            </span>
+            <span *ngIf="image.tagsList.length === 0">no tags added</span>
+          </ng-container>
         </div>
       </div>
     </div>

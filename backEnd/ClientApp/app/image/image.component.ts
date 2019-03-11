@@ -9,6 +9,7 @@ import { ShortUserInfo } from "../classes/short-user-info";
 import { LoggedIn } from "../classes/logged-in";
 import { LoginManager } from "../classes/login-manager";
 import { requiredTextValidator } from "../validators/text-validator";
+import { GlobalVariables } from "../classes/global-variables";
 
 @Component({
   selector: "app-image",
@@ -58,6 +59,14 @@ export class ImageComponent extends LoggedIn implements OnInit {
   initializeForms() {
     this.titleForm = this.fb.group({
       title: [this._image.title, [Validators.required, requiredTextValidator]]
+    });
+
+    this.descriptionForm = this.fb.group({
+      description: this._image.description
+    });
+
+    this.tagsForm = this.fb.group({
+      tags: this._image.tagsList
     });
   }
 
@@ -263,21 +272,30 @@ export class ImageComponent extends LoggedIn implements OnInit {
   }
 
   approveTitle(form: NgForm) {
-    this.service
-      .editImage(
-        {
-          id: this._image.id,
-          title: form.value.title,
-          description: this.image.description
-        },
-        this._loggedId,
-        this._loggedToken
-      )
-      .subscribe(res => {
-        this._titleEditing = false;
-        this.Message.show("Title edited successfully.");
-        this._image.title = form.value.title;
-      });
+    // this.service
+    //   .editImage(
+    //     {
+    //       id: this._image.id,
+    //       title: form.value.title,
+    //       description: this.image.description
+    //     },
+    //     this._loggedId,
+    //     this._loggedToken
+    //   )
+    //   .subscribe(res => {
+    //     this._titleEditing = false;
+    //     this.Message.show("Title edited successfully.");
+    //     this._image.title = form.value.title;
+    //   });
+
+    this.editRequest(
+      {
+        id: this._image.id,
+        title: form.value.title,
+        description: this.image.description
+      },
+      "Title edited successfully."
+    );
   }
 
   editDescription() {
@@ -288,9 +306,28 @@ export class ImageComponent extends LoggedIn implements OnInit {
     this._descriptionEditing = false;
   }
 
-  approveDescription() {
-    this._descriptionEditing = false;
-    // send request
+  // sends requests when editing both the thescription and the title
+  private editRequest(data: any, successMessage: string) {
+    this.service
+      .editImage(data, this._loggedId, this._loggedToken)
+      .subscribe(res => {
+        this._descriptionEditing = false;
+        this._titleEditing = false;
+        this.Message.show(successMessage);
+        this._image.title = data.title;
+        this._image.description = data.description;
+      });
+  }
+
+  approveDescription(form: NgForm) {
+    this.editRequest(
+      {
+        id: this._image.id,
+        title: this._image.title,
+        description: form.value.description
+      },
+      "Description updated successfully."
+    );
   }
 
   editTags() {
@@ -301,9 +338,20 @@ export class ImageComponent extends LoggedIn implements OnInit {
     this._tagsEditing = false;
   }
 
-  approveTags() {
+  approveTags(form: NgForm) {
     this._tagsEditing = false;
-    // send request
+    this.service
+      .addTagsToImage(
+        {
+          tagsList: GlobalVariables.parseTags(form.value.tags),
+          postId: this._image.id
+        },
+        this._loggedId,
+        this._loggedToken
+      )
+      .subscribe(res => {
+        this.Message.show("Tags updated successfully.");
+      });
   }
 
   get image(): ImageExact {
@@ -338,7 +386,7 @@ interface ImageExact {
   id: number;
   imgLink: string;
   likeCount: number;
-  tagsList: number[];
+  tagsList: string[];
   title: string;
   userId: number;
   userOwnerImgLink: string;

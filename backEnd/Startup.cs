@@ -58,7 +58,7 @@ namespace PaintStore.BackEnd
             //    });
             //});
 
-            services.AddSpaStaticFiles(c => { c.RootPath = "dist";});
+            services.AddSpaStaticFiles(c => { c.RootPath = "wwwroot";});
 
             services.AddAutoMapper();
             
@@ -114,13 +114,35 @@ namespace PaintStore.BackEnd
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IActivityManagerStartup activityManager, IServiceScopeFactory _scopeFactory)
         {
             app.UseStaticFiles();
+            app.UseSpaStaticFiles();
             app.UseSwagger();
+            app.UseDeveloperExceptionPage();
             app.UseSwaggerUI(c =>
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "my API V1"));
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            
+             
+
+            activityManager.RunManager();
+
+            app.UseCors("CorsPolicy");
+
+            app.UseMiddleware<AuthenticationMiddleware>();
+
+            app.UseMvc(routes =>
+        {
+            routes.MapRoute(
+                name: "default",
+                template: "api/{controller}/{action}/{id?}");
+
+            routes.MapSpaFallbackRoute(
+                name: "spa-fallback",
+                defaults: new { controller = "Home", action = "Index" });
+        });
 
             app.UseSpa(spa =>
             {
@@ -131,25 +153,6 @@ namespace PaintStore.BackEnd
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
-             
-
-            activityManager.RunManager();
-
-            app.UseCors("CorsPolicy");
-
-            app.UseMiddleware<AuthenticationMiddleware>();
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "homepage");// "{controller=Home}/{action=Index}/{id?}");
-
-                routes.MapSpaFallbackRoute(
-                    name: "spa-fallback",
-                    defaults: new { controller = "Home", action = "Index" });
-            });
-
         }
 
     }

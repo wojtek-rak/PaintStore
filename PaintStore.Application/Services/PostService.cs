@@ -36,7 +36,7 @@ namespace PaintStore.Application.Services
 
                 var postDetailsResult = new PostDetailsResult(post)
                 {
-                    CreationDate = post.CreationDate,
+                    CreationDate = post.CreationDate.ToString("dd-MM-yyyy"),
                     Description = post.Description,
                     TagsList = tagsList,
                     Liked = liked

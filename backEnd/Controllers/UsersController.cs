@@ -52,7 +52,19 @@ namespace PaintStore.BackEnd.Controllers
         [HttpPut("EditUserCredentials")]
         public IActionResult EditUserCredentials([FromBody] EditUserCredentialsCommand user)
         {
-            return Ok(_usersService.EditUserCredentials(user));
+            try
+            {
+                var editCredentials = _usersService.EditUserCredentials(user);
+                return Ok(editCredentials.Email);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return StatusCode(401);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         [HttpDelete("DeleteUser")]

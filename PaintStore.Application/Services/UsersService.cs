@@ -102,15 +102,17 @@ namespace PaintStore.Application.Services
         {
             using (var db = _paintStoreContext)
             {
+                _signInService.SignInCheck(new SignInCommand {Email = account.OldEmail, Password = account.OldPassword}, db);
+
                 var accountToUpdate = db.Users.First(x => x.Id == account.Id);
 
-                if (account.Email != null) accountToUpdate.Email = account.Email;
-                if (account.Password != null)
+                if (account.NewEmail != null) accountToUpdate.Email = account.NewEmail;
+                if (account.NewPassword != null && account.NewPassword.Length > 7)
                 {
                     accountToUpdate.PasswordSoil = CredentialsHelpers.CreateSalt();
                     var  encoding = new ASCIIEncoding();
                     var soil = encoding.GetBytes(accountToUpdate.PasswordSoil);
-                    var password = encoding.GetBytes(account.Password);
+                    var password = encoding.GetBytes(account.NewPassword);
                     accountToUpdate.PasswordHash = System.Text.Encoding.UTF8.GetString(CredentialsHelpers.GenerateSaltedHash(password, soil));
                 }
 
@@ -126,7 +128,7 @@ namespace PaintStore.Application.Services
                 var userToRemove = db.Users.First(x => x.Id == account.Id);
                 try
                 {
-                    _signInService.SignIn(new SignInCommand {Email = account.Email, Password = account.Password});
+                    _signInService.SignInCheck(new SignInCommand {Email = account.Email, Password = account.Password}, db);
 
                     foreach (var post in db.Posts.Where(x => x.UserId == userToRemove.Id))
                     {

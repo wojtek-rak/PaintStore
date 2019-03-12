@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PaintStore.Application.Helpers;
 using PaintStore.Domain.Entities;
 using PaintStore.Persistence;
 
@@ -39,10 +40,12 @@ namespace PaintStoreBackEnd.Tests
             //    new Accounts { Id = 3, CreationDate = DateTime.Now, Email = "wyrak@kreska.pl", PasswordHash = "easddsdweeewFSFSAE" }
             //}.AsQueryable();
 
-            var mockDataUsers = new List<Users> {
-                new Users { Id = 1, Name = "Kasia", Link = "kasialink", AvatarImgLink = "1appa", BackgroundImgLink = "1bappa", About = "1xD", CreationDate = DateTime.Now, Email = "kasia@kreska.pl", PasswordHash = "!@#sdaAWEDAFSFDSAE", PasswordSoil = "soiled", Token = null, FollowedCount = 1, FollowingCount = 0, PostsCount = 3},
-                new Users { Id = 2, Name = "Zosia", Link = "tosialink", AvatarImgLink = "2appa", BackgroundImgLink = "2bappa", About = "2xD", CreationDate = DateTime.Now, Email = "zosia@kreska.pl", PasswordHash = "eWDs@daDSAdsFSFSAE", PasswordSoil = "soiled", Token = null, FollowedCount = 0, FollowingCount = 2, PostsCount = 1},
-                new Users { Id = 3, Name = "wyrak", Link = "towyreeak", AvatarImgLink = "3appa", BackgroundImgLink = "3bappa", About = "3xD", CreationDate = DateTime.Now, Email = "wyrak@kreska.pl", PasswordHash = "easddsdweeewFSFSAE", PasswordSoil = "soiled", Token = "to", FollowedCount = 1, FollowingCount = 0, PostsCount = 0}}.AsQueryable();
+            var userList = new List<Users> {
+                new Users { Id = 1, Name = "Kasia", Link = "kasialink", AvatarImgLink = "1appa", BackgroundImgLink = "1bappa", About = "1xD", CreationDate = DateTime.Now, Email = "kasia@kreska.pl", PasswordHash = null, PasswordSoil = @"pRfyuklx1GqJZBILesF7XcLzlMnLeiYP0azJ94vdv70V7moBn4I/Iob8fAKdRnsuMIR9pU4NGUZjeUTY", Token = null, FollowedCount = 1, FollowingCount = 0, PostsCount = 3},
+                new Users { Id = 2, Name = "Zosia", Link = "tosialink", AvatarImgLink = "2appa", BackgroundImgLink = "2bappa", About = "2xD", CreationDate = DateTime.Now, Email = "zosia@kreska.pl", PasswordHash = null, PasswordSoil = @"pRfyuklx1GqJZBILesF7XcLzlMnLeiYP0azJ94vdv70V7moBn4I/Iob8fAKdRnsuMIR9pU4NGUZjeUTY", Token = null, FollowedCount = 0, FollowingCount = 2, PostsCount = 1},
+                new Users { Id = 3, Name = "wyrak", Link = "towyreeak", AvatarImgLink = "3appa", BackgroundImgLink = "3bappa", About = "3xD", CreationDate = DateTime.Now, Email = "wyrak@kreska.pl", PasswordHash = null, PasswordSoil = @"pRfyuklx1GqJZBILesF7XcLzlMnLeiYP0azJ94vdv70V7moBn4I/Iob8fAKdRnsuMIR9pU4NGUZjeUTY", Token = "to", FollowedCount = 1, FollowingCount = 0, PostsCount = 0} };
+
+            var mockDataUsers = SetUpHashes(userList).AsQueryable();
 
             var mockDataComments = new List<PostComments> {
                 new PostComments { Id = 1, CreationDate = DateTime.Parse("2008-05-01T07:34:42-5:00"), Content = "Ale Kom", PostId = 2, UserId = 2, LikeCount = 2 },
@@ -213,6 +216,25 @@ namespace PaintStoreBackEnd.Tests
             mockSet.As<IQueryable<T>>().Setup(m => m.ElementType).Returns(mockData.ElementType);
             mockSet.As<IQueryable<T>>().Setup(m => m.GetEnumerator()).Returns(mockData.GetEnumerator());
             return mockSet;
+        }
+
+        private string GenerateHashedPassword(Users user, string passwordToSet)
+        {
+            var  encoding = new ASCIIEncoding();
+            var soil = encoding.GetBytes(user.PasswordSoil);
+            var password = encoding.GetBytes(passwordToSet);
+            return System.Text.Encoding.UTF8.GetString(CredentialsHelpers.GenerateSaltedHash(password, soil));
+        }
+
+        private List<Users> SetUpHashes(List<Users> users)
+        {
+            var hashedUsers = new List<Users>();
+            foreach (var user in users)
+            {
+                user.PasswordHash = GenerateHashedPassword(user, "12345678");
+                hashedUsers.Add(user);
+            }
+            return hashedUsers;
         }
     }
 }

@@ -9,6 +9,7 @@ using PaintStore.Domain.InputModels;
 using PaintStore.Domain.Interfaces;
 using PaintStore.Domain.ResultsModels;
 using PaintStore.Persistence;
+using PaintStore.Domain.Exceptions;
 
 namespace PaintStore.Application.Services
 {
@@ -67,6 +68,8 @@ namespace PaintStore.Application.Services
         {
             using (var db = _paintStoreContext)
             {
+                if (db.Users.Any(x => x.Email == user.Email)) throw new DuplicateEmailException();
+                if (db.Users.Any(x => x.Name == user.Name)) throw new DuplicateNameException();
                 var newUser = new Users() {Email = user.Email, Name = user.Name, Link = user.Name.ToLower(), About = ""};
                 newUser.PasswordSoil = CredentialsHelpers.CreateSalt();
                 var  encoding = new ASCIIEncoding();

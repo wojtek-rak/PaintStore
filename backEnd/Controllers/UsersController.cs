@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PaintStore.Application.Interfaces;
 using PaintStore.Domain.Entities;
 using PaintStore.Domain.InputModels;
+using PaintStore.Domain.Exceptions;
 
 namespace PaintStore.BackEnd.Controllers
 {
@@ -36,11 +37,28 @@ namespace PaintStore.BackEnd.Controllers
              return Ok(_usersService.GetPosts(userId, message));
         }
 
-
+        /// <response code="403">If there is already that Name</response>   
+        /// <response code="409">If there is already that Email</response>   
         [HttpPost("AddUser")]
         public IActionResult AddUser([FromBody] AddUserCommand user)
         {
-            return Ok(_usersService.AddUser(user));
+            try
+            {
+                return Ok(_usersService.AddUser(user));
+            }
+            catch (DuplicateEmailException)
+            {
+                return StatusCode(409);
+            }
+            catch (DuplicateNameException)
+            {
+                return StatusCode(403);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
         [HttpPut("EditUser")]

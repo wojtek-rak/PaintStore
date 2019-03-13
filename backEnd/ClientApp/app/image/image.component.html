@@ -185,7 +185,12 @@
         <div class="description">
           <p class="desc-title">
             Description
-            <span class="edit-delete-icon" (click)="editDescription()">E</span>
+            <span
+              class="edit-delete-icon"
+              (click)="editDescription()"
+              *ngIf="image.userId === loggedId"
+              >E</span
+            >
           </p>
           <!-- update description form  -->
           <ng-container *ngIf="descriptionEditing && image.userId === loggedId">
@@ -216,7 +221,13 @@
             image.description
           }}</span>
           <p class="desc-title">
-            Tags <span class="edit-delete-icon" (click)="editTags()">E</span>
+            Tags
+            <span
+              class="edit-delete-icon"
+              (click)="editTags()"
+              *ngIf="image.userId === loggedId"
+              >E</span
+            >
           </p>
           <!-- update tags form  -->
           <ng-container *ngIf="tagsEditing && image.userId === loggedId">

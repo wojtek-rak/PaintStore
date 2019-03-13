@@ -339,17 +339,20 @@ export class ImageComponent extends LoggedIn implements OnInit {
   }
 
   approveTags(form: NgForm) {
+    const parsedTags = GlobalVariables.parseTags(form.value.tags);
     this._tagsEditing = false;
+
     this.service
       .addTagsToImage(
         {
-          tagsList: GlobalVariables.parseTags(form.value.tags),
+          tagsList: parsedTags,
           postId: this._image.id
         },
         this._loggedId,
         this._loggedToken
       )
       .subscribe(res => {
+        this._image.tagsList = parsedTags;
         this.Message.show("Tags updated successfully.");
       });
   }

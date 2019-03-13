@@ -512,7 +512,7 @@
 		<div class="join" *ngIf="loggedIn === false">
 
 			<mat-tab-group>
-				<mat-tab label="Join">
+				<mat-tab label="Join" id="join">
 					<div class="form-wrapper">
 						<form *ngIf="registered === false" [formGroup]="registerForm" (ngSubmit)="onRegister(registerForm)">
 							<input-text [data]="{
@@ -525,6 +525,7 @@
 								label: 'E-mail'
 							}" formControlName="email"></input-email>
 							<div class="warning summary-warning" *ngIf="registerWarning !== ''">{{registerWarning}}</div>
+							<re-captcha (resolved)="resolved($event)" siteKey="6LdV5pYUAAAAAAKMSM93P-KFs_r7frSEs3iOb5_8" formControlName="captcha"></re-captcha>
 							<button area-label="edit profile" class="button-colored" type="submit">
 								Submit
 							</button>

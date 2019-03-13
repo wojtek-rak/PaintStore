@@ -8,20 +8,30 @@
     <h3>
       <ng-container *ngIf="!titleEditing"
         >{{ image.title
-        }}<span (click)="editTitle()" class="edit-delete-icon"
+        }}<span
+          *ngIf="image.userId === loggedId"
+          (click)="editTitle()"
+          class="edit-delete-icon"
           >E</span
         ></ng-container
       >
-      <ng-container *ngIf="titleEditing && image.title !== ''">
+      <!-- change title form  -->
+      <ng-container
+        *ngIf="titleEditing && image.title !== '' && image.userId === loggedId"
+      >
         <form [formGroup]="titleForm" (ngSubmit)="approveTitle(titleForm)">
           <input-text
             [data]="{
-              label: 'Title'
+              label: ''
             }"
             formControlName="title"
           ></input-text>
-          <button type="button" (click)="discardTitle()">Discard</button>
-          <button type="submit">Submit</button>
+          <div class="edit-elements">
+            <button class="discard" type="button" (click)="discardTitle()">
+              Discard
+            </button>
+            <button class="submit" type="submit">Submit</button>
+          </div>
         </form>
       </ng-container>
     </h3>
@@ -49,140 +59,196 @@
     </span>
   </div>
 </div>
+
 <div class="centered">
   <div class="hero-img"><img src="{{ image.imgLink }}" /></div>
-  <div class="photo">
-    <div class="photo-content">
-      <div class="comments-wrapper">
-        <div class="all-comments">
-          <div class="add-comment" *ngIf="loggedIn">
-            <form
-              #commentUpload="ngForm"
-              (ngSubmit)="onCommentUpload(commentUpload)"
-            >
-              <div class="flex-wrapper">
-                <div class="image-author">
-                  <div class="avatar-container">
-                    <a class="avatar-link" routerLink="">
-                      <img src="https://via.placeholder.com/40x40" />
-                    </a>
-                  </div>
-                </div>
-                <textarea id="text" name="text" ngModel></textarea>
-              </div>
-              <div class="warning" *ngIf="this.formValid === false">
-                Comment must contains at least 5 letters.
-              </div>
-              <div class="button-wrapper">
-                <span *ngIf="loading" class="loading"
-                  ><img src="../../assets/svg/loading.svg"
-                /></span>
-                <button
-                  [disabled]="loading"
-                  type="submit"
-                  class="button-colored"
-                >
-                  Send
-                </button>
-              </div>
-            </form>
-          </div>
+</div>
 
-          <p class="comment-title">Comments ({{ image.commentsCount }})</p>
-
-          <div class="comments-group">
-            <div *ngFor="let comment of comments" class="comment">
+<div class="photo centered">
+  <div class="photo-content">
+    <div class="comments-wrapper">
+      <div class="all-comments">
+        <div class="add-comment" *ngIf="loggedIn">
+          <form
+            #commentUpload="ngForm"
+            (ngSubmit)="onCommentUpload(commentUpload)"
+          >
+            <div class="flex-wrapper">
               <div class="image-author">
                 <div class="avatar-container">
-                  <a
-                    class="avatar-link"
-                    routerLink="/user/{{ comment.userId }}"
-                  >
-                    <img src="{{ comment.userOwnerImgLink }}" />
+                  <a class="avatar-link" routerLink="">
+                    <img src="https://via.placeholder.com/40x40" />
                   </a>
                 </div>
               </div>
-              <div class="comment-content">
-                <div class="header">
-                  <h4 class="author">
-                    <a routerLink="/user/{{ comment.userId }}">{{
-                      comment.userName
-                    }}</a>
-                  </h4>
-                  <p class="content-secondary header-info">
-                    {{ comment.creationDate }}
-                  </p>
-                  <span *ngIf="comment.edited" class="header-info"
-                    >(edited)</span
-                  >
-                  <span
-                    class="edit-delete-icon header-info"
-                    (click)="removeComment(comment.id)"
-                    *ngIf="comment.userId === loggedId"
-                  >
-                    D
+              <textarea id="text" name="text" ngModel></textarea>
+            </div>
+            <div class="warning" *ngIf="this.formValid === false">
+              Comment must contains at least 5 letters.
+            </div>
+            <div class="button-wrapper">
+              <span *ngIf="loading" class="loading"
+                ><img src="../../assets/svg/loading.svg"
+              /></span>
+              <button [disabled]="loading" type="submit" class="button-colored">
+                Send
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <p class="comment-title">Comments ({{ image.commentsCount }})</p>
+
+        <div class="comments-group">
+          <div *ngFor="let comment of comments" class="comment">
+            <div class="image-author">
+              <div class="avatar-container">
+                <a class="avatar-link" routerLink="/user/{{ comment.userId }}">
+                  <img src="{{ comment.userOwnerImgLink }}" />
+                </a>
+              </div>
+            </div>
+            <div class="comment-content">
+              <div class="header">
+                <h4 class="author">
+                  <a routerLink="/user/{{ comment.userId }}">{{
+                    comment.userName
+                  }}</a>
+                </h4>
+                <p class="content-secondary header-info">
+                  {{ comment.creationDate }}
+                </p>
+                <span *ngIf="comment.edited" class="header-info">(edited)</span>
+                <span
+                  class="edit-delete-icon header-info"
+                  (click)="removeComment(comment.id)"
+                  *ngIf="comment.userId === loggedId"
+                >
+                  D
+                </span>
+                <span
+                  class="edit-delete-icon header-info"
+                  (click)="editComment(comment)"
+                  *ngIf="comment.userId === loggedId"
+                >
+                  E
+                </span>
+                <span class="likes header-info">
+                  <span class="link" (click)="commentShowLiked(comment.id)">
+                    {{ comment.likeCount }} likes
                   </span>
-                  <span
-                    class="edit-delete-icon header-info"
-                    (click)="editComment(comment)"
-                    *ngIf="comment.userId === loggedId"
-                  >
-                    E
+                </span>
+                <span
+                  class="like"
+                  [ngClass]="comment.liked === true ? 'liked' : null"
+                  *ngIf="loggedIn"
+                >
+                  <span (click)="commentLike(comment)" *ngIf="!comment.liked">
+                    Like
                   </span>
-                  <span class="likes header-info">
-                    <span class="link" (click)="commentShowLiked(comment.id)">
-                      {{ comment.likeCount }} likes
-                    </span>
-                  </span>
-                  <span
-                    class="like"
-                    [ngClass]="comment.liked === true ? 'liked' : null"
-                    *ngIf="loggedIn"
+                  <span (click)="commentUnlike(comment)" *ngIf="comment.liked"
+                    >Liked!</span
                   >
-                    <span (click)="commentLike(comment)" *ngIf="!comment.liked">
-                      Like
-                    </span>
-                    <span (click)="commentUnlike(comment)" *ngIf="comment.liked"
-                      >Liked!</span
-                    >
-                  </span>
-                </div>
-                <p *ngIf="!comment.isEditing">{{ comment.content }}</p>
-                <div *ngIf="comment.isEditing">
-                  <form
-                    #editComment="ngForm"
-                    (ngSubmit)="sendEditComment(editComment, comment)"
-                  >
-                    <textarea
-                      name="value"
-                      ngModel="{{ comment.content }}"
-                    ></textarea>
-                    <div class="edit-elements">
-                      <div class="warning" *ngIf="comment.editValid === false">
-                        Comment must contains at least 5 letters.
-                      </div>
-                      <span class="discard" (click)="discard(comment)"
-                        >Discard</span
-                      >
-                      <button type="submit">Edit</button>
+                </span>
+              </div>
+              <p *ngIf="!comment.isEditing">{{ comment.content }}</p>
+              <div *ngIf="comment.isEditing">
+                <form
+                  #editComment="ngForm"
+                  (ngSubmit)="sendEditComment(editComment, comment)"
+                >
+                  <textarea
+                    name="value"
+                    ngModel="{{ comment.content }}"
+                  ></textarea>
+                  <div class="edit-elements">
+                    <div class="warning" *ngIf="comment.editValid === false">
+                      Comment must contains at least 5 letters.
                     </div>
-                  </form>
-                </div>
+                    <button class="discard" (click)="discard(comment)">
+                      Discard
+                    </button>
+                    <button class="submit" type="submit">Edit</button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
         </div>
-        <div class="description">
-          <p>Description</p>
-          <span class="description-content">{{ image.description }}</span>
-          <p class="tag-title">Tags</p>
+      </div>
+      <div class="description">
+        <p class="desc-title">
+          Description
+          <span
+            class="edit-delete-icon"
+            (click)="editDescription()"
+            *ngIf="image.userId === loggedId"
+            >E</span
+          >
+        </p>
+        <!-- update description form  -->
+        <ng-container *ngIf="descriptionEditing && image.userId === loggedId">
+          <form
+            [formGroup]="descriptionForm"
+            (ngSubmit)="approveDescription(descriptionForm)"
+          >
+            <input-textarea
+              [data]="{
+                label: ''
+              }"
+              formControlName="description"
+            ></input-textarea>
+            <div class="edit-elements">
+              <button
+                class="discard"
+                type="button"
+                (click)="discardDescription()"
+              >
+                Discard
+              </button>
+              <button class="submit" type="submit">Submit</button>
+            </div>
+          </form>
+        </ng-container>
+
+        <span class="description-content" *ngIf="!descriptionEditing">{{
+          image.description
+        }}</span>
+        <p class="desc-title">
+          Tags
+          <span
+            class="edit-delete-icon"
+            (click)="editTags()"
+            *ngIf="image.userId === loggedId"
+            >E</span
+          >
+        </p>
+        <!-- update tags form  -->
+        <ng-container *ngIf="tagsEditing && image.userId === loggedId">
+          <form [formGroup]="tagsForm" (ngSubmit)="approveTags(tagsForm)">
+            <tag-input
+              [maxItems]="'10'"
+              [addOnPaste]="'true'"
+              [animationDuration]="{ enter: '0ms', leave: '0ms' }"
+              [placeholder]="'Press Enter to add item'"
+              [separatorKeyCodes]="'[32, 13]'"
+              formControlName="tags"
+            ></tag-input>
+            <div class="edit-elements">
+              <button class="discard" type="button" (click)="discardTags()">
+                Discard
+              </button>
+              <button class="submit" type="submit">Submit</button>
+            </div>
+          </form>
+        </ng-container>
+        <ng-container *ngIf="!tagsEditing">
           <span *ngFor="let tag of image.tagsList" class="tag">{{ tag }} </span>
           <span *ngIf="image.tagsList.length === 0">no tags added</span>
-        </div>
+        </ng-container>
       </div>
     </div>
   </div>
-  <div style="clear:both"></div>
 </div>
 <app-confirmation-message #msg></app-confirmation-message>
 <app-agree-label

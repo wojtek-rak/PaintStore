@@ -15,6 +15,7 @@ import { requiredTextValidator } from "../validators/text-validator";
 import { fileValidator } from "../validators/file-validator";
 import { LoggedIn } from "../classes/logged-in";
 import { HttpClient } from "@angular/common/http";
+import { GlobalVariables } from "../classes/global-variables";
 
 @Component({
   selector: "app-add-photo",
@@ -59,8 +60,8 @@ export class AddPhotoComponent extends LoggedIn implements OnInit {
           this.service
             .addTagsToImage(
               {
-                tagsList: ["string"],
-                postId: 4
+                tagsList: tags,
+                postId: id
               },
               this._loggedId,
               this._loggedToken
@@ -84,17 +85,16 @@ export class AddPhotoComponent extends LoggedIn implements OnInit {
     if (form.status === "INVALID") {
       this._uploadWarning = "Title and file must be added.";
     } else {
-      let newTags = [];
-      let tags = form.value.tags;
+      // let newTags = [];
+      // let tags = form.value.tags;
 
-      if (tags !== [] && tags !== "") {
-        // console.log(tags);
-        tags.forEach(el => {
-          newTags.push(el.value);
-        });
-      }
-      form.value.tags = newTags;
-      // console.log(form.value);
+      // if (tags !== [] && tags !== "") {
+      //   tags.forEach(el => {
+      //     newTags.push(el.value);
+      //   });
+      // }
+      // form.value.tags = newTags;
+
       let linkToImg = "";
       this.service
         .uploadImage(form.value.file, this._loggedId, this._loggedToken)
@@ -109,7 +109,7 @@ export class AddPhotoComponent extends LoggedIn implements OnInit {
                 imgLink: linkToImg,
                 userOwnerName: ""
               },
-              tags
+              GlobalVariables.parseTags(form.value.tags)
             );
           },
           err => {

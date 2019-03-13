@@ -37,7 +37,7 @@ export class ImageService {
   }
 
   public removeComment(id: number, idToken: number, token: string) {
-    let headers = this.getHeaders(id, token);
+    let headers = this.getHeaders(idToken, token);
 
     return this._http.delete(
       this.host + "api/Comments/DeletePostComment/" + id,
@@ -207,6 +207,13 @@ export class ImageService {
     fd.append("file", data);
 
     return this._http.post(this.host + "api/UploadImage", fd, {
+      headers: headers
+    });
+  }
+
+  public deleteImage(id: number, userId: number, token: string) {
+    let headers = this.getHeaders(userId, token);
+    return this._http.delete(`${this.host}/api/Posts/DeletePost/${id}`, {
       headers: headers
     });
   }

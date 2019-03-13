@@ -63,6 +63,8 @@ app-search {
 }
 
 .search-result {
+  overflow-y: scroll;
+  overflow-x: hidden;
   position: absolute;
   background: white;
   width: 250px;
@@ -72,10 +74,6 @@ app-search {
   display: none;
   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.1);
   margin-top: 5px;
-
-  ul {
-    overflow-y: scroll;
-  }
 }
 
 .response {

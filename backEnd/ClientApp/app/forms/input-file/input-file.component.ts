@@ -12,7 +12,7 @@ import {
   FormControl
 } from "@angular/forms";
 import { InputField } from "../input-field";
-// import { textValidator } from "../../validators/text-validator";
+// import { textValidator } from "src/app/validators/text-validator";
 import { fileValidator } from "../../validators/file-validator";
 
 @Component({
@@ -43,10 +43,8 @@ export class InputFileComponent extends InputField implements OnInit {
   }
 
   validate(c: FormControl) {
-      console.log("validate");
-      const checkUndefinded = this.data;
-      if (checkUndefinded === undefined) return;
-      let validator = fileValidator(c, checkUndefinded.label);
+    console.log("validate");
+    let validator = fileValidator(c, this.data.label);
     if (validator === null) {
       // if there is no errors, animate succes icon
 
@@ -67,9 +65,9 @@ export class InputFileComponent extends InputField implements OnInit {
 
   ngOnInit() {
     // for animating svg icons
-    //this.iconsToAnimate.forEach(icon => {
-    //  this.elements.push(document.getElementsByClassName(icon)[0]); TODO 
-    //});
+    this.iconsToAnimate.forEach(icon => {
+      this.elements.push(document.getElementsByClassName(icon)[0]);
+    });
     // add listeners to label
     let $fileLabel = $(".file-label");
     $fileLabel
@@ -84,10 +82,8 @@ export class InputFileComponent extends InputField implements OnInit {
       .on("dragleave dragend drop", function() {
         $fileLabel.removeClass("is-dragover");
       })
-        .on("drop", (e : any) => {
-            const checkUndefinded = this.Input;
-            if (checkUndefinded === undefined) return;
-            checkUndefinded.nativeElement.files = e.originalEvent.dataTransfer.files;
+      .on("drop", (e: any) => {
+        this.Input.nativeElement.files = e.originalEvent.dataTransfer.files;
         // this.file = e.originalEvent.dataTransfer.files[0];
         this.dropped();
       });
@@ -111,7 +107,7 @@ export class InputFileComponent extends InputField implements OnInit {
   }
 
   private animateIcon(icon: string) {
-    this.elements.forEach((element : any)=> {
+    this.elements.forEach(element => {
       if (element.classList.contains("start-animation")) {
         if (element.classList.contains(icon)) return;
         element.classList.remove("start-animation");
@@ -126,22 +122,18 @@ export class InputFileComponent extends InputField implements OnInit {
     }, 300);
   }
 
-    private dropped() {
-        const checkUndefinded = this.Input;
-        if (checkUndefinded === undefined) return;
-        console.log(checkUndefinded.nativeElement.files[0]);
-        super.change(checkUndefinded.nativeElement.files[0]);
+  private dropped() {
+    console.log(this.Input.nativeElement.files[0]);
+    super.change(this.Input.nativeElement.files[0]);
   }
 
   private clear() {
-    //$(".file-input")[0].value = ""; TODO
+    // $(".file-input")[0].value = "";
     this.animateIcon("svg-upload");
     this._information = "Drop a file here";
   }
 
-    public getFile() {
-        const checkUndefinded = this.Input;
-        if (checkUndefinded === undefined) return;
-        return checkUndefinded.nativeElement.files[0];
+  public getFile() {
+    return this.Input.nativeElement.files[0];
   }
 }

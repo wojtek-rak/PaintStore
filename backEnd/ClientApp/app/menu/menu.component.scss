@@ -10,6 +10,15 @@ menu {
   transition-duration: 0.3s;
 }
 
+.register {
+  margin-left: 10px;
+  display: inline-block;
+}
+
+// .container-menu-ul {
+//   height: 122px;
+// }
+
 .information {
   padding: 5px 10px;
   font-size: 13px;
@@ -28,12 +37,34 @@ menu.static {
   border-bottom: 0;
 }
 
-.logo {
-  color: BLACK;
-  /* FONT-WEIGHT: 600; */
-  border: 2px SOLID #515151;
-  padding: 8px;
-  font-family: "Playfair Display", serif;
+// .logo {
+//   color: BLACK;
+//   /* FONT-WEIGHT: 600; */
+//   border: 2px SOLID #515151;
+//   padding: 8px;
+//   font-family: "Playfair Display", serif;
+// }
+
+.hamburger {
+  width: 100%;
+  background: #fff;
+  height: 70px;
+  align-items: center;
+  display: none;
+  transition-duration: 0.2s;
+
+  .hamburger-icon {
+    flex-grow: 1;
+    text-align: right;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-left: 20px;
+    padding: 5px;
+
+    &:hover {
+      background: #f2f2f2;
+    }
+  }
 }
 
 .container-menu-ul li.search {
@@ -294,5 +325,103 @@ menu.visible {
 @media only screen and (max-width: 700px) {
   .container-menu {
     padding: 0 30px;
+  }
+
+  app-search {
+    width: 100%;
+  }
+
+  :host ::ng-deep app-search {
+    .search {
+      width: 100%;
+      margin-bottom: 8px;
+    }
+
+    .search-result {
+      z-index: 999;
+      width: calc(100% - 90px);
+    }
+  }
+
+  .logged-out .container-menu-ul {
+    height: 122px;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .scrolled {
+    .container-menu-ul {
+      height: 150px;
+    }
+
+    .hamburger {
+      height: 44px;
+    }
+  }
+
+  .container-menu-ul {
+    // height: 0;
+    flex-direction: column;
+    height: 150px;
+
+    .menu-user {
+      button {
+        display: none;
+      }
+
+      .logged-user-icon {
+        display: none;
+      }
+
+      .logout {
+        padding: 8px 10px;
+      }
+    }
+
+    .menu-logo {
+      display: none;
+    }
+
+    form {
+      flex-direction: column;
+      width: 100%;
+
+      .label-wrapper {
+        width: 100%;
+      }
+
+      input {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  .menu-logo {
+    display: none;
+  }
+
+  .menu-toggled {
+    display: block;
+    position: static;
+    width: 100%;
+
+    a {
+      padding: 8px 10px;
+    }
+
+    li {
+      border: none;
+    }
+
+    li:last-of-type {
+      border-bottom: 0;
+    }
   }
 }

@@ -1,4 +1,10 @@
-<ng-container>
+<div class="image-element-wrapper" #container>
+  <span
+    class="edit-delete-icon"
+    (click)="deleteImg()"
+    *ngIf="loggedId === image.userId"
+    >D</span
+  >
   <div class="image-cropped">
     <a routerLink="/image/{{ image.id }}">
       <img src="{{ image.imgLink }}" />
@@ -21,4 +27,9 @@
       </div>
     </div>
   </div>
-</ng-container>
+</div>
+<app-agree-label
+  #confirmLabel
+  (emitter)="confirm()"
+  [message]="'You are going to delete this image. Are you sure?'"
+></app-agree-label>

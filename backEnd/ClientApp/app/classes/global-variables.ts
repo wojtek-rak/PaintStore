@@ -9,4 +9,15 @@ export abstract class GlobalVariables {
   public static get host() {
     return this._host;
   }
+
+  public static parseTags(tags: any): string[] {
+    let newTags = [];
+
+    if (tags !== [] && tags !== "" && tags !== null) {
+      tags.forEach(el => {
+        newTags.push(el.value);
+      });
+    }
+    return newTags;
+  }
 }

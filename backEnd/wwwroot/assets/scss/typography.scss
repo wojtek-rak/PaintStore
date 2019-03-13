@@ -182,6 +182,12 @@ input:focus.invalid {
   }
 }
 
+@media only screen and (max-width: 340px) {
+  .image-wrapper.smaller {
+    grid-template-columns: calc(100vw - 50px);
+  }
+}
+
 .image-element {
   background: #fff;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
@@ -659,4 +665,23 @@ tag-input {
 
 .centered-block {
   display: block;
+}
+
+// delete edit icon
+
+.edit-delete-icon {
+  cursor: pointer;
+  background: transparent;
+  /* padding: 5px 10px; */
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  transition-duration: 0.2s;
+}
+
+.edit-delete-icon:hover {
+  background: #eaeaea;
 }

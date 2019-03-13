@@ -5,13 +5,15 @@ import { requiredTextValidator } from "../validators/text-validator";
 import { emailValidator } from "../validators/email-validator";
 import { passwordsValidator } from "../validators/passwords-validator";
 import { fileValidator } from "../validators/file-validator";
+import { LoggedIn } from "../classes/logged-in";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-settings",
   templateUrl: "./settings.component.html",
   styleUrls: ["./settings.component.scss"]
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent extends LoggedIn implements OnInit {
   private _user = {
     name: "ania",
     email: "ania@gmail.com",
@@ -19,10 +21,18 @@ export class SettingsComponent implements OnInit {
     description: "moj opis"
   };
 
-  form: any; // By³o FRORM GROUP TODO GRUBIEJ
-  constructor(private fb: FormBuilder) {}
+  form: any; // Byï¿½o FRORM GROUP TODO GRUBIEJ
+  constructor(private fb: FormBuilder, private router: Router) {
+    super();
+  }
 
   ngOnInit() {
+    super.ngOnInit();
+
+    if (this._loggedIn === false) {
+      this.router.navigateByUrl("/not-found");
+    }
+
     this.form = this.fb.group({
       userName: [this.user.name, [Validators.required, requiredTextValidator]],
       email: [this.user.email, [Validators.required, emailValidator]],

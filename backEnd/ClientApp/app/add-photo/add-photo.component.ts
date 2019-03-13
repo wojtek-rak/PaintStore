@@ -16,6 +16,7 @@ import { fileValidator } from "../validators/file-validator";
 import { LoggedIn } from "../classes/logged-in";
 import { HttpClient } from "@angular/common/http";
 import { GlobalVariables } from "../classes/global-variables";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-add-photo",
@@ -29,7 +30,11 @@ export class AddPhotoComponent extends LoggedIn implements OnInit {
   private _uploadWarning = "";
   private uploadForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private service: ImageService) {
+  constructor(
+    private fb: FormBuilder,
+    private service: ImageService,
+    private router: Router
+  ) {
     super();
     this.uploadForm = this.fb.group({
       title: ["", [Validators.required, requiredTextValidator]],
@@ -42,6 +47,9 @@ export class AddPhotoComponent extends LoggedIn implements OnInit {
 
   ngOnInit() {
     super.ngOnInit();
+    if (this._loggedIn === false) {
+      this.router.navigateByUrl("/not-found");
+    }
   }
 
   showErrorMsg() {

@@ -24,6 +24,7 @@ import { AccountService } from "../services/account.service";
 export class MenuComponent extends LoggedIn implements OnInit {
   @ViewChild("menu") menu: any;
   @ViewChild("menuToggled") menuToggled: any;
+  @ViewChild("menuUl") menuUl: any;
   @ViewChild("button") button: any; // TODO
   @ViewChild("input") input: any; // TODO
   @ViewChild("input2") input2: any;
@@ -76,6 +77,11 @@ export class MenuComponent extends LoggedIn implements OnInit {
 
   toggleMenu() {
     this.menuToggled.nativeElement.classList.toggle("visible");
+  }
+
+  toggleClass() {
+    console.log("click");
+    this.menuUl.nativeElement.classList.toggle("hidden");
   }
 
   onLogin(form: NgForm) {

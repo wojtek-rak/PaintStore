@@ -7,6 +7,8 @@ import { TagInputModule } from "ngx-chips";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatTabsModule } from "@angular/material/tabs";
 import { AngularWebStorageModule } from "angular-web-storage";
+import { RecaptchaModule } from "ng-recaptcha";
+import { RecaptchaFormsModule } from "ng-recaptcha/forms";
 
 import { AppComponent } from "./app.component";
 import { HomepageComponent } from "./homepage/homepage.component";
@@ -169,7 +171,9 @@ const appRoutes: Routes = [
     AngularWebStorageModule,
     TagInputModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    RecaptchaModule,
+    RecaptchaFormsModule
   ],
   providers: [ImageService, AccountService],
   bootstrap: [AppComponent]

@@ -33,6 +33,7 @@ export class IndexComponent extends LoggedIn implements OnInit {
   private _registerWarning = "";
   private _loginWarning = "";
   private host = "http://localhost:4200/";
+  private recaptcha = false;
 
   constructor(
     private _accountService: AccountService,
@@ -51,7 +52,8 @@ export class IndexComponent extends LoggedIn implements OnInit {
         "",
         [Validators.required, requiredTextValidator, passwordsValidator]
       ],
-      name: ["", [Validators.required, requiredTextValidator]]
+      name: ["", [Validators.required, requiredTextValidator]],
+      captcha: [null, Validators.required]
     });
   }
 
@@ -99,7 +101,7 @@ export class IndexComponent extends LoggedIn implements OnInit {
   }
 
   onRegister(form: NgForm) {
-    if (form.status === "VALID") {
+    if (form.status === "VALID" && this.recaptcha) {
       this._registerWarning = "";
       this._accountService
         .registerUser({
@@ -128,6 +130,10 @@ export class IndexComponent extends LoggedIn implements OnInit {
         .setClassToggle(name + i, "visible")
         .addTo(controller);
     }
+  }
+
+  resolved($e) {
+    this.recaptcha = true;
   }
 
   get registered() {

@@ -3,7 +3,12 @@
     The application still in production. This is a demonstration site.
   </div>
   <div class="container-menu">
-    <ul class="container-menu-ul">
+    <ul class="hamburger">
+      <li class="logo">LOGO</li>
+      <li class="hamburger-icon" (click)="toggleClass()">H</li>
+    </ul>
+
+    <ul class="container-menu-ul hidden" #menuUl>
       <li class="menu-logo">
         <a routerLink=""
           ><img
@@ -12,37 +17,36 @@
             style="opacity: 0.5"
         /></a>
       </li>
-      <!-- <li> -->
-
-      <!-- TO DO: zapytac Wojtasa czy form moze byc -->
-
-      <form #form="ngForm" (ngSubmit)="onLogin(form)">
-        <div class="label-wrapper">
-          <input
-            placeholder="E-mail"
-            type="text"
-            id="email"
-            name="email"
-            ngModel
-            #input
-            (keyup)="onKeyup()"
-          />
-        </div>
-        <div class="label-wrapper">
-          <input
-            placeholder="Password"
-            type="password"
-            id="password"
-            name="password"
-            ngModel
-            #input2
-            (keyup)="onKeyup()"
-          />
-        </div>
-        <button class="button-colored" type="submit">LOGIN</button>
-      </form>
-
-      <!-- </li> -->
+      <li>
+        <form #form="ngForm" (ngSubmit)="onLogin(form)">
+          <div class="label-wrapper">
+            <input
+              placeholder="E-mail"
+              type="text"
+              id="email"
+              name="email"
+              ngModel
+              #input
+              (keyup)="onKeyup()"
+            />
+          </div>
+          <div class="label-wrapper">
+            <input
+              placeholder="Password"
+              type="password"
+              id="password"
+              name="password"
+              ngModel
+              #input2
+              (keyup)="onKeyup()"
+            />
+          </div>
+          <div class="login-buttons-wrapper">
+            <button class="button-colored" type="submit">LOGIN</button>
+            <span class="register"><a routerLink="/homepage">Register</a></span>
+          </div>
+        </form>
+      </li>
       <li class="search">
         <app-search></app-search>
       </li>

@@ -14,15 +14,7 @@ import { Router } from "@angular/router";
   styleUrls: ["./settings.component.scss"]
 })
 export class SettingsComponent extends LoggedIn implements OnInit {
-  private _user = {
-    name: "ania",
-    email: "ania@gmail.com",
-    link: "czesc, jestem ania",
-    description: "moj opis"
-  };
-
-  form: any; // By�o FRORM GROUP TODO GRUBIEJ
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private router: Router) {
     super();
   }
 
@@ -32,22 +24,9 @@ export class SettingsComponent extends LoggedIn implements OnInit {
     if (this._loggedIn === false) {
       this.router.navigateByUrl("/not-found");
     }
-
-    this.form = this.fb.group({
-      userName: [this.user.name, [Validators.required, requiredTextValidator]],
-      email: [this.user.email, [Validators.required, emailValidator]],
-      shortInformation: [this.user.link, shortTextValidator],
-      description: [this.user.description],
-      password: ["", passwordsValidator],
-      file: ["", fileValidator]
-    });
   }
 
   onFormUpload(form: NgForm) {
     console.log(form);
-  }
-
-  get user() {
-    return this._user;
   }
 }

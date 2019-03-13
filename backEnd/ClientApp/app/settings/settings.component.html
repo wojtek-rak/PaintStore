@@ -1,61 +1,27 @@
 <div class="centered centered-block">
   <div class="upload-centered">
+    <ul class="menu-list">
+      <li>
+        <a
+          routerLinkActive="active"
+          routerLink="/settings"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Informations</a
+        >
+      </li>
+      <li *ngIf="loggedIn">
+        <a routerLinkActive="active" routerLink="/settings/credentials"
+          >Credentials</a
+        >
+      </li>
+    </ul>
     <h2>Edit your profile</h2>
 
     <!--
       <form #formEdit="ngForm" (ngSubmit)="onFormUpload(formEdit.form.value)">
     -->
-    <form [formGroup]="form" (ngSubmit)="onFormUpload(form)">
-      <input-text
-        [data]="{
-          label: 'Name'
-        }"
-        formControlName="userName"
-      ></input-text>
 
-      <input-text
-        [data]="{
-          label: 'Short information',
-          validation: 'short'
-        }"
-        formControlName="shortInformation"
-      ></input-text>
-
-      <input-email
-        [data]="{
-          label: 'Email'
-        }"
-        formControlName="email"
-      ></input-email>
-
-      <input-textarea
-        [data]="{
-          label: 'Description'
-        }"
-        formControlName="description"
-      ></input-textarea>
-
-      <confirm-password
-        [data]="{
-          label: 'password',
-          editable: true
-        }"
-        formControlName="password"
-      ></confirm-password>
-
-      <!-- <input-file #file (emitter)="childEmitter($event)"> -->
-      <input-file
-        [data]="{
-          label: 'Input profile image'
-        }"
-        formControlName="file"
-      >
-      </input-file>
-
-      <button area-label="edit profile" class="button-colored" type="submit">
-        Submit
-      </button>
-    </form>
+    <router-outlet></router-outlet>
   </div>
 </div>
 <app-confirmation-message #message></app-confirmation-message>

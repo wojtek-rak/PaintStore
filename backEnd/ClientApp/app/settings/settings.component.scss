@@ -1,24 +1,37 @@
 :host ::ng-deep input-file .file-label {
-    height: 120px;
+  height: 120px;
+}
+
+.menu-list {
+  padding: 0 0 20px 0;
+  a {
+    color: #bababa;
+  }
+
+  a.active {
+    color: #2196f3;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+  }
 }
 
 .upload-centered {
-    max-width: 600px;
+  max-width: 600px;
 }
 
 .input-description {
-    display: block;
-    margin-bottom: -15px;
+  display: block;
+  margin-bottom: -15px;
 }
 
 @media only screen and (max-width: 800px) {
-    .centered {
-        background: #fff;
-        min-height: calc(100vh - 153px);
-    }
-    
-.upload-centered {
+  .centered {
+    background: #fff;
+    min-height: calc(100vh - 153px);
+  }
+
+  .upload-centered {
     box-shadow: none;
     margin: 0 auto;
-}
+  }
 }

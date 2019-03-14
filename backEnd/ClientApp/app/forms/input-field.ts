@@ -31,6 +31,7 @@ export abstract class InputField implements OnChanges, ControlValueAccessor {
   public abstract validate(param: any): void;
 
   setMessage(validator: any) {
+    console.log(validator);
     // if there is an error
     if (validator !== null) {
       this._validateMessage = validator.error;

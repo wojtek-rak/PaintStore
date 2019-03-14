@@ -27,6 +27,9 @@
       #file
     >
     </input-file>
+    <div class="warning summary-warning" *ngIf="informationsWarning !== ''">
+      {{ informationsWarning }}
+    </div>
 
     <button area-label="edit profile" class="button-colored" type="submit">
       Submit

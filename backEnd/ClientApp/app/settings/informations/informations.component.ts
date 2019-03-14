@@ -21,6 +21,7 @@ import { UserService } from "ClientApp/app/services/user.service";
 export class InformationsComponent extends LoggedIn implements OnInit {
   private _user = new User();
   private form: any; // By�o FRORM GROUP TODO GRUBIEJ
+  private _informationsWarning = "";
   @ViewChild("file") file;
   @ViewChild("msg") msg;
   constructor(
@@ -71,29 +72,38 @@ export class InformationsComponent extends LoggedIn implements OnInit {
       .subscribe(res => {
         this.msg.show("Profile updated successfully.");
         this.file.clear();
+        this._informationsWarning = "";
       });
   }
 
   onFormUpload(form: NgForm) {
-    if (this.file.validateMessage !== "") {
-      form.value.file = null;
-      this.file.clear();
-    }
+    if (form.status === "VALID") {
+      if (this.file.validateMessage !== "") {
+        form.value.file = null;
+        this.file.clear();
+      }
 
-    if (form.value.file === null) {
-      this.editUser(null, form.value);
+      if (form.value.file === null) {
+        this.editUser(null, form.value);
+      } else {
+        console.log("nienull");
+        this.service
+          .uploadImage(form.value.file, this._loggedId, this._loggedToken)
+          .subscribe(res => {
+            const linkToImg = res[0].url;
+            this.editUser(linkToImg, form.value);
+          });
+      }
     } else {
-      console.log("nienull");
-      this.service
-        .uploadImage(form.value.file, this._loggedId, this._loggedToken)
-        .subscribe(res => {
-          const linkToImg = res[0].url;
-          this.editUser(linkToImg, form.value);
-        });
+      this._informationsWarning = "All fields must be valid.";
     }
   }
 
   get user() {
     return this._user;
+  }
+
+  get informationsWarning() {
+    return this._informationsWarning;
   }
 }

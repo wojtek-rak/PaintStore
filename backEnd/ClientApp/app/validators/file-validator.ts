@@ -8,8 +8,9 @@ export function fileValidator(c: FormControl, fieldName: string) {
     droppedFile === null ||
     typeof droppedFile === "undefined" ||
     typeof droppedFile.type === "undefined"
-  )
+  ) {
     return null;
+  }
 
   // else
   let allowedTypes = ["image/png", "image/jpeg"];
@@ -23,14 +24,16 @@ export function fileValidator(c: FormControl, fieldName: string) {
     droppedFile.size === 0
   ) {
     return {
-      error: "File type is wrong."
+      error: "File type is wrong.",
+      isNull: false
     };
   }
 
   if (droppedFile.size / 1024 / 1024 > 4) {
     // 2 MB size
     return {
-      error: "File size is too big."
+      error: "File size is too big.",
+      isNull: false
     };
   }
 

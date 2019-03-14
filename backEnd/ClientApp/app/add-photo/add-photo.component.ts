@@ -41,7 +41,7 @@ export class AddPhotoComponent extends LoggedIn implements OnInit {
       description: "",
       tags: "",
       category: "",
-      file: ["", fileValidator]
+      file: ["", [fileValidator, Validators.required]]
     });
   }
 
@@ -56,7 +56,7 @@ export class AddPhotoComponent extends LoggedIn implements OnInit {
     this._uploadWarning = "There was an error, please try again.";
   }
 
-  private sendMoreInfo(data, tags) {
+  private sendMoreInfo(data, tags, form: NgForm) {
     this.service
       .addAdditionalImageInfo(data, this._loggedId, this._loggedToken)
       .subscribe(
@@ -77,6 +77,7 @@ export class AddPhotoComponent extends LoggedIn implements OnInit {
             .subscribe(
               res => {
                 this.Message.show("File uploaded successfully!");
+                form.reset();
               },
               err => {
                 this.showErrorMsg();
@@ -93,16 +94,6 @@ export class AddPhotoComponent extends LoggedIn implements OnInit {
     if (form.status === "INVALID") {
       this._uploadWarning = "Title and file must be added.";
     } else {
-      // let newTags = [];
-      // let tags = form.value.tags;
-
-      // if (tags !== [] && tags !== "") {
-      //   tags.forEach(el => {
-      //     newTags.push(el.value);
-      //   });
-      // }
-      // form.value.tags = newTags;
-
       let linkToImg = "";
       this.service
         .uploadImage(form.value.file, this._loggedId, this._loggedToken)
@@ -117,7 +108,8 @@ export class AddPhotoComponent extends LoggedIn implements OnInit {
                 imgLink: linkToImg,
                 userOwnerName: ""
               },
-              GlobalVariables.parseTags(form.value.tags)
+              GlobalVariables.parseTags(form.value.tags),
+              form
             );
           },
           err => {

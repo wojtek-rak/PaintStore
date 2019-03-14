@@ -45,20 +45,24 @@ export class InputFileComponent extends InputField implements OnInit {
   validate(c: FormControl) {
     // console.log("validate");
     let validator = fileValidator(c, this.data.label);
-    if (validator === null) {
-      // if there is no errors, animate succes icon
+    console.log(c);
 
-      if (!this.first) {
-        this.animateIcon("svg-success");
-      } else this.first = false;
-    } else {
-      // animate error icon
+    if (c.value === "" || c.value === null || c.value.file === null) {
+      // if file is empty, animate upload icon
+      this.animateIcon("svg-upload");
+    } else if (validator === null) {
+      // if there is no errors, animate succes icon
+      // if (!this.first) {
+      this.animateIcon("svg-success");
+      // } else this.first = false;
+    } else if (validator.error !== "") {
+      // if there is error, animate error icon
       this.animateIcon("svg-fail");
     }
 
-    if (!this.first) {
-      super.setMessage(validator);
-    }
+    // if (!this.first) {
+    super.setMessage(validator);
+    // }
 
     return validator;
   }
@@ -130,12 +134,12 @@ export class InputFileComponent extends InputField implements OnInit {
   }
 
   private clear() {
-    this.animateIcon("svg-upload");
+    // this.animateIcon("svg-upload");
     this._information = "Drop a file here";
     this.Input.nativeElement.value = "";
     this._validateMessage = "";
-    // console.log(this.Input.nativeElement.files[0]);
-    // super.change(null);
+    console.log(this.Input.nativeElement.files[0]);
+    super.change(null);
   }
 
   public getFile() {

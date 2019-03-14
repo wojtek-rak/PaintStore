@@ -15,22 +15,22 @@ export function fileValidator(c: FormControl, fieldName: string) {
   let allowedTypes = ["image/png", "image/jpeg"];
   let allowedExtensions = ["png", "jpg"];
 
-    //TODO
-  //if (
-  //  !allowedTypes.includes(droppedFile.type) ||
-  //  (droppedFile.type === "" &&
-  //    !allowedExtensions.includes(droppedFile.name.split(".").pop())) ||
-  //  droppedFile.size === 0
-  //) {
-  //  return {
-  //    error: fieldName + " type is wrong."
-  //  };
-  //}
+  //TODO
+  if (
+    !allowedTypes.includes(droppedFile.type) ||
+    (droppedFile.type === "" &&
+      !allowedExtensions.includes(droppedFile.name.split(".").pop())) ||
+    droppedFile.size === 0
+  ) {
+    return {
+      error: "File type is wrong."
+    };
+  }
 
   if (droppedFile.size / 1024 / 1024 > 4) {
     // 2 MB size
     return {
-      error: fieldName + " size is too big."
+      error: "File size is too big."
     };
   }
 

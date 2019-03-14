@@ -217,4 +217,11 @@ export class ImageService {
       headers: headers
     });
   }
+
+  public editUser(data: any, id: number, token: string) {
+    let headers = this.getHeaders(id, token);
+    return this._http.post(`${this.host}api/Users/EditUser`, data, {
+      headers: headers
+    });
+  }
 }

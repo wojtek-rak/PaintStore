@@ -1,57 +1,35 @@
-<form [formGroup]="form" (ngSubmit)="onFormUpload(form)">
-  <input-text
-    [data]="{
-      label: 'Name'
-    }"
-    formControlName="userName"
-  ></input-text>
+<ng-container *ngIf="user.id !== 0">
+  <form [formGroup]="form" (ngSubmit)="onFormUpload(form)">
+    <input-text
+      [data]="{
+        label: 'Name'
+      }"
+      formControlName="userName"
+    ></input-text>
+    <input-text
+      [data]="{
+        label: 'Short information',
+        validation: 'short'
+      }"
+      formControlName="shortInformation"
+    ></input-text>
+    <input-textarea
+      [data]="{
+        label: 'Description'
+      }"
+      formControlName="description"
+    ></input-textarea>
+    <input-file
+      [data]="{
+        label: 'Input profile image'
+      }"
+      formControlName="file"
+      #file
+    >
+    </input-file>
 
-  <input-text
-    [data]="{
-      label: 'Short information',
-      validation: 'short'
-    }"
-    formControlName="shortInformation"
-  ></input-text>
-
-  <!-- <input-email
-    [data]="{
-      label: 'Email'
-    }"
-    formControlName="email"
-  ></input-email> -->
-
-  <input-textarea
-    [data]="{
-      label: 'Description'
-    }"
-    formControlName="description"
-  ></input-textarea>
-
-  <!-- <confirm-password
-    [data]="{
-      label: 'password',
-      editable: true
-    }"
-    formControlName="password"
-  ></confirm-password> -->
-  <input-password
-    [data]="{
-      label: 'Your current password'
-    }"
-    formControlName="password"
-  ></input-password>
-
-  <!-- <input-file #file (emitter)="childEmitter($event)"> -->
-  <input-file
-    [data]="{
-      label: 'Input profile image'
-    }"
-    formControlName="file"
-  >
-  </input-file>
-
-  <button area-label="edit profile" class="button-colored" type="submit">
-    Submit
-  </button>
-</form>
+    <button area-label="edit profile" class="button-colored" type="submit">
+      Submit
+    </button>
+  </form>
+</ng-container>

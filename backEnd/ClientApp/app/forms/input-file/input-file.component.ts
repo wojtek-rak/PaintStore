@@ -43,7 +43,7 @@ export class InputFileComponent extends InputField implements OnInit {
   }
 
   validate(c: FormControl) {
-    console.log("validate");
+    // console.log("validate");
     let validator = fileValidator(c, this.data.label);
     if (validator === null) {
       // if there is no errors, animate succes icon
@@ -108,8 +108,9 @@ export class InputFileComponent extends InputField implements OnInit {
 
   private animateIcon(icon: string) {
     this.elements.forEach(element => {
+      // ele.classList.remove("end-animation", "hidden");
       if (element.classList.contains("start-animation")) {
-        if (element.classList.contains(icon)) return;
+        // if (element.classList.contains(icon)) return;
         element.classList.remove("start-animation");
         element.classList.add("end-animation");
       }
@@ -123,14 +124,18 @@ export class InputFileComponent extends InputField implements OnInit {
   }
 
   private dropped() {
-    console.log(this.Input.nativeElement.files[0]);
+    // console.log(this.Input.nativeElement.files[0]);
+    this._information = this.Input.nativeElement.files[0].name;
     super.change(this.Input.nativeElement.files[0]);
   }
 
   private clear() {
-    // $(".file-input")[0].value = "";
     this.animateIcon("svg-upload");
     this._information = "Drop a file here";
+    this.Input.nativeElement.value = "";
+    this._validateMessage = "";
+    // console.log(this.Input.nativeElement.files[0]);
+    // super.change(null);
   }
 
   public getFile() {

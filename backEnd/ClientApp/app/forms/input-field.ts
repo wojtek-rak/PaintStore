@@ -28,9 +28,9 @@ export abstract class InputField implements OnChanges, ControlValueAccessor {
     this._validateMessage = "";
   }
 
-  public abstract validate(param : any): void;
+  public abstract validate(param: any): void;
 
-  setMessage(validator : any) {
+  setMessage(validator: any) {
     // if there is an error
     if (validator !== null) {
       this._validateMessage = validator.error;
@@ -44,7 +44,7 @@ export abstract class InputField implements OnChanges, ControlValueAccessor {
     this.editing = true;
   }
 
-    stopEditing() {
+  stopEditing() {
     const checkUndefinded = this.Input;
     if (checkUndefinded === undefined) return;
     checkUndefinded.nativeElement.value = "";
@@ -53,35 +53,40 @@ export abstract class InputField implements OnChanges, ControlValueAccessor {
   }
 
   // to not show error when first validate empty field
-    ngOnChanges() {
-        const checkUndefinded = this.Input;
-        if (checkUndefinded === undefined) return;
-        this.propagateChange(checkUndefinded.nativeElement.value);
+  ngOnChanges() {
+    const checkUndefinded = this.Input;
+    if (checkUndefinded === undefined) return;
+    this.propagateChange(checkUndefinded.nativeElement.value);
   }
 
   // Control Value Accessor Implementation
   propagateChange = (_: any) => {};
 
   writeValue(value: string) {
-      if (value !== undefined) {
-          const checkUndefinded = this.Input;
-          if (checkUndefinded === undefined) return;
-          checkUndefinded.nativeElement.value = value;
+    if (value !== undefined) {
+      const checkUndefinded = this.Input;
+      if (checkUndefinded === undefined) return;
+      checkUndefinded.nativeElement.value = value;
     }
   }
 
-  registerOnChange(fn : any) {
+  registerOnChange(fn: any) {
     this.propagateChange = fn;
   }
 
   registerOnTouched() {}
 
-  change(value : any) {
+  change(value: any) {
     this.propagateChange(value);
   }
 
   // getters
   get validateMessage() {
     return this._validateMessage;
+  }
+
+  // setters
+  set validateMessage(msg) {
+    this._validateMessage = msg;
   }
 }

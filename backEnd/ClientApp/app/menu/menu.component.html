@@ -61,10 +61,17 @@
         <div class="menu-toggled" #menuToggled>
           <ul>
             <li>
+              <a routerLink="/user/{{ loggedId }}"
+                ><i class="icon-cog"></i>Your profile</a
+              >
+            </li>
+            <li>
               <a routerLink="/settings"><i class="icon-cog"></i>Edit profile</a>
             </li>
             <li>
-              <a routerLink="/upload-image"><i class="icon-plus"></i>Add</a>
+              <a routerLink="/upload-image"
+                ><i class="icon-plus"></i>Add image</a
+              >
             </li>
             <li>
               <button class="logout" (click)="logout()">

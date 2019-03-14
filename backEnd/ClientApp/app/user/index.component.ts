@@ -25,6 +25,8 @@ import { Router } from "@angular/router";
 })
 export class IndexComponent extends LoggedIn implements OnInit {
   // private _loggedIn = false;
+  @ViewChild("email") email;
+  @ViewChild("name") name;
 
   registerForm: FormGroup;
   loginForm: FormGroup;
@@ -109,13 +111,23 @@ export class IndexComponent extends LoggedIn implements OnInit {
           email: form.value.email,
           password: form.value.passwords.new
         })
-        .subscribe(res => {
-          console.log(res);
-          // to do: walidacja
-          this._registered = true;
-        });
+        .subscribe(
+          res => {
+            this._registered = true;
+          },
+          err => {
+            // email already exists
+            if (err.status === 409) {
+              this.email.validateMessage = "Email already exists!";
+            }
+            // username already exists
+            if (err.status === 403) {
+              this.name.validateMessage = "Name already exists!";
+            }
+          }
+        );
     } else {
-      this._registerWarning = "Form must be valid.";
+      this._registerWarning = "All fields must be filled.";
     }
   }
 

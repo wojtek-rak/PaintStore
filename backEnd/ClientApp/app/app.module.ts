@@ -49,6 +49,7 @@ import { TagsComponent } from "./tags/tags.component";
 import { ImagesCommonComponent } from "./images-common/images-common.component";
 import { InformationsComponent } from "./settings/informations/informations.component";
 import { CredentialsComponent } from "./settings/credentials/credentials.component";
+import { UserService } from "./services/user.service";
 
 const appRoutes: Routes = [
   {
@@ -189,7 +190,7 @@ const appRoutes: Routes = [
     RecaptchaModule,
     RecaptchaFormsModule
   ],
-  providers: [ImageService, AccountService],
+  providers: [ImageService, AccountService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

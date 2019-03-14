@@ -7,6 +7,7 @@ import { passwordsValidator } from "../validators/passwords-validator";
 import { fileValidator } from "../validators/file-validator";
 import { LoggedIn } from "../classes/logged-in";
 import { Router } from "@angular/router";
+import { ImageService } from "../services/image.service";
 
 @Component({
   selector: "app-settings",

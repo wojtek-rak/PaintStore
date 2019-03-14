@@ -22,6 +22,7 @@ export class InformationsComponent extends LoggedIn implements OnInit {
   private _user = new User();
   private form: any; // By�o FRORM GROUP TODO GRUBIEJ
   @ViewChild("file") file;
+  @ViewChild("msg") msg;
   constructor(
     private fb: FormBuilder,
     private service: ImageService,
@@ -68,7 +69,8 @@ export class InformationsComponent extends LoggedIn implements OnInit {
         this._loggedToken
       )
       .subscribe(res => {
-        console.log(res);
+        this.msg.show("Profile updated successfully.");
+        this.file.clear();
       });
   }
 

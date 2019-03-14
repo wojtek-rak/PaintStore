@@ -1,9 +1,11 @@
 <ng-container *ngIf="images">
-  <span *ngIf="images.length === 0 && !loading && !fail"
+  <span
+    class="centered-description"
+    *ngIf="images.length === 0 && !loading && !fail"
     >There is no images yet.</span
   ></ng-container
 >
-<div class="loading" *ngIf="loading === true">
+<div class="loading" *ngIf="loading === true" class="centered-description">
   <img src="../../assets/svg/loading-images.svg" />
 </div>
 

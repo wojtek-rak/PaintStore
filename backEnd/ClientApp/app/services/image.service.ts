@@ -220,7 +220,7 @@ export class ImageService {
 
   public editUser(data: any, id: number, token: string) {
     let headers = this.getHeaders(id, token);
-    return this._http.post(`${this.host}api/Users/EditUser`, data, {
+    return this._http.put(`${this.host}api/Users/EditUser`, data, {
       headers: headers
     });
   }

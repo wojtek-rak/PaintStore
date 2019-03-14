@@ -22,8 +22,10 @@ export class InformationsComponent extends LoggedIn implements OnInit {
   private _user = new User();
   private form: any; // By�o FRORM GROUP TODO GRUBIEJ
   private _informationsWarning = "";
+  private _loading = false;
   @ViewChild("file") file;
   @ViewChild("msg") msg;
+
   constructor(
     private fb: FormBuilder,
     private service: ImageService,
@@ -70,6 +72,7 @@ export class InformationsComponent extends LoggedIn implements OnInit {
         this._loggedToken
       )
       .subscribe(res => {
+        this._loading = false;
         this.msg.show("Profile updated successfully.");
         this.file.clear();
         this._informationsWarning = "";
@@ -78,6 +81,7 @@ export class InformationsComponent extends LoggedIn implements OnInit {
 
   onFormUpload(form: NgForm) {
     if (form.status === "VALID") {
+      this._loading = true;
       if (this.file.validateMessage !== "") {
         form.value.file = null;
         this.file.clear();
@@ -105,5 +109,9 @@ export class InformationsComponent extends LoggedIn implements OnInit {
 
   get informationsWarning() {
     return this._informationsWarning;
+  }
+
+  get loading() {
+    return this._loading;
   }
 }

@@ -23,7 +23,11 @@
             "polyfills": "ClientApp/polyfills.ts",
             "tsConfig": "ClientApp/tsconfig.app.json",
             "assets": ["ClientApp/favicon.ico", "ClientApp/assets"],
-            "styles": ["ClientApp/styles.scss"],
+            "styles": [
+              "ClientApp/styles.scss",
+              "ClientApp/assets/fontello/css/fontello.css",
+              "ClientApp/assets/fontello/css/animation.css"
+            ],
             "scripts": ["./node_modules/jquery/dist/jquery.min.js"]
           },
           "configurations": {
@@ -78,7 +82,10 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["ClientApp/tsconfig.app.json", "ClientApp/tsconfig.spec.json"],
+            "tsConfig": [
+              "ClientApp/tsconfig.app.json",
+              "ClientApp/tsconfig.spec.json"
+            ],
             "exclude": ["**/node_modules/**"]
           }
         }

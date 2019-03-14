@@ -1,11 +1,17 @@
 <menu #menu>
-  <div class="information">
-    The application still in production. This is a demonstration site.
-  </div>
   <div class="container-menu">
     <ul class="hamburger">
-      <li class="logo">LOGO</li>
-      <li class="hamburger-icon" (click)="toggleClass()">H</li>
+      <li class="logo">
+        <a routerLink=""
+          ><img
+            src="../../assets/img/logo.png"
+            height="80px"
+            style="opacity: 0.5"
+        /></a>
+      </li>
+      <li class="hamburger-icon" (click)="toggleClass()">
+        <i class="icon-menu"></i>
+      </li>
     </ul>
 
     <ul class="container-menu-ul hidden" #menuUl>
@@ -62,7 +68,7 @@
           <ul>
             <li>
               <a routerLink="/user/{{ loggedId }}"
-                ><i class="icon-cog"></i>Your profile</a
+                ><i class="icon-user-1"></i>Your profile</a
               >
             </li>
             <li>

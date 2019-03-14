@@ -7,9 +7,9 @@
       (keyup)="search(this.input.value)"
       #input
     />
-    <span class="loading"
-      ><img *ngIf="loading" src="../../assets/gif/Spinner-1s-20px.gif"
-    /></span>
+    <span class="loading" *ngIf="loading"
+      ><i class="icon-spin4 animate-spin"></i
+    ></span>
   </div>
 </div>
 <div class="search-result" #searchResult>
@@ -51,7 +51,7 @@
           <div class="description">
             {{
               response.tagName !== null
-                ? response.count + " posts"
+                ? response.count + (response.count === 1 ? " post" : " posts")
                 : "Followed by " + response.followedCount
             }}
           </div>

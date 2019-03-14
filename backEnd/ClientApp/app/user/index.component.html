@@ -527,9 +527,14 @@
 							<div class="warning summary-warning" *ngIf="registerWarning !== ''">{{registerWarning}}</div>
 							<re-captcha (resolved)="resolved($event)" siteKey="6LdV5pYUAAAAAAKMSM93P-KFs_r7frSEs3iOb5_8" formControlName="captcha"></re-captcha>
 							<div class="warning summary-warning" *ngIf="registerWarning !== ''">{{registerWarning}}</div>
+							
 							<button area-label="edit profile" class="button-colored" type="submit">
 								Submit
 							</button>
+
+							<span *ngIf="registerLoading" class="loading"
+								><i class="icon-spin4 animate-spin"></i
+							></span>
 						</form>
 						<div *ngIf="registered === true" >You have been succesfully registered. Log in.</div>
 					</div>
@@ -540,15 +545,18 @@
 								<input-email [data]="{
 									label: 'Email',
 									placeholder: 'e-mail'
-									}" formControlName="email"></input-email>
+									}" formControlName="email" #emailLogin></input-email>
 					
 								<input-password [data]="{
 									label: 'Password'
-								}" formControlName="password"></input-password>
+								}" formControlName="password" #passwordLogin></input-password>
 								<div class="warning summary-warning" *ngIf="loginWarning !== ''">{{loginWarning}}</div>
 								<button area-label="edit profile" class="button-colored" type="submit">
 									Submit
 								</button>
+								<span *ngIf="loginLoading" class="loading"
+									><i class="icon-spin4 animate-spin"></i
+								></span>
 							</form>
 					</div>
 				</mat-tab>

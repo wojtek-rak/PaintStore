@@ -4,7 +4,9 @@
       <span># {{ tagname }}</span>
     </div>
     <div class="loading" *ngIf="loading === true">
-      <img src="../../assets/svg/loading-images.svg" />
+      <span class="loading"
+        >Loading <i class="icon-spin4 animate-spin"></i
+      ></span>
     </div>
     <div class="image-wrapper">
       <div class="image-element" *ngFor="let image of images">

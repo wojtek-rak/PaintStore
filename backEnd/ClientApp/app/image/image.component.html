@@ -12,9 +12,8 @@
           *ngIf="image.userId === loggedId"
           (click)="editTitle()"
           class="edit-delete-icon"
-          >E</span
-        ></ng-container
-      >
+          ><i class="icon-pencil"></i></span
+      ></ng-container>
       <!-- change title form  -->
       <ng-container
         *ngIf="titleEditing && image.title !== '' && image.userId === loggedId"
@@ -88,8 +87,8 @@
             </div>
             <div class="button-wrapper">
               <span *ngIf="loading" class="loading"
-                ><img src="../../assets/svg/loading.svg"
-              /></span>
+                ><i class="icon-spin4 animate-spin"></i
+              ></span>
               <button [disabled]="loading" type="submit" class="button-colored">
                 Send
               </button>
@@ -124,18 +123,19 @@
                   (click)="removeComment(comment.id)"
                   *ngIf="comment.userId === loggedId"
                 >
-                  D
+                  <i class="icon-trash"></i>
                 </span>
                 <span
                   class="edit-delete-icon header-info"
                   (click)="editComment(comment)"
                   *ngIf="comment.userId === loggedId"
                 >
-                  E
+                  <i class="icon-pencil"></i>
                 </span>
                 <span class="likes header-info">
                   <span class="link" (click)="commentShowLiked(comment.id)">
-                    {{ comment.likeCount }} likes
+                    {{ comment.likeCount }}
+                    {{ comment.likeCount === 1 ? "like" : "likes" }}
                   </span>
                 </span>
                 <span
@@ -183,8 +183,8 @@
             class="edit-delete-icon"
             (click)="editDescription()"
             *ngIf="image.userId === loggedId"
-            >E</span
-          >
+            ><i class="icon-pencil"></i
+          ></span>
         </p>
         <!-- update description form  -->
         <ng-container *ngIf="descriptionEditing && image.userId === loggedId">
@@ -220,8 +220,8 @@
             class="edit-delete-icon"
             (click)="editTags()"
             *ngIf="image.userId === loggedId"
-            >E</span
-          >
+            ><i class="icon-pencil"></i
+          ></span>
         </p>
         <!-- update tags form  -->
         <ng-container *ngIf="tagsEditing && image.userId === loggedId">

@@ -27,10 +27,6 @@ menu {
   text-align: center;
 }
 
-.scrollmagic-toggle {
-  padding-bottom: 26px; // to do: remove when not in production
-}
-
 menu.static {
   position: relative;
   box-shadow: none;
@@ -60,10 +56,8 @@ menu.static {
     transition: 0.2s;
     margin-left: 20px;
     padding: 5px;
-
-    &:hover {
-      background: #f2f2f2;
-    }
+    color: #8a8a8a;
+    font-size: 20px;
   }
 }
 
@@ -357,7 +351,7 @@ menu.visible {
 
   .scrolled {
     .container-menu-ul {
-      height: 150px;
+      height: 180px;
     }
 
     .hamburger {
@@ -368,7 +362,7 @@ menu.visible {
   .container-menu-ul {
     // height: 0;
     flex-direction: column;
-    height: 150px;
+    height: 180px;
 
     .menu-user {
       button {

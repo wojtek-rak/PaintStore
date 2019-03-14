@@ -29,6 +29,7 @@ export class AddPhotoComponent extends LoggedIn implements OnInit {
 
   private _uploadWarning = "";
   private uploadForm: FormGroup;
+  private _loading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -78,6 +79,7 @@ export class AddPhotoComponent extends LoggedIn implements OnInit {
               res => {
                 this.Message.show("File uploaded successfully!");
                 form.reset();
+                this._loading = false;
               },
               err => {
                 this.showErrorMsg();
@@ -94,6 +96,7 @@ export class AddPhotoComponent extends LoggedIn implements OnInit {
     if (form.status === "INVALID") {
       this._uploadWarning = "Title and file must be added.";
     } else {
+      this._loading = true;
       let linkToImg = "";
       this.service
         .uploadImage(form.value.file, this._loggedId, this._loggedToken)
@@ -122,5 +125,9 @@ export class AddPhotoComponent extends LoggedIn implements OnInit {
 
   get uploadWarning(): string {
     return this._uploadWarning;
+  }
+
+  get loading() {
+    return this._loading;
   }
 }

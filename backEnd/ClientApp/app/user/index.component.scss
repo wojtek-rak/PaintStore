@@ -11,7 +11,7 @@
 
 .homepage-container {
   margin-top: -50px;
-  padding: 0 70px;
+  padding: 0 70px 70px;
   font-family: "Playfair Display", serif;
 }
 
@@ -113,10 +113,6 @@ h4 {
 svg {
   height: 100%;
   width: auto;
-}
-
-.join {
-  padding-bottom: 70px;
 }
 
 .see-examples {
@@ -283,7 +279,7 @@ path {
 
 @media screen and (max-width: 1020px) {
   .homepage-container {
-    padding: 0 40px;
+    padding: 0 40px 70px;
   }
 
   .title span {

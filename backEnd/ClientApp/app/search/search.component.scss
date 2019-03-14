@@ -2,7 +2,13 @@
   display: flex;
 }
 
+i {
+  display: block;
+  margin: 0 5px;
+}
+
 .search {
+  height: 32px;
   display: flex;
   align-items: center;
   box-sizing: border-box;
@@ -13,10 +19,6 @@
   background: #f8f8f8;
   color: #c2c2c2;
   border: 1px solid #eeeeee;
-
-  .icon {
-    padding: 0 6px;
-  }
 
   img {
     display: block;

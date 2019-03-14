@@ -55,11 +55,13 @@ export class InputFileComponent extends InputField implements OnInit {
       this.animateIcon("svg-success");
       // } else this.first = false;
     } else if (validator.error !== "") {
-      // if there is error, animate error icon
+      // if there is an error, animate error icon
       this.animateIcon("svg-fail");
     }
 
     super.setMessage(validator);
+    if (c.value === "" || c.value === null || c.value.file === null)
+      this._information = "Drop a file here";
 
     return validator;
   }

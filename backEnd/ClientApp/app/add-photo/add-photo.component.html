@@ -35,6 +35,9 @@
       <button area-label="upload file" class="button-colored" type="submit">
         Submit
       </button>
+      <span *ngIf="loading" class="loading"
+        ><i class="icon-spin4 animate-spin"></i
+      ></span>
     </form>
   </div>
 </div>

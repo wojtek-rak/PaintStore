@@ -43,7 +43,6 @@ export class InputFileComponent extends InputField implements OnInit {
   }
 
   validate(c: FormControl) {
-    // console.log("validate");
     let validator = fileValidator(c, this.data.label);
     console.log(c);
 
@@ -60,9 +59,7 @@ export class InputFileComponent extends InputField implements OnInit {
       this.animateIcon("svg-fail");
     }
 
-    // if (!this.first) {
     super.setMessage(validator);
-    // }
 
     return validator;
   }
@@ -88,14 +85,12 @@ export class InputFileComponent extends InputField implements OnInit {
       })
       .on("drop", (e: any) => {
         this.Input.nativeElement.files = e.originalEvent.dataTransfer.files;
-        // this.file = e.originalEvent.dataTransfer.files[0];
         this.dropped();
       });
 
     // if label is clicked
     let $fileInput = $(".file-input");
     $fileInput.on("change", () => {
-      // this.file = $fileInput.prop("files")[0];
       this.dropped();
     });
 
@@ -112,7 +107,6 @@ export class InputFileComponent extends InputField implements OnInit {
 
   private animateIcon(icon: string) {
     this.elements.forEach(element => {
-      // ele.classList.remove("end-animation", "hidden");
       if (element.classList.contains("start-animation")) {
         // if (element.classList.contains(icon)) return;
         element.classList.remove("start-animation");
@@ -128,13 +122,11 @@ export class InputFileComponent extends InputField implements OnInit {
   }
 
   private dropped() {
-    // console.log(this.Input.nativeElement.files[0]);
     this._information = this.Input.nativeElement.files[0].name;
     super.change(this.Input.nativeElement.files[0]);
   }
 
   private clear() {
-    // this.animateIcon("svg-upload");
     this._information = "Drop a file here";
     this.Input.nativeElement.value = "";
     this._validateMessage = "";

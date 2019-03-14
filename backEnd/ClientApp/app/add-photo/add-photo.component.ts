@@ -123,27 +123,4 @@ export class AddPhotoComponent extends LoggedIn implements OnInit {
   get uploadWarning(): string {
     return this._uploadWarning;
   }
-
-  // newUpload() {
-  //   // console.log(this.file.nativeElement.files[0]);
-  //   // this.service
-  //   //   .uploadImage(
-  //   //     this.file.nativeElement.files[0],
-  //   //     this._loggedId,
-  //   //     this._loggedToken
-  //   //   )
-  //   //   .subscribe(res => {
-  //   //     console.log(res);
-  //   //   });
-
-  //   let fi = this.fileInput.nativeElement;
-
-  //   if (fi.files && fi.files[0]) {
-  //     let fileToUpload = fi.files[0];
-  //     console.log(fileToUpload);
-  //     this.service
-  //       .upload(fileToUpload, this._loggedId, this._loggedToken) // 5000 for macc
-  //       .subscribe(response => console.log(response));
-  //   }
-  // }
 }

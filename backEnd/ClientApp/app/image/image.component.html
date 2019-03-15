@@ -1,7 +1,13 @@
 <div class="photo-header">
   <div class="author-avatar">
-    <a routerLink="#">
-      <img src="{{ image.userOwnerImgLink }}" />
+    <a routerLink="/user/{{ image.userId }}">
+      <img
+        src="{{
+          image.userOwnerImgLink === null || image.userOwnerImgLink === ''
+            ? '../../assets/img/avatar.png'
+            : image.userOwnerImgLink
+        }}"
+      />
     </a>
   </div>
   <div class="basic-info">
@@ -103,7 +109,13 @@
             <div class="image-author">
               <div class="avatar-container">
                 <a class="avatar-link" routerLink="/user/{{ comment.userId }}">
-                  <img src="{{ comment.userOwnerImgLink }}" />
+                  <img
+                  src="{{
+                    comment.userOwnerImgLink === null || comment.userOwnerImgLink === ''
+                      ? '../../assets/img/avatar.png'
+                      : comment.userOwnerImgLink
+                  }}"
+                />
                 </a>
               </div>
             </div>

@@ -19,7 +19,13 @@
     <div class="image-author">
       <div class="avatar-container">
         <a class="avatar-link" routerLink="/user/{{ image.userId }}">
-          <img src="{{ image.userOwnerImgLink }}" />
+          <img
+            src="{{
+              image.userOwnerImgLink === null || image.userOwnerImgLink === ''
+                ? '../../assets/img/avatar.png'
+                : image.userOwnerImgLink
+            }}"
+          />
         </a>
       </div>
       <div class="image-author-name">

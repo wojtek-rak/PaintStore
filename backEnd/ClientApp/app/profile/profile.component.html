@@ -9,7 +9,14 @@
                 class="avatar-link"
                 routerLink="/user/{{ getUser().accountId }}"
               >
-                <img src="{{ getUser().avatarImgLink }}" />
+                <img
+                  src="{{
+                    getUser().avatarImgLink === null ||
+                    getUser().avatarImgLink === ''
+                      ? '../../assets/img/avatar.png'
+                      : getUser().avatarImgLink
+                  }}"
+                />
               </a>
             </div>
 

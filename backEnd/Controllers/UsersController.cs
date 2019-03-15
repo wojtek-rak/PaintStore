@@ -80,6 +80,10 @@ namespace PaintStore.BackEnd.Controllers
                 var editCredentials = _usersService.EditUserCredentials(user);
                 return Ok(editCredentials.Email);
             }
+            catch (BadPasswordException)
+            {
+                return StatusCode(409);
+            }
             catch (UnauthorizedAccessException)
             {
                 return StatusCode(401);

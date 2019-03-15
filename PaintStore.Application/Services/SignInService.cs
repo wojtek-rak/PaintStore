@@ -54,7 +54,7 @@ namespace PaintStore.Application.Services
                 using (var db = _paintStoreContext)
                 {
                     var userToSignOut = db.Users.First(x => x.Id == signOutCommand.UserId);
-                    userToSignOut.Token = null;
+                    userToSignOut.Token = CredentialsHelpers.CreateSalt();
                     db.SaveChanges();
                 }
                 return true;

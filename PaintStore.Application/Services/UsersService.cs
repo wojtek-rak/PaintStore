@@ -118,8 +118,9 @@ namespace PaintStore.Application.Services
                 var accountToUpdate = db.Users.First(x => x.Id == account.Id);
 
                 if (account.NewEmail != null) accountToUpdate.Email = account.NewEmail;
-                if (account.NewPassword != null && account.NewPassword.Length > 7)
+                if (account.NewPassword != null)
                 {
+                    if (account.NewPassword.Length < 8) throw new BadPasswordException();
                     accountToUpdate.PasswordSoil = CredentialsHelpers.CreateSalt();
                     var  encoding = new ASCIIEncoding();
                     var soil = encoding.GetBytes(accountToUpdate.PasswordSoil);
@@ -127,6 +128,7 @@ namespace PaintStore.Application.Services
                     accountToUpdate.PasswordHash = System.Text.Encoding.UTF8.GetString(CredentialsHelpers.GenerateSaltedHash(password, soil));
                 }
 
+                accountToUpdate.Token = CredentialsHelpers.CreateSalt();
                 db.SaveChanges();
                 return accountToUpdate;
             }

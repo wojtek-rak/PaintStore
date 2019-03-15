@@ -34,8 +34,11 @@ namespace PaintStore.Application.Services
 
                 bool liked = db.PostLikes.Any(x => x.PostId == postId && x.UserId == userId);
 
+                var userOwnerImgLink = db.Users.First(x => x.Id == userId).AvatarImgLink;
+
                 var postDetailsResult = new PostDetailsResult(post)
                 {
+                    UserOwnerImgLink = userOwnerImgLink,
                     CreationDate = post.CreationDate.ToString("dd-MM-yyyy"),
                     Description = post.Description,
                     TagsList = tagsList,

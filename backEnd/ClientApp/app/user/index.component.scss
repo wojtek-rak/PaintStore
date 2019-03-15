@@ -165,7 +165,7 @@ path {
   animation-fill-mode: forwards;
 }
 @mixin animation($s) {
-  @for $i from 0 to 67 {
+  @for $i from 0 to 50 {
     path:nth-of-type(#{$i + 1}) {
       animation-delay: #{$i/10 + $s};
     }

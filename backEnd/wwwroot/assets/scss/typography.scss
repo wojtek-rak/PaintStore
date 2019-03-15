@@ -238,6 +238,11 @@ input:focus.invalid {
         color: #a2a0a0;
         font-family: "Roboto", sans-serif;
       }
+
+      i {
+        color: #bababa;
+        margin-left: -3px;
+      }
     }
 
     // .image-author {
@@ -684,4 +689,10 @@ tag-input {
 
 .edit-delete-icon:hover {
   background: #eaeaea;
+}
+
+// loading icon
+.icon-spin4 {
+  color: #a5a5a5;
+  margin: 0 15px;
 }

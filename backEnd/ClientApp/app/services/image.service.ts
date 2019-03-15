@@ -224,4 +224,18 @@ export class ImageService {
       headers: headers
     });
   }
+
+  public editUserCredentials(data: any, id: number, token: string) {
+    let headers = this.getHeaders(id, token);
+    return this._http.put(`${this.host}api/Users/EditUserCredentials`, data, {
+      headers: headers
+    });
+  }
+
+  public getUserEmail(data: any, id: number, token: string) {
+    let headers = this.getHeaders(id, token);
+    return this._http.post(`${this.host}api/Users/GetUserEmail`, data, {
+      headers: headers
+    });
+  }
 }

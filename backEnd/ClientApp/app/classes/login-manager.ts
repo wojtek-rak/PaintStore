@@ -5,6 +5,7 @@ export abstract class LoginManager {
   private static _userId: number = 0;
   private static _userLoggedIn: boolean = false;
   private static _userToken: string = "";
+  private static _imgLink: string = "";
 
   private static local: LocalStorageService = new LocalStorageService();
 
@@ -50,5 +51,9 @@ export abstract class LoginManager {
   public static userToken(): string {
     this.checkAuth();
     return this._userToken;
+  }
+
+  public static imgLink(): string {
+    return this._imgLink;
   }
 }

@@ -39,7 +39,6 @@ export class InformationsComponent extends LoggedIn implements OnInit {
       userName: [this._user.name, [Validators.required, requiredTextValidator]],
       shortInformation: [this._user.link, shortTextValidator],
       description: [this._user.about],
-      password: ["", passwordValidator],
       file: [null, fileValidator]
     });
   }
@@ -71,12 +70,18 @@ export class InformationsComponent extends LoggedIn implements OnInit {
         this._loggedId,
         this._loggedToken
       )
-      .subscribe(res => {
-        this._loading = false;
-        this.msg.show("Profile updated successfully.");
-        this.file.clear();
-        this._informationsWarning = "";
-      });
+      .subscribe(
+        res => {
+          this._loading = false;
+          this.msg.show("Profile updated successfully.");
+          this.file.clear();
+          this._informationsWarning = "";
+        },
+        err => {
+          if (err.status === 403)
+            this._informationsWarning = "Name arleady exists.";
+        }
+      );
   }
 
   onFormUpload(form: NgForm) {

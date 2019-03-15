@@ -82,7 +82,13 @@
               <div class="image-author">
                 <div class="avatar-container">
                   <a class="avatar-link" routerLink="">
-                    <img src="https://via.placeholder.com/40x40" />
+                    <img
+                      src="{{
+                        comment.imgLink === null || comment.imgLink === ''
+                          ? '../../assets/img/avatar.png'
+                          : comment.imgLink
+                      }}"
+                    />
                   </a>
                 </div>
               </div>
@@ -110,12 +116,13 @@
               <div class="avatar-container">
                 <a class="avatar-link" routerLink="/user/{{ comment.userId }}">
                   <img
-                  src="{{
-                    comment.userOwnerImgLink === null || comment.userOwnerImgLink === ''
-                      ? '../../assets/img/avatar.png'
-                      : comment.userOwnerImgLink
-                  }}"
-                />
+                    src="{{
+                      comment.userOwnerImgLink === null ||
+                      comment.userOwnerImgLink === ''
+                        ? '../../assets/img/avatar.png'
+                        : comment.userOwnerImgLink
+                    }}"
+                  />
                 </a>
               </div>
             </div>

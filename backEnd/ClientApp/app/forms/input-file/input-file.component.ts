@@ -44,7 +44,6 @@ export class InputFileComponent extends InputField implements OnInit {
 
   validate(c: FormControl) {
     let validator = fileValidator(c, this.data.label);
-    console.log(c);
 
     if (c.value === "" || c.value === null || c.value.file === null) {
       // if file is empty, animate upload icon
@@ -132,7 +131,6 @@ export class InputFileComponent extends InputField implements OnInit {
     this._information = "Drop a file here";
     this.Input.nativeElement.value = "";
     this._validateMessage = "";
-    console.log(this.Input.nativeElement.files[0]);
     super.change(null);
   }
 

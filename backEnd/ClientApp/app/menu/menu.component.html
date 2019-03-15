@@ -59,7 +59,13 @@
       <li class="menu-user">
         <!-- /user/{{ LoginManager.userId() }} -->
         <a routerLink="/user/{{ loggedId }}" class="logged-user-icon"
-          ><img src="../../assets/img/avatar.png" width="40px"
+          ><img
+            src="{{
+              imgLink === null || imgLink === ''
+                ? '../../assets/img/avatar.png'
+                : imgLink
+            }}"
+            width="40px"
         /></a>
         <button class="menu-toggle-down" (click)="toggleMenu()" #button>
           <i class="icon-down-open"></i>

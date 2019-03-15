@@ -14,11 +14,6 @@ export class AccountService {
   }
 
   getUserToken(data: any) {
-    // let data = {
-    //   email: name,
-    //   password: password
-    // };
-
     return this._http.post(this.host + "api/SignIn/In", data);
   }
 

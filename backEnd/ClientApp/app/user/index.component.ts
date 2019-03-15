@@ -94,12 +94,11 @@ export class IndexComponent extends LoggedIn implements OnInit {
           // to do: walidacja
           LoginManager.loginUser(res);
           window.location.replace("");
-          // document.location.reload();
           this._loginLoading = false;
         },
         err => {
           this._loginLoading = false;
-          // console.log(this.passwordLogin.Input.nativeElement.classList.add('invalid'));
+
           if (err.status === 401) {
             this.emailLogin.Input.nativeElement.classList.add("invalid");
             this.passwordLogin.Input.nativeElement.classList.add("invalid");

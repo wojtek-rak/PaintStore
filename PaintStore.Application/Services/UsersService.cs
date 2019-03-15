@@ -63,6 +63,14 @@ namespace PaintStore.Application.Services
                 return postsResult;
             }
         }
+        public UsersEmailResult GetUserEmail(GetUserEmailCommand user)
+        {
+            using (var db = _paintStoreContext)
+            {
+                var email = db.Users.First(x => x.Id == user.UserId).Email;
+                return new UsersEmailResult {Email = email};
+            }
+        }
 
         public Users AddUser(AddUserCommand user)
         {

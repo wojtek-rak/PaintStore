@@ -37,6 +37,12 @@ namespace PaintStore.BackEnd.Controllers
              return Ok(_usersService.GetPosts(userId, message));
         }
 
+        [HttpPost("GetUserEmail")]
+        public IActionResult GetUserEmail([FromBody] GetUserEmailCommand user)
+        {
+            return Ok(_usersService.GetUserEmail(user));
+        }
+
         /// <response code="403">If there is already that Name</response>   
         /// <response code="409">If there is already that Email</response>   
         [HttpPost("AddUser")]
@@ -58,7 +64,6 @@ namespace PaintStore.BackEnd.Controllers
             {
                 throw ex;
             }
-
         }
 
         [HttpPut("EditUser")]

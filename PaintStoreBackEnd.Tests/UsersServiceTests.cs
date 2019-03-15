@@ -87,6 +87,20 @@ namespace PaintStoreBackEnd.Tests
         }
 
         [Test]
+        public void GetUserEmail_ValidId_ReturnGoodEmail()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var id = 1;
+            var expectedEmail = mock.Object.Users.First(x => x.Id == id).Email;
+            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
+            var resultEmail = controller.GetUserEmail(new GetUserEmailCommand() { UserId = id});
+            Assert.AreEqual( expectedEmail, resultEmail.Email);
+        }
+
+
+        [Test]
         public void AddUser_ValidUser_Test()
         {
             var init = new InitializeMockContext();

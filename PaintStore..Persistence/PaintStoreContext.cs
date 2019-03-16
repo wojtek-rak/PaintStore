@@ -46,7 +46,9 @@ namespace PaintStore.Persistence
 
                 if (DBContextCreate.env.IsDevelopment())
                 {
-                    optionsBuilder.UseSqlite("Data Source=PaintStore.db");
+                    //optionsBuilder.UseSqlite("Data Source=PaintStore.db");
+                    optionsBuilder.UseSqlServer(DBContextCreate.connectionString);
+
                 }
                 else
                 {

@@ -94,8 +94,15 @@ namespace PaintStore.BackEnd
             DBContextCreate.env = _env;
             if (_env.IsDevelopment())
             {
-                services.AddDbContext<PaintStoreContext>(options =>
-                    options.UseSqlite("Data Source=PaintStore.db"));
+                //services.AddDbContext<PaintStoreContext>(options =>
+                //    options.UseSqlite("Data Source=PaintStore.db"));
+
+                var connectionString = Configuration.GetConnectionString("PaintStoreDatabase");
+
+                DBContextCreate.connectionString = connectionString;
+
+                services.AddDbContext<PaintStoreContext>(
+                    options => options.UseSqlServer(connectionString));
             }
             else
             {

@@ -24,9 +24,11 @@ namespace PaintStore.BackEnd
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IHostingEnvironment _env;
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+            _env = env;
         }
 
         public IConfiguration Configuration { get; }
@@ -88,10 +90,23 @@ namespace PaintStore.BackEnd
 
             services.AddSingleton<IActivityManagerStartup, ActivityManager>();
             services.AddMvc().AddControllersAsServices();
-            services.AddDbContext<PaintStoreContext>(options =>
-                options.UseSqlite("Data Source=PaintStore.db"));
-            
-            
+
+            DBContextCreate.env = _env;
+            if (_env.IsDevelopment())
+            {
+                services.AddDbContext<PaintStoreContext>(options =>
+                    options.UseSqlite("Data Source=PaintStore.db"));
+            }
+            else
+            {
+                var connectionString = Configuration.GetConnectionString("PaintStoreDatabase");
+
+                DBContextCreate.connectionString = connectionString;
+
+                services.AddDbContext<PaintStoreContext>(
+                    options => options.UseSqlServer(connectionString)
+                );
+            }
             //Now register our services with Autofac container
 
             var builder = new ContainerBuilder();

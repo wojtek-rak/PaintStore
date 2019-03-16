@@ -10,6 +10,7 @@ import { emailValidator } from "ClientApp/app/validators/email-validator";
 import { ImageService } from "ClientApp/app/services/image.service";
 import { LoggedIn } from "ClientApp/app/classes/logged-in";
 import { NgForOf } from "@angular/common";
+import { LoginManager } from "ClientApp/app/classes/login-manager";
 
 @Component({
   selector: "app-credentials",
@@ -61,7 +62,8 @@ export class CredentialsComponent extends LoggedIn implements OnInit {
         id: this._loggedId,
         oldPassword: form.value.password,
         newEmail: form.value.email,
-        newPassword: form.value.password === "" ? null : form.value.password,
+        newPassword:
+          form.value.passwords.new === "" ? null : form.value.passwords.new,
         oldEmail: this._email
       };
 
@@ -70,6 +72,7 @@ export class CredentialsComponent extends LoggedIn implements OnInit {
         .editUserCredentials(data, this._loggedId, this._loggedToken)
         .subscribe(
           res => {
+            LoginManager.logoutUser();
             window.location.replace("homepage");
           },
           err => {

@@ -5,8 +5,10 @@ using Akka.Actor;
 using AutoMapper;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using CodingBlast;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -90,6 +92,8 @@ namespace PaintStore.BackEnd
 
             services.AddSingleton<IActivityManagerStartup, ActivityManager>();
             services.AddMvc().AddControllersAsServices();
+
+            services.AddSingleton<ITagHelperComponent>(new GoogleAnalyticsTagHelperComponent("UA-136426296-1"));
 
             DBContextCreate.env = _env;
             if (_env.IsDevelopment())

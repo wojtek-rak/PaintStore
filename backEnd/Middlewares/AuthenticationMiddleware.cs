@@ -34,15 +34,15 @@ namespace PaintStore.BackEnd.Middlewares
                     int seperatorIndex = usernamePassword.IndexOf(':');
 
                     var userId = Int32.Parse(usernamePassword.Substring(0, seperatorIndex));
-                    var password = usernamePassword.Substring(seperatorIndex + 1);
+                    var token = usernamePassword.Substring(seperatorIndex + 1);
 
                     using (var db = CreateContext())
                     {
                         var userToAuth = db.Users.First(x => x.Id == userId);
 
-                        var tokenBytes = _encoding.GetBytes(password);
+                        //var tokenBytes = _encoding.GetBytes(password);
 
-                        var token = Convert.ToBase64String(tokenBytes);//CredentialsHelpers.GenerateSaltedHash(passwordBytes, soil));
+                        //var token = Convert.ToBase64String(tokenBytes);//CredentialsHelpers.GenerateSaltedHash(passwordBytes, soil));
 
                         if (token == userToAuth.Token)
                         {

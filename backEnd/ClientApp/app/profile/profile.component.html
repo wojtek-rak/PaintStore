@@ -5,10 +5,7 @@
         <div class="profile-section">
           <div class="image-with-description">
             <div class="avatar-container huge-avatar">
-              <a
-                class="avatar-link"
-                routerLink="/user/{{ getUser().accountId }}"
-              >
+              <a class="avatar-link" routerLink="/user/{{ getUser().id }}">
                 <img
                   src="{{
                     getUser().avatarImgLink === null ||
@@ -22,7 +19,7 @@
 
             <div class="description">
               <h2>
-                <a routerLink="/user/{{ getUser().accountId }}">{{
+                <a routerLink="/user/{{ getUser().id }}">{{
                   getUser().name
                 }}</a>
               </h2>
@@ -31,7 +28,7 @@
             </div>
           </div>
 
-          <div class="buttons-wrapper" *ngIf="loggedId != getUrl()">
+          <div class="buttons-wrapper" *ngIf="loggedId != getUrl() && loggedIn">
             <app-follow-button
               [idDestinateUser]="getUrl()"
               [followed]="getUser().followed"
@@ -41,7 +38,16 @@
 
         <div class="profile-section about-section">
           <h3>About</h3>
-          <p class="content-secondary">{{ getUser().about }}</p>
+          <p class="content-secondary">
+            <span *ngIf="getUser().about !== ''"></span>
+            <i *ngIf="getUser().about === '' && getUser().id !== this.loggedId"
+              >This user doesn't have description yet.</i
+            >
+            <i *ngIf="getUser().id === this.loggedId && getUser().about === ''">
+              You don't have description yet.
+              <a routerLink="/settings">Change</a>
+            </i>
+          </p>
         </div>
 
         <div class="profile-section statistic-section">
@@ -56,7 +62,7 @@
             <span (click)="showFollowed()">Followed by</span>
             <span (click)="showFollowed()">{{ getUser().followedCount }}</span>
           </p>
-          <p class="content-secondary"><span>Likes</span> <span>120</span></p>
+          <!-- <p class="content-secondary"><span>Likes</span> <span>120</span></p> -->
           <!-- to do: missing likes in database! -->
         </div>
       </div>

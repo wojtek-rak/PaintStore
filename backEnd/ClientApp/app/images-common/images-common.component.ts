@@ -12,6 +12,7 @@ export class ImagesCommonComponent implements OnInit {
   @ViewChild("msg") msg: any;
   private _loading: boolean = false;
   private _fail: boolean = false;
+  private _howMany = 0;
 
   constructor() {}
 
@@ -56,5 +57,9 @@ export class ImagesCommonComponent implements OnInit {
 
   get fail(): boolean {
     return this._fail;
+  }
+
+  get howMany() {
+    return this._howMany;
   }
 }

@@ -27,7 +27,7 @@ import { ProfileComponent } from "./profile/profile.component";
 import { MenuLeftComponent } from "./homepage/menu-left/menu-left.component";
 import { IndexComponent } from "./user/index.component";
 import { FooterComponent } from "./footer/footer.component";
-import { FileDropModule } from "ngx-file-drop";
+// import { FileDropModule } from "ngx-file-drop";
 import { ConfirmationMessageComponent } from "./confirmation-message/confirmation-message.component";
 import { AgreeLabelComponent } from "./agree-label/agree-label.component";
 import { ImagesComponent } from "./images/images.component";
@@ -182,7 +182,7 @@ const appRoutes: Routes = [
     BrowserModule,
     HttpClientModule,
     MatTabsModule,
-    FileDropModule,
+    // FileDropModule,
     AngularWebStorageModule,
     TagInputModule,
     BrowserAnimationsModule,

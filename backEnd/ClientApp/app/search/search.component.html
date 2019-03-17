@@ -17,22 +17,36 @@
     <li *ngFor="let response of res">
       <div class="response">
         <div class="response-image">
-          <a
-            *ngIf="response.tagName === null"
-            href="/user/{{ response.id }}"
-            [ngStyle]="{
-              'background-image': 'url(' + response.avatarImgLink + ')'
-            }"
-          >
-            <!-- <img src={{response.avatarImgLink}} /> -->
+          <!-- if it is not a tag, but a person -->
+          <a *ngIf="response.tagName === null" href="/user/{{ response.id }}">
+            <img
+              src="{{
+                response.avatarImgLink === null || response.avatarImgLink === ''
+                  ? '../../assets/img/avatar.png'
+                  : response.avatarImgLink
+              }}"
+            />
           </a>
+
+          <!-- if it is a tag  -->
           <a
+            class="tag-sign"
             *ngIf="response.tagName !== null"
             href="/tags/{{ response.tagName }}"
-            style="background-image: url('https://vignette.wikia.nocookie.net/justdance/images/b/b7/Hashtag.png/revision/latest?cb=20160119195647')"
           >
-            <!-- <img src="https://vignette.wikia.nocookie.net/justdance/images/b/b7/Hashtag.png/revision/latest?cb=20160119195647" /> -->
+            <span>#</span>
           </a>
+          <!-- null ||
+                        comment.userOwnerImgLink === ''
+                          ? '../../assets/img/avatar.png' -->
+          <!-- <a
+            *ngIf="response.tagName !== null"
+            href="/tags/{{ response.tagName }}"
+          >
+            <img
+              src="https://vignette.wikia.nocookie.net/justdance/images/b/b7/Hashtag.png/revision/latest?cb=20160119195647"
+            />
+          </a> -->
         </div>
         <div class="response-text">
           <div class="header">

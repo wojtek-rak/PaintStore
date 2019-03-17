@@ -58,11 +58,13 @@ export class ImageComponent extends LoggedIn implements OnInit {
   }
 
   getProfileImage() {
-    this.service
-      .selectUserById(this._loggedId.toString(), this._loggedId.toString())
-      .subscribe((res: any) => {
-        this._imgLink = res.avatarImgLink;
-      });
+    if (this._loggedIn === true) {
+      this.service
+        .selectUserById(this._loggedId.toString(), this._loggedId.toString())
+        .subscribe((res: any) => {
+          this._imgLink = res.avatarImgLink;
+        });
+    }
   }
 
   initializeForms() {
@@ -110,7 +112,7 @@ export class ImageComponent extends LoggedIn implements OnInit {
           comm.editValid = true;
         });
 
-        // console.log(this._comments);
+        console.log(this._comments);
       });
   }
 

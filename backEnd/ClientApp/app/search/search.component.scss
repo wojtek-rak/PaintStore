@@ -87,6 +87,8 @@ app-search {
 
   img {
     height: 100%;
+    object-fit: cover;
+    width: 100%;
   }
 }
 
@@ -94,12 +96,19 @@ li:last-of-type .response {
   border-bottom: 0;
 }
 
+.tag-sign {
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 35px;
+  color: #8d8d8d;
+}
+
 .response-image {
   flex-shrink: 0;
   flex-grow: 0;
   width: 46px;
   height: 46px;
-  background: grey;
   border-radius: 23px;
   overflow: hidden;
 
@@ -110,6 +119,10 @@ li:last-of-type .response {
     position: relative;
     background-position: center;
     background-size: cover;
+  }
+
+  a.tag-sign {
+    display: flex;
   }
 }
 

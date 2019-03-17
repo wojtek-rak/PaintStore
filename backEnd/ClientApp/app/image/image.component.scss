@@ -107,6 +107,7 @@ a:hover {
   .like-description {
     margin-right: 20px;
     color: #a0a0a0;
+    cursor: pointer;
   }
 
   .like {
@@ -392,10 +393,6 @@ a:hover {
 
   .link {
     cursor: pointer;
-  }
-
-  .link:hover {
-    border-bottom: 1px solid #a3a3a3;
   }
 
   .header-info {

@@ -28,7 +28,7 @@ namespace PaintStore.Application.Services
                 foreach (var like in likes)
                 {
                     var user = db.Users.First(x => x.Id == like.UserId);
-                    bool followed = db.UserFollowers.Any(x => x.FollowedUserId == user.Id && x.FollowingUserId == loggedUserId);
+                    bool followed =  loggedUserId != -1 && db.UserFollowers.Any(x => x.FollowedUserId == user.Id && x.FollowingUserId == loggedUserId);
                     postLikesList.Add(new LikesResult(like.UserId, user.Name, user.AvatarImgLink, followed));
                 }
                 return postLikesList;
@@ -73,7 +73,7 @@ namespace PaintStore.Application.Services
                 foreach (var like in likes)
                 {
                     var user = db.Users.First(x => x.Id == like.UserId);
-                    bool followed = db.UserFollowers.Any(x => x.FollowedUserId == user.Id && x.FollowingUserId == loggedUserId);
+                    bool followed =  loggedUserId != -1 && db.UserFollowers.Any(x => x.FollowedUserId == user.Id && x.FollowingUserId == loggedUserId);
                     commentLikesList.Add(new LikesResult(like.UserId, user.Name, user.AvatarImgLink, followed));
                 }
                 return commentLikesList;

@@ -22,10 +22,10 @@ namespace PaintStore.BackEnd.Controllers
         /// <param name="userId">actually logged user</param>
         /// <param name="postId"></param>
         /// <returns></returns>
-        [HttpGet("{userId}/{postId}")]
-        public IActionResult GetPost(int userId, int postId)
+        [HttpGet("{loggedUserId}/{postId}")]
+        public IActionResult GetPost(int loggedUserId, int postId)
         {
-            return Ok(_postsService.GetPost(userId, postId));
+            return Ok(_postsService.GetPost(loggedUserId, postId));
         }
 
         [HttpGet("{userId}/GetFollowingPosts")]

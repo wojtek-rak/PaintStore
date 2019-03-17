@@ -34,7 +34,8 @@ namespace PaintStore.Application.Services
             {
                 var userToGet = db.Users.First(b => b.Id == userId);
                 
-                bool followed = db.UserFollowers.Any(x => x.FollowedUserId == userToGet.Id && x.FollowingUserId == loggedUserId);
+                var followed = loggedUserId != -1 && db.UserFollowers.Any(x =>
+                                   x.FollowedUserId == userToGet.Id && x.FollowingUserId == loggedUserId);
 
                 var usersResult = new UsersResult(userToGet){Followed = followed};
                 return usersResult;

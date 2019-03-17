@@ -22,7 +22,7 @@ namespace PaintStore.Application.Services
             _paintStoreContext = ctx;
             _mapper = mapper; 
         }
-        public PostDetailsResult GetPost(int userId, int postId)
+        public PostDetailsResult GetPost(int loggedUserId, int postId)
         {
             using (var db = _paintStoreContext)
             {
@@ -32,9 +32,10 @@ namespace PaintStore.Application.Services
                 var tagsList = db.Tags.Where(tag =>
                     tagsIds.Contains(tag.Id)).Select(x => x.TagName).ToList();
 
-                bool liked = db.PostLikes.Any(x => x.PostId == postId && x.UserId == userId);
+                var liked = loggedUserId != -1 && db.PostLikes.Any(x => x.PostId == postId && x.UserId == loggedUserId);
 
-                var userOwnerImgLink = db.Users.First(x => x.Id == userId).AvatarImgLink;
+
+                var userOwnerImgLink = db.Users.First(x => x.Id == post.UserId).AvatarImgLink;
 
                 var postDetailsResult = new PostDetailsResult(post)
                 {

@@ -6,18 +6,27 @@
     </div>
     <div class="content">
       <div class="item" *ngFor="let item of getData()">
-        <div class="img-wrapper"><img src="{{ item.avatarImgLink }}" /></div>
-        <span class="name">{{ item.name }}</span>
+        <div class="img-wrapper">
+          <a routerLink="/user/{{ item.userId }}" (click)="close()">
+            <img
+              src="{{
+                item.avatarImgLink === '' || item.avatarImgLink === null
+                  ? '../../assets/img/avatar.png'
+                  : item.avatarImgLink
+              }}"
+            />
+          </a>
+        </div>
+        <span class="name"
+          ><a routerLink="/user/{{ item.userId }}" (click)="close()">{{
+            item.name
+          }}</a></span
+        >
         <app-follow-button
-          *ngIf="item.userId !== loggedId"
+          *ngIf="item.userId !== loggedId && loggedIn"
           [idDestinateUser]="item.userId"
           [followed]="item.followed"
         ></app-follow-button>
-
-        <!--
-          [ngClass]="item.followed === true ? 'followed' : ''"
-          (emitter)="emitter($event)"
-        -->
       </div>
     </div>
   </div>

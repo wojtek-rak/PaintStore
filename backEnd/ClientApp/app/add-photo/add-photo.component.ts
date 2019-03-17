@@ -2,12 +2,12 @@ import { Component, OnInit, ViewChild, ElementRef, Input } from "@angular/core";
 import { ImageService } from "../services/image.service";
 import { Photo } from "./photo";
 import { NgForm, FormGroup, FormBuilder, Validators } from "@angular/forms";
-import {
-  UploadEvent,
-  UploadFile,
-  FileSystemFileEntry,
-  FileSystemDirectoryEntry
-} from "ngx-file-drop";
+// import {
+//   UploadEvent,
+//   UploadFile,
+//   FileSystemFileEntry,
+//   FileSystemDirectoryEntry
+// } from "ngx-file-drop";
 
 import { ValidateFileForm } from "../validate-file-form";
 import { Message } from "@angular/compiler/src/i18n/i18n_ast";

@@ -14,7 +14,10 @@
 </div>
 
 <div class="image-wrapper {{ classes }}">
-  <div *ngFor="let image of images" class="image-element">
+  <div
+    *ngFor="let image of (images | slice: 0:7); let i = index"
+    class="image-element"
+  >
     <app-image-element
       [image]="image"
       (emitter)="delete($event)"

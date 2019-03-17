@@ -9,6 +9,7 @@ using PaintStore.Domain.InputModels;
 using PaintStore.Domain.Interfaces;
 using PaintStore.Domain.ResultsModels;
 using PaintStore.Persistence;
+using PaintStore.Domain.Exceptions;
 
 namespace PaintStore.Application.Services
 {
@@ -33,7 +34,8 @@ namespace PaintStore.Application.Services
             {
                 var userToGet = db.Users.First(b => b.Id == userId);
                 
-                bool followed = db.UserFollowers.Any(x => x.FollowedUserId == userToGet.Id && x.FollowingUserId == loggedUserId);
+                var followed = loggedUserId != -1 && db.UserFollowers.Any(x =>
+                                   x.FollowedUserId == userToGet.Id && x.FollowingUserId == loggedUserId);
 
                 var usersResult = new UsersResult(userToGet){Followed = followed};
                 return usersResult;
@@ -62,17 +64,27 @@ namespace PaintStore.Application.Services
                 return postsResult;
             }
         }
+        public UsersEmailResult GetUserEmail(GetUserEmailCommand user)
+        {
+            using (var db = _paintStoreContext)
+            {
+                var email = db.Users.First(x => x.Id == user.UserId).Email;
+                return new UsersEmailResult {Email = email};
+            }
+        }
 
         public Users AddUser(AddUserCommand user)
         {
             using (var db = _paintStoreContext)
             {
+                if (db.Users.Any(x => x.Email == user.Email)) throw new DuplicateEmailException();
+                if (db.Users.Any(x => x.Name == user.Name)) throw new DuplicateNameException();
                 var newUser = new Users() {Email = user.Email, Name = user.Name, Link = user.Name.ToLower(), About = ""};
                 newUser.PasswordSoil = CredentialsHelpers.CreateSalt();
                 var  encoding = new ASCIIEncoding();
                 var soil = encoding.GetBytes(newUser.PasswordSoil);
                 var password = encoding.GetBytes(user.Password);
-                newUser.PasswordHash = System.Text.Encoding.UTF8.GetString(CredentialsHelpers.GenerateSaltedHash(password, soil));
+                newUser.PasswordHash = Convert.ToBase64String(CredentialsHelpers.GenerateSaltedHash(password, soil));
                 db.Users.Add(newUser);
                 db.SaveChanges();
                 return newUser;
@@ -102,18 +114,22 @@ namespace PaintStore.Application.Services
         {
             using (var db = _paintStoreContext)
             {
+                _signInService.SignInCheck(new SignInCommand {Email = account.OldEmail, Password = account.OldPassword}, db);
+
                 var accountToUpdate = db.Users.First(x => x.Id == account.Id);
 
-                if (account.Email != null) accountToUpdate.Email = account.Email;
-                if (account.Password != null)
+                if (account.NewEmail != null) accountToUpdate.Email = account.NewEmail;
+                if (account.NewPassword != null)
                 {
+                    if (account.NewPassword.Length < 8) throw new BadPasswordException();
                     accountToUpdate.PasswordSoil = CredentialsHelpers.CreateSalt();
                     var  encoding = new ASCIIEncoding();
                     var soil = encoding.GetBytes(accountToUpdate.PasswordSoil);
-                    var password = encoding.GetBytes(account.Password);
-                    accountToUpdate.PasswordHash = System.Text.Encoding.UTF8.GetString(CredentialsHelpers.GenerateSaltedHash(password, soil));
+                    var password = encoding.GetBytes(account.NewPassword);
+                    accountToUpdate.PasswordHash = Convert.ToBase64String(CredentialsHelpers.GenerateSaltedHash(password, soil));
                 }
 
+                accountToUpdate.Token = CredentialsHelpers.CreateSalt();
                 db.SaveChanges();
                 return accountToUpdate;
             }
@@ -126,7 +142,7 @@ namespace PaintStore.Application.Services
                 var userToRemove = db.Users.First(x => x.Id == account.Id);
                 try
                 {
-                    _signInService.SignIn(new SignInCommand {Email = account.Email, Password = account.Password});
+                    _signInService.SignInCheck(new SignInCommand {Email = account.Email, Password = account.Password}, db);
 
                     foreach (var post in db.Posts.Where(x => x.UserId == userToRemove.Id))
                     {

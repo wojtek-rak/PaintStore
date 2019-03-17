@@ -87,13 +87,27 @@ namespace PaintStoreBackEnd.Tests
         }
 
         [Test]
+        public void GetUserEmail_ValidId_ReturnGoodEmail()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var id = 1;
+            var expectedEmail = mock.Object.Users.First(x => x.Id == id).Email;
+            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
+            var resultEmail = controller.GetUserEmail(new GetUserEmailCommand() { UserId = id});
+            Assert.AreEqual( expectedEmail, resultEmail.Email);
+        }
+
+
+        [Test]
         public void AddUser_ValidUser_Test()
         {
             var init = new InitializeMockContext();
             var mock = init.mock;
 
             var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
-            var editedCom = controller.AddUser(new AddUserCommand() { Email  = "Mail", Password = "Passwd", Name = "Loxin"});
+            var editedCom = controller.AddUser(new AddUserCommand() { Email  = "Mail", Password = "passwd123", Name = "Loxin"});
             mock.Verify(m => m.SaveChanges(), Times.Once());
             init.mockSetUsers.Verify(m => m.Add(It.IsAny<Users>()), Times.Once());
         }
@@ -130,12 +144,25 @@ namespace PaintStoreBackEnd.Tests
 
             var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
             var expectedEmail = "Testowy Komentarz";
-            var expectedHash = "hashSW@";
-            var editedUser = controller.EditUserCredentials(new EditUserCredentialsCommand { Id = 1, Email = expectedEmail, Password = expectedHash });
+            var expectedPassword = "hashSW@";
+            var editedUser = controller.EditUserCredentials(new EditUserCredentialsCommand { Id = 1,  OldEmail = "kasia@kreska.pl", OldPassword = "12345678", NewEmail = expectedEmail, NewPassword = expectedPassword });
 
             mock.Verify(m => m.SaveChanges(), Times.Once());
             Assert.AreEqual(expectedEmail, editedUser.Email);
         }
+
+        [Test]
+        public void EditUserCredentials_WithBadPassword_ThrowUnauthEx()
+        {
+            var init = new InitializeMockContext();
+            var mock = init.mock;
+
+            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
+            var expectedEmail = "Testowy Komentarz";
+            var expectedHash = "hashSW@";
+            Assert.Throws<UnauthorizedAccessException>(() =>  controller.EditUserCredentials(new EditUserCredentialsCommand { Id = 1, OldEmail = expectedEmail, OldPassword = expectedHash }));
+        }
+
         [Test]
         public void RemoveUser_ValidPassword_Remove()
         {
@@ -147,7 +174,7 @@ namespace PaintStoreBackEnd.Tests
             //var actorSupervisor = actorSystem.ActorOf(Props.Create(() => new SupervisorActor(actorRemove)));
 
             var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
-            var removeAccountt = controller.RemoveUser(new RemoveUserCommand { Id = 1 });
+            var removeAccountt = controller.RemoveUser(new RemoveUserCommand { Id = 1, Email = "kasia@kreska.pl", Password = "12345678"});
 
             //mock.Verify(m => m.SaveChanges(), Times.Once());
             Thread.Sleep(100);
@@ -157,7 +184,7 @@ namespace PaintStoreBackEnd.Tests
         }
 
         [Test]
-        public void RemoveUser_WithBadPassword_NoRemove()
+        public void RemoveUser_WithBadPassword_ThrowUnauthEx()
         {
             var init = new InitializeMockContext();
             var mock = init.mock;
@@ -168,9 +195,8 @@ namespace PaintStoreBackEnd.Tests
 
             var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
             //var controller = new AccountRemoveController(mock.Object);
-            var removeAccountt = controller.RemoveUser(new RemoveUserCommand { Id = 1});
-            var expectedMsg = "Password incorrect";
-            Assert.AreEqual(expectedMsg, removeAccountt.PasswordHash);
+            Assert.Throws<UnauthorizedAccessException>(() => controller.RemoveUser(new RemoveUserCommand
+                {Id = 1, Email = "kasia@kreska.pl", Password = "NotValidPassword"}));
         }
 
         [Test]
@@ -188,7 +214,7 @@ namespace PaintStoreBackEnd.Tests
 
             var timespan = 10; // can be 0 for result
 
-            Assert.That(Time(() => controller.RemoveUser(new RemoveUserCommand { Id = 1})), Is.LessThanOrEqualTo(TimeSpan.FromSeconds(timespan)));
+            Assert.That(Time(() => controller.RemoveUser(new RemoveUserCommand { Id = 1, Email = "kasia@kreska.pl", Password = "12345678"})), Is.LessThanOrEqualTo(TimeSpan.FromSeconds(timespan)));
 
             //mock.Verify(m => m.SaveChanges(), Times.Once());
             init.mockSetUsers.Verify(m => m.Remove(It.IsAny<Users>()), Times.Once());

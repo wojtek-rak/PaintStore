@@ -17,7 +17,7 @@ namespace PaintStoreBackEnd.Tests
             var mock = init.mock;
 
             var controller = new TagsService(mock.Object);
-            controller.GetOrAddTag("Yellow");
+            controller.GetOrAddTag("Yellow", mock.Object);
             init.mockSetTags.Verify(m => m.Add(It.IsAny<Tags>()), Times.Once());
             mock.Verify(m => m.SaveChanges(), Times.Once());
         }
@@ -29,7 +29,7 @@ namespace PaintStoreBackEnd.Tests
             var mock = init.mock;
 
             var controller = new TagsService(mock.Object);
-            var tagBanan = controller.GetOrAddTag("banan");
+            var tagBanan = controller.GetOrAddTag("banan", mock.Object);
             mock.Verify(m => m.SaveChanges(), Times.Never());
             init.mockSetTags.Verify(m => m.Add(It.IsAny<Tags>()), Times.Never());
             var expected = 1;

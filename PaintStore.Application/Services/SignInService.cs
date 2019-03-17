@@ -30,7 +30,7 @@ namespace PaintStore.Application.Services
                 var soil = _encoding.GetBytes(userToSignIn.PasswordSoil);
                 var passwordBytes = _encoding.GetBytes(signInCommand.Password);
 
-                var soiledPassword = Encoding.UTF8.GetString(CredentialsHelpers.GenerateSaltedHash(passwordBytes, soil));
+                var soiledPassword = Convert.ToBase64String(CredentialsHelpers.GenerateSaltedHash(passwordBytes, soil));
 
                 if (soiledPassword != userToSignIn.PasswordHash) throw new UnauthorizedAccessException();
 
@@ -44,7 +44,6 @@ namespace PaintStore.Application.Services
                 {
                     return new SignInResult() {UserId = userToSignIn.Id, Token = userToSignIn.Token};
                 }
-                
             }
         }
 
@@ -55,7 +54,7 @@ namespace PaintStore.Application.Services
                 using (var db = _paintStoreContext)
                 {
                     var userToSignOut = db.Users.First(x => x.Id == signOutCommand.UserId);
-                    userToSignOut.Token = null;
+                    userToSignOut.Token = CredentialsHelpers.CreateSalt();
                     db.SaveChanges();
                 }
                 return true;
@@ -63,8 +62,31 @@ namespace PaintStore.Application.Services
             catch (Exception)
             {
                 return false;
+            }   
+        }
+
+        public SignInResult SignInCheck(SignInCommand signInCommand, PaintStoreContext db)
+        {
+            var userToSignIn = db.Users.FirstOrDefault(x => x.Email == signInCommand.Email);
+
+            if (userToSignIn == null) throw new UnauthorizedAccessException();
+
+            var soil = _encoding.GetBytes(userToSignIn.PasswordSoil);
+            var passwordBytes = _encoding.GetBytes(signInCommand.Password);
+
+            var soiledPassword = Convert.ToBase64String(CredentialsHelpers.GenerateSaltedHash(passwordBytes, soil));
+
+            if (soiledPassword != userToSignIn.PasswordHash) throw new UnauthorizedAccessException();
+
+            if (userToSignIn.Token == null)
+            {
+                userToSignIn.Token = CredentialsHelpers.CreateSalt();
+                return new SignInResult() {UserId = userToSignIn.Id, Token = userToSignIn.Token};
             }
-            
+            else
+            {
+                return new SignInResult() {UserId = userToSignIn.Id, Token = userToSignIn.Token};
+            }
         }
     }
 }

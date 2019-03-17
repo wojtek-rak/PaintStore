@@ -235,9 +235,14 @@
           </form>
         </ng-container>
 
-        <span class="description-content" *ngIf="!descriptionEditing">{{
-          image.description
-        }}</span>
+        <span class="description-content" *ngIf="!descriptionEditing">
+          <ng-container *ngIf="image.description !== ''">{{
+            image.description
+          }}</ng-container>
+          <ng-container *ngIf="image.description === ''"
+            ><i>This image has no description yet.</i></ng-container
+          >
+        </span>
         <p class="desc-title">
           Tags
           <span

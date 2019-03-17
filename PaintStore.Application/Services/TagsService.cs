@@ -27,25 +27,23 @@ namespace PaintStore.Application.Services
 
         }
 
-        public Tags GetOrAddTag(string tagName)
+        public Tags GetOrAddTag(string tagName, PaintStoreContext db)
         {
             Tags tag = null;
-            using(var db = _paintStoreContext)
+
+            if (!db.Tags.Any(x => x.TagName == tagName))
             {
-
-                if (!db.Tags.Any(x => x.TagName == tagName))
-                {
-                    tag = new Tags { TagName = tagName};
-                    db.Tags.Add(tag);
-                    db.SaveChanges();
-                }
-
-                if (db.Tags.Any(x => x.TagName == tagName))
-                {
-                    tag = db.Tags.First(x => x.TagName == tagName);
-                }
-
+                tag = new Tags { TagName = tagName};
+                db.Tags.Add(tag);
+                db.SaveChanges();
             }
+
+            if (db.Tags.Any(x => x.TagName == tagName))
+            {
+                tag = db.Tags.First(x => x.TagName == tagName);
+            }
+
+
             return tag;
 
         }
@@ -64,7 +62,7 @@ namespace PaintStore.Application.Services
 
                 foreach (var tag in tagsList)
                 {
-                    var tagToAdd = GetOrAddTag(tag);
+                    var tagToAdd = GetOrAddTag(tag, db);
                     db.PostTags.Add(new PostTags {PostId = postId, TagId = tagToAdd.Id});
                     TagsManager.TagsCountPlus(db, tagToAdd.Id);
                 }

@@ -3,18 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaintStore.BackEnd", "backEnd\PaintStore.BackEnd.csproj", "{8778E8E8-F373-4D8F-B340-7291E6E6548F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaintStore.WebUI", "backEnd\PaintStore.WebUI.csproj", "{8778E8E8-F373-4D8F-B340-7291E6E6548F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaintStore.Tests", "PaintStoreBackEnd.Tests\PaintStore.Tests.csproj", "{3317BC14-6542-4346-AFA9-3AA4E1EDA89F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{8778E8E8-F373-4D8F-B340-7291E6E6548F} = {8778E8E8-F373-4D8F-B340-7291E6E6548F}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaintStore.Domain", "PaintStore.Domain\PaintStore.Domain.csproj", "{69ED924C-7B13-4B89-9079-CD84BF84AC0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaintStore.Domain", "PaintStore.Domain\PaintStore.Domain.csproj", "{69ED924C-7B13-4B89-9079-CD84BF84AC0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaintStore.Persistence", "PaintStore..Persistence\PaintStore.Persistence.csproj", "{F03FEF12-47E9-44FF-9ED3-AF11F20A0339}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaintStore.Persistence", "PaintStore..Persistence\PaintStore.Persistence.csproj", "{F03FEF12-47E9-44FF-9ED3-AF11F20A0339}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaintStore.Application", "PaintStore.Application\PaintStore.Application.csproj", "{DDFC147E-D463-421C-B18E-B457D34FE559}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaintStore.Application", "PaintStore.Application\PaintStore.Application.csproj", "{DDFC147E-D463-421C-B18E-B457D34FE559}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

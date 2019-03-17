@@ -9,6 +9,7 @@ namespace PaintStore.Application.Interfaces
     {
         UsersResult GetUser(int loggedUserId, int userId);
         List<PostsResults> GetPosts(int userId, string message);
+        UsersEmailResult GetUserEmail(GetUserEmailCommand user);
         Users AddUser(AddUserCommand user);
         Users EditUser(EditUserCommand user);
         Users EditUserCredentials(EditUserCredentialsCommand account);

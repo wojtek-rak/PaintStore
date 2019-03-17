@@ -32,7 +32,7 @@ namespace PaintStore.Application.Services
                 foreach (var follow in follows)
                 {
                     var userTemp = db.Users.First(x => x.Id == follow.FollowingUserId);
-                    bool followed = db.UserFollowers.Any(x => x.FollowedUserId == userTemp.Id && x.FollowingUserId == loggedUserId);
+                    bool followed =  loggedUserId != -1 && db.UserFollowers.Any(x => x.FollowedUserId == userTemp.Id && x.FollowingUserId == loggedUserId);
                     followsList.Add(new LikesResult(follow.FollowingUserId, userTemp.Name, userTemp.AvatarImgLink, followed));
                 }
             }
@@ -49,7 +49,7 @@ namespace PaintStore.Application.Services
                 foreach (var follow in follows)
                 {
                     var userTemp = db.Users.First(x => x.Id == follow.FollowedUserId);
-                    bool followed = db.UserFollowers.Any(x => x.FollowedUserId == userTemp.Id && x.FollowingUserId == loggedUserId);
+                    bool followed = loggedUserId != -1 && db.UserFollowers.Any(x => x.FollowedUserId == userTemp.Id && x.FollowingUserId == loggedUserId);
                     followsList.Add(new LikesResult(follow.FollowedUserId, userTemp.Name, userTemp.AvatarImgLink, followed));
                 }
                 return followsList;

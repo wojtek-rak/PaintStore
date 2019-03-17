@@ -8,7 +8,7 @@ namespace PaintStore.Application.Interfaces
 {
     public interface IPostsService
     {
-        PostDetailsResult GetPost(int userId, int postId);
+        PostDetailsResult GetPost(int loggedUserId, int postId);
         List<PostsResults> GetFollowingPosts(int userId);
         List<PostsResults> GetAllPosts(string message);
         List<PostsResults> GetPostsByTag(string tag);

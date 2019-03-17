@@ -42,7 +42,7 @@ namespace PaintStore.BackEnd.Middlewares
 
                         var tokenBytes = _encoding.GetBytes(password);
 
-                        var token = Encoding.UTF8.GetString(tokenBytes);//CredentialsHelpers.GenerateSaltedHash(passwordBytes, soil));
+                        var token = Convert.ToBase64String(tokenBytes);//CredentialsHelpers.GenerateSaltedHash(passwordBytes, soil));
 
                         if (token == userToAuth.Token)
                         {

@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\backEnd\PaintStore.BackEnd.csproj" />
+    <ProjectReference Include="..\backEnd\PaintStore.WebUI.csproj" />
     <ProjectReference Include="..\PaintStore..Persistence\PaintStore.Persistence.csproj" />
     <ProjectReference Include="..\PaintStore.Application\PaintStore.Application.csproj" />
     <ProjectReference Include="..\PaintStore.Domain\PaintStore.Domain.csproj" />

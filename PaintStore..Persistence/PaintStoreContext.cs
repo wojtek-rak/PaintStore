@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using PaintStore.Domain.Entities;
 
 namespace PaintStore.Persistence
@@ -10,6 +11,8 @@ namespace PaintStore.Persistence
 
     public class DBContextCreate : IDBContextCreate
     {
+        public static IHostingEnvironment env;
+        public static string connectionString;
         public PaintStoreContext CreateContext()
         {
             return new PaintStoreContext();
@@ -39,7 +42,21 @@ namespace PaintStore.Persistence
             if (!optionsBuilder.IsConfigured)
             {
                 //To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlite("Data Source=PaintStore.db");
+                
+
+                if (DBContextCreate.env.IsDevelopment())
+                {
+                    if (DBContextCreate.connectionString == null)
+                    {
+                        optionsBuilder.UseSqlite("Data Source=PaintStore.db");
+                    }
+                    optionsBuilder.UseSqlServer(DBContextCreate.connectionString);
+
+                }
+                else
+                {
+                    optionsBuilder.UseSqlServer(DBContextCreate.connectionString);
+                }
             }
         }
 
@@ -115,14 +132,14 @@ namespace PaintStore.Persistence
 
                 entity.Property(e => e.PasswordHash)
                     .IsRequired()
-                    .IsUnicode(false);
+                    .IsUnicode(true);
 
                 entity.Property(e => e.PasswordSoil)
                     .IsRequired()
-                    .IsUnicode(false);
+                    .IsUnicode(true);
 
                 entity.Property(e => e.Token)
-                    .IsUnicode(false);
+                    .IsUnicode(true);
 
                 entity.Property(e => e.About)
                     .IsRequired()

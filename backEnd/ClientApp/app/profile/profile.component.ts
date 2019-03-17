@@ -4,6 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { ShortUserInfo } from "../classes/short-user-info";
 import { IsUserLoggedIn } from "../classes/is-user-logged-in";
 import { LoggedIn } from "../classes/logged-in";
+import { User } from "../classes/user";
 
 @Component({
   selector: "app-profile",
@@ -12,19 +13,8 @@ import { LoggedIn } from "../classes/logged-in";
 })
 export class ProfileComponent extends LoggedIn implements OnInit {
   @ViewChild("label") label: any;
-  private user: User = {
-    about: "",
-    accountId: 0,
-    avatarImgLink: "",
-    backgroundImgLink: "",
-    followedCount: 0,
-    followingCount: 0,
-    id: 0,
-    link: "",
-    mostUsedCategoryToolName: "",
-    name: "",
-    postsCount: 0
-  };
+  private user = new User();
+
   private url = this.route.snapshot.params.id;
   // private _loggedUser: IsUserLoggedIn = {
   //   isLoggedIn: true,
@@ -83,18 +73,4 @@ export class ProfileComponent extends LoggedIn implements OnInit {
   getUrl() {
     return this.url;
   }
-}
-
-interface User {
-  about: string;
-  accountId: number;
-  avatarImgLink: string;
-  backgroundImgLink: string;
-  followedCount: number;
-  followingCount: number;
-  id: number;
-  link: string;
-  mostUsedCategoryToolName: string;
-  name: string;
-  postsCount: number;
 }

@@ -15,6 +15,7 @@ import { IsUserLoggedIn } from "../classes/is-user-logged-in";
 import { LoggedIn } from "../classes/logged-in";
 import { NgForm } from "@angular/forms";
 import { AccountService } from "../services/account.service";
+import { ImageService } from "../services/image.service";
 
 @Component({
   selector: "app-menu",
@@ -31,13 +32,19 @@ export class MenuComponent extends LoggedIn implements OnInit {
 
   private host = "http://localhost:4200/";
   private loginPage = "http://localhost:4200/homepage";
+  private _imgLink: string = "";
 
-  constructor(private router: Router, private _accountService: AccountService) {
+  constructor(
+    private router: Router,
+    private _accountService: AccountService,
+    private service: ImageService
+  ) {
     super();
   }
 
   ngOnInit() {
     super.ngOnInit();
+
     // menu on homepage looks differently
     if (this._loggedIn === false) {
       $("menu").addClass("logged-out");
@@ -73,6 +80,16 @@ export class MenuComponent extends LoggedIn implements OnInit {
         .setClassToggle(".container-menu", "scrolled")
         .addTo(controller);
     }
+
+    if (this._loggedIn === true) this.getProfileImage();
+  }
+
+  getProfileImage() {
+    this.service
+      .selectUserById(this._loggedId.toString(), this._loggedId.toString())
+      .subscribe((res: any) => {
+        this._imgLink = res.avatarImgLink;
+      });
   }
 
   toggleMenu() {
@@ -93,7 +110,6 @@ export class MenuComponent extends LoggedIn implements OnInit {
       .subscribe(
         res => {
           LoginManager.loginUser(res);
-
           if (location.href.replace(/.*\/\/[^\/]*/, "") === "/homepage")
             window.location.replace("");
           else document.location.reload();
@@ -117,5 +133,9 @@ export class MenuComponent extends LoggedIn implements OnInit {
         LoginManager.logoutUser();
         window.location.replace("homepage");
       });
+  }
+
+  get imgLink() {
+    return this._imgLink;
   }
 }

@@ -25,6 +25,10 @@ import { Router } from "@angular/router";
 })
 export class IndexComponent extends LoggedIn implements OnInit {
   // private _loggedIn = false;
+  @ViewChild("email") email;
+  @ViewChild("name") name;
+  @ViewChild("emailLogin") emailLogin;
+  @ViewChild("passwordLogin") passwordLogin;
 
   registerForm: FormGroup;
   loginForm: FormGroup;
@@ -34,6 +38,8 @@ export class IndexComponent extends LoggedIn implements OnInit {
   private _loginWarning = "";
   private host = "http://localhost:4200/";
   private recaptcha = false;
+  private _loginLoading = false;
+  private _registerLoading = false;
 
   constructor(
     private _accountService: AccountService,
@@ -83,16 +89,29 @@ export class IndexComponent extends LoggedIn implements OnInit {
         email: name,
         password: password
       })
-      .subscribe(res => {
-        // to do: walidacja
-        LoginManager.loginUser(res);
-        // window.location.replace(this.host);
-        document.location.reload();
-      });
+      .subscribe(
+        res => {
+          // to do: walidacja
+          LoginManager.loginUser(res);
+          window.location.replace("");
+          this._loginLoading = false;
+        },
+        err => {
+          this._loginLoading = false;
+
+          if (err.status === 401) {
+            this.emailLogin.Input.nativeElement.classList.add("invalid");
+            this.passwordLogin.Input.nativeElement.classList.add("invalid");
+            this._loginWarning =
+              "Cannot find a user with given name and password.";
+          }
+        }
+      );
   }
 
   onLogin(form: NgForm) {
     if (form.status === "VALID") {
+      this._loginLoading = true;
       this._loginWarning = "";
       this.authenticateUser(form.value.email, form.value.password);
     } else {
@@ -102,6 +121,7 @@ export class IndexComponent extends LoggedIn implements OnInit {
 
   onRegister(form: NgForm) {
     if (form.status === "VALID" && this.recaptcha) {
+      this._registerLoading = true;
       this._registerWarning = "";
       this._accountService
         .registerUser({
@@ -109,13 +129,25 @@ export class IndexComponent extends LoggedIn implements OnInit {
           email: form.value.email,
           password: form.value.passwords.new
         })
-        .subscribe(res => {
-          console.log(res);
-          // to do: walidacja
-          this._registered = true;
-        });
+        .subscribe(
+          res => {
+            this._registered = true;
+            this._registerLoading = false;
+          },
+          err => {
+            this._registerLoading = false;
+            // email already exists
+            if (err.status === 409) {
+              this.email.validateMessage = "Email already exists!";
+            }
+            // username already exists
+            if (err.status === 403) {
+              this.name.validateMessage = "Name already exists!";
+            }
+          }
+        );
     } else {
-      this._registerWarning = "Form must be valid.";
+      this._registerWarning = "All fields must be filled.";
     }
   }
 
@@ -148,6 +180,13 @@ export class IndexComponent extends LoggedIn implements OnInit {
     return this._loginWarning;
   }
 
+  get registerLoading() {
+    return this._registerLoading;
+  }
+
+  get loginLoading() {
+    return this._loginLoading;
+  }
   // get loggedIn() {
   //   return this._loggedIn;
   // }

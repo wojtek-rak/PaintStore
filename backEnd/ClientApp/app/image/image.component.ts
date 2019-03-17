@@ -47,6 +47,7 @@ export class ImageComponent extends LoggedIn implements OnInit {
   private titleForm: FormGroup;
   private descriptionForm: FormGroup;
   private tagsForm: FormGroup;
+  private _imgLink = "";
 
   constructor(
     private service: ImageService,
@@ -54,6 +55,14 @@ export class ImageComponent extends LoggedIn implements OnInit {
     private fb: FormBuilder
   ) {
     super();
+  }
+
+  getProfileImage() {
+    this.service
+      .selectUserById(this._loggedId.toString(), this._loggedId.toString())
+      .subscribe((res: any) => {
+        this._imgLink = res.avatarImgLink;
+      });
   }
 
   initializeForms() {
@@ -75,7 +84,7 @@ export class ImageComponent extends LoggedIn implements OnInit {
     console.log(this._loggedId);
     this.getCommentsData();
     this.getImageData();
-    // EditImage.requestDescriptionChange();
+    this.getProfileImage();
   }
 
   getImageData() {
@@ -272,22 +281,6 @@ export class ImageComponent extends LoggedIn implements OnInit {
   }
 
   approveTitle(form: NgForm) {
-    // this.service
-    //   .editImage(
-    //     {
-    //       id: this._image.id,
-    //       title: form.value.title,
-    //       description: this.image.description
-    //     },
-    //     this._loggedId,
-    //     this._loggedToken
-    //   )
-    //   .subscribe(res => {
-    //     this._titleEditing = false;
-    //     this.Message.show("Title edited successfully.");
-    //     this._image.title = form.value.title;
-    //   });
-
     this.editRequest(
       {
         id: this._image.id,
@@ -379,6 +372,10 @@ export class ImageComponent extends LoggedIn implements OnInit {
 
   get tagsEditing(): boolean {
     return this._tagsEditing;
+  }
+
+  get imgLink() {
+    return this._imgLink;
   }
 }
 

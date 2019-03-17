@@ -485,24 +485,24 @@
 			<div class="flex-wrapper">
 				<div class="images">
 					<div class="image img1">
-						<img src="../../assets/img/placeholder.jpg" />
+						<img src="../../assets/img/1.png" />
 					</div>
 					<div class="image img3">
-						<img src="../../assets/img/placeholder.jpg"  />
+						<img src="../../assets/img/2.png"  />
 					</div>
 					<div class="image img5">
-						<img src="../../assets/img/placeholder.jpg" />
+						<img src="../../assets/img/3.png" />
 					</div>
 				</div>
 				<div class="images">
 					<div class="image img2">
-						<img src="../../assets/img/placeholder.jpg" />
+						<img src="../../assets/img/4.png" />
 					</div>
 					<div class="image img4">
-						<img src="../../assets/img/placeholder.jpg" />
+						<img src="../../assets/img/5.png" />
 					</div>
 					<div class="image img6">
-						<img src="../../assets/img/placeholder.jpg"  />
+						<img src="../../assets/img/6.png"  />
 					</div>
 				</div>
 			</div>
@@ -517,18 +517,24 @@
 						<form *ngIf="registered === false" [formGroup]="registerForm" (ngSubmit)="onRegister(registerForm)">
 							<input-text [data]="{
 								label: 'Username'
-							}" formControlName="name"></input-text>
+							}" formControlName="name" #name></input-text>
 							<confirm-password [data]="{
 								label: 'Password'
 							}" formControlName="passwords"></confirm-password>
 							<input-email [data]="{
 								label: 'E-mail'
-							}" formControlName="email"></input-email>
+							}" formControlName="email" #email></input-email>
 							<div class="warning summary-warning" *ngIf="registerWarning !== ''">{{registerWarning}}</div>
 							<re-captcha (resolved)="resolved($event)" siteKey="6LdV5pYUAAAAAAKMSM93P-KFs_r7frSEs3iOb5_8" formControlName="captcha"></re-captcha>
+							<div class="warning summary-warning" *ngIf="registerWarning !== ''">{{registerWarning}}</div>
+							
 							<button area-label="edit profile" class="button-colored" type="submit">
 								Submit
 							</button>
+
+							<span *ngIf="registerLoading" class="loading"
+								><i class="icon-spin4 animate-spin"></i
+							></span>
 						</form>
 						<div *ngIf="registered === true" >You have been succesfully registered. Log in.</div>
 					</div>
@@ -539,15 +545,18 @@
 								<input-email [data]="{
 									label: 'Email',
 									placeholder: 'e-mail'
-									}" formControlName="email"></input-email>
+									}" formControlName="email" #emailLogin></input-email>
 					
 								<input-password [data]="{
 									label: 'Password'
-								}" formControlName="password"></input-password>
+								}" formControlName="password" #passwordLogin></input-password>
 								<div class="warning summary-warning" *ngIf="loginWarning !== ''">{{loginWarning}}</div>
 								<button area-label="edit profile" class="button-colored" type="submit">
 									Submit
 								</button>
+								<span *ngIf="loginLoading" class="loading"
+									><i class="icon-spin4 animate-spin"></i
+								></span>
 							</form>
 					</div>
 				</mat-tab>

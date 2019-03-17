@@ -47,6 +47,9 @@ import { InputOptionComponent } from "./forms/input-option/input-option.componen
 import { ImageElementComponent } from "./image-element/image-element.component";
 import { TagsComponent } from "./tags/tags.component";
 import { ImagesCommonComponent } from "./images-common/images-common.component";
+import { InformationsComponent } from "./settings/informations/informations.component";
+import { CredentialsComponent } from "./settings/credentials/credentials.component";
+import { UserService } from "./services/user.service";
 
 const appRoutes: Routes = [
   {
@@ -76,7 +79,17 @@ const appRoutes: Routes = [
   },
   {
     path: "settings",
-    component: SettingsComponent
+    component: SettingsComponent,
+    children: [
+      {
+        path: "",
+        component: InformationsComponent
+      },
+      {
+        path: "credentials",
+        component: CredentialsComponent
+      }
+    ]
   },
   {
     path: "user/:id",
@@ -158,7 +171,9 @@ const appRoutes: Routes = [
     InputOptionComponent,
     ImageElementComponent,
     TagsComponent,
-    ImagesCommonComponent
+    ImagesCommonComponent,
+    InformationsComponent,
+    CredentialsComponent
     // InputEmailComponent
   ],
   imports: [
@@ -175,7 +190,7 @@ const appRoutes: Routes = [
     RecaptchaModule,
     RecaptchaFormsModule
   ],
-  providers: [ImageService, AccountService],
+  providers: [ImageService, AccountService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

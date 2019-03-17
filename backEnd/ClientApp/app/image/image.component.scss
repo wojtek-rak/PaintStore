@@ -130,6 +130,8 @@ a:hover {
   border-radius: 50%;
   overflow: hidden;
   margin-right: 15px;
+  flex-grow: 0;
+  flex-shrink: 0;
 
   a {
     width: 100%;
@@ -155,8 +157,9 @@ a:hover {
     align-items: center;
 
     .edit-delete-icon {
-      margin: 5px 0 0 8px;
+      margin: 0 0 0 8px;
       color: #a0a0a0;
+      font-size: 18px;
     }
 
     .edit-delete-icon:hover {
@@ -396,7 +399,7 @@ a:hover {
   }
 
   .header-info {
-    color: #787878;
+    color: #8b8b8b;
     display: inline-block;
     font-size: 14px;
     margin: 0 5px 0 0;
@@ -405,6 +408,11 @@ a:hover {
   .header-info.edit-delete-icon {
     display: flex;
     margin: 0;
+    color: #cccccc;
+
+    &:hover {
+      background: #f0f0f0;
+    }
   }
 }
 
@@ -456,6 +464,10 @@ a:hover {
     box-sizing: border-box;
     margin: 0;
   }
+
+  .comment {
+    border-color: #ececec;
+  }
 }
 
 @media only screen and (max-width: 1120px) {
@@ -482,6 +494,41 @@ a:hover {
 @media only screen and (max-width: 700px) {
   .centered {
     padding: 0 30px 50px;
+  }
+}
+
+@media only screen and (max-width: 460px) {
+  .centered {
+    padding: 0 10px 50px;
+  }
+
+  .photo-header {
+    padding: 20px 10px;
+    display: block;
+
+    .likes {
+      margin-left: 75px;
+      margin-top: 10px;
+    }
+  }
+
+  .author-avatar,
+  .basic-info {
+    display: inline-block;
+  }
+
+  .header {
+    display: block;
+
+    span,
+    .header-info.edit-delete-icon,
+    .header-info.likes {
+      display: inline-block;
+    }
+  }
+
+  .comment p {
+    margin-top: 10px;
   }
 }
 

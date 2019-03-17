@@ -11,7 +11,7 @@
 
 .homepage-container {
   margin-top: -50px;
-  padding: 0 70px;
+  padding: 0 70px 70px;
   font-family: "Playfair Display", serif;
 }
 
@@ -115,10 +115,6 @@ svg {
   width: auto;
 }
 
-.join {
-  padding-bottom: 70px;
-}
-
 .see-examples {
   .flex-wrapper {
     margin: 0 auto;
@@ -169,7 +165,7 @@ path {
   animation-fill-mode: forwards;
 }
 @mixin animation($s) {
-  @for $i from 0 to 67 {
+  @for $i from 0 to 50 {
     path:nth-of-type(#{$i + 1}) {
       animation-delay: #{$i/10 + $s};
     }
@@ -283,7 +279,7 @@ path {
 
 @media screen and (max-width: 1020px) {
   .homepage-container {
-    padding: 0 40px;
+    padding: 0 40px 70px;
   }
 
   .title span {

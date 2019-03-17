@@ -68,7 +68,6 @@ input:focus.invalid {
   max-width: 1290px;
   margin: 0 auto;
   padding-top: 70px;
-  min-height: calc(100vh - 299px);
   display: inline-block;
 }
 
@@ -237,6 +236,11 @@ input:focus.invalid {
         font-size: 13px;
         color: #a2a0a0;
         font-family: "Roboto", sans-serif;
+      }
+
+      i {
+        color: #bababa;
+        margin-left: -3px;
       }
     }
 
@@ -684,4 +688,14 @@ tag-input {
 
 .edit-delete-icon:hover {
   background: #eaeaea;
+}
+
+// loading icon
+.icon-spin4 {
+  color: #a5a5a5;
+  margin: 0 15px;
+}
+
+// loading elements
+.loading-elements {
 }

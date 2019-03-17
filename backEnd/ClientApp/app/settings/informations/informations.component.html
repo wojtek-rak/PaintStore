@@ -1,0 +1,43 @@
+<ng-container *ngIf="user.id !== 0">
+  <form [formGroup]="form" (ngSubmit)="onFormUpload(form)">
+    <input-text
+      [data]="{
+        label: 'Name'
+      }"
+      formControlName="userName"
+    ></input-text>
+    <input-text
+      [data]="{
+        label: 'Short information',
+        validation: 'short'
+      }"
+      formControlName="shortInformation"
+    ></input-text>
+    <input-textarea
+      [data]="{
+        label: 'Description'
+      }"
+      formControlName="description"
+    ></input-textarea>
+    <input-file
+      [data]="{
+        label: 'Input profile image'
+      }"
+      formControlName="file"
+      #file
+    >
+    </input-file>
+    <div class="warning summary-warning" *ngIf="informationsWarning !== ''">
+      {{ informationsWarning }}
+    </div>
+
+    <button area-label="edit profile" class="button-colored" type="submit">
+      Submit
+    </button>
+
+    <span *ngIf="loading" class="loading"
+      ><i class="icon-spin4 animate-spin"></i
+    ></span>
+  </form>
+</ng-container>
+<app-confirmation-message #msg></app-confirmation-message>

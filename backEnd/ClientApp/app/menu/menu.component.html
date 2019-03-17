@@ -1,11 +1,17 @@
 <menu #menu>
-  <div class="information">
-    The application still in production. This is a demonstration site.
-  </div>
   <div class="container-menu">
     <ul class="hamburger">
-      <li class="logo">LOGO</li>
-      <li class="hamburger-icon" (click)="toggleClass()">H</li>
+      <li class="logo">
+        <a routerLink=""
+          ><img
+            src="../../assets/img/logo.png"
+            height="80px"
+            style="opacity: 0.5"
+        /></a>
+      </li>
+      <li class="hamburger-icon" (click)="toggleClass()">
+        <i class="icon-menu"></i>
+      </li>
     </ul>
 
     <ul class="container-menu-ul hidden" #menuUl>
@@ -53,7 +59,13 @@
       <li class="menu-user">
         <!-- /user/{{ LoginManager.userId() }} -->
         <a routerLink="/user/{{ loggedId }}" class="logged-user-icon"
-          ><img src="../../assets/img/avatar.png" width="40px"
+          ><img
+            src="{{
+              imgLink === null || imgLink === ''
+                ? '../../assets/img/avatar.png'
+                : imgLink
+            }}"
+            width="40px"
         /></a>
         <button class="menu-toggle-down" (click)="toggleMenu()" #button>
           <i class="icon-down-open"></i>
@@ -61,10 +73,17 @@
         <div class="menu-toggled" #menuToggled>
           <ul>
             <li>
+              <a routerLink="/user/{{ loggedId }}"
+                ><i class="icon-user-1"></i>Your profile</a
+              >
+            </li>
+            <li>
               <a routerLink="/settings"><i class="icon-cog"></i>Edit profile</a>
             </li>
             <li>
-              <a routerLink="/upload-image"><i class="icon-plus"></i>Add</a>
+              <a routerLink="/upload-image"
+                ><i class="icon-plus"></i>Add image</a
+              >
             </li>
             <li>
               <button class="logout" (click)="logout()">

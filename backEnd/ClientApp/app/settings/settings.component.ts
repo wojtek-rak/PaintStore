@@ -5,39 +5,29 @@ import { requiredTextValidator } from "../validators/text-validator";
 import { emailValidator } from "../validators/email-validator";
 import { passwordsValidator } from "../validators/passwords-validator";
 import { fileValidator } from "../validators/file-validator";
+import { LoggedIn } from "../classes/logged-in";
+import { Router } from "@angular/router";
+import { ImageService } from "../services/image.service";
 
 @Component({
   selector: "app-settings",
   templateUrl: "./settings.component.html",
   styleUrls: ["./settings.component.scss"]
 })
-export class SettingsComponent implements OnInit {
-  private _user = {
-    name: "ania",
-    email: "ania@gmail.com",
-    link: "czesc, jestem ania",
-    description: "moj opis"
-  };
-
-  form: any; // By³o FRORM GROUP TODO GRUBIEJ
-  constructor(private fb: FormBuilder) {}
+export class SettingsComponent extends LoggedIn implements OnInit {
+  constructor(private router: Router) {
+    super();
+  }
 
   ngOnInit() {
-    this.form = this.fb.group({
-      userName: [this.user.name, [Validators.required, requiredTextValidator]],
-      email: [this.user.email, [Validators.required, emailValidator]],
-      shortInformation: [this.user.link, shortTextValidator],
-      description: [this.user.description],
-      password: ["", passwordsValidator],
-      file: ["", fileValidator]
-    });
+    super.ngOnInit();
+
+    if (this._loggedIn === false) {
+      this.router.navigateByUrl("/not-found");
+    }
   }
 
   onFormUpload(form: NgForm) {
     console.log(form);
-  }
-
-  get user() {
-    return this._user;
   }
 }

@@ -84,7 +84,7 @@ namespace PaintStore.Application.Services
                 var  encoding = new ASCIIEncoding();
                 var soil = encoding.GetBytes(newUser.PasswordSoil);
                 var password = encoding.GetBytes(user.Password);
-                newUser.PasswordHash = System.Text.Encoding.UTF8.GetString(CredentialsHelpers.GenerateSaltedHash(password, soil));
+                newUser.PasswordHash = Convert.ToBase64String(CredentialsHelpers.GenerateSaltedHash(password, soil));
                 db.Users.Add(newUser);
                 db.SaveChanges();
                 return newUser;
@@ -126,7 +126,7 @@ namespace PaintStore.Application.Services
                     var  encoding = new ASCIIEncoding();
                     var soil = encoding.GetBytes(accountToUpdate.PasswordSoil);
                     var password = encoding.GetBytes(account.NewPassword);
-                    accountToUpdate.PasswordHash = System.Text.Encoding.UTF8.GetString(CredentialsHelpers.GenerateSaltedHash(password, soil));
+                    accountToUpdate.PasswordHash = Convert.ToBase64String(CredentialsHelpers.GenerateSaltedHash(password, soil));
                 }
 
                 accountToUpdate.Token = CredentialsHelpers.CreateSalt();

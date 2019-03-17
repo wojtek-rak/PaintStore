@@ -223,7 +223,7 @@ namespace PaintStoreBackEnd.Tests
             var  encoding = new ASCIIEncoding();
             var soil = encoding.GetBytes(user.PasswordSoil);
             var password = encoding.GetBytes(passwordToSet);
-            return System.Text.Encoding.UTF8.GetString(CredentialsHelpers.GenerateSaltedHash(password, soil));
+            return Convert.ToBase64String(CredentialsHelpers.GenerateSaltedHash(password, soil));
         }
 
         private List<Users> SetUpHashes(List<Users> users)

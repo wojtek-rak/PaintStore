@@ -132,14 +132,14 @@ namespace PaintStore.Persistence
 
                 entity.Property(e => e.PasswordHash)
                     .IsRequired()
-                    .IsUnicode(false);
+                    .IsUnicode(true);
 
                 entity.Property(e => e.PasswordSoil)
                     .IsRequired()
-                    .IsUnicode(false);
+                    .IsUnicode(true);
 
                 entity.Property(e => e.Token)
-                    .IsUnicode(false);
+                    .IsUnicode(true);
 
                 entity.Property(e => e.About)
                     .IsRequired()

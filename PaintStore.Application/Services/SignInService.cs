@@ -30,7 +30,7 @@ namespace PaintStore.Application.Services
                 var soil = _encoding.GetBytes(userToSignIn.PasswordSoil);
                 var passwordBytes = _encoding.GetBytes(signInCommand.Password);
 
-                var soiledPassword = Encoding.UTF8.GetString(CredentialsHelpers.GenerateSaltedHash(passwordBytes, soil));
+                var soiledPassword = Convert.ToBase64String(CredentialsHelpers.GenerateSaltedHash(passwordBytes, soil));
 
                 if (soiledPassword != userToSignIn.PasswordHash) throw new UnauthorizedAccessException();
 
@@ -74,7 +74,7 @@ namespace PaintStore.Application.Services
             var soil = _encoding.GetBytes(userToSignIn.PasswordSoil);
             var passwordBytes = _encoding.GetBytes(signInCommand.Password);
 
-            var soiledPassword = Encoding.UTF8.GetString(CredentialsHelpers.GenerateSaltedHash(passwordBytes, soil));
+            var soiledPassword = Convert.ToBase64String(CredentialsHelpers.GenerateSaltedHash(passwordBytes, soil));
 
             if (soiledPassword != userToSignIn.PasswordHash) throw new UnauthorizedAccessException();
 

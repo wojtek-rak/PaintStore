@@ -71,6 +71,7 @@ export class ProfileComponent extends LoggedIn implements OnInit {
   }
 
   getUrl() {
+    // console.log("a");
     return this.url;
   }
 }

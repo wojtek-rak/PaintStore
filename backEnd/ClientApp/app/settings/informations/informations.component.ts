@@ -37,7 +37,7 @@ export class InformationsComponent extends LoggedIn implements OnInit {
   initializeForm() {
     this.form = this.fb.group({
       userName: [this._user.name, [Validators.required, requiredTextValidator]],
-      shortInformation: [this._user.link, shortTextValidator],
+      shortInformation: this._user.link,
       description: [this._user.about],
       file: [null, fileValidator]
     });
@@ -59,9 +59,11 @@ export class InformationsComponent extends LoggedIn implements OnInit {
 
   // this causes error 200
   editUser(link: string, value: any) {
+    console.log(value);
     this.service
       .editUser(
         {
+          link: value.shortInformation,
           id: this._loggedId,
           name: value.userName,
           avatarImgLink: link,

@@ -16,8 +16,7 @@ export class ImagesComponent implements OnInit {
   };
 
   private _images: Image[] = [];
-  // private id = this.route.parent.snapshot.paramMap.get("id");
-  // private path = this.route.snapshot.routeConfig.path;
+  private wasAlreadyChanged = false; // says if route was changed and getData called
 
   constructor(
     private imageService: ImageService,
@@ -25,10 +24,15 @@ export class ImagesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getData();
+    // this.getData();
+
+    this.route.params.subscribe(() => {
+      this.getData();
+    });
   }
 
   getData() {
+    console.log(this.route.snapshot.params.id);
     if (this.route.snapshot.routeConfig === null) return;
     if (this.route.parent === null) return;
 
@@ -63,6 +67,11 @@ export class ImagesComponent implements OnInit {
   get images() {
     return this._images;
   }
+
+  // getUrl() {
+  //   console.log(this.route);
+  //   return this.route.snapshot.params.id;
+  // }
 }
 
 interface Image {

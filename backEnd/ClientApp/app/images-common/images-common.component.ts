@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ElementRef, ViewChild } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 // import { Image } from "../classes/image";
 
 @Component({
@@ -14,13 +15,12 @@ export class ImagesCommonComponent implements OnInit {
   private _fail: boolean = false;
   private _howMany = 0;
 
-  constructor() {}
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {}
 
   // show loading icon
   showLoadingMsg() {
-    console.log("loading");
     this._loading = true;
   }
 
@@ -47,6 +47,10 @@ export class ImagesCommonComponent implements OnInit {
     this._loading = false;
   }
 
+  set images(images: Image[]) {
+    this.Images = images;
+  }
+
   get images(): Array<Image> {
     return this.Images;
   }
@@ -61,5 +65,10 @@ export class ImagesCommonComponent implements OnInit {
 
   get howMany() {
     return this._howMany;
+  }
+
+  getUrl() {
+    // console.log(this.route);
+    return this.route.snapshot.params.id;
   }
 }

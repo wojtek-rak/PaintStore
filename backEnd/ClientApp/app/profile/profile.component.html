@@ -39,9 +39,9 @@
         <div class="profile-section about-section">
           <h3>About</h3>
           <p class="content-secondary">
-            <span *ngIf="getUser().about !== ''"></span>
+            <span *ngIf="getUser().about !== ''">{{ getUser().about }}</span>
             <i *ngIf="getUser().about === '' && getUser().id !== this.loggedId"
-              >This user doesn't have description yet.</i
+              >This user doesn't have a description yet.</i
             >
             <i *ngIf="getUser().id === this.loggedId && getUser().about === ''">
               You don't have description yet.

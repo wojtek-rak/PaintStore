@@ -16,8 +16,7 @@ export class ImagesComponent implements OnInit {
   };
 
   private _images: Image[] = [];
-  // private id = this.route.parent.snapshot.paramMap.get("id");
-  // private path = this.route.snapshot.routeConfig.path;
+  private wasAlreadyChanged = false; // says if route was changed and getData called
 
   constructor(
     private imageService: ImageService,
@@ -25,10 +24,15 @@ export class ImagesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getData();
+    // this.getData();
+
+    this.route.params.subscribe(() => {
+      this.getData();
+    });
   }
 
   getData() {
+    // console.log(this.route.snapshot.routeConfig.path);
     if (this.route.snapshot.routeConfig === null) return;
     if (this.route.parent === null) return;
 
@@ -36,6 +40,21 @@ export class ImagesComponent implements OnInit {
     let id = this.route.parent.snapshot.paramMap.get("id");
 
     if (id === null) return;
+
+    let el = document.getElementsByClassName("firstLink")[0];
+
+    if (
+      path === this.selectedRoutes.trending &&
+      !el.classList.contains("activeLi")
+    ) {
+      el.classList.add("activeLi");
+    } else if (
+      path !== this.selectedRoutes.trending &&
+      el.classList.contains("activeLi")
+    ) {
+      el.classList.remove("activeLi");
+    }
+
     this.imgComp.showLoadingMsg();
     if (path === this.selectedRoutes.recent) {
       this.imageService.selectUserTrendingImages(id).subscribe(
@@ -62,6 +81,16 @@ export class ImagesComponent implements OnInit {
 
   get images() {
     return this._images;
+  }
+
+  // getUrl() {
+  //   console.log(this.route);
+  //   return this.route.snapshot.params.id;
+  // }
+
+  getUrl() {
+    // console.log("a");
+    return this.route.snapshot.params.id;
   }
 }
 

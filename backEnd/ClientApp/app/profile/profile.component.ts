@@ -13,9 +13,10 @@ import { User } from "../classes/user";
 })
 export class ProfileComponent extends LoggedIn implements OnInit {
   @ViewChild("label") label: any;
+  @ViewChild("link") link: any;
   private user = new User();
 
-  private url = this.route.snapshot.params.id;
+  private url: string = this.route.snapshot.params.id;
   // private _loggedUser: IsUserLoggedIn = {
   //   isLoggedIn: true,
   //   userId: 1
@@ -30,12 +31,17 @@ export class ProfileComponent extends LoggedIn implements OnInit {
 
   ngOnInit() {
     super.ngOnInit();
-    this.getUserData();
+
+    this.route.params.subscribe(params => {
+      this.getUserData();
+      this.link.nativeElement.classList.add("activeLi");
+      console.log(this.link.nativeElement.classList);
+    });
   }
 
   getUserData() {
     this.imageService
-      .selectUserById(this._loggedId.toString(), this.url)
+      .selectUserById(this._loggedId.toString(), this.route.snapshot.params.id)
       .subscribe(res => {
         this.user = <User>res;
         console.log(this.user);
@@ -45,7 +51,7 @@ export class ProfileComponent extends LoggedIn implements OnInit {
   showFollowed() {
     let informationToSend: ShortUserInfo[];
     this.imageService
-      .getFollowed(this._loggedId.toString(), this.url)
+      .getFollowed(this._loggedId.toString(), this.route.snapshot.params.id)
       .subscribe(res => {
         informationToSend = <ShortUserInfo[]>res;
         this.label.show(informationToSend, "Followed by this user");
@@ -55,7 +61,7 @@ export class ProfileComponent extends LoggedIn implements OnInit {
   showFollowing() {
     let informationToSend: ShortUserInfo[];
     this.imageService
-      .getFollowing(this._loggedId.toString(), this.url)
+      .getFollowing(this._loggedId.toString(), this.route.snapshot.params.id)
       .subscribe(res => {
         informationToSend = <ShortUserInfo[]>res;
         this.label.show(informationToSend, "Following by this user");
@@ -71,6 +77,6 @@ export class ProfileComponent extends LoggedIn implements OnInit {
   }
 
   getUrl() {
-    return this.url;
+    return this.route.snapshot.params.id;
   }
 }

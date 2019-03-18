@@ -272,7 +272,7 @@
         </ng-container>
         <ng-container *ngIf="!tagsEditing">
           <span *ngFor="let tag of image.tagsList" class="tag">{{ tag }} </span>
-          <span *ngIf="image.tagsList.length === 0">no tags added</span>
+          <i *ngIf="image.tagsList.length === 0">This image has no tags yet.</i>
         </ng-container>
       </div>
     </div>

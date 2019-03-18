@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ElementRef, ViewChild } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 // import { Image } from "../classes/image";
 
 @Component({
@@ -14,13 +15,17 @@ export class ImagesCommonComponent implements OnInit {
   private _fail: boolean = false;
   private _howMany = 0;
 
-  constructor() {}
+  private valueToAdd = 24;
 
-  ngOnInit() {}
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this._howMany = this.valueToAdd;
+    console.log(this._howMany);
+  }
 
   // show loading icon
   showLoadingMsg() {
-    console.log("loading");
     this._loading = true;
   }
 
@@ -36,15 +41,18 @@ export class ImagesCommonComponent implements OnInit {
     this.msg.show("Image deleted successfully.");
   }
 
-  // there is no images yet
-  // showEmptyMsg() {
-  //   this._loading = false;
-  // }
+  loadMore() {
+    this._howMany += this.valueToAdd;
+  }
 
   // stop loading icon
   // there is no images or there are images
   hideLoadingMsg() {
     this._loading = false;
+  }
+
+  set images(images: Image[]) {
+    this.Images = images;
   }
 
   get images(): Array<Image> {
@@ -61,5 +69,10 @@ export class ImagesCommonComponent implements OnInit {
 
   get howMany() {
     return this._howMany;
+  }
+
+  getUrl() {
+    // console.log(this.route);
+    return this.route.snapshot.params.id;
   }
 }

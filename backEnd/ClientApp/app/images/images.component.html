@@ -7,6 +7,31 @@
   </div>
   <span *ngIf="images.length === 0 && !loading">There is no images yet.</span>
 </div> -->
+
+<!-- <ul class="menu-list">
+  <li>
+    {{ getUrl() }}
+    <a
+      routerLinkActive="active"
+      [routerLink]="['/user', getUrl()]"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Trending
+    </a>
+  </li>
+  <li><a routerLinkActive="active" routerLink="/user/4/recent">Recent</a></li>
+</ul> -->
+<!-- {{ getUrl() }}
+<ul class="menu-list">
+  <li>
+    <a
+      routerLinkActive="active"
+      [routerLink]="['/user', getUrl()]"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Trending
+    </a>
+  </li>
+  <li><a routerLinkActive="active" routerLink="recent">Recent</a></li>
+</ul> -->
 <app-images-common
   [images]="images"
   [classes]="'smaller'"

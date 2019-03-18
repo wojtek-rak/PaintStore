@@ -15,7 +15,7 @@
 
 <div class="image-wrapper {{ classes }}">
   <div
-    *ngFor="let image of (images | slice: 0:7); let i = index"
+    *ngFor="let image of (images | slice: 0:howMany); let i = index"
     class="image-element"
   >
     <app-image-element
@@ -23,6 +23,14 @@
       (emitter)="delete($event)"
     ></app-image-element>
   </div>
+
+  <button
+    class="load-more button-colored"
+    (click)="loadMore()"
+    *ngIf="images.length > howMany"
+  >
+    load more
+  </button>
 </div>
 
 <app-confirmation-message #msg></app-confirmation-message>

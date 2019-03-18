@@ -127,7 +127,8 @@ export class IndexComponent extends LoggedIn implements OnInit {
         .registerUser({
           name: form.value.name,
           email: form.value.email,
-          password: form.value.passwords.new
+          password: form.value.passwords.new,
+          link: ""
         })
         .subscribe(
           res => {

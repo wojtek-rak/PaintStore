@@ -15,9 +15,14 @@ export class ImagesCommonComponent implements OnInit {
   private _fail: boolean = false;
   private _howMany = 0;
 
+  private valueToAdd = 24;
+
   constructor(private route: ActivatedRoute) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this._howMany = this.valueToAdd;
+    console.log(this._howMany);
+  }
 
   // show loading icon
   showLoadingMsg() {
@@ -36,10 +41,9 @@ export class ImagesCommonComponent implements OnInit {
     this.msg.show("Image deleted successfully.");
   }
 
-  // there is no images yet
-  // showEmptyMsg() {
-  //   this._loading = false;
-  // }
+  loadMore() {
+    this._howMany += this.valueToAdd;
+  }
 
   // stop loading icon
   // there is no images or there are images

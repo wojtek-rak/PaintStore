@@ -32,7 +32,7 @@ export class ImagesComponent implements OnInit {
   }
 
   getData() {
-    console.log(this.route.snapshot.params.id);
+    // console.log(this.route.snapshot.routeConfig.path);
     if (this.route.snapshot.routeConfig === null) return;
     if (this.route.parent === null) return;
 
@@ -40,6 +40,21 @@ export class ImagesComponent implements OnInit {
     let id = this.route.parent.snapshot.paramMap.get("id");
 
     if (id === null) return;
+
+    let el = document.getElementsByClassName("firstLink")[0];
+
+    if (
+      path === this.selectedRoutes.trending &&
+      !el.classList.contains("activeLi")
+    ) {
+      el.classList.add("activeLi");
+    } else if (
+      path !== this.selectedRoutes.trending &&
+      el.classList.contains("activeLi")
+    ) {
+      el.classList.remove("activeLi");
+    }
+
     this.imgComp.showLoadingMsg();
     if (path === this.selectedRoutes.recent) {
       this.imageService.selectUserTrendingImages(id).subscribe(
@@ -72,6 +87,11 @@ export class ImagesComponent implements OnInit {
   //   console.log(this.route);
   //   return this.route.snapshot.params.id;
   // }
+
+  getUrl() {
+    // console.log("a");
+    return this.route.snapshot.params.id;
+  }
 }
 
 interface Image {

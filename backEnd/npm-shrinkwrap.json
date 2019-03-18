@@ -1371,6 +1371,11 @@
         "tslib": "^1.9.0"
       }
     },
+    "@ngrx-utils/store": {
+      "version": "0.11.0",
+      "resolved": "https://registry.npmjs.org/@ngrx-utils/store/-/store-0.11.0.tgz",
+      "integrity": "sha512-OS9QBdSjg17s3gF/rSBvxGoy6ziQotEj7RyB2oQV/k6n+z2tXE1r9t9JO9PEqp+rTX1WQMWRWfbyZWgbctTOLA=="
+    },
     "@ngtools/webpack": {
       "version": "6.1.5",
       "resolved": "https://registry.npmjs.org/@ngtools/webpack/-/webpack-6.1.5.tgz",

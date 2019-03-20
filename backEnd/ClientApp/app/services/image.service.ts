@@ -30,14 +30,14 @@ export class ImageService {
   }
 
   public uploadComment(comment: any, id: number, token: string) {
-    let headers = this.getHeaders(id, token);
+    const headers = this.getHeaders(id, token);
     return this._http.post(this.host + "api/Comments/AddPostComment", comment, {
       headers: headers
     });
   }
 
   public removeComment(id: number, idToken: number, token: string) {
-    let headers = this.getHeaders(idToken, token);
+    const headers = this.getHeaders(idToken, token);
 
     return this._http.delete(
       this.host + "api/Comments/DeletePostComment/" + id,
@@ -93,7 +93,7 @@ export class ImageService {
   }
 
   public unlikePost(userId: string, postId: string, id: number, token: string) {
-    let headers = this.getHeaders(id, token);
+    const headers = this.getHeaders(id, token);
 
     return this._http.delete(
       this.host + "api/Likes/Post/RemoveLike/" + userId + "/" + postId,
@@ -104,7 +104,7 @@ export class ImageService {
   }
 
   public likePost(data: any, id: number, token: string) {
-    let headers = this.getHeaders(id, token);
+    const headers = this.getHeaders(id, token);
     return this._http.post(this.host + "api/Likes/Post/AddLike", data, {
       headers: headers
     });
@@ -117,7 +117,7 @@ export class ImageService {
   }
 
   public likeComment(data: any, id: number, token: string) {
-    let headers = this.getHeaders(id, token);
+    const headers = this.getHeaders(id, token);
 
     return this._http.post(this.host + "api/Likes/Comment/AddLike", data, {
       headers: headers
@@ -125,8 +125,7 @@ export class ImageService {
   }
 
   public unlikeComment(userId: number, postId: string, token: string) {
-    let headers = this.getHeaders(userId, token);
-    // console.log(postId);
+    const headers = this.getHeaders(userId, token);
     return this._http.delete(
       this.host + "api/Likes/Comment/RemoveLike/" + userId + "/" + postId,
       {
@@ -136,7 +135,7 @@ export class ImageService {
   }
 
   public editComment(data: any, id: number, token: string) {
-    let headers = this.getHeaders(id, token);
+    const headers = this.getHeaders(id, token);
     return this._http.put(this.host + "api/Comments/EditPostComment", data, {
       headers: headers
     });
@@ -144,7 +143,7 @@ export class ImageService {
 
   // followedUserId, followingUserId
   public follow(data: FollowingData, id: number, token: string) {
-    let headers = this.getHeaders(id, token);
+    const headers = this.getHeaders(id, token);
 
     return this._http.post(this.host + "api/Followers/AddFollower", data, {
       headers: headers
@@ -153,7 +152,7 @@ export class ImageService {
 
   // followedUserId, followingUserId
   public unfollow(data: FollowingData, id: number, token: string) {
-    let headers = this.getHeaders(id, token);
+    const headers = this.getHeaders(id, token);
 
     return this._http.delete(
       this.host +
@@ -175,22 +174,21 @@ export class ImageService {
   }
 
   public addTagsToImage(data, id: number, token: string) {
-    let headers = this.getHeaders(id, token);
-    console.log(data);
+    const headers = this.getHeaders(id, token);
     return this._http.post(`${this.host}api/Tags/AddPostTags`, data, {
       headers: headers
     });
   }
 
   public addAdditionalImageInfo(data, id: number, token: string) {
-    let headers = this.getHeaders(id, token);
+    const headers = this.getHeaders(id, token);
     return this._http.post(`${this.host}api/Posts/AddPost`, data, {
       headers: headers
     });
   }
 
   public editImage(data, id: number, token: string) {
-    let headers = this.getHeaders(id, token);
+    const headers = this.getHeaders(id, token);
     return this._http.put(`${this.host}api/Posts/EditPost`, data, {
       headers: headers
     });
@@ -212,28 +210,28 @@ export class ImageService {
   }
 
   public deleteImage(id: number, userId: number, token: string) {
-    let headers = this.getHeaders(userId, token);
+    const headers = this.getHeaders(userId, token);
     return this._http.delete(`${this.host}/api/Posts/DeletePost/${id}`, {
       headers: headers
     });
   }
 
   public editUser(data: any, id: number, token: string) {
-    let headers = this.getHeaders(id, token);
+    const headers = this.getHeaders(id, token);
     return this._http.put(`${this.host}api/Users/EditUser`, data, {
       headers: headers
     });
   }
 
   public editUserCredentials(data: any, id: number, token: string) {
-    let headers = this.getHeaders(id, token);
+    const headers = this.getHeaders(id, token);
     return this._http.put(`${this.host}api/Users/EditUserCredentials`, data, {
       headers: headers
     });
   }
 
   public getUserEmail(data: any, id: number, token: string) {
-    let headers = this.getHeaders(id, token);
+    const headers = this.getHeaders(id, token);
     return this._http.post(`${this.host}api/Users/GetUserEmail`, data, {
       headers: headers
     });

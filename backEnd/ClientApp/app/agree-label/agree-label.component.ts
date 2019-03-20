@@ -34,7 +34,9 @@ export class AgreeLabelComponent implements OnInit {
 
   show() {
     const nullCheck = document.querySelector("body");
-    if (nullCheck === null) return;
+    if (nullCheck === null) {
+      return;
+    }
     nullCheck.classList.add("stop-scrolling");
     const el = this.wrapper.nativeElement;
     el.classList.add("display");
@@ -45,7 +47,10 @@ export class AgreeLabelComponent implements OnInit {
 
   close() {
     const nullCheck = document.querySelector("body");
-    if (nullCheck === null) return;
+    if (nullCheck === null) {
+      return;
+    }
+
     nullCheck.classList.remove("stop-scrolling");
     const el = this.wrapper.nativeElement;
     el.classList.remove("opacity");

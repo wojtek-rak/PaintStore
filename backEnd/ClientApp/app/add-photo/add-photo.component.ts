@@ -62,8 +62,8 @@ export class AddPhotoComponent extends LoggedIn implements OnInit {
       .addAdditionalImageInfo(data, this._loggedId, this._loggedToken)
       .subscribe(
         res => {
-          let response = <ImageResponse>res;
-          let id = response.id;
+          const response = <ImageResponse>res;
+          const id = response.id;
 
           // after image, send tags
           this.service
@@ -76,12 +76,12 @@ export class AddPhotoComponent extends LoggedIn implements OnInit {
               this._loggedToken
             )
             .subscribe(
-              res => {
+              () => {
                 this.Message.show("File uploaded successfully!");
                 form.reset();
                 this._loading = false;
               },
-              err => {
+              () => {
                 this.showErrorMsg();
               }
             );

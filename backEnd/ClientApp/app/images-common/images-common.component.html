@@ -13,7 +13,7 @@
   An error occured. Try again later.
 </div>
 
-<div class="image-wrapper {{ classes }}">
+<div class="image-wrapper {{ classes }}" *ngIf="resizeReady">
   <div
     *ngFor="let image of (images | slice: 0:howMany); let i = index"
     class="image-element"

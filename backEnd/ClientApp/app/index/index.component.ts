@@ -8,7 +8,8 @@ import * as ScrollMagic from "ScrollMagic";
 import { AccountService } from "../services/account.service";
 import {
   requiredTextValidator,
-  passwordValidator
+  passwordValidator,
+  checkboxValidator
 } from "../validators/text-validator";
 import { emailValidator } from "../validators/email-validator";
 import { passwordsValidator } from "../validators/passwords-validator";
@@ -59,6 +60,7 @@ export class IndexComponent extends LoggedIn implements OnInit {
         [Validators.required, requiredTextValidator, passwordsValidator]
       ],
       name: ["", [Validators.required, requiredTextValidator]],
+      checkbox: [null, [Validators.required, checkboxValidator]],
       captcha: [null, Validators.required]
     });
   }
@@ -153,10 +155,10 @@ export class IndexComponent extends LoggedIn implements OnInit {
   }
 
   animateScrolling() {
-    let name = ".img";
+    const name = ".img";
     for (let i = 1; i <= 6; i++) {
-      let controller = new ScrollMagic.Controller();
-      let scene = new ScrollMagic.Scene({
+      const controller = new ScrollMagic.Controller();
+      const scene = new ScrollMagic.Scene({
         triggerElement: name + i,
         triggerHook: 0.9
       })

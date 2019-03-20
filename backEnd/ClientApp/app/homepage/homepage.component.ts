@@ -22,6 +22,7 @@ export class HomepageComponent extends LoggedIn implements OnInit {
   }
 
   ngOnInit() {
+    console.log("change");
     super.ngOnInit();
     if (this._loggedIn) {
       if (this.router.url === "/") {
@@ -46,6 +47,7 @@ export class HomepageComponent extends LoggedIn implements OnInit {
       res => {
         this.imgComp.hideLoadingMsg();
         this._images = <Image[]>res;
+        this.imgComp.images = this._images;
       },
       err => {
         this.imgComp.showErrorMsg();
@@ -59,6 +61,7 @@ export class HomepageComponent extends LoggedIn implements OnInit {
       res => {
         this.imgComp.hideLoadingMsg();
         this._images = <Image[]>res;
+        this.imgComp.images = this._images;
       },
       err => {
         this.imgComp.showErrorMsg();
@@ -72,6 +75,7 @@ export class HomepageComponent extends LoggedIn implements OnInit {
       res => {
         this.imgComp.hideLoadingMsg();
         this._images = <Image[]>res;
+        this.imgComp.images = this._images;
       },
       err => {
         this.imgComp.showErrorMsg();

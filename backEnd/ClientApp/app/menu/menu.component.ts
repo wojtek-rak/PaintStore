@@ -1,17 +1,8 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  ViewChild,
-  ElementRef
-} from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import * as $ from "jquery";
 import * as ScrollMagic from "ScrollMagic";
-import { EventEmitter } from "@angular/core";
 import { Router } from "@angular/router";
 import { LoginManager } from "../classes/login-manager";
-import { IsUserLoggedIn } from "../classes/is-user-logged-in";
 import { LoggedIn } from "../classes/logged-in";
 import { NgForm } from "@angular/forms";
 import { AccountService } from "../services/account.service";
@@ -23,16 +14,16 @@ import { ImageService } from "../services/image.service";
   styleUrls: ["./menu.component.scss"]
 })
 export class MenuComponent extends LoggedIn implements OnInit {
-  @ViewChild("menu") menu: any;
-  @ViewChild("menuToggled") menuToggled: any;
-  @ViewChild("menuUl") menuUl: any;
-  @ViewChild("button") button: any; // TODO
-  @ViewChild("input") input: any; // TODO
-  @ViewChild("input2") input2: any;
+  @ViewChild("menu") menu: ElementRef;
+  @ViewChild("menuToggled") menuToggled: ElementRef;
+  @ViewChild("menuUl") menuUl: ElementRef;
+  @ViewChild("button") button: ElementRef;
+  @ViewChild("input") input: ElementRef;
+  @ViewChild("input2") input2: ElementRef;
 
   private host = "http://localhost:4200/";
   private loginPage = "http://localhost:4200/homepage";
-  private _imgLink: string = "";
+  private _imgLink = "";
 
   constructor(
     private router: Router,
@@ -42,19 +33,29 @@ export class MenuComponent extends LoggedIn implements OnInit {
     super();
   }
 
+  addClassIfHomepage() {
+    this.router.events.subscribe(() => {
+      if (
+        window.location.pathname === "/homepage" &&
+        !this.menu.nativeElement.classList.contains("static")
+      ) {
+        this.menu.nativeElement.classList.add("static");
+      } else if (window.location.pathname !== "/homepage") {
+        this.menu.nativeElement.classList.remove("static");
+      }
+    });
+  }
+
   ngOnInit() {
     super.ngOnInit();
 
-    // menu on homepage looks differently
+    // menu if user is logged out
     if (this._loggedIn === false) {
       $("menu").addClass("logged-out");
     }
-    if (
-      !this.menu.nativeElement.classList.contains("static") &&
-      window.location.pathname === "/homepage"
-    ) {
-      this.menu.nativeElement.classList.add("static");
-    }
+
+    // menu on homepage looks differently
+    this.addClassIfHomepage();
 
     // hide toggled menu when clicked somewhere on page
     document.addEventListener("click", e => {
@@ -70,9 +71,9 @@ export class MenuComponent extends LoggedIn implements OnInit {
 
     // scroll menu
     for (let i = 1; i <= 6; i++) {
-      let controller = new ScrollMagic.Controller();
+      const controller = new ScrollMagic.Controller();
 
-      let scene = new ScrollMagic.Scene({
+      const scene = new ScrollMagic.Scene({
         triggerElement: ".scrollmagic-toggle",
         triggerHook: 0,
         offset: 40
@@ -97,7 +98,6 @@ export class MenuComponent extends LoggedIn implements OnInit {
   }
 
   toggleClass() {
-    console.log("click");
     this.menuUl.nativeElement.classList.toggle("hidden");
   }
 

@@ -36,14 +36,14 @@ export class InputFileComponent extends InputField implements OnInit {
   private _information = "Drop a file here";
   private elements = [];
   private iconsToAnimate = ["svg-upload", "svg-success", "svg-fail"];
-  private first: boolean = true;
+  private first = true;
 
   constructor() {
     super();
   }
 
   validate(c: FormControl) {
-    let validator = fileValidator(c, this.data.label);
+    const validator = fileValidator(c, this.data.label);
 
     if (c.value === "" || c.value === null || c.value.file === null) {
       // if file is empty, animate upload icon
@@ -59,8 +59,9 @@ export class InputFileComponent extends InputField implements OnInit {
     }
 
     super.setMessage(validator);
-    if (c.value === "" || c.value === null || c.value.file === null)
+    if (c.value === "" || c.value === null || c.value.file === null) {
       this._information = "Drop a file here";
+    }
 
     return validator;
   }
@@ -71,7 +72,7 @@ export class InputFileComponent extends InputField implements OnInit {
       this.elements.push(document.getElementsByClassName(icon)[0]);
     });
     // add listeners to label
-    let $fileLabel = $(".file-label");
+    const $fileLabel = $(".file-label");
     $fileLabel
       .on("drag dragstart dragend dragover dragenter dragleave drop", function(
         e
@@ -90,13 +91,13 @@ export class InputFileComponent extends InputField implements OnInit {
       });
 
     // if label is clicked
-    let $fileInput = $(".file-input");
+    const $fileInput = $(".file-input");
     $fileInput.on("change", () => {
       this.dropped();
     });
 
     $fileLabel.on("keyup", function(e) {
-      if (e.keyCode == 13) {
+      if (e.keyCode === 13) {
         $fileInput.trigger("click");
       }
     });
@@ -116,7 +117,7 @@ export class InputFileComponent extends InputField implements OnInit {
     });
 
     setTimeout(() => {
-      let el = document.getElementsByClassName(icon)[0];
+      const el = document.getElementsByClassName(icon)[0];
       el.classList.remove("end-animation", "hidden");
       el.classList.add("start-animation");
     }, 300);

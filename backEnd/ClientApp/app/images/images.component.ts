@@ -12,7 +12,6 @@ export class ImagesComponent implements OnInit {
   private selectedRoutes = {
     recent: "recent",
     trending: ""
-    // followed: "followed"
   };
 
   private _images: Image[] = [];
@@ -24,24 +23,27 @@ export class ImagesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.getData();
-
     this.route.params.subscribe(() => {
       this.getData();
     });
   }
 
   getData() {
-    // console.log(this.route.snapshot.routeConfig.path);
-    if (this.route.snapshot.routeConfig === null) return;
-    if (this.route.parent === null) return;
+    if (this.route.snapshot.routeConfig === null) {
+      return;
+    }
+    if (this.route.parent === null) {
+      return;
+    }
 
-    let path = this.route.snapshot.routeConfig.path;
-    let id = this.route.parent.snapshot.paramMap.get("id");
+    const path = this.route.snapshot.routeConfig.path;
+    const id = this.route.parent.snapshot.paramMap.get("id");
 
-    if (id === null) return;
+    if (id === null) {
+      return;
+    }
 
-    let el = document.getElementsByClassName("firstLink")[0];
+    const el = document.getElementsByClassName("firstLink")[0];
 
     if (
       path === this.selectedRoutes.trending &&
@@ -61,6 +63,7 @@ export class ImagesComponent implements OnInit {
         res => {
           this._images = <Image[]>res;
           this.imgComp.hideLoadingMsg();
+          this.imgComp.images = this._images;
         },
         err => {
           this.imgComp.showErrorMsg();
@@ -71,6 +74,7 @@ export class ImagesComponent implements OnInit {
         res => {
           this._images = <Image[]>res;
           this.imgComp.hideLoadingMsg();
+          this.imgComp.images = this._images;
         },
         err => {
           this.imgComp.showErrorMsg();
@@ -83,13 +87,7 @@ export class ImagesComponent implements OnInit {
     return this._images;
   }
 
-  // getUrl() {
-  //   console.log(this.route);
-  //   return this.route.snapshot.params.id;
-  // }
-
   getUrl() {
-    // console.log("a");
     return this.route.snapshot.params.id;
   }
 }

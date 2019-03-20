@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { MenuLeftComponent } from './menu-left.component';
+import { MenuLeftComponent } from "./menu-left.component";
 
-describe('MenuLeftComponent', () => {
+describe("MenuLeftComponent", () => {
   let component: MenuLeftComponent;
   let fixture: ComponentFixture<MenuLeftComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MenuLeftComponent ]
-    })
-    .compileComponents();
+      declarations: [MenuLeftComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('MenuLeftComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

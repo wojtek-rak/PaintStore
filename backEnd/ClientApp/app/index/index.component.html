@@ -524,6 +524,12 @@
 							<input-email [data]="{
 								label: 'E-mail'
 							}" formControlName="email" #email></input-email>
+							<input-checkbox [data]="{
+								label: 'This is a demonstration page. 
+								All content can be deleted and accounts removed. 
+								The user\'s data belongs to him 
+								and can not be used further'
+							}" formControlName="checkbox"></input-checkbox>
 							<div class="warning summary-warning" *ngIf="registerWarning !== ''">{{registerWarning}}</div>
 							<re-captcha (resolved)="resolved($event)" siteKey="6LdV5pYUAAAAAAKMSM93P-KFs_r7frSEs3iOb5_8" formControlName="captcha"></re-captcha>
 							<div class="warning summary-warning" *ngIf="registerWarning !== ''">{{registerWarning}}</div>

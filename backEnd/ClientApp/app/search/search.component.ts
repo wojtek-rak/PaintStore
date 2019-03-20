@@ -7,7 +7,7 @@ import { ImageService } from "../services/image.service";
   styleUrls: ["./search.component.scss"]
 })
 export class SearchComponent implements OnInit {
-  private res: SearchRes[] = [];
+  private _res: SearchRes[] = [];
   @ViewChild("input") Input: ElementRef;
   @ViewChild("button") Button: ElementRef;
   @ViewChild("searchResult") SearchResult: ElementRef;
@@ -36,10 +36,10 @@ export class SearchComponent implements OnInit {
       this.service.search(value).subscribe(
         res => {
           if (JSON.stringify(res) !== "[]") {
-            this.res = <SearchRes[]>res;
+            this._res = <SearchRes[]>res;
             this.SearchResult.nativeElement.classList.add("display");
           } else {
-            this.res = [];
+            this._res = [];
             this.SearchResult.nativeElement.classList.remove("display");
           }
           this.loading = false;
@@ -48,9 +48,13 @@ export class SearchComponent implements OnInit {
       );
     } else {
       this.SearchResult.nativeElement.classList.remove("display");
-      this.res = [];
+      this._res = [];
       this.loading = false;
     }
+  }
+
+  get res() {
+    return this._res;
   }
 }
 

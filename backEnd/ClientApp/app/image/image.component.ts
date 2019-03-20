@@ -1,13 +1,9 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { ImageService } from "../services/image.service";
 import { ActivatedRoute } from "@angular/router";
-// import {isComponentView} from "@angular/core/ClientApp/view/util";
-import { UserComment } from "./comment";
 import { NgForm, FormGroup, Validators, FormBuilder } from "@angular/forms";
-import { AgreeLabelComponent } from "../agree-label/agree-label.component";
 import { ShortUserInfo } from "../classes/short-user-info";
 import { LoggedIn } from "../classes/logged-in";
-import { LoginManager } from "../classes/login-manager";
 import { requiredTextValidator } from "../validators/text-validator";
 import { GlobalVariables } from "../classes/global-variables";
 

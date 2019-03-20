@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild, Input } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { ShortUserInfo } from "../classes/short-user-info";
-import { IsUserLoggedIn } from "../classes/is-user-logged-in";
 import { LoggedIn } from "../classes/logged-in";
 
 @Component({
@@ -10,9 +9,8 @@ import { LoggedIn } from "../classes/logged-in";
 })
 export class InformationLabelComponent extends LoggedIn implements OnInit {
   @ViewChild("wrapper") wrapper: any;
-  // @Input() loggedUser: IsUserLoggedIn;
-  private labelName = ""; // TODO
-  private data: ShortUserInfo[] = []; // TODO
+  private labelName = "";
+  private data: ShortUserInfo[] = [];
 
   constructor() {
     super();
@@ -44,7 +42,6 @@ export class InformationLabelComponent extends LoggedIn implements OnInit {
 
   show(data: any, name: any) {
     // stop scrolling when label visible
-
     const nullCheck = document.querySelector("body");
     if (nullCheck === null) return;
 

@@ -12,7 +12,6 @@ export class ImagesComponent implements OnInit {
   private selectedRoutes = {
     recent: "recent",
     trending: ""
-    // followed: "followed"
   };
 
   private _images: Image[] = [];
@@ -24,8 +23,6 @@ export class ImagesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.getData();
-
     this.route.params.subscribe(() => {
       this.getData();
     });

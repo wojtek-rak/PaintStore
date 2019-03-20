@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { ImageService } from "../services/image.service";
 import { ActivatedRoute } from "@angular/router";
 import { ShortUserInfo } from "../classes/short-user-info";
-import { IsUserLoggedIn } from "../classes/is-user-logged-in";
 import { LoggedIn } from "../classes/logged-in";
 import { User } from "../classes/user";
 import { GlobalVariables } from "../classes/global-variables";
@@ -18,10 +17,6 @@ export class ProfileComponent extends LoggedIn implements OnInit {
   private user = new User();
 
   private url: string = this.route.snapshot.params.id;
-  // private _loggedUser: IsUserLoggedIn = {
-  //   isLoggedIn: true,
-  //   userId: 1
-  // };
 
   constructor(
     private imageService: ImageService,

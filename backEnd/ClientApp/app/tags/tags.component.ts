@@ -11,7 +11,6 @@ export class TagsComponent implements OnInit {
   @ViewChild("imgComp") imgComp: any;
   private _tagname = "";
   private _images: Image[] = [];
-  // private _loading = false;
 
   constructor(private route: ActivatedRoute, private service: ImageService) {}
 
@@ -41,8 +40,4 @@ export class TagsComponent implements OnInit {
   get images(): Image[] {
     return this._images;
   }
-
-  // get loading(): boolean {
-  //   return this._loading;
-  // }
 }

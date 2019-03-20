@@ -25,10 +25,6 @@ export class ImageElementComponent extends LoggedIn {
     super();
   }
 
-  // ngOnInit() {
-  //   super.ngOnInit();
-  // }
-
   confirm() {
     this.service
       .deleteImage(this.image.id, this._loggedId, this._loggedToken)

@@ -7,11 +7,11 @@ import { ImageService } from "../services/image.service";
   styleUrls: ["./search.component.scss"]
 })
 export class SearchComponent implements OnInit {
-  private res: SearchRes[] = []; // TODO
-  @ViewChild("input") Input: any; // TODO
-  @ViewChild("button") Button: any; // TODO
-  @ViewChild("searchResult") SearchResult: any; // TODO
-  @ViewChild("searchField") SearchField: any; // TODO
+  private res: SearchRes[] = [];
+  @ViewChild("input") Input: ElementRef;
+  @ViewChild("button") Button: ElementRef;
+  @ViewChild("searchResult") SearchResult: ElementRef;
+  @ViewChild("searchField") SearchField: ElementRef;
 
   public loading = false;
 
@@ -48,7 +48,7 @@ export class SearchComponent implements OnInit {
       );
     } else {
       this.SearchResult.nativeElement.classList.remove("display");
-      this.res = []; // TODO
+      this.res = [];
       this.loading = false;
     }
   }

@@ -36,23 +36,9 @@
           >
             <span>#</span>
           </a>
-          <!-- null ||
-                        comment.userOwnerImgLink === ''
-                          ? '../../assets/img/avatar.png' -->
-          <!-- <a
-            *ngIf="response.tagName !== null"
-            href="/tags/{{ response.tagName }}"
-          >
-            <img
-              src="https://vignette.wikia.nocookie.net/justdance/images/b/b7/Hashtag.png/revision/latest?cb=20160119195647"
-            />
-          </a> -->
         </div>
         <div class="response-text">
           <div class="header">
-            <!-- {{ response.tagName !== null ? <a href="">response.tagName</a> :
-            response.name }} -->
-
             <ng-container *ngIf="response.tagName !== null"
               ><a href="/tags/{{ response.tagName }} ">{{
                 response.tagName

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { FormBuilder, Validators, NgForm } from "@angular/forms";
+import { FormBuilder, Validators, NgForm, FormGroup } from "@angular/forms";
 import {
   requiredTextValidator,
   shortTextValidator,
@@ -20,7 +20,7 @@ import { UserService } from "ClientApp/app/services/user.service";
 })
 export class InformationsComponent extends LoggedIn implements OnInit {
   private _user = new User();
-  private form: any; // By�o FRORM GROUP TODO GRUBIEJ
+  private form: FormGroup;
   private _informationsWarning = "";
   private _loading = false;
   @ViewChild("file") file;
@@ -57,7 +57,6 @@ export class InformationsComponent extends LoggedIn implements OnInit {
     this.informationAboutUser();
   }
 
-  // this causes error 200
   editUser(link: string, value: any) {
     this.service
       .editUser(

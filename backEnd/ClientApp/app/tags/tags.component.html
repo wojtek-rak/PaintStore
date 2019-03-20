@@ -3,19 +3,6 @@
     <div class="tag-wrapper">
       <span># {{ tagname }}</span>
     </div>
-    <!-- <div class="loading" *ngIf="loading === true">
-      <span class="loading"
-        >Loading <i class="icon-spin4 animate-spin"></i
-      ></span>
-    </div>
-    <div class="image-wrapper">
-      <div class="image-element" *ngFor="let image of images">
-        <app-image-element [image]="image"></app-image-element>
-      </div>
-      <span *ngIf="images.length === 0 && !loading"
-        >There is no images yet.</span
-      >
-    </div> -->
     <app-images-common #imgComp></app-images-common>
   </div>
 </div>

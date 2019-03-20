@@ -1,5 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
-import { IsUserLoggedIn } from "../classes/is-user-logged-in";
+import { Component, Input } from "@angular/core";
 import { FollowingData } from "../classes/following-data";
 import { ImageService } from "../services/image.service";
 import { LoggedIn } from "../classes/logged-in";
@@ -10,20 +9,12 @@ import { LoggedIn } from "../classes/logged-in";
   styleUrls: ["./follow-button.component.scss"]
 })
 export class FollowButtonComponent extends LoggedIn {
-  // @Input() loggedUser: IsUserLoggedIn;
-  @Input() idDestinateUser = 0; // TODO CHANGE FROM NULL
-  @Input() followed = false; // TODO CHANGE FROM NULL
-  // @Output() emitter: EventEmitter<any> = new EventEmitter();
+  @Input() idDestinateUser = 0;
+  @Input() followed = false;
   public class = "";
   constructor(private service: ImageService) {
     super();
   }
-
-  // ngOnInit() {
-  //   super.ngOnInit();
-  //   // if logged user already follows this user
-  //   // to do
-  // }
 
   follow() {
     const data: FollowingData = {

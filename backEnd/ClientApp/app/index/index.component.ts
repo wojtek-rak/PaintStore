@@ -1,9 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
-import * as $ from "jquery";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgForm, FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { FormValidationModel } from "../form-validation-model";
-import { ValidMessage } from "../valid-message";
-import { FormResponse } from "../form-response";
 import * as ScrollMagic from "ScrollMagic";
 import { AccountService } from "../services/account.service";
 import {
@@ -13,8 +9,6 @@ import {
 } from "../validators/text-validator";
 import { emailValidator } from "../validators/email-validator";
 import { passwordsValidator } from "../validators/passwords-validator";
-import { LocalStorageService } from "angular-web-storage";
-import { GlobalVariables } from "../classes/global-variables";
 import { LoginManager } from "../classes/login-manager";
 import { LoggedIn } from "../classes/logged-in";
 import { Router } from "@angular/router";

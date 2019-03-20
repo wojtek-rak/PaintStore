@@ -14,6 +14,14 @@ h5,
 h6 {
   font-family: "Roboto", sans-serif; // jakas inna czcionka naglowkowa
   font-weight: 500;
+  word-break: break-word;
+}
+
+div,
+span,
+b,
+a {
+  word-break: break-word;
 }
 
 h2 {
@@ -38,6 +46,12 @@ a {
 
 .hidden {
   display: none;
+}
+
+li.activeLi a {
+  color: #bb8866;
+  font-weight: 600;
+  letter-spacing: 0.2px;
 }
 
 input.invalid,
@@ -68,7 +82,6 @@ input:focus.invalid {
   max-width: 1290px;
   margin: 0 auto;
   padding-top: 70px;
-  min-height: calc(100vh - 299px);
   display: inline-block;
 }
 
@@ -188,11 +201,13 @@ input:focus.invalid {
   }
 }
 
-.image-element {
+.image-element-wrapper {
   background: #fff;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
   border-radius: 3px;
+}
 
+.image-element {
   .avatar-container {
     width: 22px;
     height: 22px;
@@ -228,6 +243,9 @@ input:focus.invalid {
 
       a {
         flex-grow: 1;
+        min-width: 0;
+        display: block;
+        word-break: break-word;
       }
 
       span {
@@ -262,6 +280,9 @@ input:focus.invalid {
 
     a {
       color: #707070;
+      min-width: 0;
+      display: block;
+      word-break: break-word;
     }
   }
 }
@@ -695,4 +716,8 @@ tag-input {
 .icon-spin4 {
   color: #a5a5a5;
   margin: 0 15px;
+}
+
+// loading elements
+.loading-elements {
 }

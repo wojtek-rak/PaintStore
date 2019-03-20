@@ -48,6 +48,12 @@ a {
   display: none;
 }
 
+li.activeLi a {
+  color: #bb8866;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
 input.invalid,
 input:focus.invalid {
   border-bottom: 2px solid #dd6a6a;

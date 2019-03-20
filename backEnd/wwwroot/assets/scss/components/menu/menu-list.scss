@@ -5,7 +5,7 @@
 .menu-list li {
   margin-right: 20px;
 }
-.menu-list .active {
+.menu-list a.active {
   color: $color-secondary;
   font-weight: 600;
   letter-spacing: 0.2px;

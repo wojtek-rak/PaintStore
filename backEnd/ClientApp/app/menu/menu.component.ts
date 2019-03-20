@@ -42,19 +42,29 @@ export class MenuComponent extends LoggedIn implements OnInit {
     super();
   }
 
+  addClassIfHomepage() {
+    this.router.events.subscribe(() => {
+      if (
+        window.location.pathname === "/homepage" &&
+        !this.menu.nativeElement.classList.contains("static")
+      ) {
+        this.menu.nativeElement.classList.add("static");
+      } else if (window.location.pathname !== "/homepage") {
+        this.menu.nativeElement.classList.remove("static");
+      }
+    });
+  }
+
   ngOnInit() {
     super.ngOnInit();
 
-    // menu on homepage looks differently
+    // menu if user is logged out
     if (this._loggedIn === false) {
       $("menu").addClass("logged-out");
     }
-    if (
-      !this.menu.nativeElement.classList.contains("static") &&
-      window.location.pathname === "/homepage"
-    ) {
-      this.menu.nativeElement.classList.add("static");
-    }
+
+    // menu on homepage looks differently
+    this.addClassIfHomepage();
 
     // hide toggled menu when clicked somewhere on page
     document.addEventListener("click", e => {
@@ -80,6 +90,8 @@ export class MenuComponent extends LoggedIn implements OnInit {
         .setClassToggle(".container-menu", "scrolled")
         .addTo(controller);
     }
+
+    //
 
     if (this._loggedIn === true) this.getProfileImage();
   }

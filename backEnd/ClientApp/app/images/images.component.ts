@@ -61,6 +61,7 @@ export class ImagesComponent implements OnInit {
         res => {
           this._images = <Image[]>res;
           this.imgComp.hideLoadingMsg();
+          this.imgComp.images = this._images;
         },
         err => {
           this.imgComp.showErrorMsg();

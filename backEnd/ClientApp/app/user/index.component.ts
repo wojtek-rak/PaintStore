@@ -8,7 +8,8 @@ import * as ScrollMagic from "ScrollMagic";
 import { AccountService } from "../services/account.service";
 import {
   requiredTextValidator,
-  passwordValidator
+  passwordValidator,
+  checkboxValidator
 } from "../validators/text-validator";
 import { emailValidator } from "../validators/email-validator";
 import { passwordsValidator } from "../validators/passwords-validator";
@@ -59,6 +60,7 @@ export class IndexComponent extends LoggedIn implements OnInit {
         [Validators.required, requiredTextValidator, passwordsValidator]
       ],
       name: ["", [Validators.required, requiredTextValidator]],
+      checkbox: [null, [Validators.required, checkboxValidator]],
       captcha: [null, Validators.required]
     });
   }

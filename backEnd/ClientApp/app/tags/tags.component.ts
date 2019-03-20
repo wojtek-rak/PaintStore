@@ -29,6 +29,7 @@ export class TagsComponent implements OnInit {
 
         this.imgComp.hideLoadingMsg();
         this._images = <Image[]>res;
+        this.imgComp.images = this._images;
         // this._loading = false;
       },
       err => {

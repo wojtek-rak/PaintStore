@@ -1,5 +1,14 @@
 import { FormControl } from "@angular/forms";
 
+export function checkboxValidator(c: FormControl, fieldName: string) {
+  // do not show error if the form was not touched
+  if (!c.dirty) {
+    return null;
+  }
+
+  return c.value === false ? { error: fieldName + " must be selected." } : null;
+}
+
 export function shortTextValidator(c: FormControl, fieldName: string) {
   if (!c.dirty) {
     return null;

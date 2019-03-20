@@ -62,7 +62,11 @@ export class ImageComponent extends LoggedIn implements OnInit {
       this.service
         .selectUserById(this._loggedId.toString(), this._loggedId.toString())
         .subscribe((res: any) => {
-          this._imgLink = res.avatarImgLink;
+          this._imgLink = GlobalVariables.parseImageLink(
+            40,
+            40,
+            res.avatarImgLink
+          );
         });
     }
   }
@@ -92,7 +96,14 @@ export class ImageComponent extends LoggedIn implements OnInit {
   getImageData() {
     this.service
       .ImageByPath(this._loggedId.toString(), this.route.snapshot.params.id)
-      .subscribe(res => {
+      .subscribe((res: any) => {
+        res.imgLink = GlobalVariables.parseImageLink(
+          1290,
+          700,
+          res.imgLink,
+          "c_fit",
+          "good"
+        );
         this._image = <ImageExact>res;
         console.log(res);
         this.initializeForms();
@@ -105,14 +116,17 @@ export class ImageComponent extends LoggedIn implements OnInit {
         this._loggedId.toString(),
         this.route.snapshot.params.id
       )
-      .subscribe(res => {
-        this._comments = <Comment[]>res;
-        this._comments.forEach(comm => {
+      .subscribe((res: any) => {
+        res.forEach(comm => {
+          comm.userOwnerImgLink = GlobalVariables.parseImageLink(
+            40,
+            40,
+            comm.userOwnerImgLink
+          );
           comm.isEditing = false;
           comm.editValid = true;
         });
-
-        console.log(this._comments);
+        this._comments = <Comment[]>res;
       });
   }
 

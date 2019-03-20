@@ -50,6 +50,7 @@ import { ImagesCommonComponent } from "./images-common/images-common.component";
 import { InformationsComponent } from "./settings/informations/informations.component";
 import { CredentialsComponent } from "./settings/credentials/credentials.component";
 import { UserService } from "./services/user.service";
+import { InputCheckboxComponent } from "./forms/input-checkbox/input-checkbox.component";
 
 const appRoutes: Routes = [
   {
@@ -173,7 +174,8 @@ const appRoutes: Routes = [
     TagsComponent,
     ImagesCommonComponent,
     InformationsComponent,
-    CredentialsComponent
+    CredentialsComponent,
+    InputCheckboxComponent
     // InputEmailComponent
   ],
   imports: [

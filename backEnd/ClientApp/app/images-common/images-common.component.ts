@@ -8,12 +8,14 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ["./images-common.component.scss"]
 })
 export class ImagesCommonComponent implements OnInit {
-  @Input("images") Images: Image[] = [];
+  // @Input("images") Images: Image[] = [];
   @Input("classes") classes: string = "";
   @ViewChild("msg") msg: any;
   private _loading: boolean = false;
   private _fail: boolean = false;
   private _howMany = 0;
+  private _resizeReady = false;
+  private _images: Image[] = [];
 
   private valueToAdd = 24;
 
@@ -21,7 +23,9 @@ export class ImagesCommonComponent implements OnInit {
 
   ngOnInit() {
     this._howMany = this.valueToAdd;
-    console.log(this._howMany);
+    this._images.forEach(el => {
+      console.log(el);
+    });
   }
 
   // show loading icon
@@ -36,8 +40,8 @@ export class ImagesCommonComponent implements OnInit {
   }
 
   delete($event) {
-    const elToRemove = this.Images.find(x => x.id === $event);
-    this.Images.splice(this.Images.indexOf(elToRemove), 1);
+    const elToRemove = this._images.find(x => x.id === $event);
+    this._images.splice(this._images.indexOf(elToRemove), 1);
     this.msg.show("Image deleted successfully.");
   }
 
@@ -51,12 +55,39 @@ export class ImagesCommonComponent implements OnInit {
     this._loading = false;
   }
 
+  resizeLinks(w: number, h: number) {
+    const insertAfter = "http://res.cloudinary.com/dvjarj3xz/image/upload/";
+    let toInsert;
+    this._images.forEach(el => {
+      toInsert = "w_300,h_250,c_fill/q_auto:low/";
+      el.imgLink = [
+        el.imgLink.slice(0, insertAfter.length),
+        toInsert,
+        el.imgLink.slice(insertAfter.length)
+      ].join("");
+
+      if (el.userOwnerImgLink !== null && el.userOwnerImgLink !== "") {
+        toInsert = "w_22,h_22,c_fill/q_auto:low/";
+        el.userOwnerImgLink = [
+          el.userOwnerImgLink.slice(0, insertAfter.length),
+          toInsert,
+          el.userOwnerImgLink.slice(insertAfter.length)
+        ].join("");
+      }
+    });
+  }
+
   set images(images: Image[]) {
-    this.Images = images;
+    this._resizeReady = false;
+
+    this._images = images;
+    this.resizeLinks(300, 250);
+
+    this._resizeReady = true;
   }
 
   get images(): Array<Image> {
-    return this.Images;
+    return this._images;
   }
 
   get loading(): boolean {
@@ -71,8 +102,11 @@ export class ImagesCommonComponent implements OnInit {
     return this._howMany;
   }
 
+  get resizeReady() {
+    return this._resizeReady;
+  }
+
   getUrl() {
-    // console.log(this.route);
     return this.route.snapshot.params.id;
   }
 }

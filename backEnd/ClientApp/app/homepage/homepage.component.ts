@@ -46,6 +46,7 @@ export class HomepageComponent extends LoggedIn implements OnInit {
       res => {
         this.imgComp.hideLoadingMsg();
         this._images = <Image[]>res;
+        this.imgComp.images = this._images;
       },
       err => {
         this.imgComp.showErrorMsg();
@@ -59,6 +60,7 @@ export class HomepageComponent extends LoggedIn implements OnInit {
       res => {
         this.imgComp.hideLoadingMsg();
         this._images = <Image[]>res;
+        this.imgComp.images = this._images;
       },
       err => {
         this.imgComp.showErrorMsg();
@@ -72,6 +74,7 @@ export class HomepageComponent extends LoggedIn implements OnInit {
       res => {
         this.imgComp.hideLoadingMsg();
         this._images = <Image[]>res;
+        this.imgComp.images = this._images;
       },
       err => {
         this.imgComp.showErrorMsg();

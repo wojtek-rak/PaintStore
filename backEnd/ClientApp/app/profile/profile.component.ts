@@ -5,6 +5,7 @@ import { ShortUserInfo } from "../classes/short-user-info";
 import { IsUserLoggedIn } from "../classes/is-user-logged-in";
 import { LoggedIn } from "../classes/logged-in";
 import { User } from "../classes/user";
+import { GlobalVariables } from "../classes/global-variables";
 
 @Component({
   selector: "app-profile",
@@ -42,9 +43,13 @@ export class ProfileComponent extends LoggedIn implements OnInit {
   getUserData() {
     this.imageService
       .selectUserById(this._loggedId.toString(), this.route.snapshot.params.id)
-      .subscribe(res => {
+      .subscribe((res: any) => {
+        res.avatarImgLink = GlobalVariables.parseImageLink(
+          70,
+          70,
+          res.avatarImgLink
+        );
         this.user = <User>res;
-        console.log(this.user);
       });
   }
 

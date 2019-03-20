@@ -22,7 +22,7 @@ export abstract class InputField implements OnChanges, ControlValueAccessor {
   protected _validateMessage: string;
   editing: boolean = false;
   @Input() data?: Data = undefined;
-  @ViewChild("input") Input?: ElementRef = undefined;
+  @ViewChild("input") Input: ElementRef;
 
   constructor() {
     this._validateMessage = "";

@@ -26,7 +26,6 @@ export class ImageElementComponent extends LoggedIn implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.image);
     super.ngOnInit();
   }
 

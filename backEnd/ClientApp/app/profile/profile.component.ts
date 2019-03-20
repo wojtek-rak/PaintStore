@@ -36,7 +36,6 @@ export class ProfileComponent extends LoggedIn implements OnInit {
     this.route.params.subscribe(params => {
       this.getUserData();
       this.link.nativeElement.classList.add("activeLi");
-      console.log(this.link.nativeElement.classList);
     });
   }
 

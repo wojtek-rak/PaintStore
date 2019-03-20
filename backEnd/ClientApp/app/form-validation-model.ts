@@ -21,23 +21,13 @@ export abstract class FormValidationModel {
     return this.formResponse();
   }
 
-  public static validateLoginForm(
-    username: string,
-    password: string
-  ): any {
-      let res: {valid: boolean; message : string};
-    // if (username === password) {
+  public static validateLoginForm(username: string, password: string): any {
+    let res: { valid: boolean; message: string };
     // check if there is an user with this name and password
     res = {
       valid: true,
       message: ""
     };
-    // } else {
-    //   res = {
-    //     valid: false,
-    //     message: "User with given name and password cannot be found."
-    //   };
-    // }
 
     return res;
   }
@@ -57,7 +47,7 @@ export abstract class FormValidationModel {
   }
 
   private static validateEmail(email: string): void {
-    let pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     if (!pattern.test(email) || email.length === 0) {
       this.email.setProperties(false, "E-mail is invalid.");
@@ -88,16 +78,24 @@ export abstract class FormValidationModel {
   }
 
   private static isFormOK(): boolean {
-    if (this.username.valid === false) return false;
-    if (this.email.valid === false) return false;
-    if (this.password.valid === false) return false;
-    if (this.confirmPassword.valid === false) return false;
+    if (this.username.valid === false) {
+      return false;
+    }
+    if (this.email.valid === false) {
+      return false;
+    }
+    if (this.password.valid === false) {
+      return false;
+    }
+    if (this.confirmPassword.valid === false) {
+      return false;
+    }
 
     return true;
   }
 
   public static formResponse(): FormResponse {
-    let res = new FormResponse(
+    const res = new FormResponse(
       this.isFormOK(),
       this.username,
       this.password,

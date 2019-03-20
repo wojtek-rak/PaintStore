@@ -36,9 +36,9 @@ export class ImageComponent extends LoggedIn implements OnInit {
     liked: false
   };
 
-  private _titleEditing: boolean = false;
-  private _descriptionEditing: boolean = false;
-  private _tagsEditing: boolean = false;
+  private _titleEditing = false;
+  private _descriptionEditing = false;
+  private _tagsEditing = false;
 
   private _comments: Comment[] = [];
   private formValid = true;
@@ -87,7 +87,6 @@ export class ImageComponent extends LoggedIn implements OnInit {
 
   ngOnInit() {
     super.ngOnInit();
-    console.log(this._loggedId);
     this.getCommentsData();
     this.getImageData();
     this.getProfileImage();
@@ -105,7 +104,6 @@ export class ImageComponent extends LoggedIn implements OnInit {
           "good"
         );
         this._image = <ImageExact>res;
-        console.log(res);
         this.initializeForms();
       });
   }
@@ -131,10 +129,18 @@ export class ImageComponent extends LoggedIn implements OnInit {
   }
 
   isCommentValid(text: string): boolean {
-    if (text === null) return false;
-    if (typeof text === undefined) return false;
-    if (text === "") return false;
-    if (typeof text.length === undefined || text.length < 5) return false;
+    if (text === null) {
+      return false;
+    }
+    if (typeof text === undefined) {
+      return false;
+    }
+    if (text === "") {
+      return false;
+    }
+    if (typeof text.length === undefined || text.length < 5) {
+      return false;
+    }
     return true;
   }
 
@@ -185,9 +191,7 @@ export class ImageComponent extends LoggedIn implements OnInit {
         this._loggedId,
         this._loggedToken
       )
-      .subscribe(res => {
-        // console.log(res);
-      });
+      .subscribe(res => {});
   }
 
   photoUnlike() {
@@ -200,9 +204,7 @@ export class ImageComponent extends LoggedIn implements OnInit {
         this._loggedId,
         this._loggedToken
       )
-      .subscribe(res => {
-        // console.log(res);
-      });
+      .subscribe(res => {});
   }
 
   showLiking() {
@@ -210,7 +212,6 @@ export class ImageComponent extends LoggedIn implements OnInit {
     this.service
       .getPostLikes(this._loggedId.toString(), this.route.snapshot.params.id)
       .subscribe(res => {
-        console.log("polubili ten post:\n", res);
         informationToSend = <ShortUserInfo[]>res;
         this.label.show(informationToSend, "Liked this image");
       });
@@ -238,9 +239,7 @@ export class ImageComponent extends LoggedIn implements OnInit {
         this._loggedId,
         this._loggedToken
       )
-      .subscribe(res => {
-        // console.log(res);
-      });
+      .subscribe(res => {});
   }
 
   commentUnlike(comment: any) {
@@ -248,9 +247,7 @@ export class ImageComponent extends LoggedIn implements OnInit {
     comment.likeCount -= 1;
     this.service
       .unlikeComment(this._loggedId, comment.id, this._loggedToken)
-      .subscribe(res => {
-        // console.log(res);
-      });
+      .subscribe(res => {});
   }
 
   removeComment(id: number) {
@@ -263,10 +260,10 @@ export class ImageComponent extends LoggedIn implements OnInit {
   }
 
   sendEditComment(form: NgForm, comment: Comment) {
-    let text = form.form.value.value;
+    const text = form.form.value.value;
     if (this.isCommentValid(text)) {
       comment.editValid = true;
-      let data = {
+      const data = {
         id: comment.id,
         content: text
       };

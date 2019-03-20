@@ -22,15 +22,11 @@ export class TagsComponent implements OnInit {
 
   getImages() {
     this.imgComp.showLoadingMsg();
-    // this._loading = true;
     this.service.imagesByTag(this._tagname).subscribe(
       res => {
-        console.log(res);
-
         this.imgComp.hideLoadingMsg();
         this._images = <Image[]>res;
         this.imgComp.images = this._images;
-        // this._loading = false;
       },
       err => {
         this.imgComp.showErrorMsg();

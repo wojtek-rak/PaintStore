@@ -26,8 +26,4 @@ export class SettingsComponent extends LoggedIn implements OnInit {
       this.router.navigateByUrl("/not-found");
     }
   }
-
-  onFormUpload(form: NgForm) {
-    console.log(form);
-  }
 }

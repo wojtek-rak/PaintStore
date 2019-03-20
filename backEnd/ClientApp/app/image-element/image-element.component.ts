@@ -15,7 +15,7 @@ import { LoggedIn } from "../classes/logged-in";
   templateUrl: "./image-element.component.html",
   styleUrls: ["./image-element.component.scss"]
 })
-export class ImageElementComponent extends LoggedIn implements OnInit {
+export class ImageElementComponent extends LoggedIn {
   @Input() image: Image;
   @ViewChild("confirmLabel") confirmLabel: any;
   @ViewChild("container") container: ElementRef;
@@ -25,9 +25,9 @@ export class ImageElementComponent extends LoggedIn implements OnInit {
     super();
   }
 
-  ngOnInit() {
-    super.ngOnInit();
-  }
+  // ngOnInit() {
+  //   super.ngOnInit();
+  // }
 
   confirm() {
     this.service
@@ -38,7 +38,6 @@ export class ImageElementComponent extends LoggedIn implements OnInit {
   }
 
   deleteImg() {
-    console.log(this.image);
     this.confirmLabel.show();
   }
 }

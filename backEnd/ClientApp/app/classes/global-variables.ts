@@ -11,7 +11,7 @@ export abstract class GlobalVariables {
   }
 
   public static parseTags(tags: any): string[] {
-    let newTags = [];
+    const newTags = [];
 
     if (tags !== [] && tags !== "" && tags !== null) {
       tags.forEach(el => {
@@ -28,7 +28,9 @@ export abstract class GlobalVariables {
     mode: string = "c_fill",
     quality: string = "eco"
   ): string {
-    if (link === "" || link === null) return null;
+    if (link === "" || link === null) {
+      return null;
+    }
 
     const insertAfter = "http://res.cloudinary.com/dvjarj3xz/image/upload/";
     let toInsert;

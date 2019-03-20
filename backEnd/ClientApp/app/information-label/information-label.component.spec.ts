@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { InformationLabelComponent } from './information-label.component';
+import { InformationLabelComponent } from "./information-label.component";
 
-describe('InformationLabelComponent', () => {
+describe("InformationLabelComponent", () => {
   let component: InformationLabelComponent;
   let fixture: ComponentFixture<InformationLabelComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InformationLabelComponent ]
-    })
-    .compileComponents();
+      declarations: [InformationLabelComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('InformationLabelComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

@@ -1,6 +1,7 @@
 import { LoginManager } from "./login-manager";
+import { OnInit } from "@angular/core";
 
-export class LoggedIn {
+export class LoggedIn implements OnInit {
   protected _loggedIn = false;
   protected _loggedId = 0;
   protected _loggedToken = "";

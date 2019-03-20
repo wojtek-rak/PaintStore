@@ -1,7 +1,7 @@
 import { FormControl } from "@angular/forms";
 
 export function fileValidator(c: FormControl, fieldName: string) {
-  let droppedFile = c.value;
+  const droppedFile = c.value;
   // if file not required
   if (
     droppedFile === "" ||
@@ -13,8 +13,8 @@ export function fileValidator(c: FormControl, fieldName: string) {
   }
 
   // else
-  let allowedTypes = ["image/png", "image/jpeg"];
-  let allowedExtensions = ["png", "jpg"];
+  const allowedTypes = ["image/png", "image/jpeg"];
+  const allowedExtensions = ["png", "jpg"];
 
   //TODO
   if (

@@ -44,10 +44,12 @@ export class InputEmailComponent extends InputField
     super();
   }
 
-    validate(c: FormControl) {
+  validate(c: FormControl) {
     const checkUndefinded = this.data;
-    if (checkUndefinded === undefined) return;
-    let validator = emailValidator(c, checkUndefinded.label);
+    if (checkUndefinded === undefined) {
+      return;
+    }
+    const validator = emailValidator(c, checkUndefinded.label);
     super.setMessage(validator);
 
     return validator;

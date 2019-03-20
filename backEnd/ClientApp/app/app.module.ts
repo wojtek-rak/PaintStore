@@ -19,13 +19,10 @@ import { SearchComponent } from "./search/search.component";
 import { ImageService } from "./services/image.service";
 import { AddPhotoComponent } from "./add-photo/add-photo.component";
 import { MenuComponent } from "./menu/menu.component";
-import { RegisterComponent } from "./register/register.component";
-import { SignInComponent } from "./user/sign-in/sign-in.component";
-import { SignUpComponent } from "./user/sign-up/sign-up.component";
 import { HomeComponent } from "./home/home.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { MenuLeftComponent } from "./homepage/menu-left/menu-left.component";
-import { IndexComponent } from "./user/index.component";
+import { IndexComponent } from "./index/index.component";
 import { FooterComponent } from "./footer/footer.component";
 // import { FileDropModule } from "ngx-file-drop";
 import { ConfirmationMessageComponent } from "./confirmation-message/confirmation-message.component";
@@ -148,9 +145,6 @@ const appRoutes: Routes = [
     SearchComponent,
     AddPhotoComponent,
     MenuComponent,
-    RegisterComponent,
-    SignInComponent,
-    SignUpComponent,
     HomeComponent,
     ProfileComponent,
     MenuLeftComponent,

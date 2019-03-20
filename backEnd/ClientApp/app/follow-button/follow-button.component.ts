@@ -9,39 +9,36 @@ import { LoggedIn } from "../classes/logged-in";
   templateUrl: "./follow-button.component.html",
   styleUrls: ["./follow-button.component.scss"]
 })
-export class FollowButtonComponent extends LoggedIn implements OnInit {
+export class FollowButtonComponent extends LoggedIn {
   // @Input() loggedUser: IsUserLoggedIn;
-    @Input() idDestinateUser: number = 0;// TODO CHANGE FROM NULL
-    @Input() followed: boolean = false; // TODO CHANGE FROM NULL
+  @Input() idDestinateUser = 0; // TODO CHANGE FROM NULL
+  @Input() followed = false; // TODO CHANGE FROM NULL
   // @Output() emitter: EventEmitter<any> = new EventEmitter();
   public class = "";
   constructor(private service: ImageService) {
     super();
   }
 
-  ngOnInit() {
-    super.ngOnInit();
-    // if logged user already follows this user
-    // to do
-  }
+  // ngOnInit() {
+  //   super.ngOnInit();
+  //   // if logged user already follows this user
+  //   // to do
+  // }
 
   follow() {
-    let data: FollowingData = {
+    const data: FollowingData = {
       followedUserId: this.idDestinateUser,
       followingUserId: this._loggedId
     };
     this.service
       .follow(data, this._loggedId, this._loggedToken)
       .subscribe(res => {
-        // console.log(res);
-        // this.emitter.emit(this);
         this.followed = true;
-        console.log(this.followed);
       });
   }
 
   unFollow() {
-    let data: FollowingData = {
+    const data: FollowingData = {
       followedUserId: this.idDestinateUser,
       followingUserId: this._loggedId
     };
@@ -49,10 +46,7 @@ export class FollowButtonComponent extends LoggedIn implements OnInit {
     this.service
       .unfollow(data, this._loggedId, this._loggedToken)
       .subscribe(res => {
-        // console.log(res);
-        // this.emitter.emit(this);
         this.followed = false;
-        console.log(this.followed);
       });
   }
 }

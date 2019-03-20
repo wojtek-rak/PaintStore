@@ -7,11 +7,11 @@ import { ImageService } from "../services/image.service";
   styleUrls: ["./search.component.scss"]
 })
 export class SearchComponent implements OnInit {
-  private res: SearchRes[] = [];// TODO
-    @ViewChild("input") Input: any;// TODO
-    @ViewChild("button") Button: any;// TODO
-    @ViewChild("searchResult") SearchResult: any;// TODO
-    @ViewChild("searchField") SearchField: any;// TODO
+  private res: SearchRes[] = []; // TODO
+  @ViewChild("input") Input: any; // TODO
+  @ViewChild("button") Button: any; // TODO
+  @ViewChild("searchResult") SearchResult: any; // TODO
+  @ViewChild("searchField") SearchField: any; // TODO
 
   public loading = false;
 
@@ -19,7 +19,6 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     document.addEventListener("click", e => {
-      // console.log(e);
       if (
         e.target !== this.SearchResult.nativeElement &&
         !this.SearchResult.nativeElement.contains(e.target) &&
@@ -31,24 +30,21 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  search(value : any) {
+  search(value: any) {
     this.loading = true;
     if (value !== null && value !== "") {
       this.service.search(value).subscribe(
         res => {
           if (JSON.stringify(res) !== "[]") {
             this.res = <SearchRes[]>res;
-            console.log(this.res);
             this.SearchResult.nativeElement.classList.add("display");
           } else {
-            this.res = []; // TODO
+            this.res = [];
             this.SearchResult.nativeElement.classList.remove("display");
           }
           this.loading = false;
         },
-        error => {
-          console.log("error!", error);
-        }
+        error => {}
       );
     } else {
       this.SearchResult.nativeElement.classList.remove("display");

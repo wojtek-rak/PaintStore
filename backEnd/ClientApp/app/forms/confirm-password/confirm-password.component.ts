@@ -26,7 +26,7 @@ import { passwordsValidator } from "../../validators/passwords-validator";
   ]
 })
 export class ConfirmPasswordComponent extends InputField {
-  @ViewChild("passwordConfirm") confirm : any;
+  @ViewChild("passwordConfirm") confirm: any;
   constructor() {
     super();
   }
@@ -36,11 +36,13 @@ export class ConfirmPasswordComponent extends InputField {
     super.stopEditing();
   }
 
-    validate(c: FormControl) {
+  validate(c: FormControl) {
     const checkUndefinded = this.data;
-    if (checkUndefinded === undefined) return;
+    if (checkUndefinded === undefined) {
+      return;
+    }
 
-    let validator = passwordsValidator(c, checkUndefinded.label);
+    const validator = passwordsValidator(c, checkUndefinded.label);
     super.setMessage(validator);
     return validator;
   }

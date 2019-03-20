@@ -7,18 +7,14 @@ import { Message } from "@angular/compiler/src/i18n/i18n_ast";
   styleUrls: ["./confirmation-message.component.scss"]
 })
 export class ConfirmationMessageComponent {
-  @ViewChild("msg") msgElement : any;
-  private message: string = "";
-  constructor() { }
-
-  // ngOnInit() {
-  //   // this.showMessage();
-  // }
+  @ViewChild("msg") msgElement: any;
+  private message = "";
+  constructor() {}
 
   show(message: string) {
     this.message = message;
     // show confirmation message
-    let el = this.msgElement.nativeElement;
+    const el = this.msgElement.nativeElement;
     el.classList.add("visible");
 
     // remove message after 8 seconds
@@ -34,7 +30,7 @@ export class ConfirmationMessageComponent {
   }
 
   public closeMessage(id: number) {
-    let el = this.msgElement.nativeElement;
+    const el = this.msgElement.nativeElement;
     el.classList.add("hidden");
 
     setTimeout(() => {

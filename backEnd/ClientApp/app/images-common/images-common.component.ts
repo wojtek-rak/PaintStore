@@ -9,10 +9,10 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class ImagesCommonComponent implements OnInit {
   // @Input("images") Images: Image[] = [];
-  @Input("classes") classes: string = "";
+  @Input("classes") classes = "";
   @ViewChild("msg") msg: any;
-  private _loading: boolean = false;
-  private _fail: boolean = false;
+  private _loading = false;
+  private _fail = false;
   private _howMany = 0;
   private _resizeReady = false;
   private _images: Image[] = [];
@@ -23,9 +23,6 @@ export class ImagesCommonComponent implements OnInit {
 
   ngOnInit() {
     this._howMany = this.valueToAdd;
-    this._images.forEach(el => {
-      console.log(el);
-    });
   }
 
   // show loading icon

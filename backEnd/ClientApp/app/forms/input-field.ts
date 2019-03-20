@@ -20,8 +20,8 @@ import {
 
 export abstract class InputField implements OnChanges, ControlValueAccessor {
   protected _validateMessage: string;
-  editing: boolean = false;
-  @Input() data?: Data = undefined;
+  editing = false;
+  @Input() data: Data;
   @ViewChild("input") Input: ElementRef;
 
   constructor() {
@@ -55,7 +55,9 @@ export abstract class InputField implements OnChanges, ControlValueAccessor {
   // to not show error when first validate empty field
   ngOnChanges() {
     const checkUndefinded = this.Input;
-    if (checkUndefinded === undefined) return;
+    if (checkUndefinded === undefined) {
+      return;
+    }
     this.propagateChange(checkUndefinded.nativeElement.value);
   }
 

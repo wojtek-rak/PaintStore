@@ -59,7 +59,6 @@ export class InformationsComponent extends LoggedIn implements OnInit {
 
   // this causes error 200
   editUser(link: string, value: any) {
-    console.log(value);
     this.service
       .editUser(
         {
@@ -97,7 +96,6 @@ export class InformationsComponent extends LoggedIn implements OnInit {
       if (form.value.file === null) {
         this.editUser(null, form.value);
       } else {
-        console.log("nienull");
         this.service
           .uploadImage(form.value.file, this._loggedId, this._loggedToken)
           .subscribe(res => {

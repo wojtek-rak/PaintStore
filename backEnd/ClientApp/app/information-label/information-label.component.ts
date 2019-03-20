@@ -9,9 +9,9 @@ import { LoggedIn } from "../classes/logged-in";
   styleUrls: ["./information-label.component.scss"]
 })
 export class InformationLabelComponent extends LoggedIn implements OnInit {
-  @ViewChild("wrapper") wrapper : any;
+  @ViewChild("wrapper") wrapper: any;
   // @Input() loggedUser: IsUserLoggedIn;
-  private labelName: string = ""; // TODO
+  private labelName = ""; // TODO
   private data: ShortUserInfo[] = []; // TODO
 
   constructor() {
@@ -31,23 +31,24 @@ export class InformationLabelComponent extends LoggedIn implements OnInit {
     const el = this.wrapper.nativeElement;
     el.classList.remove("opacity");
     setTimeout(() => {
-        el.classList.remove("display");
+      el.classList.remove("display");
 
-        const nullCheck = (document.querySelector("body"));
-        if (nullCheck === null) return;
+      const nullCheck = document.querySelector("body");
+      if (nullCheck === null) {
+        return;
+      }
 
-        nullCheck.classList.remove("stop-scrolling");
+      nullCheck.classList.remove("stop-scrolling");
     }, 200);
   }
 
-  show(data : any, name : any) {
+  show(data: any, name: any) {
     // stop scrolling when label visible
 
-      const nullCheck = (document.querySelector("body"));
-      if (nullCheck === null) return;
+    const nullCheck = document.querySelector("body");
+    if (nullCheck === null) return;
 
-
-      nullCheck.classList.add("stop-scrolling");
+    nullCheck.classList.add("stop-scrolling");
 
     // show element
     const el = this.wrapper.nativeElement;
@@ -60,15 +61,6 @@ export class InformationLabelComponent extends LoggedIn implements OnInit {
     this.labelName = name;
     this.data = data;
   }
-
-  // emitter($event) {
-  //   console.log($event);
-  //   if ($event === true) {
-  //     console.log("wlasnie zafollowano");
-  //   } else {
-  //     console.log("unfollow");
-  //   }
-  // }
 
   getData() {
     return this.data;

@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { InputCheckboxComponent } from './input-checkbox.component';
+import { InputCheckboxComponent } from "./input-checkbox.component";
 
-describe('InputCheckboxComponent', () => {
+describe("InputCheckboxComponent", () => {
   let component: InputCheckboxComponent;
   let fixture: ComponentFixture<InputCheckboxComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InputCheckboxComponent ]
-    })
-    .compileComponents();
+      declarations: [InputCheckboxComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('InputCheckboxComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

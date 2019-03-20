@@ -32,7 +32,7 @@ export class MenuComponent extends LoggedIn implements OnInit {
 
   private host = "http://localhost:4200/";
   private loginPage = "http://localhost:4200/homepage";
-  private _imgLink: string = "";
+  private _imgLink = "";
 
   constructor(
     private router: Router,
@@ -80,9 +80,9 @@ export class MenuComponent extends LoggedIn implements OnInit {
 
     // scroll menu
     for (let i = 1; i <= 6; i++) {
-      let controller = new ScrollMagic.Controller();
+      const controller = new ScrollMagic.Controller();
 
-      let scene = new ScrollMagic.Scene({
+      const scene = new ScrollMagic.Scene({
         triggerElement: ".scrollmagic-toggle",
         triggerHook: 0,
         offset: 40
@@ -109,7 +109,6 @@ export class MenuComponent extends LoggedIn implements OnInit {
   }
 
   toggleClass() {
-    console.log("click");
     this.menuUl.nativeElement.classList.toggle("hidden");
   }
 

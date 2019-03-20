@@ -35,7 +35,7 @@ export class InputOptionComponent extends InputField
   validate(c: FormControl) {
     const checkUndefinded = this.data;
     if (checkUndefinded === undefined) return;
-    let validator = requiredTextValidator(c, checkUndefinded.label);
+    const validator = requiredTextValidator(c, checkUndefinded.label);
     super.setMessage(validator);
 
     return validator;

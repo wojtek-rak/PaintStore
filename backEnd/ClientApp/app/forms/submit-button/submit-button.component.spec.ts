@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { SubmitButtonComponent } from './submit-button.component';
+import { SubmitButtonComponent } from "./submit-button.component";
 
-describe('SubmitButtonComponent', () => {
+describe("SubmitButtonComponent", () => {
   let component: SubmitButtonComponent;
   let fixture: ComponentFixture<SubmitButtonComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SubmitButtonComponent ]
-    })
-    .compileComponents();
+      declarations: [SubmitButtonComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('SubmitButtonComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

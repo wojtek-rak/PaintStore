@@ -28,12 +28,8 @@ export class InputCheckboxComponent extends InputField {
     super();
   }
 
-  write(msg) {
-    console.log(this.Input.nativeElement.checked);
-  }
-
   validate(c: FormControl) {
-    let validator = checkboxValidator(c, "Field");
+    const validator = checkboxValidator(c, "Field");
     super.setMessage(validator);
     return validator;
   }

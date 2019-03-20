@@ -19,8 +19,8 @@ import { LoginManager } from "ClientApp/app/classes/login-manager";
 })
 export class CredentialsComponent extends LoggedIn implements OnInit {
   private form: any;
-  private _email: string = "";
-  private _warning: string = "";
+  private _email = "";
+  private _warning = "";
   @ViewChild("msg") msg;
 
   constructor(private fb: FormBuilder, private service: ImageService) {
@@ -58,7 +58,7 @@ export class CredentialsComponent extends LoggedIn implements OnInit {
       this._warning = "Email and password must be given.";
     } else {
       this._warning = "";
-      let data = {
+      const data = {
         id: this._loggedId,
         oldPassword: form.value.password,
         newEmail: form.value.email,
@@ -67,7 +67,6 @@ export class CredentialsComponent extends LoggedIn implements OnInit {
         oldEmail: this._email
       };
 
-      console.log(data);
       this.service
         .editUserCredentials(data, this._loggedId, this._loggedToken)
         .subscribe(

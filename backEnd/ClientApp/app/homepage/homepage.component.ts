@@ -22,6 +22,7 @@ export class HomepageComponent extends LoggedIn implements OnInit {
   }
 
   ngOnInit() {
+    console.log("change");
     super.ngOnInit();
     if (this._loggedIn) {
       if (this.router.url === "/") {

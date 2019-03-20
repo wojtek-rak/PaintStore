@@ -94,7 +94,7 @@
               <textarea id="text" name="text" ngModel></textarea>
             </div>
             <div class="warning" *ngIf="this.formValid === false">
-              Comment must contains at least 5 letters.
+              Comment must contains at least 2 letters.
             </div>
             <div class="button-wrapper">
               <span *ngIf="loading" class="loading"
@@ -187,7 +187,7 @@
                     ></textarea>
                     <div class="edit-elements">
                       <div class="warning" *ngIf="comment.editValid === false">
-                        Comment must contains at least 5 letters.
+                        Comment must contains at least 2 letters.
                       </div>
                       <button class="discard" (click)="discard(comment)">
                         Discard

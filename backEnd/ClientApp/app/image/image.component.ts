@@ -134,7 +134,7 @@ export class ImageComponent extends LoggedIn implements OnInit {
     if (text === "") {
       return false;
     }
-    if (typeof text.length === undefined || text.length < 5) {
+    if (typeof text.length === undefined || text.length < 2) {
       return false;
     }
     return true;

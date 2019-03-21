@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AutoMapper;
+using Google.Protobuf.WellKnownTypes;
 using Moq;
 using NUnit.Framework;
+using PaintStore.Application.Interfaces;
 using PaintStore.Application.Services;
 using PaintStore.BackEnd;
 using PaintStore.Domain.Entities;
@@ -16,6 +18,7 @@ namespace PaintStoreBackEnd.Tests
     class PostsServiceTests
     {
         private IMapper mapper;
+        private ICloudinaryService cloudinaryService;
         [SetUp]
         public void Startup()
         {
@@ -23,6 +26,9 @@ namespace PaintStoreBackEnd.Tests
                 cfg.AddProfile<MappingProfile>();
             });
             mapper = config.CreateMapper();
+            var cloudService = new Mock<ICloudinaryService>();
+            cloudService.Setup(x => x.DeleteImage(It.IsAny<string>()));
+            cloudinaryService = cloudService.Object;
         }
         [Test]
         public void GetPost_ValidPostId_ReturnPost()
@@ -30,7 +36,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var postService = new PostService(mock.Object, mapper);
+            var postService = new PostService(mock.Object, mapper, cloudinaryService);
             var result = postService.GetPost(1, 1);
             var expected = "link1";
             Assert.AreEqual(expected, result.ImgLink);
@@ -42,7 +48,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var postService = new PostService(mock.Object, mapper);
+            var postService = new PostService(mock.Object, mapper, cloudinaryService);
             var result = postService.GetPost(2, 1);
             var expected = true;
             Assert.AreEqual(expected, result.Liked);
@@ -54,7 +60,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var postService = new PostService(mock.Object, mapper);
+            var postService = new PostService(mock.Object, mapper, cloudinaryService);
             var result = postService.GetPost(1, 1);
             var expected = false;
             Assert.AreEqual(expected, result.Liked);
@@ -65,7 +71,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var postService = new PostService(mock.Object, mapper);
+            var postService = new PostService(mock.Object, mapper, cloudinaryService);
             var result = postService.GetPost(-1, 1);
             var expected = false;
             Assert.AreEqual(expected, result.Liked);
@@ -77,7 +83,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new PostService(mock.Object, mapper);
+            var controller = new PostService(mock.Object, mapper, cloudinaryService);
             var editedCom = controller.GetFollowingPosts(2);
 
             Assert.AreEqual(4, editedCom.First().Id);
@@ -89,7 +95,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new PostService(mock.Object, mapper);
+            var controller = new PostService(mock.Object, mapper, cloudinaryService);
             var result2 = controller.GetAllPosts( "the_newest");
             var result = result2.Select(x => x.Title).First();
             var expected = "comm bez lików";
@@ -103,7 +109,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new PostService(mock.Object, mapper);
+            var controller = new PostService(mock.Object, mapper, cloudinaryService);
             var result2 = controller.GetAllPosts("most_popular");
             var result = result2.Select(x => x.Title).First();
             var expected = "Najkomentowszy      ";
@@ -116,7 +122,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new PostService(mock.Object, mapper);
+            var controller = new PostService(mock.Object, mapper, cloudinaryService);
             var result = controller.GetPostsByTag( "owoce").Count;
             var expected = 2;
             Assert.AreEqual(result, expected);
@@ -128,7 +134,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new PostService(mock.Object, mapper);
+            var controller = new PostService(mock.Object, mapper, cloudinaryService);
             var editedCom = controller.PostRemover(4);
             mock.Verify(m => m.SaveChanges(), Times.Once());
             init.mockSetImages.Verify(m => m.Remove(It.IsAny<Posts>()), Times.Once());
@@ -145,7 +151,7 @@ namespace PaintStoreBackEnd.Tests
             var userId = 1;
             var expectedImageCountInt = mock.Object.Users.Where(x => x.Id == userId).First().PostsCount;
 
-            var controller = new PostService(mock.Object, mapper);
+            var controller = new PostService(mock.Object, mapper, cloudinaryService);
             controller.PostRemover(1);
             mock.Verify(m => m.SaveChanges(), Times.Once());
 
@@ -160,7 +166,7 @@ namespace PaintStoreBackEnd.Tests
             var tagId = 1;
             var expectedTagsCountInt = mock.Object.Tags.First(x => x.Id == tagId).Count;
 
-            var controller = new PostService(mock.Object, mapper);
+            var controller = new PostService(mock.Object, mapper, cloudinaryService);
             controller.PostRemover(2);
             mock.Verify(m => m.SaveChanges(), Times.Once());
 
@@ -174,7 +180,7 @@ namespace PaintStoreBackEnd.Tests
             var tagId = 1;
             var expectedTagsCountInt = mock.Object.Tags.First(x => x.Id == tagId).Count;
 
-            var controller = new PostService(mock.Object, mapper);
+            var controller = new PostService(mock.Object, mapper, cloudinaryService);
             controller.PostRemover(6);
             mock.Verify(m => m.SaveChanges(), Times.Once());
 
@@ -188,7 +194,7 @@ namespace PaintStoreBackEnd.Tests
             var mock = init.mock;
 
             var userId = 1;
-            var controller = new PostService(mock.Object, mapper);
+            var controller = new PostService(mock.Object, mapper, cloudinaryService);
             var post = controller.AddImage(new AddPostCommand { Title = "tests", ImgLink = "jakis test link", Description = "testowy opis", UserId = userId});
             init.mockSetImages.Verify(m => m.Add(It.IsAny<Posts>()), Times.Once());
             mock.Verify(m => m.SaveChanges(), Times.Once());
@@ -204,7 +210,7 @@ namespace PaintStoreBackEnd.Tests
             var userId = 1;
             var expectedImageCountInt = mock.Object.Users.First(x => x.Id == userId).PostsCount;
 
-            var controller = new PostService(mock.Object, mapper);
+            var controller = new PostService(mock.Object, mapper, cloudinaryService);
             controller.AddImage(new AddPostCommand { UserId = userId });
             mock.Verify(m => m.SaveChanges(), Times.Once());
 
@@ -217,7 +223,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new PostService(mock.Object, mapper);
+            var controller = new PostService(mock.Object, mapper, cloudinaryService);
             var expectedInt = 2;
             var expectedDesc = "exp";
             var expectedTitle = "Titl";
@@ -232,7 +238,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new PostService(mock.Object, mapper);
+            var controller = new PostService(mock.Object, mapper, cloudinaryService);
             var expectedBool = mock.Object.Posts.First(x => x.Id == 1).Edited;
             var editedPost = controller.EditPost(new EditPostCommand { Id = 1 });
             mock.Verify(m => m.SaveChanges(), Times.Once());

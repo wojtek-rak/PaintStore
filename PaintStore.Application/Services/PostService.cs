@@ -16,11 +16,13 @@ namespace PaintStore.Application.Services
     {
         private readonly PaintStoreContext _paintStoreContext;
         private readonly IMapper _mapper;  
+        private readonly ICloudinaryService _cloudinaryService;  
 
-        public PostService(PaintStoreContext ctx, IMapper mapper)
+        public PostService(PaintStoreContext ctx, IMapper mapper, ICloudinaryService cloudinaryService)
         {
             _paintStoreContext = ctx;
-            _mapper = mapper; 
+            _mapper = mapper;
+            _cloudinaryService = cloudinaryService;
         }
         public PostDetailsResult GetPost(int loggedUserId, int postId)
         {
@@ -173,6 +175,8 @@ namespace PaintStore.Application.Services
                         db.CommentLikes.Remove(db.CommentLikes.First(x => x.Id == like.Id));
                     }
                 }
+
+                _cloudinaryService.DeleteImage(tempPost.ImgLink);
 
                 db.SaveChanges();
                 return postId;

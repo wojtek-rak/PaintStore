@@ -5,6 +5,7 @@ using System.Threading;
 using AutoMapper;
 using Moq;
 using NUnit.Framework;
+using PaintStore.Application.Interfaces;
 using PaintStore.Application.Services;
 using PaintStore.BackEnd;
 using PaintStore.Domain.Entities;
@@ -16,6 +17,7 @@ namespace PaintStoreBackEnd.Tests
     public class UsersServiceTests
     {
         private IMapper mapper;
+        private ICloudinaryService cloudinaryService;
         [SetUp]
         public void Startup()
         {
@@ -23,6 +25,9 @@ namespace PaintStoreBackEnd.Tests
                 cfg.AddProfile<MappingProfile>();
             });
             mapper = config.CreateMapper();
+            var cloudService = new Mock<ICloudinaryService>();
+            cloudService.Setup(x => x.DeleteImage(It.IsAny<string>()));
+            cloudinaryService = cloudService.Object;
         }
         [Test]
         public void GetUser_ValidUserId_ReturnUser()
@@ -30,7 +35,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var usersService = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
+            var usersService = new UsersService(mock.Object, new PostService(mock.Object, mapper, cloudinaryService), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
             var result = usersService.GetUser(2, 1);
             var expected2 = true;
             var expected = "Kasia";
@@ -44,7 +49,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var usersService = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
+            var usersService = new UsersService(mock.Object, new PostService(mock.Object, mapper, cloudinaryService), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
             var result = usersService.GetUser(-1, 1);
             var expected2 = false;
             var expected = "Kasia";
@@ -69,7 +74,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
+            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper, cloudinaryService), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
             var expectedAvatarImgLink = "Testowy Komentarz";
             var expectedAbout = "abouut";
             var expectedBackgroundImgLink = "bacckgf";
@@ -94,7 +99,7 @@ namespace PaintStoreBackEnd.Tests
 
             var id = 1;
             var expectedEmail = mock.Object.Users.First(x => x.Id == id).Email;
-            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
+            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper, cloudinaryService), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
             var resultEmail = controller.GetUserEmail(new GetUserEmailCommand() { UserId = id});
             Assert.AreEqual( expectedEmail, resultEmail.Email);
         }
@@ -106,7 +111,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
+            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper, cloudinaryService), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
             var editedCom = controller.AddUser(new AddUserCommand() { Email  = "Mail", Password = "passwd123", Name = "Loxin"});
             mock.Verify(m => m.SaveChanges(), Times.Once());
             init.mockSetUsers.Verify(m => m.Add(It.IsAny<Users>()), Times.Once());
@@ -118,7 +123,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
+            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper, cloudinaryService), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
             var result = controller.GetPosts(1, "the_newest");
             var expected = 4;
             Assert.AreEqual(expected, result.First().Id);
@@ -130,7 +135,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
+            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper, cloudinaryService), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
             var result = controller.GetPosts(1, "most_popular");
             var expected = 5;
             Assert.AreEqual(expected, result.First().Id);
@@ -142,7 +147,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
+            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper, cloudinaryService), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
             var expectedEmail = "Testowy Komentarz";
             var expectedPassword = "hashSW@";
             var editedUser = controller.EditUserCredentials(new EditUserCredentialsCommand { Id = 1,  OldEmail = "kasia@kreska.pl", OldPassword = "12345678", NewEmail = expectedEmail, NewPassword = expectedPassword });
@@ -157,7 +162,7 @@ namespace PaintStoreBackEnd.Tests
             var init = new InitializeMockContext();
             var mock = init.mock;
 
-            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
+            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper, cloudinaryService), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
             var expectedEmail = "Testowy Komentarz";
             var expectedHash = "hashSW@";
             Assert.Throws<UnauthorizedAccessException>(() =>  controller.EditUserCredentials(new EditUserCredentialsCommand { Id = 1, OldEmail = expectedEmail, OldPassword = expectedHash }));
@@ -173,7 +178,7 @@ namespace PaintStoreBackEnd.Tests
             //var actorRemove = actorSystem.ActorOf(Props.Create(() => new RemoveAccountImagesActor()));
             //var actorSupervisor = actorSystem.ActorOf(Props.Create(() => new SupervisorActor(actorRemove)));
 
-            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
+            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper, cloudinaryService), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
             var removeAccountt = controller.RemoveUser(new RemoveUserCommand { Id = 1, Email = "kasia@kreska.pl", Password = "12345678"});
 
             //mock.Verify(m => m.SaveChanges(), Times.Once());
@@ -193,7 +198,7 @@ namespace PaintStoreBackEnd.Tests
             //var actorRemove = actorSystem.ActorOf(Props.Create(() => new RemoveAccountImagesActor()));
             //var actorSupervisor = actorSystem.ActorOf(Props.Create(() => new SupervisorActor(actorRemove)));
 
-            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
+            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper, cloudinaryService), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
             //var controller = new AccountRemoveController(mock.Object);
             Assert.Throws<UnauthorizedAccessException>(() => controller.RemoveUser(new RemoveUserCommand
                 {Id = 1, Email = "kasia@kreska.pl", Password = "NotValidPassword"}));
@@ -209,7 +214,7 @@ namespace PaintStoreBackEnd.Tests
             //var actorRemove = actorSystem.ActorOf(Props.Create(() => new RemoveAccountImagesActor()));
             //var actorSupervisor = actorSystem.ActorOf(Props.Create(() => new SupervisorActor(actorRemove)));
 
-            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
+            var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper, cloudinaryService), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
             //var controller = new AccountRemoveController(mock.Object);
 
             var timespan = 10; // can be 0 for result

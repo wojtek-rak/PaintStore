@@ -73,6 +73,7 @@ namespace PaintStore.BackEnd
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IFollowersService, FollowersService>();
             services.AddTransient<IPostCommentsService, PostCommentsService>();
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
 
             services.AddSwaggerGen(c =>
             {

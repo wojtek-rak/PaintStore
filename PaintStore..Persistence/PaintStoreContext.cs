@@ -28,6 +28,7 @@ namespace PaintStore.Persistence
         public virtual DbSet<Tags> Tags { get; set; }
         public virtual DbSet<UserFollowers> UserFollowers { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<WhiteList> WhiteList { get; set; }
 
         public PaintStoreContext(DbContextOptions<PaintStoreContext> options) : base(options)
         {

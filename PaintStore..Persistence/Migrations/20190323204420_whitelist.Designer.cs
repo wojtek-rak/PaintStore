@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PaintStore.Persistence;
 
 namespace PaintStore.Persistence.Migrations
 {
     [DbContext(typeof(PaintStoreContext))]
-    partial class PaintStoreContextModelSnapshot : ModelSnapshot
+    [Migration("20190323204420_whitelist")]
+    partial class whitelist
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

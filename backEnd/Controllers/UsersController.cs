@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using PaintStore.Application.Actors.Services;
 using PaintStore.Application.Interfaces;
 using PaintStore.Domain.Entities;
 using PaintStore.Domain.InputModels;
@@ -110,6 +111,12 @@ namespace PaintStore.BackEnd.Controllers
             {
                 throw ex;
             }
+        }
+
+        [HttpGet("LastUsersClear")]
+        public IActionResult GetDate()
+        {
+            return Ok(UserCleanerManager.LastResetTime.ToString("dd-MM-yyyy HH:mm"));
         }
 
     }

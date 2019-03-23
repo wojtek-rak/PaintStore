@@ -92,6 +92,7 @@ namespace PaintStore.BackEnd
                 
 
             services.AddSingleton<IActivityManagerStartup, ActivityManager>();
+            services.AddSingleton<IUserCleanerManagerStartup, UserCleanerManager>();
             services.AddMvc().AddControllersAsServices();
 
             services.AddSingleton<ITagHelperComponent>(new GoogleAnalyticsTagHelperComponent("UA-136426296-1"));
@@ -138,7 +139,7 @@ namespace PaintStore.BackEnd
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IActivityManagerStartup activityManager, IServiceScopeFactory _scopeFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IActivityManagerStartup activityManager, IServiceScopeFactory _scopeFactory, IUserCleanerManagerStartup userCleanerManager)
         {
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
@@ -151,10 +152,8 @@ namespace PaintStore.BackEnd
                 app.UseDeveloperExceptionPage();
             }
 
-            
-             
-
             activityManager.RunManager();
+            userCleanerManager.RunManager();
 
             app.UseCors("CorsPolicy");
 

@@ -157,8 +157,6 @@ namespace PaintStore.BackEnd
 
             activityManager.RunManager();
             userCleanerManager.RunManager();
-
-            app.UseSerilog();
             app.UseCors("CorsPolicy");
             app.UseMiddleware<AuthenticationMiddleware>();
 

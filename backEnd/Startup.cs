@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
 using PaintStore.Application.Actors;
 using PaintStore.Application.Actors.Services;
@@ -27,10 +28,12 @@ namespace PaintStore.BackEnd
     public class Startup
     {
         private readonly IHostingEnvironment _env;
-        public Startup(IConfiguration configuration, IHostingEnvironment env)
+        private readonly ILoggerFactory _factory;
+        public Startup(IConfiguration configuration, IHostingEnvironment env, ILoggerFactory factory)
         {
             Configuration = configuration;
             _env = env;
+            _factory = factory ?? throw new ArgumentNullException(nameof(factory));
         }
 
         public IConfiguration Configuration { get; }
@@ -106,12 +109,18 @@ namespace PaintStore.BackEnd
                 if (string.IsNullOrEmpty(connectionString))
                 {
                     services.AddDbContext<PaintStoreContext>(options =>
-                        options.UseSqlite("Data Source=PaintStore.db"));
+                        {
+                            options.UseLoggerFactory(_factory);
+                            options.UseSqlite("Data Source=PaintStore.db");
+                        });
                 }
                 else
                 {
-                    services.AddDbContext<PaintStoreContext>(
-                        options => options.UseSqlServer(connectionString));
+                    services.AddDbContext<PaintStoreContext>(options =>
+                    {
+                        options.UseLoggerFactory(_factory);
+                        options.UseSqlite("Data Source=PaintStore.db");
+                    });
                 }
             }
             else

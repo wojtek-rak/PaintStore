@@ -149,7 +149,7 @@ namespace PaintStoreBackEnd.Tests
 
             var controller = new UsersService(mock.Object, new PostService(mock.Object, mapper, cloudinaryService), new FollowersService(mock.Object, mapper), new SignInService(mock.Object));
             var expectedEmail = "Testowy Komentarz";
-            var expectedPassword = "hashSW@";
+            var expectedPassword = "hashSW@123123";
             var editedUser = controller.EditUserCredentials(new EditUserCredentialsCommand { Id = 1,  OldEmail = "kasia@kreska.pl", OldPassword = "12345678", NewEmail = expectedEmail, NewPassword = expectedPassword });
 
             mock.Verify(m => m.SaveChanges(), Times.Once());

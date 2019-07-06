@@ -103,13 +103,16 @@ namespace PaintStore.BackEnd
 
                 var connectionString = Configuration.GetConnectionString("PaintStoreDatabase");
                 DBContextCreate.connectionString = connectionString;
-                if (connectionString == null)
+                if (string.IsNullOrEmpty(connectionString))
                 {
                     services.AddDbContext<PaintStoreContext>(options =>
                         options.UseSqlite("Data Source=PaintStore.db"));
                 }
-                services.AddDbContext<PaintStoreContext>(
-                    options => options.UseSqlServer(connectionString));
+                else
+                {
+                    services.AddDbContext<PaintStoreContext>(
+                        options => options.UseSqlServer(connectionString));
+                }
             }
             else
             {
@@ -155,8 +158,8 @@ namespace PaintStore.BackEnd
             activityManager.RunManager();
             userCleanerManager.RunManager();
 
+            app.UseSerilog();
             app.UseCors("CorsPolicy");
-
             app.UseMiddleware<AuthenticationMiddleware>();
 
             app.UseMvc(routes =>

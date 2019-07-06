@@ -38,20 +38,27 @@ namespace PaintStore.BackEnd.Middlewares
 
                     using (var db = CreateContext())
                     {
-                        var userToAuth = db.Users.First(x => x.Id == userId);
+                        var userToAuth = db.Users.FirstOrDefault(x => x.Id == userId);
 
-                        //var tokenBytes = _encoding.GetBytes(password);
-
-                        //var token = Convert.ToBase64String(tokenBytes);//CredentialsHelpers.GenerateSaltedHash(passwordBytes, soil));
-
-                        if (token == userToAuth.Token)
+                        if (userToAuth != null)
                         {
-                            await _next.Invoke(context);
+                            if (token == userToAuth.Token)
+                            {
+                                await _next.Invoke(context);
+                            }
+                            else
+                            {
+                                context.Response.StatusCode = 401; //Unauthorized
+                            }
                         }
                         else
                         {
-                            context.Response.StatusCode = 401; //Unauthorized
+                            context.Response.StatusCode = 409; // noUser
                         }
+                        //var tokenBytes = _encoding.GetBytes(password);
+
+                        //var token = Convert.ToBase64String(tokenBytes);//CredentialsHelpers.GenerateSaltedHash(passwordBytes, soil));
+                        
                     }
                 }
                 else

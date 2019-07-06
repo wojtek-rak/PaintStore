@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using PaintStore.Application.Interfaces;
 using PaintStore.Domain.Entities;
 using PaintStore.Domain.Exceptions;
@@ -11,9 +13,11 @@ namespace PaintStore.BackEnd.Controllers
     public class FollowersController : Controller
     {
         private readonly IFollowersService _followersService;
+        readonly ILogger<FollowersController> _logger;
 
-        public FollowersController(IFollowersService followersService)
+        public FollowersController(ILogger<FollowersController> logger, IFollowersService followersService)
         {
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _followersService = followersService;
         }
 
@@ -43,6 +47,7 @@ namespace PaintStore.BackEnd.Controllers
             }
             catch (NegotiatedContentResultException)
             {
+                _logger.LogError($"Cannot Add Follower by {follow.FollowingUserId} to {follow.FollowedUserId}");
                 return StatusCode(409);
             }
         }

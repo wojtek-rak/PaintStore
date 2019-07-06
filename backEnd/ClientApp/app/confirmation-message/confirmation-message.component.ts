@@ -8,11 +8,11 @@ import { Message } from "@angular/compiler/src/i18n/i18n_ast";
 })
 export class ConfirmationMessageComponent {
   @ViewChild("msg") msgElement: any;
-  private message = "";
+  private _message = "";
   constructor() {}
 
   show(message: string) {
-    this.message = message;
+    this._message = message;
     // show confirmation message
     const el = this.msgElement.nativeElement;
     el.classList.add("visible");
@@ -37,5 +37,9 @@ export class ConfirmationMessageComponent {
       el.classList.remove("hidden");
       el.classList.remove("visible");
     }, 300);
+  }
+
+  get message() {
+    return this._message;
   }
 }

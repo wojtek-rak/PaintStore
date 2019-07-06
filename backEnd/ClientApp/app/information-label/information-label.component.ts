@@ -9,7 +9,7 @@ import { LoggedIn } from "../classes/logged-in";
 })
 export class InformationLabelComponent extends LoggedIn implements OnInit {
   @ViewChild("wrapper") wrapper: any;
-  private labelName = "";
+  private _labelName = "";
   private data: ShortUserInfo[] = [];
 
   constructor() {
@@ -55,7 +55,7 @@ export class InformationLabelComponent extends LoggedIn implements OnInit {
     }, 0);
 
     // set proper data - this.data is used for displaying users
-    this.labelName = name;
+    this._labelName = name;
     this.data = data;
   }
 
@@ -63,7 +63,7 @@ export class InformationLabelComponent extends LoggedIn implements OnInit {
     return this.data;
   }
 
-  getLabelName() {
-    return this.labelName;
+  get labelName() {
+    return this._labelName;
   }
 }

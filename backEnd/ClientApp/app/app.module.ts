@@ -21,7 +21,6 @@ import { AddPhotoComponent } from "./add-photo/add-photo.component";
 import { MenuComponent } from "./menu/menu.component";
 import { HomeComponent } from "./home/home.component";
 import { ProfileComponent } from "./profile/profile.component";
-import { MenuLeftComponent } from "./homepage/menu-left/menu-left.component";
 import { IndexComponent } from "./index/index.component";
 import { FooterComponent } from "./footer/footer.component";
 // import { FileDropModule } from "ngx-file-drop";
@@ -147,7 +146,6 @@ const appRoutes: Routes = [
     MenuComponent,
     HomeComponent,
     ProfileComponent,
-    MenuLeftComponent,
     IndexComponent,
     FooterComponent,
     ConfirmationMessageComponent,

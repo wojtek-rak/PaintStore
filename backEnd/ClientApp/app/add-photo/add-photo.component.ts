@@ -28,7 +28,7 @@ export class AddPhotoComponent extends LoggedIn implements OnInit {
   @ViewChild("fileInput") fileInput: any;
 
   private _uploadWarning = "";
-  private uploadForm: FormGroup;
+  public uploadForm: any;
   private _loading = false;
 
   constructor(

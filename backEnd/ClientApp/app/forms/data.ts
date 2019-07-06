@@ -5,4 +5,5 @@ export interface Data {
   initValue: string;
   email: boolean;
   validation: string;
+  placeholder: string;
 }

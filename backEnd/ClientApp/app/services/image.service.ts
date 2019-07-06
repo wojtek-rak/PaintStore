@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { UserComment } from "../image/comment";
-import { FollowingData } from "../classes/following-data";
-import { GlobalVariables } from "../classes/global-variables";
+import { UserComment } from "../pages/image/comment";
+import { FollowingData } from "../logic/classes/following-data";
+import { GlobalVariables } from "../logic/classes/global-variables";
 
 @Injectable()
 export class ImageService {

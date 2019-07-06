@@ -18,7 +18,7 @@ import {
 } from "@angular/forms";
 
 import { InputField } from "../input-field";
-import { emailValidator } from "../../validators/email-validator";
+import { emailValidator } from "../../logic/validators/email-validator";
 
 @Component({
   selector: "input-email",

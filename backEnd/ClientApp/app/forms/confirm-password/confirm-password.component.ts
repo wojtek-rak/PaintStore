@@ -6,7 +6,7 @@ import {
   FormControl
 } from "@angular/forms";
 import { InputField } from "../input-field";
-import { passwordsValidator } from "../../validators/passwords-validator";
+import { passwordsValidator } from "../../logic/validators/passwords-validator";
 
 @Component({
   selector: "confirm-password",

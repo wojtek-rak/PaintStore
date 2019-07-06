@@ -6,7 +6,7 @@ import {
   NG_VALUE_ACCESSOR,
   NG_VALIDATORS
 } from "@angular/forms";
-import { requiredTextValidator } from "../../validators/text-validator";
+import { requiredTextValidator } from "../../logic/validators/text-validator";
 
 @Component({
   selector: "input-option",

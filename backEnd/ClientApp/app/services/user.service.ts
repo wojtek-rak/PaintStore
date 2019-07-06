@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { GlobalVariables } from "../classes/global-variables";
+import { GlobalVariables } from "../logic/classes/global-variables";
 
 @Injectable()
 export class UserService {

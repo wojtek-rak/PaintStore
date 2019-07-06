@@ -13,7 +13,7 @@ import {
 } from "@angular/forms";
 import { InputField } from "../input-field";
 // import { textValidator } from "src/app/validators/text-validator";
-import { fileValidator } from "../../validators/file-validator";
+import { fileValidator } from "../../logic/validators/file-validator";
 
 @Component({
   selector: "input-file",

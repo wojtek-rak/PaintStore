@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
 import { NgForm, FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { requiredTextValidator } from "../../logic/validators/text-validator";
+import {
+  requiredTextValidator,
+  requiredTextareaValidator
+} from "../../logic/validators/text-validator";
 
 @Component({
   selector: "app-editable-field",
@@ -22,7 +25,9 @@ export class EditableFieldComponent implements OnInit {
     this.fieldForm = this.fb.group({
       [this.data.name]: [
         this.data.value,
-        [Validators.required, requiredTextValidator]
+        this.data.allowedEmpty
+          ? null
+          : [Validators.required, requiredTextareaValidator]
       ]
     });
 

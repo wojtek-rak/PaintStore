@@ -20,6 +20,28 @@
     <div class="comment-content">
       <!-- comment edit field -->
       <!-- additional: commentValue(comment) -->
+      <!-- <span class="likes header-info">
+        <span class="link" (click)="commentShowLiked(comment.id)">
+          {{ comment.likeCount }}
+          {{ comment.likeCount === 1 ? "like" : "likes" }}
+        </span>
+      </span>
+      <span
+        class="like"
+        [ngClass]="comment.liked === true ? 'liked' : null"
+        *ngIf="loggedIn"
+      >
+        <span (click)="commentLike(comment)" *ngIf="!comment.liked">
+          Like
+        </span>
+        <span (click)="commentUnlike(comment)" *ngIf="comment.liked"
+          >Liked!</span
+        >
+      </span> -->
+      <app-likes
+        [data]="{ comment: comment, loggedIn: data.loggedIn }"
+        (emitter)="likeManager($event)"
+      ></app-likes>
       <app-editable-field
         [data]="{
           value: comment.content,

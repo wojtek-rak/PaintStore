@@ -110,11 +110,12 @@
           [data]="{
             value: image.description,
             name: 'description',
-            userCanEdit: true,
+            userCanEdit: image.userId === loggedId,
             id: 0,
             additional: 'Description',
             inputType: 'textarea',
-            disableRemove: true
+            disableRemove: true,
+            allowedEmpty: true
           }"
           (emitter)="changeDescription($event)"
         >

@@ -18,6 +18,7 @@ export class CommentsLogicComponent extends LoggedIn implements OnInit {
   // private formValid = true;
   @ViewChild("msg") Message: any;
   @ViewChild("confirmLabel") confirmLabel: any;
+  @ViewChild("label") label: any;
   constructor(private service: ImageService, private route: ActivatedRoute) {
     super();
   }
@@ -114,6 +115,49 @@ export class CommentsLogicComponent extends LoggedIn implements OnInit {
         this.getCommentsData();
         this.Message.show("Comment deleted succesfully.");
       });
+  }
+
+  likeManager(e: any) {
+    if (e.like) {
+      this.commentLike(e.comment);
+    } else if (e.unlike) {
+      this.commentUnlike(e.comment);
+    } else if (e.show) {
+      this.commentShowLiked(e.comment.id);
+    }
+  }
+
+  commentShowLiked(id: number) {
+    let informationToSend;
+    this.service
+      .getCommentLikes(this._loggedId.toString(), id.toString())
+      .subscribe(res => {
+        informationToSend = <any>res;
+        this.label.show(informationToSend, "Liked this comment");
+      });
+  }
+
+  commentLike(comment: any) {
+    comment.liked = true;
+    comment.likeCount += 1;
+    this.service
+      .likeComment(
+        {
+          userId: this._loggedId,
+          commentId: comment.id
+        },
+        this._loggedId,
+        this._loggedToken
+      )
+      .subscribe(res => {});
+  }
+
+  commentUnlike(comment: any) {
+    comment.liked = false;
+    comment.likeCount -= 1;
+    this.service
+      .unlikeComment(this._loggedId, comment.id, this._loggedToken)
+      .subscribe(res => {});
   }
 
   get comments(): Comment[] {

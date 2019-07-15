@@ -32,11 +32,12 @@
       *ngIf="data.inputType === 'textarea'"
       [data]="{
         label: '',
-        value: data.value
+        value: data.value,
+        validation: !data.allowedEmpty
       }"
       formControlName="{{ data.name }}"
     ></input-textarea>
-
+    {{ data.allowedEmpty }}
     <tag-input
       *ngIf="data.inputType === 'tags'"
       [maxItems]="'10'"

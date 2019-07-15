@@ -4,9 +4,11 @@
   *ngIf="comments"
   [data]="{
     comments: comments,
-    loggedId: loggedId
+    loggedId: loggedId,
+    loggedIn: loggedIn
   }"
   (emitter)="changeComment($event)"
+  (emitter2)="likeManager($event)"
 ></app-comment-wrapper>
 <app-confirmation-message #msg></app-confirmation-message>
 <app-agree-label
@@ -14,3 +16,4 @@
   (emitter)="confirm()"
   [message]="'You are going to delete this comment. Are you sure?'"
 ></app-agree-label>
+<app-information-label #label></app-information-label>

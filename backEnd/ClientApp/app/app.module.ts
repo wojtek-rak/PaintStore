@@ -48,6 +48,7 @@ import { EditableFieldComponent } from "./single-components/editable-field/edita
 import { CommentWrapperComponent } from "./comments/comment-wrapper/comment-wrapper.component";
 import { AddCommentComponent } from "./comments/add-comment/add-comment.component";
 import { CommentsLogicComponent } from "./comments/comments-logic/comments-logic.component";
+import { LikesComponent } from './likes/likes.component';
 
 const appRoutes: Routes = [
   {
@@ -161,7 +162,8 @@ const appRoutes: Routes = [
     EditableFieldComponent,
     CommentWrapperComponent,
     AddCommentComponent,
-    CommentsLogicComponent
+    CommentsLogicComponent,
+    LikesComponent
     // InputEmailComponent
   ],
   imports: [

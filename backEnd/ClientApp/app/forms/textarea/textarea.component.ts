@@ -40,7 +40,8 @@ export class TextareaComponent extends InputField {
   }
 
   validate(c: FormControl) {
-    if (this.data.validation === "required") {
+    console.log(this.data);
+    if (this.data.validation) {
       // let validator = textValidator(c, this.data.label);
       // super.setMessage(validator);
       let validator = requiredTextareaValidator(c, this.data.label);

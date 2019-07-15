@@ -35,7 +35,9 @@ export function requiredTextareaValidator(c: FormControl, fieldName: string) {
   }
   // console.log("tutaj c", c);
 
-  return c.value.length < 1 ? { error: fieldName + " must be filled." } : null;
+  return c.value.length < 1
+    ? { error: (fieldName === "" ? "Field" : fieldName) + " must be filled." }
+    : null;
 }
 
 export function passwordValidator(c: FormControl, fieldName: string) {

@@ -7,10 +7,15 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 })
 export class CommentWrapperComponent implements OnInit {
   @Input() data: any;
-  @Output() emitter: EventEmitter<any> = new EventEmitter();
+  @Output() emitter: EventEmitter<any> = new EventEmitter(); // emitter for comments
+  @Output() emitter2: EventEmitter<any> = new EventEmitter(); // emitter for likes
   constructor() {}
 
   ngOnInit() {}
+
+  likeManager(data: any) {
+    this.emitter2.emit(data);
+  }
 
   changeComment(data: any) {
     this.emitter.emit(data);

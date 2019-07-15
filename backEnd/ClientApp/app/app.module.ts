@@ -44,6 +44,10 @@ import { InformationsComponent } from "./pages/settings/informations/information
 import { CredentialsComponent } from "./pages/settings/credentials/credentials.component";
 import { UserService } from "./services/user.service";
 import { InputCheckboxComponent } from "./forms/input-checkbox/input-checkbox.component";
+import { EditableFieldComponent } from "./single-components/editable-field/editable-field.component";
+import { CommentWrapperComponent } from "./comments/comment-wrapper/comment-wrapper.component";
+import { AddCommentComponent } from "./comments/add-comment/add-comment.component";
+import { CommentsLogicComponent } from "./comments/comments-logic/comments-logic.component";
 
 const appRoutes: Routes = [
   {
@@ -153,7 +157,11 @@ const appRoutes: Routes = [
     ImagesCommonComponent,
     InformationsComponent,
     CredentialsComponent,
-    InputCheckboxComponent
+    InputCheckboxComponent,
+    EditableFieldComponent,
+    CommentWrapperComponent,
+    AddCommentComponent,
+    CommentsLogicComponent
     // InputEmailComponent
   ],
   imports: [

@@ -201,44 +201,18 @@ a:hover {
 //   }
 // }
 
-.comment-title {
-  color: #787878;
-  font-size: 14px;
-}
-
 .description-content {
   margin-bottom: 10px;
   display: inline-block;
 }
 
-.comment-content {
-  width: 100%;
+.desc-title {
+  display: flex;
+  font-weight: bold;
 
-  textarea {
-    margin-top: 4px;
-  }
-
-  a {
-    color: $black;
-    text-decoration: none;
-    // font-weight: bold;
-
-    &:hover {
-      color: #474747;
-    }
-  }
-
-  p:nth-of-type(2) {
-    margin-top: 12px;
-  }
-
-  .content-secondary {
-    margin-left: 24px;
-  }
-
-  h4,
-  .content-secondary {
-    display: inline-block;
+  .edit-delete-icon {
+    margin: -1px 0 0 5px;
+    font-weight: 400;
   }
 }
 
@@ -264,34 +238,10 @@ a:hover {
     font-size: 14px;
     line-height: 1.5;
 
-    span:first-of-type {
-      // display: block;
-    }
-
     .tag {
       display: inline-block;
       margin-right: 10px;
     }
-  }
-}
-
-.desc-title {
-  display: flex;
-  font-weight: bold;
-
-  .edit-delete-icon {
-    margin: -1px 0 0 5px;
-    font-weight: 400;
-  }
-}
-
-.comment {
-  display: flex;
-  padding: 18px 0;
-  border-bottom: 1px solid #dadada;
-
-  &:last-of-type {
-    border-bottom: 0;
   }
 }
 

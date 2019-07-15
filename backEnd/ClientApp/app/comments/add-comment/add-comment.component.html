@@ -1,0 +1,45 @@
+<div class="add-comment">
+  <!-- <form #commentUpload="ngForm" (ngSubmit)="onCommentUpload(commentUpload)">
+    <div class="flex-wrapper">
+      <div class="image-author">
+        <div class="avatar-container">
+          <a class="avatar-link" routerLink="">
+            <img
+              src="{{
+                imgLink === null || imgLink === ''
+                  ? '../../../assets/img/avatar.png'
+                  : imgLink
+              }}"
+            />
+          </a>
+        </div>
+      </div>
+      <textarea id="text" name="text" ngModel></textarea>
+    </div>
+    <div class="warning" *ngIf="this.formValid === false">
+      Comment must contain at least 2 letters.
+    </div>
+    <div class="button-wrapper">
+      <span *ngIf="loading" class="loading"
+        ><i class="icon-spin4 animate-spin"></i
+      ></span>
+      <button [disabled]="loading" type="submit" class="button-colored">
+        Send
+      </button>
+    </div>
+  </form> -->
+
+  <form [formGroup]="uploadForm" (ngSubmit)="onUpload(uploadForm)">
+    <input-textarea
+      [data]="{
+        label: 'Title',
+        validation: 'required'
+      }"
+      formControlName="title"
+    ></input-textarea>
+    <span>{{ Message }}</span>
+    <button area-label="upload file" class="button-colored" type="submit">
+      Submit
+    </button>
+  </form>
+</div>

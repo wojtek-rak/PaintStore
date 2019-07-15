@@ -1,0 +1,16 @@
+<app-add-comment (emitter)="onCommentUpload($event)"></app-add-comment>
+<app-comment-wrapper
+  #commentWrapper
+  *ngIf="comments"
+  [data]="{
+    comments: comments,
+    loggedId: loggedId
+  }"
+  (emitter)="changeComment($event)"
+></app-comment-wrapper>
+<app-confirmation-message #msg></app-confirmation-message>
+<app-agree-label
+  #confirmLabel
+  (emitter)="confirm()"
+  [message]="'You are going to delete this comment. Are you sure?'"
+></app-agree-label>

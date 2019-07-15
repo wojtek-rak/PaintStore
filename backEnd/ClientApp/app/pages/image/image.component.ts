@@ -36,11 +36,10 @@ export class ImageComponent extends LoggedIn implements OnInit {
   private _descriptionEditing = false;
   private _tagsEditing = false;
 
-  private _comments: Comment[] = [];
   private formValid = true;
   private _loading = false;
-  private commentIdToRemove = 0; // TODO sprawdz czy sie nie wyjebalo
-  private titleForm: FormGroup;
+  //private commentIdToRemove = 0; // TODO sprawdz czy sie nie wyjebalo
+  //private titleForm: FormGroup;
   private descriptionForm: FormGroup;
   private tagsForm: FormGroup;
   private _imgLink = "";
@@ -67,23 +66,53 @@ export class ImageComponent extends LoggedIn implements OnInit {
     }
   }
 
-  initializeForms() {
-    this.titleForm = this.fb.group({
-      title: [this._image.title, [Validators.required, requiredTextValidator]]
-    });
-
-    this.descriptionForm = this.fb.group({
-      description: this._image.description
-    });
-
-    this.tagsForm = this.fb.group({
-      tags: this._image.tagsList
-    });
+  changeTitle(data: any) {
+    if (data.action === "change") {
+      this.editRequest(
+        {
+          id: this._image.id,
+          title: data.value.title,
+          description: this.image.description
+        },
+        "Title edited successfully."
+      );
+    }
   }
+
+  changeDescription(data: any) {
+    if (data.action === "change") {
+      this.editRequest(
+        {
+          id: this._image.id,
+          title: this._image.title,
+          description: data.value.description
+        },
+        "Description updated successfully."
+      );
+    }
+  }
+
+  changeTags(data: any) {
+    console.log("tags");
+  }
+
+  // initializeForms() {
+  //   // this.titleForm = this.fb.group({
+  //   //   title: [this._image.title, [Validators.required, requiredTextValidator]]
+  //   // });
+
+  //   this.descriptionForm = this.fb.group({
+  //     description: this._image.description
+  //   });
+
+  //   this.tagsForm = this.fb.group({
+  //     tags: this._image.tagsList
+  //   });
+  // }
 
   ngOnInit() {
     super.ngOnInit();
-    this.getCommentsData();
+    // this.getCommentsData();
     this.getImageData();
     this.getProfileImage();
   }
@@ -100,80 +129,80 @@ export class ImageComponent extends LoggedIn implements OnInit {
           "good"
         );
         this._image = <ImageExact>res;
-        this.initializeForms();
+        // this.initializeForms();
       });
   }
 
-  getCommentsData() {
-    this.service
-      .CommentsByImgPath(
-        this._loggedId.toString(),
-        this.route.snapshot.params.id
-      )
-      .subscribe((res: any) => {
-        res.forEach(comm => {
-          comm.userOwnerImgLink = GlobalVariables.parseImageLink(
-            40,
-            40,
-            comm.userOwnerImgLink
-          );
-          comm.isEditing = false;
-          comm.editValid = true;
-        });
-        this._comments = <Comment[]>res;
-      });
-  }
+  // getCommentsData() {
+  //   this.service
+  //     .CommentsByImgPath(
+  //       this._loggedId.toString(),
+  //       this.route.snapshot.params.id
+  //     )
+  //     .subscribe((res: any) => {
+  //       res.forEach(comm => {
+  //         comm.userOwnerImgLink = GlobalVariables.parseImageLink(
+  //           40,
+  //           40,
+  //           comm.userOwnerImgLink
+  //         );
+  //         comm.isEditing = false;
+  //         comm.editValid = true;
+  //       });
+  //       this._comments = <Comment[]>res;
+  //     });
+  // }
 
-  isCommentValid(text: string): boolean {
-    if (text === null) {
-      return false;
-    }
-    if (typeof text === undefined) {
-      return false;
-    }
-    if (text === "") {
-      return false;
-    }
-    if (typeof text.length === undefined || text.length < 2) {
-      return false;
-    }
-    return true;
-  }
+  // isCommentValid(text: string): boolean {
+  //   if (text === null) {
+  //     return false;
+  //   }
+  //   if (typeof text === undefined) {
+  //     return false;
+  //   }
+  //   if (text === "") {
+  //     return false;
+  //   }
+  //   if (typeof text.length === undefined || text.length < 2) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
 
-  onCommentUpload(form: NgForm) {
-    if (!this.isCommentValid(form.value.text)) {
-      // if comment is null
-      this.formValid = false;
-    } else {
-      this._loading = true;
-      const comment = {
-        PostId: this.route.snapshot.params.id,
-        UserId: this._loggedId,
-        Content: form.value.text,
-        LikeCount: 0
-      };
-      // send message
-      this.service
-        .uploadComment(comment, this._loggedId, this._loggedToken)
-        .subscribe(res => {
-          this.Message.show("Comment uploaded succesfully.");
-          this.formValid = true;
-          this._loading = false;
-          this.getCommentsData();
-        });
+  // onCommentUpload(form: NgForm) {
+  //   if (!this.isCommentValid(form.value.text)) {
+  //     // if comment is null
+  //     this.formValid = false;
+  //   } else {
+  //     this._loading = true;
+  //     const comment = {
+  //       PostId: this.route.snapshot.params.id,
+  //       UserId: this._loggedId,
+  //       Content: form.value.text,
+  //       LikeCount: 0
+  //     };
+  //     // send message
+  //     this.service
+  //       .uploadComment(comment, this._loggedId, this._loggedToken)
+  //       .subscribe(res => {
+  //         this.Message.show("Comment uploaded succesfully.");
+  //         this.formValid = true;
+  //         this._loading = false;
+  //         this.getCommentsData();
+  //       });
 
-      form.resetForm();
-    }
-  }
+  //     form.resetForm();
+  //   }
+  // }
 
-  confirm() {
-    this.service
-      .removeComment(this.commentIdToRemove, this._loggedId, this._loggedToken)
-      .subscribe((res: any) => {
-        this.getCommentsData();
-        this.Message.show("Comment deleted succesfully.");
-      });
-  }
+  // confirm() {
+  //   this.service
+  //     .removeComment(this.commentIdToRemove, this._loggedId, this._loggedToken)
+  //     .subscribe((res: any) => {
+  //       this.getCommentsData();
+  //       this.Message.show("Comment deleted succesfully.");
+  //     });
+  // }
 
   photoLike() {
     this._image.likeCount += 1;
@@ -246,67 +275,67 @@ export class ImageComponent extends LoggedIn implements OnInit {
       .subscribe(res => {});
   }
 
-  removeComment(id: number) {
-    this.commentIdToRemove = id;
-    this.confirmLabel.show();
-  }
+  // removeComment(id: number) {
+  //   this.commentIdToRemove = id;
+  //   this.confirmLabel.show();
+  // }
 
-  editComment(comment: any) {
-    comment.isEditing = true;
-  }
+  // editComment(comment: any) {
+  //   comment.isEditing = true;
+  // }
 
-  sendEditComment(form: NgForm, comment: Comment) {
-    const text = form.form.value.value;
-    if (this.isCommentValid(text)) {
-      comment.editValid = true;
-      const data = {
-        id: comment.id,
-        content: text
-      };
-      this.service
-        .editComment(data, this._loggedId, this._loggedToken)
-        .subscribe(res => {
-          this.Message.show("Comment edited succesfully.", res);
-          comment.isEditing = false;
-          comment.edited = true;
-          comment.content = text;
-        });
-    } else {
-      comment.editValid = false;
-    }
-  }
+  // sendEditComment(form: NgForm, comment: Comment) {
+  //   const text = form.form.value.value;
+  //   if (this.isCommentValid(text)) {
+  //     comment.editValid = true;
+  //     const data = {
+  //       id: comment.id,
+  //       content: text
+  //     };
+  //     this.service
+  //       .editComment(data, this._loggedId, this._loggedToken)
+  //       .subscribe(res => {
+  //         this.Message.show("Comment edited succesfully.", res);
+  //         comment.isEditing = false;
+  //         comment.edited = true;
+  //         comment.content = text;
+  //       });
+  //   } else {
+  //     comment.editValid = false;
+  //   }
+  // }
 
-  discard(comment: any) {
-    comment.isEditing = false;
-    comment.editValid = true;
-  }
+  // discard(comment: any) {
+  //   comment.isEditing = false;
+  //   comment.editValid = true;
+  // }
 
-  editTitle() {
-    this._titleEditing = true;
-  }
+  // editTitle() {
+  //   this._titleEditing = true;
+  // }
 
-  discardTitle() {
-    this._titleEditing = false;
-  }
+  // discardTitle() {
+  //   this._titleEditing = false;
+  // }
 
-  approveTitle(form: NgForm) {
-    this.editRequest(
-      {
-        id: this._image.id,
-        title: form.value.title,
-        description: this.image.description
-      },
-      "Title edited successfully."
-    );
-  }
+  // approveTitle(form: NgForm) {
+  //   this.editRequest(
+  //     {
+  //       id: this._image.id,
+  //       title: form.value.title,
+  //       description: this.image.description
+  //     },
+  //     "Title edited successfully."
+  //   );
+  // }
 
-  editDescription() {
-    this._descriptionEditing = true;
-  }
+  // editDescription() {
+  //   this._descriptionEditing = true;
+  // }
 
-  discardDescription() {
-    this._descriptionEditing = false;
-  }
+  // discardDescription() {
+  //   this._descriptionEditing = false;
+  // }
 
   // sends requests when editing both the thescription and the title
   private editRequest(data: any, successMessage: string) {
@@ -321,16 +350,16 @@ export class ImageComponent extends LoggedIn implements OnInit {
       });
   }
 
-  approveDescription(form: NgForm) {
-    this.editRequest(
-      {
-        id: this._image.id,
-        title: this._image.title,
-        description: form.value.description
-      },
-      "Description updated successfully."
-    );
-  }
+  // approveDescription(form: NgForm) {
+  //   this.editRequest(
+  //     {
+  //       id: this._image.id,
+  //       title: this._image.title,
+  //       description: form.value.description
+  //     },
+  //     "Description updated successfully."
+  //   );
+  // }
 
   editTags() {
     this._tagsEditing = true;
@@ -359,12 +388,17 @@ export class ImageComponent extends LoggedIn implements OnInit {
       });
   }
 
+  // tagsValue(): string {
+  //   let tags = '<span class="tags">';
+  //   this.image.tagsList.forEach(tag => {
+  //     tags += `<span class="tag">${tag}</span>`;
+  //   });
+  //   tags += "</span>";
+  //   return tags;
+  // }
+
   get image(): ImageExact {
     return this._image;
-  }
-
-  get comments(): Comment[] {
-    return this._comments;
   }
 
   get loading(): boolean {

@@ -9,8 +9,8 @@ import { InputField } from "../input-field";
 import {
   requiredTextValidator,
   passwordValidator
-} from "../../validators/text-validator";
-import { shortTextValidator } from "../../validators/text-validator";
+} from "../../logic/validators/text-validator";
+import { shortTextValidator } from "../../logic/validators/text-validator";
 
 @Component({
   selector: "input-password",
@@ -35,11 +35,11 @@ export class InputPasswordComponent extends InputField {
   }
 
   validate(c: FormControl) {
-      let validator;
+    let validator;
 
-      const checkUndefinded = this.data;
-      if (checkUndefinded === undefined) return;
-      validator = passwordValidator(c, checkUndefinded.label);
+    const checkUndefinded = this.data;
+    if (checkUndefinded === undefined) return;
+    validator = passwordValidator(c, checkUndefinded.label);
     super.setMessage(validator);
     return validator;
   }

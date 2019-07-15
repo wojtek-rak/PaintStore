@@ -42,6 +42,7 @@
     "@types/jasminewd2": "2.0.3",
     "@types/jquery": "3.3.29",
     "@types/node": "8.9.4",
+    "classlist.js": "^1.1.20150312",
     "codelyzer": "4.2.1",
     "gsap": "2.0.2",
     "jasmine-core": "2.99.1",

@@ -14,6 +14,7 @@ import {
   NG_VALIDATORS
 } from "@angular/forms";
 import { InputField } from "../input-field";
+import { requiredTextareaValidator } from "ClientApp/app/logic/validators/text-validator";
 // import { textValidator } from "../../validators/text-validator";
 
 @Component({
@@ -25,12 +26,12 @@ import { InputField } from "../input-field";
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => TextareaComponent),
       multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => TextareaComponent),
+      multi: true
     }
-    // {
-    //   provide: NG_VALIDATORS,
-    //   useExisting: forwardRef(() => TextareaComponent),
-    //   multi: true
-    // }
   ]
 })
 export class TextareaComponent extends InputField {
@@ -39,9 +40,14 @@ export class TextareaComponent extends InputField {
   }
 
   validate(c: FormControl) {
-    // let validator = textValidator(c, this.data.label);
-    // super.setMessage(validator);
-
+    console.log(this.data);
+    if (this.data.validation) {
+      // let validator = textValidator(c, this.data.label);
+      // super.setMessage(validator);
+      let validator = requiredTextareaValidator(c, this.data.label);
+      super.setMessage(validator);
+      return validator;
+    }
     return null;
   }
 }

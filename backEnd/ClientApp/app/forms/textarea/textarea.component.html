@@ -9,8 +9,11 @@
     [ngClass]="editing === true || data.editable !== true ? '' : 'hidden'"
     type="text"
     #input
-    (change)="change(this.Input.nativeElement.value)"
-  ></textarea>
+    (keyup)="change(this.Input.nativeElement.value)"
+  >
+  {{ data.value }}
+</textarea
+  >
   <span
     *ngIf="data.editable === true && editing === true"
     class="reject"

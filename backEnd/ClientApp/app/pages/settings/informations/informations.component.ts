@@ -1,0 +1,121 @@
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { FormBuilder, Validators, NgForm, FormGroup } from "@angular/forms";
+import {
+  requiredTextValidator,
+  shortTextValidator,
+  passwordValidator
+} from "ClientApp/app/logic/validators/text-validator";
+import { emailValidator } from "ClientApp/app/logic/validators/email-validator";
+import { passwordsValidator } from "ClientApp/app/logic/validators/passwords-validator";
+import { fileValidator } from "ClientApp/app/logic/validators/file-validator";
+import { ImageService } from "ClientApp/app/services/image.service";
+import { LoggedIn } from "ClientApp/app/logic/classes/logged-in";
+import { User } from "ClientApp/app/logic/classes/user";
+import { UserService } from "ClientApp/app/services/user.service";
+
+@Component({
+  selector: "app-informations",
+  templateUrl: "./informations.component.html",
+  styleUrls: ["./informations.component.scss"]
+})
+export class InformationsComponent extends LoggedIn implements OnInit {
+  private _user = new User();
+  private form: FormGroup;
+  private _informationsWarning = "";
+  private _loading = false;
+  @ViewChild("file") file;
+  @ViewChild("msg") msg;
+
+  constructor(
+    private fb: FormBuilder,
+    private service: ImageService,
+    private userService: UserService
+  ) {
+    super();
+  }
+
+  initializeForm() {
+    this.form = this.fb.group({
+      userName: [this._user.name, [Validators.required, requiredTextValidator]],
+      shortInformation: this._user.link,
+      description: [this._user.about],
+      file: [null, fileValidator]
+    });
+  }
+
+  informationAboutUser() {
+    this.service
+      .selectUserById(this._loggedId.toString(), this._loggedId.toString())
+      .subscribe((res: User) => {
+        this._user = res;
+        this.initializeForm();
+      });
+  }
+
+  ngOnInit() {
+    super.ngOnInit();
+    this.informationAboutUser();
+  }
+
+  editUser(link: string, value: any) {
+    this.service
+      .editUser(
+        {
+          link: value.shortInformation,
+          id: this._loggedId,
+          name: value.userName,
+          avatarImgLink: link,
+          about: value.description
+        },
+        this._loggedId,
+        this._loggedToken
+      )
+      .subscribe(
+        res => {
+          this._loading = false;
+          this.msg.show("Profile updated successfully.");
+          this.file.clear();
+          this._informationsWarning = "";
+        },
+        err => {
+          if (err.status === 403)
+            this._informationsWarning = "Name arleady exists.";
+        }
+      );
+  }
+
+  onFormUpload(form: NgForm) {
+    if (form.status === "VALID") {
+      this._loading = true;
+      if (this.file.validateMessage !== "") {
+        form.value.file = null;
+        this.file.clear();
+      }
+
+      if (form.value.file === null) {
+        this.editUser(null, form.value);
+      } else {
+        this.service
+          .uploadImage(form.value.file, this._loggedId, this._loggedToken)
+          .subscribe(res => {
+            const linkToImg = res[0].url;
+            this.editUser(linkToImg, form.value);
+          });
+      }
+    } else {
+      this._informationsWarning = "All fields must be valid.";
+    }
+  }
+
+  get user() {
+    return this._user;
+  }
+
+  get informationsWarning() {
+    return this._informationsWarning;
+  }
+
+  get loading() {
+    return this._loading;
+  }
+}

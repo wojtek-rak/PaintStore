@@ -6,8 +6,8 @@ import {
   FormControl
 } from "@angular/forms";
 import { InputField } from "../input-field";
-import { requiredTextValidator } from "../../validators/text-validator";
-import { shortTextValidator } from "../../validators/text-validator";
+import { requiredTextValidator } from "../../logic/validators/text-validator";
+import { shortTextValidator } from "../../logic/validators/text-validator";
 
 @Component({
   selector: "input-text",
@@ -32,14 +32,14 @@ export class InputTextComponent extends InputField {
   }
 
   validate(c: FormControl) {
-      let validator;
+    let validator;
 
-      const checkUndefinded = this.data;
-      if (checkUndefinded === undefined) return;
-      if (checkUndefinded.validation === "short") {
-          validator = shortTextValidator(c, checkUndefinded.label);
+    const checkUndefinded = this.data;
+    if (checkUndefinded === undefined) return;
+    if (checkUndefinded.validation === "short") {
+      validator = shortTextValidator(c, checkUndefinded.label);
     } else {
-          validator = requiredTextValidator(c, checkUndefinded.label);
+      validator = requiredTextValidator(c, checkUndefinded.label);
     }
     super.setMessage(validator);
     return validator;

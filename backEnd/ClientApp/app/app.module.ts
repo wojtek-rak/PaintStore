@@ -11,26 +11,23 @@ import { RecaptchaModule } from "ng-recaptcha";
 import { RecaptchaFormsModule } from "ng-recaptcha/forms";
 
 import { AppComponent } from "./app.component";
-import { HomepageComponent } from "./homepage/homepage.component";
-import { ImageComponent } from "./image/image.component";
-import { MessagesComponent } from "./messages/messages.component";
-import { NotFoundComponent } from "./not-found/not-found.component";
-import { SearchComponent } from "./search/search.component";
+import { HomepageComponent } from "./pages/homepage/homepage.component";
+import { ImageComponent } from "./pages/image/image.component";
+import { NotFoundComponent } from "./pages/not-found/not-found.component";
+import { SearchComponent } from "./single-components/search/search.component";
 import { ImageService } from "./services/image.service";
-import { AddPhotoComponent } from "./add-photo/add-photo.component";
-import { MenuComponent } from "./menu/menu.component";
-import { HomeComponent } from "./home/home.component";
-import { ProfileComponent } from "./profile/profile.component";
-import { IndexComponent } from "./index/index.component";
-import { FooterComponent } from "./footer/footer.component";
+import { AddPhotoComponent } from "./pages/add-photo/add-photo.component";
+import { MenuComponent } from "./constant-elements/menu/menu.component";
+import { ProfileComponent } from "./pages/profile/profile.component";
+import { IndexComponent } from "./pages/index/index.component";
+import { FooterComponent } from "./constant-elements/footer/footer.component";
 // import { FileDropModule } from "ngx-file-drop";
-import { ConfirmationMessageComponent } from "./confirmation-message/confirmation-message.component";
-import { AgreeLabelComponent } from "./agree-label/agree-label.component";
-import { ImagesComponent } from "./images/images.component";
-import { FollowButtonComponent } from "./follow-button/follow-button.component";
-import { InformationLabelComponent } from "./information-label/information-label.component";
-import { LoginManager } from "./classes/login-manager";
-import { SettingsComponent } from "./settings/settings.component";
+import { ConfirmationMessageComponent } from "./propmts/confirmation-message/confirmation-message.component";
+import { AgreeLabelComponent } from "./propmts/agree-label/agree-label.component";
+import { ImagesComponent } from "./images-all/images/images.component";
+import { FollowButtonComponent } from "./single-components/follow-button/follow-button.component";
+import { InformationLabelComponent } from "./propmts/information-label/information-label.component";
+import { SettingsComponent } from "./pages/settings/settings.component";
 import { InputFileComponent } from "./forms/input-file/input-file.component";
 import { InputTextComponent } from "./forms/input-text/input-text.component";
 import { TextareaComponent } from "./forms/textarea/textarea.component";
@@ -40,24 +37,24 @@ import { InputEmailComponent } from "./forms/input-email/input-email.component";
 import { AccountService } from "./services/account.service";
 import { InputPasswordComponent } from "./forms/input-password/input-password.component";
 import { InputOptionComponent } from "./forms/input-option/input-option.component";
-import { ImageElementComponent } from "./image-element/image-element.component";
-import { TagsComponent } from "./tags/tags.component";
-import { ImagesCommonComponent } from "./images-common/images-common.component";
-import { InformationsComponent } from "./settings/informations/informations.component";
-import { CredentialsComponent } from "./settings/credentials/credentials.component";
+import { ImageElementComponent } from "./images-all/image-element/image-element.component";
+import { TagsComponent } from "./pages/tags/tags.component";
+import { ImagesCommonComponent } from "./images-all/images-common/images-common.component";
+import { InformationsComponent } from "./pages/settings/informations/informations.component";
+import { CredentialsComponent } from "./pages/settings/credentials/credentials.component";
 import { UserService } from "./services/user.service";
 import { InputCheckboxComponent } from "./forms/input-checkbox/input-checkbox.component";
+import { EditableFieldComponent } from "./single-components/editable-field/editable-field.component";
+import { CommentWrapperComponent } from "./comments/comment-wrapper/comment-wrapper.component";
+import { AddCommentComponent } from "./comments/add-comment/add-comment.component";
+import { CommentsLogicComponent } from "./comments/comments-logic/comments-logic.component";
+import { LikesComponent } from './likes/likes.component';
 
 const appRoutes: Routes = [
   {
     path: "",
     component: HomepageComponent
   },
-  // {
-  //   path: '',
-  //   redirectTo: '/login',
-  //   pathMatch: 'full'
-  // },
   {
     path: "trending",
     component: HomepageComponent
@@ -69,10 +66,6 @@ const appRoutes: Routes = [
   {
     path: "image/:id",
     component: ImageComponent
-  },
-  {
-    path: "messages",
-    component: MessagesComponent
   },
   {
     path: "settings",
@@ -139,12 +132,10 @@ const appRoutes: Routes = [
     AppComponent,
     HomepageComponent,
     ImageComponent,
-    MessagesComponent,
     NotFoundComponent,
     SearchComponent,
     AddPhotoComponent,
     MenuComponent,
-    HomeComponent,
     ProfileComponent,
     IndexComponent,
     FooterComponent,
@@ -167,7 +158,12 @@ const appRoutes: Routes = [
     ImagesCommonComponent,
     InformationsComponent,
     CredentialsComponent,
-    InputCheckboxComponent
+    InputCheckboxComponent,
+    EditableFieldComponent,
+    CommentWrapperComponent,
+    AddCommentComponent,
+    CommentsLogicComponent,
+    LikesComponent
     // InputEmailComponent
   ],
   imports: [

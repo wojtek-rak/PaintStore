@@ -1,0 +1,15 @@
+<div class="add-comment">
+  <form [formGroup]="uploadForm" (ngSubmit)="onUpload(uploadForm)">
+    <input-textarea
+      [data]="{
+        label: '',
+        validation: 'required'
+      }"
+      formControlName="title"
+    ></input-textarea>
+    <span>{{ message }}</span>
+    <button area-label="upload file" class="button-colored" type="submit">
+      Submit
+    </button>
+  </form>
+</div>

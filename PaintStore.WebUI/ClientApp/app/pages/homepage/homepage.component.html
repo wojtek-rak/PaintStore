@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="centered">
+    <ul class="menu-list">
+      <li>
+        <a
+          routerLinkActive="active"
+          routerLink="/"
+          [routerLinkActiveOptions]="{ exact: true }"
+          ><span *ngIf="loggedIn">Followed</span>
+          <span *ngIf="!loggedIn">Trending</span></a
+        >
+      </li>
+      <li *ngIf="loggedIn">
+        <a routerLinkActive="active" routerLink="/trending">Trending</a>
+      </li>
+      <li><a routerLinkActive="active" routerLink="/recent">Recent</a></li>
+    </ul>
+    <app-images-common #imagesComponent></app-images-common>
+  </div>
+</div>

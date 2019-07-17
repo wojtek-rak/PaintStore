@@ -1,0 +1,57 @@
+<div class="informations-wrapper">
+  <span *ngIf="data.additional" [innerHTML]="data.additional"></span>
+  <span class="icons-wrapper" *ngIf="data.userCanEdit">
+    <span
+      class="edit-delete-icon header-info"
+      *ngIf="!data.disableRemove"
+      (click)="removeElement()"
+    >
+      <i class="icon-trash"></i>
+    </span>
+    <span (click)="editField()" class="edit-delete-icon"
+      ><i class="icon-pencil"></i>
+    </span>
+  </span>
+  <div
+    class="proper-content"
+    *ngIf="!fieldEditing"
+    [innerHTML]="data.value"
+  ></div>
+</div>
+<ng-container *ngIf="fieldEditing">
+  <form [formGroup]="fieldForm" (ngSubmit)="submitEditField(fieldForm)">
+    <input-text
+      *ngIf="data.inputType === 'input'"
+      [data]="{
+        label: ''
+      }"
+      formControlName="{{ data.name }}"
+    ></input-text>
+
+    <input-textarea
+      *ngIf="data.inputType === 'textarea'"
+      [data]="{
+        label: '',
+        value: data.value,
+        validation: !data.allowedEmpty
+      }"
+      formControlName="{{ data.name }}"
+    ></input-textarea>
+    {{ data.allowedEmpty }}
+    <tag-input
+      *ngIf="data.inputType === 'tags'"
+      [maxItems]="'10'"
+      [addOnPaste]="'true'"
+      [animationDuration]="{ enter: '0ms', leave: '0ms' }"
+      [placeholder]="'Press Enter to add item'"
+      [separatorKeyCodes]="'[32, 13]'"
+      formControlName="{{ data.name }}"
+    ></tag-input>
+    <div class="edit-elements">
+      <button class="discard" type="button" (click)="discardEditField()">
+        Discard
+      </button>
+      <button class="submit" type="submit">Submit</button>
+    </div>
+  </form>
+</ng-container>

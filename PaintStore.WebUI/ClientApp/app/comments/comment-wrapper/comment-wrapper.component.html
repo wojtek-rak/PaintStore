@@ -1,0 +1,60 @@
+<p class="comment-title">Comments ({{ data.comments.length }})</p>
+
+<div class="comments-group">
+  <!-- <ng-container *ngIf="data-comments"> -->
+  <div *ngFor="let comment of data.comments" class="comment">
+    <div class="image-author">
+      <div class="avatar-container">
+        <a class="avatar-link" routerLink="/user/{{ comment.userId }}">
+          <img
+            src="{{
+              comment.userOwnerImgLink === null ||
+              comment.userOwnerImgLink === ''
+                ? '../../assets/img/avatar.png'
+                : comment.userOwnerImgLink
+            }}"
+          />
+        </a>
+      </div>
+    </div>
+    <div class="comment-content">
+      <!-- comment edit field -->
+      <!-- additional: commentValue(comment) -->
+      <!-- <span class="likes header-info">
+        <span class="link" (click)="commentShowLiked(comment.id)">
+          {{ comment.likeCount }}
+          {{ comment.likeCount === 1 ? "like" : "likes" }}
+        </span>
+      </span>
+      <span
+        class="like"
+        [ngClass]="comment.liked === true ? 'liked' : null"
+        *ngIf="loggedIn"
+      >
+        <span (click)="commentLike(comment)" *ngIf="!comment.liked">
+          Like
+        </span>
+        <span (click)="commentUnlike(comment)" *ngIf="comment.liked"
+          >Liked!</span
+        >
+      </span> -->
+      <app-likes
+        [data]="{ comment: comment, loggedIn: data.loggedIn }"
+        (emitter)="likeManager($event)"
+      ></app-likes>
+      <app-editable-field
+        [data]="{
+          value: comment.content,
+          name: 'comment',
+          inputType: 'textarea',
+          userCanEdit: comment.userId === data.loggedId,
+          id: comment.id,
+          additional: commentValue(comment)
+        }"
+        (emitter)="changeComment($event)"
+      >
+      </app-editable-field>
+    </div>
+  </div>
+  <!-- </ng-container> -->
+</div>

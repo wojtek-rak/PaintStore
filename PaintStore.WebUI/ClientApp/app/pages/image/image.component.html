@@ -1,0 +1,164 @@
+<div class="photo-header">
+  <div class="author-avatar">
+    <a routerLink="/user/{{ image.userId }}">
+      <img
+        src="{{
+          image.userOwnerImgLink === null || image.userOwnerImgLink === ''
+            ? '../../assets/img/avatar.png'
+            : image.userOwnerImgLink
+        }}"
+      />
+    </a>
+  </div>
+  <div class="basic-info">
+    <h3>
+      <app-editable-field
+        *ngIf="image.title"
+        [data]="{
+          value: image.title,
+          name: 'title',
+          userCanEdit: image.userId === loggedId,
+          id: 0,
+          inputType: 'textarea',
+          disableRemove: true
+        }"
+        (emitter)="changeTitle($event)"
+      ></app-editable-field>
+    </h3>
+    <span
+      >Added {{ image.creationDate }} by
+      <a class="author-link" routerLink="/user/{{ image.userId }}">{{
+        image.userOwnerName
+      }}</a></span
+    >
+  </div>
+  <div class="likes">
+    <span (click)="showLiking()" class="like-description"
+      >{{ image.likeCount }} likes
+    </span>
+    <span
+      class="like"
+      [ngClass]="image.liked === true ? 'liked' : null"
+      *ngIf="loggedIn"
+    >
+      <span *ngIf="!image.liked" (click)="photoLike()">
+        Like
+      </span>
+
+      <span (click)="photoUnlike()" *ngIf="image.liked">Liked!</span>
+    </span>
+  </div>
+</div>
+
+<div class="centered">
+  <div class="hero-img"><img src="{{ image.imgLink }}" /></div>
+</div>
+
+<div class="photo centered">
+  <div class="photo-content">
+    <div class="comments-wrapper">
+      <div class="all-comments">
+        <!-- <div class="add-comment" *ngIf="loggedIn">
+          <form
+            #commentUpload="ngForm"
+            (ngSubmit)="onCommentUpload(commentUpload)"
+          >
+            <div class="flex-wrapper">
+              <div class="image-author">
+                <div class="avatar-container">
+                  <a class="avatar-link" routerLink="">
+                    <img
+                      src="{{
+                        imgLink === null || imgLink === ''
+                          ? '../../assets/img/avatar.png'
+                          : imgLink
+                      }}"
+                    />
+                  </a>
+                </div>
+              </div>
+              <textarea id="text" name="text" ngModel></textarea>
+            </div>
+            <div class="warning" *ngIf="this.formValid === false">
+              Comment must contains at least 2 letters.
+            </div>
+            <div class="button-wrapper">
+              <span *ngIf="loading" class="loading"
+                ><i class="icon-spin4 animate-spin"></i
+              ></span>
+              <button [disabled]="loading" type="submit" class="button-colored">
+                Send
+              </button>
+            </div>
+          </form>
+        </div> -->
+        <!-- 
+        <app-comment-wrapper
+          #commentWrapper
+          *ngIf="comments"
+          [data]="{
+            comments: comments,
+            loggedId: loggedId
+          }"
+          (emitter)="changeComment($event)"
+        ></app-comment-wrapper> -->
+        <app-comments-logic></app-comments-logic>
+      </div>
+      <div class="description">
+        <app-editable-field
+          *ngIf="image.title"
+          [data]="{
+            value: image.description,
+            name: 'description',
+            userCanEdit: image.userId === loggedId,
+            id: 0,
+            additional: 'Description',
+            inputType: 'textarea',
+            disableRemove: true,
+            allowedEmpty: true
+          }"
+          (emitter)="changeDescription($event)"
+        >
+        </app-editable-field>
+        <p class="desc-title">
+          Tags
+          <span
+            class="edit-delete-icon"
+            (click)="editTags()"
+            *ngIf="image.userId === loggedId"
+            ><i class="icon-pencil"></i
+          ></span>
+        </p>
+        <ng-container *ngIf="tagsEditing && image.userId === loggedId">
+          <form [formGroup]="tagsForm" (ngSubmit)="approveTags(tagsForm)">
+            <tag-input
+              [maxItems]="'10'"
+              [addOnPaste]="'true'"
+              [animationDuration]="{ enter: '0ms', leave: '0ms' }"
+              [placeholder]="'Press Enter to add item'"
+              [separatorKeyCodes]="'[32, 13]'"
+              formControlName="tags"
+            ></tag-input>
+            <div class="edit-elements">
+              <button class="discard" type="button" (click)="discardTags()">
+                Discard
+              </button>
+              <button class="submit" type="submit">Submit</button>
+            </div>
+          </form>
+        </ng-container>
+        <ng-container *ngIf="!tagsEditing">
+          <span *ngFor="let tag of image.tagsList" class="tag">{{ tag }} </span>
+          <i *ngIf="image.tagsList.length === 0">This image has no tags yet.</i>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+<app-confirmation-message #msg></app-confirmation-message>
+<app-agree-label
+  #confirmLabel
+  (emitter)="confirm()"
+  [message]="'You are going to delete this comment. Are you sure?'"
+></app-agree-label>
+<app-information-label #label></app-information-label>

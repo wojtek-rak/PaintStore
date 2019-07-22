@@ -170,24 +170,10 @@ namespace PaintStore.BackEnd
             app.UseMiddleware<AuthenticationMiddleware>();
 
             app.UseMvc(routes =>
-        {
-            routes.MapRoute(
-                name: "default",
-                template: "api/{controller}/{action}/{id?}");
-
-            routes.MapSpaFallbackRoute(
-                name: "spa-fallback",
-                defaults: new { controller = "Home", action = "Index" });
-        });
-
-            app.UseSpa(spa =>
             {
-                
-                spa.Options.SourcePath = "ClientApp";
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
+                routes.MapRoute(
+                    name: "default",
+                    template: "api/{controller}/{action}/{id?}");
             });
         }
 

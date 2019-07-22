@@ -1,18 +1,18 @@
-<span class="likes header-info">
-  <span class="link" (click)="commentShowLiked()">
-    {{ data.comment.likeCount }}
-    {{ data.comment.likeCount === 1 ? "like" : "likes" }}
-  </span>
-</span>
-<span
-  class="like"
-  [ngClass]="data.comment.liked === true ? 'liked' : null"
-  *ngIf="data.loggedIn"
->
-  <span (click)="commentLike()" class="like" *ngIf="!data.comment.liked">
-    Like
-  </span>
-  <span (click)="commentUnlike()" class="liked" *ngIf="data.comment.liked"
-    >Liked!</span
+<div class="like-container">
+  <div class="likes header-info">
+    <span class="link" (click)="commentShowLiked()">
+      {{ data.comment.likeCount }}
+      {{ data.comment.likeCount === 1 ? "like" : "likes" }}
+    </span>
+  </div>
+  <div
+    class="like"
+    [ngClass]="data.comment.liked === true ? 'liked' : null"
+    *ngIf="data.loggedIn"
   >
-</span>
+    <span (click)="commentLike()" class="like-unliked">
+      Like
+    </span>
+    <span (click)="commentUnlike()" class="like-liked">Liked!</span>
+  </div>
+</div>

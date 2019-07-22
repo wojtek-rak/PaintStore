@@ -397,6 +397,10 @@ export class ImageComponent extends LoggedIn implements OnInit {
   //   return tags;
   // }
 
+  getDescriptionHTML() {
+    return "<p>Description</p>";
+  }
+
   get image(): ImageExact {
     return this._image;
   }

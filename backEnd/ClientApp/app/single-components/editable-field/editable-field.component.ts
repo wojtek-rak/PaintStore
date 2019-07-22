@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Input,
+  EventEmitter,
+  Output,
+  ViewEncapsulation
+} from "@angular/core";
 import { NgForm, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import {
   requiredTextValidator,
@@ -8,7 +15,8 @@ import {
 @Component({
   selector: "app-editable-field",
   templateUrl: "./editable-field.component.html",
-  styleUrls: ["./editable-field.component.scss"]
+  styleUrls: ["./editable-field.component.scss"],
+  encapsulation: ViewEncapsulation.None
 })
 export class EditableFieldComponent implements OnInit {
   @Input() data: any;

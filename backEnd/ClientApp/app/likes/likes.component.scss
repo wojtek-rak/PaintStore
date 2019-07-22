@@ -1,0 +1,47 @@
+.like-container {
+  display: flex;
+  align-items: center;
+}
+
+.likes {
+  color: #787878;
+}
+
+.like {
+  span {
+    width: 77px;
+    padding: 12px 15px;
+    text-align: center;
+    border-radius: 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+
+  .like-unliked {
+    display: block;
+    border: 1px solid #dbdbdb;
+    width: 73px;
+  }
+
+  .like-liked {
+    display: none;
+    border: 1px solid #bcbcbc;
+    background: #cecece;
+  }
+}
+
+.like.liked {
+  .like-unliked {
+    display: none;
+  }
+
+  .like-liked {
+    display: block;
+  }
+}
+
+.header-info {
+  margin-right: 20px;
+  color: #a0a0a0;
+  cursor: pointer;
+}

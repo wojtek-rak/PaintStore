@@ -1,3 +1,30 @@
 span > .informations-wrapper {
   display: flex;
 }
+
+.informations-additional,
+.additional-wrapper,
+.icons-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.informations-additional {
+  margin-bottom: 5px;
+}
+
+.additional-wrapper {
+  h4,
+  p,
+  span {
+    margin-right: 5px;
+  }
+
+  span:last-of-type {
+    color: #787878;
+  }
+
+  p {
+    font-weight: bold;
+  }
+}

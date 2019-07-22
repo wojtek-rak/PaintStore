@@ -57,4 +57,10 @@
 
 .comment-content {
   flex-grow: 1;
+  position: relative;
+}
+
+app-likes {
+  position: absolute;
+  right: 0;
 }

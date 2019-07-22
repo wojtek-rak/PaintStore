@@ -1,19 +1,25 @@
 <div class="informations-wrapper">
-  <span *ngIf="data.additional" [innerHTML]="data.additional"></span>
-  <span class="icons-wrapper" *ngIf="data.userCanEdit">
+  <div class="informations-additional">
     <span
-      class="edit-delete-icon header-info"
-      *ngIf="!data.disableRemove"
-      (click)="removeElement()"
-    >
-      <i class="icon-trash"></i>
+      *ngIf="data.additional"
+      [innerHTML]="data.additional"
+      class="additional-wrapper"
+    ></span>
+    <span class="icons-wrapper" *ngIf="data.userCanEdit">
+      <span
+        class="edit-delete-icon header-info"
+        *ngIf="!data.disableRemove"
+        (click)="removeElement()"
+      >
+        <i class="icon-trash"></i>
+      </span>
+      <span (click)="editField()" class="edit-delete-icon"
+        ><i class="icon-pencil"></i>
+      </span>
     </span>
-    <span (click)="editField()" class="edit-delete-icon"
-      ><i class="icon-pencil"></i>
-    </span>
-  </span>
+  </div>
   <div
-    class="proper-content"
+    class="informations-proper"
     *ngIf="!fieldEditing"
     [innerHTML]="data.value"
   ></div>

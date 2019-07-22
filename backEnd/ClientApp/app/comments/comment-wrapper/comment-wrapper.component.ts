@@ -33,9 +33,9 @@ export class CommentWrapperComponent implements OnInit {
                 <a href="/user/${comment.userId}">
                   ${comment.userName}</a>
                 </h4>
-                <p class="content-secondary header-info">
+                <span class="content-secondary header-info">
                   ${comment.creationDate}
-                </p>`;
+                </span>`;
 
     if (comment.edited) {
       data += '<span class="header-info">(edited)</span>';
